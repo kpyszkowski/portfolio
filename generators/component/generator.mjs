@@ -13,7 +13,7 @@ const componentGenerator = {
     {
       type: 'confirm',
       name: 'isUiComponent',
-      message: 'Is this a UI component?',
+      message: 'Is i the UI component?',
     },
   ],
   actions: (data) => {

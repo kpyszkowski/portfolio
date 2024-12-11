@@ -8,7 +8,7 @@ const hookGenerator = {
     {
       type: 'input',
       name: 'name',
-      message: 'Enter hook name:',
+      message: 'Enter hook name (without the "use" term):',
     },
   ],
   actions: [
