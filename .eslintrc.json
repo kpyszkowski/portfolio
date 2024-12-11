@@ -1,3 +1,48 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": ["react", "@typescript-eslint", "check-file"],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off",
+        "check-file/filename-naming-convention": [
+          "error",
+          {
+            "**/*.{ts,tsx}": "KEBAB_CASE"
+          },
+          {
+            "ignoreMiddleExtensions": true
+          }
+        ],
+        "check-file/folder-naming-convention": [
+          "error",
+          {
+            "src/**/!(__tests__)": "KEBAB_CASE"
+          }
+        ],
+        "import/no-cycle": [
+          "error",
+          {
+            "maxDepth": 1,
+            "ignoreExternal": true
+          }
+        ],
+        "react/no-unknown-property": "off"
+      }
+    }
+  ]
 }
