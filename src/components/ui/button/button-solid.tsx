@@ -31,11 +31,11 @@ const getStyles = tv({
       },
       md: {
         wrapper: 'rounded-3xl px-8 py-2.5',
-        overlay: 'rounded-[1.4375rem]', // 23px
+        overlay: 'inset-1 rounded-[1.375rem]', // 22px
       },
       lg: {
         wrapper: 'rounded-[2rem] px-10 py-3',
-        overlay: 'rounded-[1.9375rem]', // 31px
+        overlay: 'inset-1 rounded-[1.875rem]', // 30px
       },
     },
   },

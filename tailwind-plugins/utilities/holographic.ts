@@ -5,7 +5,7 @@ const holographicPlugin = plugin(({ addUtilities, theme }) => {
     // NOTE: The parent element must have solid white-ish background for mix-blend-mode to work
     '.holographic': {
       '--tw-holographic-rainbow': `repeating-linear-gradient(
-        115deg,
+        calc(115deg + (var(--tw-holographic-my) * 8deg)),
         ${theme('colors.red.200')},
         ${theme('colors.yellow.300')},
         ${theme('colors.green.300')},
@@ -16,7 +16,7 @@ const holographicPlugin = plugin(({ addUtilities, theme }) => {
       )`,
 
       '--tw-holographic-stripes': `repeating-linear-gradient(
-        315deg,
+        calc(315deg + (var(--tw-holographic-my) * 8deg)),
         ${theme('colors.black')} 6.66%,
         ${theme('colors.white')} 13.33%,
         ${theme('colors.black')} 20%
