@@ -1,0 +1,129 @@
+import { ButtonProps } from '@/components/ui/button/button'
+import cn from '@/utils/cn'
+import {
+  motion,
+  SpringOptions,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
+import { CSSProperties } from 'react'
+import { tv } from 'tailwind-variants'
+
+const getStyles = tv({
+  slots: {
+    container: 'group relative',
+    wrapper:
+      'relative overflow-hidden bg-neutral-50 shadow-[-1px_0_0,_0_1px_0] shadow-black/5',
+    backgroundWrapper: 'absolute inset-0',
+    background: 'absolute inset-0 holographic',
+    overlay: 'absolute inset-0.5 bg-white opacity-40',
+    typography:
+      'relative font-sans font-medium text-neutral-900 drop-shadow-[0_0_2px_white]',
+    glowWrapper:
+      'absolute inset-0 opacity-40 blur-xl invert transition-opacity group-hover:opacity-50',
+    glow: 'absolute -inset-0.5 holographic',
+  },
+  variants: {
+    size: {
+      sm: {
+        typography: 'text-sm',
+        wrapper: 'rounded-[0.875rem] px-6 py-1.5', // 14px
+        overlay: 'rounded-[0.8125rem]', // 13px
+      },
+      md: {
+        typography: 'text-base',
+        wrapper: 'rounded-[1.125rem] px-10 py-2.5', // 18px
+        overlay: 'rounded-[1.0625rem]', // 17px
+      },
+      lg: {
+        typography: 'text-lg',
+        wrapper: 'rounded-[1.375rem] px-12 py-3', // 22px
+        overlay: 'rounded-[1.3125rem]', // 21px
+      },
+    },
+  },
+})
+
+const SPRING_OPTIONS: SpringOptions = { stiffness: 100, damping: 8 }
+
+type ButtonSolidProps = Omit<
+  ButtonProps,
+  'variant' | 'iconPosition' | 'children'
+> & {
+  children: React.ReactNode
+}
+
+function ButtonSolid(props: ButtonSolidProps) {
+  const { className = '', children, size, ...restProps } = props
+
+  const styles = getStyles({ size })
+
+  const xOffsetFactor = useMotionValue(0)
+  const yOffsetFactor = useMotionValue(0)
+  const zPosition = useMotionValue(0)
+
+  const smoothX = useSpring(xOffsetFactor, SPRING_OPTIONS)
+  const smoothY = useSpring(yOffsetFactor, SPRING_OPTIONS)
+  const smoothZPosition = useSpring(zPosition, SPRING_OPTIONS)
+
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [8, -8])
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-8, 8])
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    const containerRect = event.currentTarget.getBoundingClientRect()
+    xOffsetFactor.set(
+      (event.clientX - containerRect.left) / containerRect.width - 0.5,
+    )
+    yOffsetFactor.set(
+      (event.clientY - containerRect.top) / containerRect.height - 0.5,
+    )
+  }
+  const handleMouseEnter = () => {
+    zPosition.set(24)
+  }
+  const handleMouseLeave = () => {
+    xOffsetFactor.set(0)
+    yOffsetFactor.set(0)
+    zPosition.set(0)
+  }
+
+  const containerStyle = {
+    perspective: 1000,
+    '--tw-holographic-mx': smoothX,
+    '--tw-holographic-my': smoothY,
+  } as CSSProperties
+
+  const wrapperStyle = {
+    rotateX,
+    rotateY,
+    z: smoothZPosition,
+  } as CSSProperties
+
+  return (
+    <motion.button
+      className={cn(className, styles.container())}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={containerStyle}
+      {...restProps}
+    >
+      <div className={styles.glowWrapper()}>
+        <span className={styles.glow()} />
+      </div>
+
+      <motion.div className={styles.wrapper()} style={wrapperStyle}>
+        <span className={styles.backgroundWrapper()}>
+          <span className={styles.background()} />
+        </span>
+
+        <span className={styles.overlay()} />
+
+        <span className={styles.typography()}>{children}</span>
+      </motion.div>
+    </motion.button>
+  )
+}
+
+export default ButtonSolid
