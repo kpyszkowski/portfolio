@@ -18,8 +18,7 @@ const getStyles = tv({
     backgroundWrapper: 'absolute inset-0',
     background: 'absolute inset-0 holographic',
     overlay: 'absolute inset-0.5 bg-white opacity-40',
-    typography:
-      'relative font-sans font-medium text-neutral-900 drop-shadow-[0_0_2px_white]',
+    typography: 'relative text-neutral-900 drop-shadow-[0_0_2px_white]',
     glowWrapper:
       'absolute inset-0 opacity-40 blur-xl invert transition-opacity group-hover:opacity-50',
     glow: 'absolute -inset-0.5 holographic',
@@ -27,19 +26,16 @@ const getStyles = tv({
   variants: {
     size: {
       sm: {
-        typography: 'text-sm',
-        wrapper: 'rounded-[0.875rem] px-6 py-1.5', // 14px
-        overlay: 'rounded-[0.8125rem]', // 13px
+        wrapper: 'rounded-2xl px-6 py-2',
+        overlay: 'rounded-[0.9375rem]', // 15px
       },
       md: {
-        typography: 'text-base',
-        wrapper: 'rounded-[1.125rem] px-10 py-2.5', // 18px
-        overlay: 'rounded-[1.0625rem]', // 17px
+        wrapper: 'rounded-3xl px-8 py-2.5',
+        overlay: 'rounded-[1.4375rem]', // 23px
       },
       lg: {
-        typography: 'text-lg',
-        wrapper: 'rounded-[1.375rem] px-12 py-3', // 22px
-        overlay: 'rounded-[1.3125rem]', // 21px
+        wrapper: 'rounded-[2rem] px-10 py-3',
+        overlay: 'rounded-[1.9375rem]', // 31px
       },
     },
   },

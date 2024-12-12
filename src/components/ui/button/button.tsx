@@ -12,33 +12,69 @@ const getStyles = tv({
   variants: {
     variant: {
       solid: {},
-      outline: {},
+      outline: {
+        container:
+          '-m-0.5 border-2 border-neutral-500 text-neutral-50 outline-none transition-colors hover:border-neutral-400 focus-visible:border-neutral-400 active:border-neutral-200',
+      },
     },
     size: {
       sm: {
-        content: 'gap-2',
-        icon: '-mx-1 size-3.5',
+        container: 'rounded-3xl px-6 py-2',
+        content: 'gap-3 font-sans text-sm font-medium',
+        icon: '-mx-1.5 size-3.5',
       },
       md: {
-        content: 'gap-3',
-        icon: '-mx-1.5 size-4',
+        container: 'rounded-3xl px-8 py-2.5', // 18px
+        content: 'gap-4 font-sans text-base font-medium',
+        icon: '-mx-2 size-4',
       },
       lg: {
-        content: 'gap-4',
-        icon: '-mx-2 size-5',
+        container: 'rounded-[2rem] px-10 py-3', // 32px
+        content: 'gap-6 font-sans text-lg font-medium',
+        icon: '-mx-3 size-5',
       },
     },
     iconPosition: {
       left: {
         content: 'flex-row-reverse',
-        icon: 'ml-0',
+        icon: 'mr-0',
       },
       right: {
         content: 'flex-row',
-        icon: 'mr-0',
+        icon: 'ml-0',
       },
     },
   },
+  compoundVariants: [
+    {
+      variant: 'solid',
+      size: ['sm', 'md', 'lg'],
+      class: {
+        container: 'rounded-none p-0',
+      },
+    },
+    {
+      variant: 'solid',
+      size: 'md',
+      class: {
+        container: 'bg-primary-500 text-neutral-50',
+      },
+    },
+    {
+      variant: 'solid',
+      size: 'lg',
+      class: {
+        container: 'bg-primary-500 text-neutral-50',
+      },
+    },
+    {
+      variant: 'outline',
+      size: 'sm',
+      class: {
+        container: '-m-px border',
+      },
+    },
+  ],
   defaultVariants: {
     variant: 'outline',
     size: 'md',
