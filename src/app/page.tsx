@@ -153,7 +153,7 @@ export default function Home() {
         </ul>
 
         <p className="mt-auto text-sm text-neutral-600">
-          &copy; {new Date().getFullYear()}
+          🐭 {new Date().getFullYear()}
         </p>
       </main>
 
