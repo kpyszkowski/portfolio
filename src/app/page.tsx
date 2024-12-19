@@ -102,16 +102,16 @@ export default function Home() {
   const smoothMouseY = useSpring(mouseY, SPRING_OPTIONS)
 
   return (
-    <div className="font-sans">
-      <main className="relative z-10 flex min-h-screen flex-col items-center justify-center p-5 lg:p-10">
+    <div className="font-sans font-extralight">
+      <main className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
         <div className="mb-28 mt-auto flex items-center gap-8 lg:mb-56 lg:gap-16">
-          <Logo className="size-28 stroke-neutral-50 lg:size-56" />
+          <Logo className="size-20 stroke-neutral-50 lg:size-56" />
 
-          <div className="flex flex-col gap-3 font-extralight lg:gap-6">
-            <h1 className="text-4xl text-neutral-50 lg:text-8xl">
+          <div className="flex flex-col gap-3 lg:gap-6">
+            <h1 className="text-3xl text-neutral-50 lg:text-8xl">
               Kamil Pyszkowski
             </h1>
-            <span className="text-3xl text-neutral-400 lg:text-6xl">
+            <span className="text-2xl text-neutral-400 lg:text-6xl">
               Software Engineer
             </span>
           </div>
@@ -153,7 +153,7 @@ export default function Home() {
         </ul>
 
         <p className="mt-auto text-sm text-neutral-600">
-          🐭 {new Date().getFullYear()}
+          &copy; {new Date().getFullYear()}
         </p>
       </main>
 
