@@ -5,7 +5,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: '',
+    container: 'inline-block',
     content: 'flex items-center whitespace-nowrap',
     icon: 'text-current',
   },
@@ -86,6 +86,8 @@ export interface ButtonProps extends VariantProps<typeof getStyles> {
   className?: string
   children: string
   icon?: Icon
+  href?: string
+  isExternal?: boolean
 }
 
 function Button(props: ButtonProps) {
@@ -96,6 +98,8 @@ function Button(props: ButtonProps) {
     size,
     iconPosition,
     children: label,
+    href,
+    isExternal,
     ...restProps
   } = props
 
@@ -114,16 +118,29 @@ function Button(props: ButtonProps) {
     )
 
     return (
-      <ButtonSolid className={className} size={size} {...restProps}>
+      <ButtonSolid
+        className={className}
+        size={size}
+        href={href}
+        isExternal={isExternal}
+        {...restProps}
+      >
         {children}
       </ButtonSolid>
     )
   }
 
+  const Component = href ? 'a' : 'button'
+
   return (
-    <button className={cn(className, styles.container())} {...restProps}>
+    <Component
+      className={cn(className, styles.container())}
+      href={href}
+      target={href && isExternal ? '_blank' : undefined}
+      {...restProps}
+    >
       {children}
-    </button>
+    </Component>
   )
 }
 

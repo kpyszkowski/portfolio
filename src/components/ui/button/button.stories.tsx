@@ -37,6 +37,19 @@ export const Default: Story = {
   args: {},
 }
 
+export const AsLink: Story = {
+  args: {
+    href: '/link-to-somewhere',
+  },
+}
+
+export const AsExternalLink: Story = {
+  args: {
+    href: 'https://example.com',
+    isExternal: true,
+  },
+}
+
 export const WithIcon: Story = {
   argTypes: {
     icon: {

@@ -12,7 +12,7 @@ import { tv } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'group relative',
+    container: 'group relative inline-block',
     wrapper:
       'relative overflow-hidden bg-neutral-50 shadow-[-1px_0_0,_0_1px_0] shadow-black/5',
     backgroundWrapper: 'absolute inset-0',
@@ -51,7 +51,14 @@ type ButtonSolidProps = Omit<
 }
 
 function ButtonSolid(props: ButtonSolidProps) {
-  const { className = '', children, size, ...restProps } = props
+  const {
+    className = '',
+    children,
+    size,
+    href,
+    isExternal,
+    ...restProps
+  } = props
 
   const styles = getStyles({ size })
 
@@ -96,13 +103,17 @@ function ButtonSolid(props: ButtonSolidProps) {
     z: smoothZPosition,
   } as CSSProperties
 
+  const Component = motion[href ? 'a' : 'button']
+
   return (
-    <motion.button
+    <Component
       className={cn(className, styles.container())}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={containerStyle}
+      href={href}
+      target={href && isExternal ? '_blank' : undefined}
       {...restProps}
     >
       <div className={styles.glowWrapper()}>
@@ -118,7 +129,7 @@ function ButtonSolid(props: ButtonSolidProps) {
 
         <span className={styles.typography()}>{children}</span>
       </motion.div>
-    </motion.button>
+    </Component>
   )
 }
 
