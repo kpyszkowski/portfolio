@@ -30,4 +30,35 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .placeholder-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(transparent, theme(colors.neutral.950) 50vw),
+      repeating-radial-gradient(
+        theme(colors.neutral.950) 1px,
+        transparent 999px
+      );
+    background-size:
+      auto,
+      24px 24px;
+    background-color: theme(colors.neutral.700);
+  }
+
+  .placeholder-background-glare {
+    position: absolute;
+    inset: -16vw;
+    width: 32vw;
+    height: 32vw;
+    background: repeating-conic-gradient(
+      theme(colors.cyan.950),
+      theme(colors.orange.950),
+      theme(colors.fuchsia.950)
+    );
+    opacity: 0.5;
+    border-radius: 50%;
+    filter: blur(8vw);
+  }
 }

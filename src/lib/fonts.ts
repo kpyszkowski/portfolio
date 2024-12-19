@@ -1,8 +1,8 @@
-import { Inter } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 
-export const inter = Inter({
+export const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
 })
 
-export const fontsClassName = [inter].map((font) => font.variable).join(' ')
+export const fontsClassName = [dmSans].map((font) => font.variable).join(' ')
