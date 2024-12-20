@@ -7,7 +7,7 @@ import {
   useSpring,
   Variants,
 } from 'framer-motion'
-import { useEffect } from 'react'
+import { CSSProperties, useEffect } from 'react'
 import { GitHub, Linkedin, Send } from 'react-feather'
 
 const Logo = (props: { className?: string }) => (
@@ -36,6 +36,66 @@ const Logo = (props: { className?: string }) => (
     />
   </svg>
 )
+
+const Orb = () => {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  useEffect(() => {
+    mouseX.set(window.innerWidth / 2)
+    mouseY.set(window.innerWidth / 2)
+
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseX.set(event.clientX)
+      mouseY.set(event.clientY)
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  const smoothMouseX = useSpring(mouseX, SPRING_OPTIONS)
+  const smoothMouseY = useSpring(mouseY, SPRING_OPTIONS)
+
+  return (
+    <motion.svg
+      className="absolute -inset-[25vw] size-[50vw] mix-blend-color-dodge"
+      width="458.751"
+      height="447.742"
+      viewBox="0 0 121.378 118.465"
+      style={{
+        x: smoothMouseX,
+        y: smoothMouseY,
+      }}
+    >
+      <defs>
+        <filter
+          id="a"
+          width="2.399"
+          height="2.399"
+          x="-.7"
+          y="-.7"
+          style={
+            {
+              colorInterpolationFilters: 'sRGB',
+            } as CSSProperties
+          }
+        >
+          <feGaussianBlur result="blur" stdDeviation="16" />
+        </filter>
+      </defs>
+      <g
+        transform="translate(-25.254 -137.364)"
+        fill-opacity=".25"
+        filter="url(#a)"
+      >
+        <circle cx="86.244" cy="187.423" r="20.862" fill="#00aaa8" />
+        <circle cx="96.573" cy="205.77" r="20.862" fill="#aa8c00" />
+        <circle cx="75.314" cy="205.77" r="20.862" fill="#aa00a3" />
+      </g>
+    </motion.svg>
+  )
+}
 
 const SOCIALS = [
   {
@@ -84,40 +144,25 @@ const SPRING_OPTIONS: SpringOptions = {
 }
 
 export default function Home() {
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      mouseX.set(event.clientX)
-      mouseY.set(event.clientY)
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
-
-  const smoothMouseX = useSpring(mouseX, SPRING_OPTIONS)
-  const smoothMouseY = useSpring(mouseY, SPRING_OPTIONS)
-
   return (
-    <div className="font-sans font-extralight">
+    <div className="placeholder-background font-sans font-extralight">
+      <Orb />
+
       <main className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
         <div className="mb-28 mt-auto flex items-center gap-8 lg:mb-56 lg:gap-16">
-          <Logo className="size-20 stroke-neutral-50 lg:size-56" />
+          <Logo className="size-20 stroke-neutral-50 lg:size-32" />
 
           <div className="flex flex-col gap-3 lg:gap-6">
-            <h1 className="text-3xl text-neutral-50 lg:text-8xl">
+            <h1 className="text-3xl text-neutral-50 lg:text-6xl">
               Kamil Pyszkowski
             </h1>
-            <span className="text-2xl text-neutral-400 lg:text-6xl">
+            <span className="text-2xl text-neutral-400 lg:text-4xl">
               Software Engineer
             </span>
           </div>
         </div>
 
-        <p className="mb-16 text-2xl lg:mb-32 lg:text-4xl">
+        <p className="mb-16 text-xl text-neutral-50 lg:mb-32 lg:text-2xl">
           Coming soon
           <motion.span
             className="mx-2"
@@ -146,26 +191,16 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="block p-4 transition-opacity hover:!opacity-100 focus-visible:!opacity-100 group-hover:opacity-50"
               >
-                <Icon className="size-8" />
+                <Icon className="size-6" />
               </a>
             </li>
           ))}
         </ul>
 
-        <p className="mt-auto text-sm text-neutral-600">
-          &copy; {new Date().getFullYear()}
+        <p className="mt-auto text-sm text-neutral-200 opacity-50">
+          🐭 {new Date().getFullYear()}
         </p>
       </main>
-
-      <div className="placeholder-background">
-        <motion.span
-          className="placeholder-background-glare"
-          style={{
-            x: smoothMouseX,
-            y: smoothMouseY,
-          }}
-        />
-      </div>
     </div>
   )
 }
