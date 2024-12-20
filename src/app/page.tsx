@@ -182,7 +182,7 @@ export default function Home() {
           </motion.span>
         </p>
 
-        <ul className="group flex">
+        <ul className="group flex text-neutral-50">
           {SOCIALS.map(({ name, icon: Icon, href }) => (
             <li key={name}>
               <a
