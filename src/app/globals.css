@@ -32,13 +32,21 @@ body {
   }
 
   .placeholder-background {
+    --placeholder-background-color: theme(colors.neutral.100);
+    --placeholder-dot-color: theme(colors.neutral.300);
+
+    @media (prefers-color-scheme: dark) {
+      --placeholder-background-color: theme(colors.neutral.900);
+      --placeholder-dot-color: theme(colors.neutral.700);
+    }
+
     position: relative;
     background: repeating-radial-gradient(
-      theme(colors.neutral.900) 1px,
+      var(--placeholder-background-color) 1px,
       transparent 999px
     );
     background-size: 24px 24px;
-    background-color: theme(colors.neutral.700);
+    background-color: var(--placeholder-dot-color);
 
     &::before {
       content: '';
@@ -46,7 +54,7 @@ body {
       inset: 0;
       background: radial-gradient(
         transparent 12.5vw,
-        theme(colors.neutral.900)
+        var(--placeholder-background-color)
       );
       z-index: 10;
     }
