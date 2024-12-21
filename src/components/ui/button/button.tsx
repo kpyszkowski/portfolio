@@ -1,5 +1,6 @@
 import cn from '@/utils/cn'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { Icon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -130,12 +131,13 @@ function Button(props: ButtonProps) {
     )
   }
 
-  const Component = href ? 'a' : 'button'
+  const LinkComponent = isExternal ? 'a' : Link
+  const Component = href ? LinkComponent : 'button'
 
   return (
     <Component
       className={cn(className, styles.container())}
-      href={href}
+      href={href!} // `href` is defined
       target={href && isExternal ? '_blank' : undefined}
       {...restProps}
     >

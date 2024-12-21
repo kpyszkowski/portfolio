@@ -9,7 +9,7 @@ const getStyles = tv({
     container: 'flex flex-col divide-y divide-neutral-700 font-sans',
     wrapper: 'flex flex-col items-baseline py-6 sm:flex-row sm:py-5',
     year: 'font-mediun basis-1/4 select-none text-xl text-neutral-400 lg:basis-1/5',
-    list: 'flex-colg group flex w-full flex-1',
+    list: 'group flex w-full flex-1 flex-col',
     item: 'flex flex-col py-5 transition-opacity hover:!opacity-100 group-hover:opacity-65 lg:flex-row lg:gap-12', // TODO: Find replacement for !important
     itemDate:
       'mb-2 basis-1/4 select-none text-sm text-neutral-400 lg:basis-1/6 lg:text-end lg:text-base',

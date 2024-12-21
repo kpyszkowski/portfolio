@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge'
+import { Tooltip } from '@/components/ui/tooltip'
 import cn from '@/utils/cn'
 import Link from 'next/link'
 import { Watch as WatchIcon, ArrowRight as ArrowIcon } from 'react-feather'
@@ -60,13 +61,15 @@ function BlogPostTile(props: BlogPostTileProps) {
         </div>
       )}
 
-      <div
-        className={styles.readTimeWrapper()}
-        aria-label={`Reading time: ${readingTime} minutes`}
-      >
-        <WatchIcon className={styles.readTimeIcon()} />
-        <span className={styles.readTimeLabel()}>{readingTime} mins</span>
-      </div>
+      <Tooltip label="Reading time" side="bottom" align="end" size="sm">
+        <div
+          className={styles.readTimeWrapper()}
+          aria-label={`Reading time: ${readingTime} minutes`}
+        >
+          <WatchIcon className={styles.readTimeIcon()} />
+          <span className={styles.readTimeLabel()}>{readingTime} mins</span>
+        </div>
+      </Tooltip>
     </Link>
   )
 }

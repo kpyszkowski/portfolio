@@ -7,6 +7,7 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion'
+import Link from 'next/link'
 import { CSSProperties } from 'react'
 import { tv } from 'tailwind-variants'
 
@@ -103,7 +104,8 @@ function ButtonSolid(props: ButtonSolidProps) {
     z: smoothZPosition,
   } as CSSProperties
 
-  const Component = motion[href ? 'a' : 'button']
+  const LinkComponent = isExternal ? 'a' : Link
+  const Component = motion.create(href ? LinkComponent : 'button')
 
   return (
     <Component
