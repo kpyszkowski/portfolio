@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'fill-none stroke-neutral-900',
+    container: 'fill-none',
   },
   variants: {
     size: {
@@ -17,9 +17,18 @@ const getStyles = tv({
         container: 'size-12',
       },
     },
+    color: {
+      dark: {
+        container: 'stroke-neutral-900',
+      },
+      light: {
+        container: 'stroke-neutral-50',
+      },
+    },
   },
   defaultVariants: {
     size: 'md',
+    color: 'dark',
   },
 })
 
@@ -28,9 +37,9 @@ interface LogoProps extends VariantProps<typeof getStyles> {
 }
 
 function Logo(props: LogoProps) {
-  const { className = '', size, ...restProps } = props
+  const { className = '', size, color, ...restProps } = props
 
-  const styles = getStyles({ size })
+  const styles = getStyles({ size, color })
 
   return (
     <svg

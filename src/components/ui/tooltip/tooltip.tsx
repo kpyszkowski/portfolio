@@ -44,21 +44,31 @@ const contentTransition: Transition = {
 
 interface TooltipProps
   extends VariantProps<typeof getStyles>,
-    Omit<
-      TooltipPrimitive.TooltipContentProps,
-      'asChild' | 'sideOffset' | 'forceMount'
-    > {
+    Omit<TooltipPrimitive.TooltipContentProps, 'asChild' | 'forceMount'> {
   className?: string
   children: React.ReactNode
   label: string
+  disabled?: boolean
 }
 
 function Tooltip(props: TooltipProps) {
-  const { className = '', children, size, label, ...restProps } = props
+  const {
+    className = '',
+    children,
+    size,
+    label,
+    disabled = false,
+    sideOffset = 4,
+    ...restProps
+  } = props
 
   const [isOpen, setIsOpen] = React.useState(false)
 
   const styles = getStyles({ size })
+
+  if (disabled) {
+    return children
+  }
 
   const triggerContent =
     typeof children === 'string' ? (
@@ -74,32 +84,33 @@ function Tooltip(props: TooltipProps) {
           {triggerContent}
         </TooltipPrimitive.Trigger>
 
-        <AnimatePresence>
-          {isOpen && (
-            <TooltipPrimitive.Content
-              className={cn(className, styles.container())}
-              asChild
-              sideOffset={4}
-              forceMount
-              {...restProps}
-            >
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={contentVariants}
-                transition={contentTransition}
-                style={{
-                  transformOrigin:
-                    'var(--radix-tooltip-content-transform-origin)',
-                }}
+        <TooltipPrimitive.Portal forceMount>
+          <AnimatePresence>
+            {isOpen && (
+              <TooltipPrimitive.Content
+                className={cn(className, styles.container())}
+                asChild
+                sideOffset={sideOffset}
+                {...restProps}
               >
-                <TooltipPrimitive.Arrow className={styles.arrow()} />
-                {label}
-              </motion.div>
-            </TooltipPrimitive.Content>
-          )}
-        </AnimatePresence>
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={contentVariants}
+                  transition={contentTransition}
+                  style={{
+                    transformOrigin:
+                      'var(--radix-tooltip-content-transform-origin)',
+                  }}
+                >
+                  <TooltipPrimitive.Arrow className={styles.arrow()} />
+                  {label}
+                </motion.div>
+              </TooltipPrimitive.Content>
+            )}
+          </AnimatePresence>
+        </TooltipPrimitive.Portal>
       </TooltipPrimitive.Root>
     </TooltipPrimitive.Provider>
   )

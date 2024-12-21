@@ -110,7 +110,7 @@ function TabsMenu(props: TabsMenuProps) {
                 },
               }}
               {...restItem}
-              _isActive={activeItemIndex === index}
+              _active={activeItemIndex === index}
               onClick={getItemClickHandler(index, onClick)}
             />
           ))}
