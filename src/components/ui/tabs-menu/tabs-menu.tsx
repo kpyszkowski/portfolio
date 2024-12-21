@@ -14,7 +14,7 @@ const SPRING_OPTIONS: SpringOptions = {
 const getStyles = tv({
   slots: {
     container:
-      'group inline-block overflow-hidden rounded-3xl bg-white/25 backdrop-blur-sm backdrop-brightness-[0.65] backdrop-contrast-[0.85] backdrop-saturate-[1.5]',
+      'neumorphism group inline-block overflow-hidden rounded-3xl bg-white/25 backdrop-blur-sm backdrop-brightness-[0.65] backdrop-contrast-[0.85] backdrop-saturate-[1.5]',
     wrapper:
       'relative flex items-center divide-x divide-white/25 overflow-hidden p-2',
     list: 'inline-flex gap-3',

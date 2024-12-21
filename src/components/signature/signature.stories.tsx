@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import Signature from './signature'
 
 const meta: Meta<typeof Signature> = {
-  title: 'UI/Signature',
+  title: 'Signature',
   component: Signature,
   tags: ['autodocs'],
 }

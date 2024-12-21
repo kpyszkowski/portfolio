@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import DatedList from './dated-list'
+import { BlogPostTile } from '@/components/blog-post-tile'
 
 const meta: Meta<typeof DatedList> = {
   title: 'UI/DatedList',
@@ -11,29 +12,27 @@ const meta: Meta<typeof DatedList> = {
       {
         id: 'item-1',
         date: new Date('2022-01-02'),
-        content: '10 Essential Tips for Optimizing Your Next.js App',
+        content: 'Ran half marathon',
       },
       {
         id: 'item-2',
         date: new Date('2021-01-01'),
-        content: 'Building a RESTful API with Node.js and Express in 2024',
+        content: 'Bought a new car',
       },
       {
         id: 'item-3',
         date: new Date('2022-01-03'),
-        content:
-          'Top JavaScript Frameworks to Watch in 2024: Which One Is Right for You?',
+        content: 'Got a new job at Acme Corp',
       },
       {
         id: 'item-4',
         date: new Date('2023-01-05'),
-        content:
-          'Serverless Explained: Deploying Scalable Applications with AWS Lambda',
+        content: 'Got married to my best friend',
       },
       {
         id: 'item-5',
         date: new Date('2023-01-04'),
-        content: 'Enhancing User Experience with Intersection Observer API',
+        content: 'Started a new business',
       },
     ],
   },
@@ -55,5 +54,46 @@ export const WithCustomHeadingElement: Story = {
 export const WithAscendingOrder: Story = {
   args: {
     order: 'asc',
+  },
+}
+
+const blogPostContent = (
+  <BlogPostTile
+    title="10 Essential Tips for Optimizing Your Next.js App"
+    tags={['Next.js', 'React', 'JavaScript']}
+    readingTime={12}
+    url="/asdf"
+  />
+)
+
+export const WithBlogPosts: Story = {
+  args: {
+    items: [
+      {
+        id: 'item-1',
+        date: new Date('2022-01-02'),
+        content: blogPostContent,
+      },
+      {
+        id: 'item-2',
+        date: new Date('2021-01-01'),
+        content: blogPostContent,
+      },
+      {
+        id: 'item-3',
+        date: new Date('2022-01-03'),
+        content: blogPostContent,
+      },
+      {
+        id: 'item-4',
+        date: new Date('2023-01-05'),
+        content: blogPostContent,
+      },
+      {
+        id: 'item-5',
+        date: new Date('2023-01-04'),
+        content: blogPostContent,
+      },
+    ],
   },
 }
