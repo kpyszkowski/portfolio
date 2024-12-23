@@ -1,43 +1,21 @@
 'use client'
 
+import { Logo } from '@/components/logo'
+import cn from '@/utils/cn'
 import {
   motion,
   SpringOptions,
   useMotionValue,
   useSpring,
+  useTransform,
   Variants,
 } from 'framer-motion'
 import { CSSProperties, useEffect } from 'react'
 import { GitHub, Linkedin, Send } from 'react-feather'
 
-const Logo = (props: { className?: string }) => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M29.1428 26.5963L19.4445 16L14.2857 20.7394V31.4286"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M29.1428 0.571426L14.6043 14.6545V0.571426C14.6043 0.571426 2.27803 0.657001 2.28571 9.95599C2.29149 16.9294 10.1248 18.2857 10.1248 18.2857"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M6.28571 28.5714C7.54808 28.5714 8.57143 27.5481 8.57143 26.2857C8.57143 25.0233 7.54808 24 6.28571 24C5.02335 24 4 25.0233 4 26.2857C4 27.5481 5.02335 28.5714 6.28571 28.5714Z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
+const Background = (props: any) => {
+  const { className = '', ...restProps } = props
 
-const Orb = () => {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -56,44 +34,52 @@ const Orb = () => {
 
   const smoothMouseX = useSpring(mouseX, SPRING_OPTIONS)
   const smoothMouseY = useSpring(mouseY, SPRING_OPTIONS)
+  const rotate = useTransform(smoothMouseX, [0, 2137], [-180, 180])
 
   return (
-    <motion.svg
-      className="absolute -inset-[12.5vw] size-[25vw] mix-blend-hard-light dark:mix-blend-color-dodge"
-      width="458.751"
-      height="447.742"
-      viewBox="0 0 121.378 118.465"
-      style={{
-        x: smoothMouseX,
-        y: smoothMouseY,
-      }}
+    <div
+      className={cn(
+        className,
+        'fixed inset-0 flex items-center justify-center',
+      )}
+      {...restProps}
     >
-      <defs>
-        <filter
-          id="a"
-          width="2.399"
-          height="2.399"
-          x="-.7"
-          y="-.7"
-          style={
-            {
-              colorInterpolationFilters: 'sRGB',
-            } as CSSProperties
-          }
-        >
-          <feGaussianBlur result="blur" stdDeviation="16" />
-        </filter>
-      </defs>
-      <g
-        transform="translate(-25.254 -137.364)"
-        fillOpacity=".16"
-        filter="url(#a)"
+      <div className="placeholder-background z-20 size-full" />
+
+      <motion.svg
+        className="absolute -inset-[24rem] z-10 hidden size-[48rem] opacity-25 mix-blend-darken saturate-150 lg:block dark:opacity-50 dark:mix-blend-normal"
+        width="458.751"
+        height="447.742"
+        viewBox="0 0 121.378 118.465"
+        style={{
+          x: smoothMouseX,
+          y: smoothMouseY,
+          rotate,
+        }}
       >
-        <circle cx="86.244" cy="187.423" r="20.862" fill="#00aaa8" />
-        <circle cx="96.573" cy="205.77" r="20.862" fill="#aa8c00" />
-        <circle cx="75.314" cy="205.77" r="20.862" fill="#aa00a3" />
-      </g>
-    </motion.svg>
+        <defs>
+          <filter
+            id="a"
+            width="2.399"
+            height="2.399"
+            x="-.7"
+            y="-.7"
+            style={
+              {
+                colorInterpolationFilters: 'sRGB',
+              } as CSSProperties
+            }
+          >
+            <feGaussianBlur result="blur" stdDeviation="16" />
+          </filter>
+        </defs>
+        <g transform="translate(-25.254 -137.364)" filter="url(#a)">
+          <circle cx="86.244" cy="187.423" r="20.862" fill="#00aaa8" />
+          <circle cx="96.573" cy="205.77" r="20.862" fill="#aa8c00" />
+          <circle cx="75.314" cy="205.77" r="20.862" fill="#aa00a3" />
+        </g>
+      </motion.svg>
+    </div>
   )
 }
 
@@ -145,10 +131,8 @@ const SPRING_OPTIONS: SpringOptions = {
 
 export default function Home() {
   return (
-    <div className="placeholder-background font-sans font-extralight">
-      <Orb />
-
-      <main className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
+    <div className="font-sans font-extralight">
+      <main className="relative z-30 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
         <div className="mb-28 mt-auto flex items-center gap-8 lg:mb-56 lg:gap-16">
           <Logo className="size-20 stroke-neutral-950 lg:size-32 dark:stroke-neutral-50" />
 
@@ -163,7 +147,7 @@ export default function Home() {
         </div>
 
         <p className="mb-16 text-xl text-neutral-950 lg:mb-32 lg:text-2xl dark:text-neutral-50">
-          Coming soon
+          Coming soon in 2025
           <motion.span
             className="mx-2"
             initial="hidden"
@@ -201,6 +185,8 @@ export default function Home() {
           🐭 {new Date().getFullYear()}
         </p>
       </main>
+
+      <Background />
     </div>
   )
 }

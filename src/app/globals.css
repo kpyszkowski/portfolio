@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 body {
-  color: theme(colors.neutral.50);
-  background-color: theme(colors.neutral.900);
+  color: theme(colors.neutral.900);
+  background-color: theme(colors.neutral.50);
+
+  @media (prefers-color-scheme: dark) {
+    color: theme(colors.neutral.50);
+    background-color: theme(colors.neutral.900);
+  }
 }
 
 @layer utilities {
@@ -27,21 +32,19 @@ body {
   }
 
   .placeholder-background {
-    --placeholder-background-color: theme(colors.neutral.100);
-    --placeholder-dot-color: theme(colors.neutral.300);
+    --placeholder-background-color: theme(colors.neutral.200);
+    --placeholder-foreground-color: theme(colors.neutral.50);
 
     @media (prefers-color-scheme: dark) {
-      --placeholder-background-color: theme(colors.neutral.900);
-      --placeholder-dot-color: theme(colors.neutral.700);
+      --placeholder-background-color: theme(colors.neutral.800);
+      --placeholder-foreground-color: theme(colors.neutral.900);
     }
 
-    position: relative;
-    background: repeating-radial-gradient(
+    background: radial-gradient(
       var(--placeholder-background-color) 1px,
-      transparent 999px
+      transparent 1px
     );
-    background-size: 24px 24px;
-    background-color: var(--placeholder-dot-color);
+    background-size: 4px 4px;
 
     &::before {
       content: '';
@@ -49,9 +52,8 @@ body {
       inset: 0;
       background: radial-gradient(
         transparent 12.5vw,
-        var(--placeholder-background-color)
+        var(--placeholder-foreground-color)
       );
-      z-index: 10;
     }
   }
 }
