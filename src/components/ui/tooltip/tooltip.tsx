@@ -1,3 +1,4 @@
+'use client'
 import cn from '@/utils/cn'
 import { tv, type VariantProps } from 'tailwind-variants'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
@@ -7,7 +8,7 @@ import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 const getStyles = tv({
   slots: {
     container:
-      'rounded-3xl bg-neutral-500/50 px-5 py-0.5 font-sans text-neutral-50 backdrop-blur-sm',
+      'rounded-3xl bg-neutral-500/50 px-5 py-0.5 font-sans text-neutral-200 backdrop-blur-sm',
     arrow: 'fill-neutral-500/50 backdrop-blur-sm',
     triggerContent: 'font-sans',
   },

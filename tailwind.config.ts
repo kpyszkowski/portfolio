@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 import holographicPlugin from './tailwind-plugins/utilities/holographic'
 import neumorphismPlugin from './tailwind-plugins/utilities/neumorphism'
+import typographyPlugin from '@tailwindcss/typography'
 
 const config: Config = {
   content: [
@@ -20,6 +21,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [holographicPlugin, neumorphismPlugin],
+  plugins: [holographicPlugin, neumorphismPlugin, typographyPlugin],
 }
 export default config

@@ -86,7 +86,7 @@ const Orb = () => {
       </defs>
       <g
         transform="translate(-25.254 -137.364)"
-        fill-opacity=".16"
+        fillOpacity=".16"
         filter="url(#a)"
       >
         <circle cx="86.244" cy="187.423" r="20.862" fill="#00aaa8" />

@@ -50,7 +50,7 @@ export const WithDefaultActiveItem: Story = {
 
 export const WithRenderSlot: Story = {
   args: {
-    renderBefore: () => <Box className="mx-4 size-6" />,
+    renderBefore: <Box className="mx-4 size-6" />,
   },
 }
 

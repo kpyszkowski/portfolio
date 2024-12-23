@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import BlogPostTile from './blog-post-tile'
+import WritingTile from './writing-tile'
 
-const meta: Meta<typeof BlogPostTile> = {
-  title: 'BlogPostTile',
-  component: BlogPostTile,
+const meta: Meta<typeof WritingTile> = {
+  title: 'WritingTile',
+  component: WritingTile,
   tags: ['autodocs'],
   args: {
     title: '10 Essential Tips for Optimizing Your Next.js App',
@@ -14,7 +14,7 @@ const meta: Meta<typeof BlogPostTile> = {
 }
 
 export default meta
-type Story = StoryObj<typeof BlogPostTile>
+type Story = StoryObj<typeof WritingTile>
 
 export const Default: Story = {
   args: {},

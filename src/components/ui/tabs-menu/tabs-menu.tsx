@@ -1,3 +1,4 @@
+'use client'
 import TabsMenuItem, {
   type TabsMenuItemType,
 } from '@/components/ui/tabs-menu/tabs-menu-item'
@@ -14,12 +15,12 @@ const SPRING_OPTIONS: SpringOptions = {
 const getStyles = tv({
   slots: {
     container:
-      'neumorphism group inline-block overflow-hidden rounded-3xl bg-white/25 backdrop-blur-sm backdrop-brightness-[0.65] backdrop-contrast-[0.85] backdrop-saturate-[1.5]',
+      'group inline-block overflow-hidden rounded-3xl bg-neutral-500/25 backdrop-blur-sm backdrop-brightness-[0.65] backdrop-contrast-[0.85] backdrop-saturate-[1.5] neumorphism',
     wrapper:
-      'relative flex items-center divide-x divide-white/25 overflow-hidden p-2',
+      'relative flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
     list: 'inline-flex gap-3',
     glare:
-      'pointer-events-none absolute -inset-12 size-24 rounded-full bg-white/25 opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
+      'pointer-events-none absolute -inset-12 size-24 rounded-full bg-neutral-500/25 opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
   },
 })
 
@@ -27,8 +28,8 @@ interface TabsMenuProps extends VariantProps<typeof getStyles> {
   className?: string
   items: TabsMenuItemType[]
   defaultActive?: number
-  renderBefore?: () => React.ReactNode
-  renderAfter?: () => React.ReactNode
+  renderBefore?: React.ReactNode
+  renderAfter?: React.ReactNode
 }
 
 function TabsMenu(props: TabsMenuProps) {
@@ -84,7 +85,7 @@ function TabsMenu(props: TabsMenuProps) {
       {...restProps}
     >
       <div className={styles.wrapper()}>
-        {renderBefore && renderBefore()}
+        {renderBefore && renderBefore}
 
         <motion.ul
           className={cn(
@@ -116,7 +117,7 @@ function TabsMenu(props: TabsMenuProps) {
           ))}
         </motion.ul>
 
-        {renderAfter && renderAfter()}
+        {renderAfter && renderAfter}
       </div>
 
       <motion.span

@@ -1,1 +1,1 @@
-export { default as DatedList } from './dated-list'
+export { default as DatedList, type DatedListItem } from './dated-list'

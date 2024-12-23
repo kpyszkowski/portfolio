@@ -8,18 +8,20 @@ import { tv, type VariantProps } from 'tailwind-variants'
 const getStyles = tv({
   slots: {
     container:
-      'grid grid-flow-row grid-cols-[1fr,auto] grid-rows-[auto,1fr] items-start gap-3 lg:gap-4',
-    arrowIcon: 'size-4 justify-self-end text-neutral-50 sm:size-6',
+      'grid grid-flow-row grid-cols-[1fr,auto] grid-rows-[auto,1fr] items-center gap-3 lg:gap-4',
+    arrowIcon: 'size-4 justify-self-end text-neutral-50 sm:size-5',
     title: 'font-sans',
-    tags: 'flex flex-wrap gap-1 sm:gap-2',
+    tags: 'flex gap-1 overflow-hidden sm:gap-2',
     readTimeWrapper:
-      'flex items-center gap-1.5 justify-self-end text-neutral-400 [grid-area:-2/-2/-1/-1]',
+      'relative flex items-center gap-1.5 self-start justify-self-end text-neutral-400 [grid-area:-2/-2/-1/-1]',
     readTimeIcon: 'size-3 sm:size-4',
     readTimeLabel: 'font-sans text-xs leading-5 sm:text-sm sm:leading-6',
+    readTimeMask:
+      'absolute -left-8 top-0 h-full w-8 bg-gradient-to-l from-neutral-900 from-50%',
   },
 })
 
-interface BlogPostTileProps extends VariantProps<typeof getStyles> {
+interface WritingTileProps extends VariantProps<typeof getStyles> {
   className?: string
   title: string
   tags?: string[]
@@ -28,7 +30,7 @@ interface BlogPostTileProps extends VariantProps<typeof getStyles> {
   titleElementType?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
-function BlogPostTile(props: BlogPostTileProps) {
+function WritingTile(props: WritingTileProps) {
   const {
     className = '',
     title,
@@ -61,17 +63,18 @@ function BlogPostTile(props: BlogPostTileProps) {
         </div>
       )}
 
-      <Tooltip label="Reading time" side="bottom" align="end" size="sm">
+      <Tooltip label="Reading time" side="left" align="end" size="xs">
         <div
           className={styles.readTimeWrapper()}
           aria-label={`Reading time: ${readingTime} minutes`}
         >
           <WatchIcon className={styles.readTimeIcon()} />
           <span className={styles.readTimeLabel()}>{readingTime} mins</span>
+          <span className={styles.readTimeMask()} />
         </div>
       </Tooltip>
     </Link>
   )
 }
 
-export default BlogPostTile
+export default WritingTile

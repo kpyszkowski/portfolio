@@ -6,9 +6,6 @@ const meta: Meta<typeof Header> = {
   title: 'Header',
   component: Header,
   tags: ['autodocs'],
-  args: {
-    children: 'Header',
-  },
 }
 
 export default meta

@@ -1,0 +1,72 @@
+import { readdir } from 'fs/promises'
+import { MDXContent } from 'mdx/types'
+
+const BASE_PATH = './src/app/writings/(content)'
+
+export type WritingMetadata = {
+  title: string
+  readingTime: number
+  slug: string
+  tags?: string[]
+  publishedAt: Date
+  modifiedAt?: Date
+}
+
+type Frontmatter = Pick<
+  WritingMetadata,
+  'title' | 'tags' | 'publishedAt' | 'modifiedAt'
+>
+
+type MDXFile = {
+  frontmatter: Frontmatter
+  default: MDXContent
+  readingTime: {
+    minutes: number
+  }
+}
+
+const getWritingDataByFileName = async (fileName: string) => {
+  const file = (await import(
+    `../app/writings/(content)/${fileName}`
+  )) as MDXFile
+
+  const data = file.frontmatter
+  const readingTimeStats = file.readingTime
+  const content = file.default
+
+  const publishedAt = new Date(data.publishedAt)
+  const modifiedAt = data.modifiedAt ? new Date(data.modifiedAt) : undefined
+  const readingTime = Math.ceil(readingTimeStats.minutes)
+  const slug = fileName.replace(/\.mdx$/, '')
+
+  const metadata: WritingMetadata = {
+    title: data.title,
+    readingTime,
+    slug,
+    tags: data.tags,
+    publishedAt,
+    modifiedAt,
+  }
+
+  return { metadata, content }
+}
+
+export const getWritingsDataBySlug = async (slug: string) => {
+  const fileName = `${slug}.mdx`
+  return getWritingDataByFileName(fileName)
+}
+
+export const getWritingsMetadata = async () => {
+  const writingsDirectory = await readdir(BASE_PATH, {
+    withFileTypes: true,
+  })
+
+  const writings = await Promise.all(
+    writingsDirectory.map(async ({ name }) => {
+      const { metadata } = await getWritingDataByFileName(name)
+      return metadata
+    }),
+  )
+
+  return writings
+}

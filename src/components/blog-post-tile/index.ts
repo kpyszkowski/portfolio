@@ -1,1 +1,0 @@
-export { default as BlogPostTile } from './blog-post-tile'

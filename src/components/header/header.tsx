@@ -5,7 +5,9 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: '',
+    container: 'sticky top-6 z-20 my-6 self-center',
+    background:
+      'header-background fixed inset-0 z-10 mx-auto h-24 w-full max-w-screen-lg',
   },
 })
 
@@ -21,42 +23,45 @@ function Header(props: HeaderProps) {
   const styles = getStyles()
 
   return (
-    <TabsMenu
-      className={cn(className, styles.container())}
-      items={[
-        {
-          id: 'item-1',
-          label: 'Home',
-          disabled: true,
-          disabledLabel: DISABLED_LABEL,
-        },
-        {
-          id: 'item-2',
-          label: 'About',
-          disabled: true,
-          disabledLabel: DISABLED_LABEL,
-        },
-        {
-          id: 'item-3',
-          label: 'Experience',
-          disabled: true,
-          disabledLabel: DISABLED_LABEL,
-        },
-        {
-          id: 'item-4',
-          label: 'Writings',
-          href: '/blog',
-        },
-        {
-          id: 'item-5',
-          label: 'Contact',
-          disabled: true,
-          disabledLabel: DISABLED_LABEL,
-        },
-      ]}
-      renderBefore={() => <Logo color="light" className="mx-3" size="sm" />}
-      {...restProps}
-    />
+    <>
+      <TabsMenu
+        className={cn(className, styles.container())}
+        items={[
+          {
+            id: 'item-1',
+            label: 'Home',
+            disabled: true,
+            disabledLabel: DISABLED_LABEL,
+          },
+          {
+            id: 'item-2',
+            label: 'About',
+            disabled: true,
+            disabledLabel: DISABLED_LABEL,
+          },
+          {
+            id: 'item-3',
+            label: 'Experience',
+            disabled: true,
+            disabledLabel: DISABLED_LABEL,
+          },
+          {
+            id: 'item-4',
+            label: 'Writings',
+            href: '/writings',
+          },
+          {
+            id: 'item-5',
+            label: 'Contact',
+            disabled: true,
+            disabledLabel: DISABLED_LABEL,
+          },
+        ]}
+        renderBefore={<Logo color="light" className="mx-3" size="sm" />}
+        {...restProps}
+      />
+      <span className={styles.background()} />
+    </>
   )
 }
 
