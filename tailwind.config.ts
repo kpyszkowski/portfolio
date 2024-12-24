@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 import holographicPlugin from './tailwind-plugins/utilities/holographic'
 import neumorphismPlugin from './tailwind-plugins/utilities/neumorphism'
 import typographyPlugin from '@tailwindcss/typography'
+import proseInlineCode from './tailwind-plugins/utilities/prose-inline-code'
 
 const config: Config = {
   content: [
@@ -21,6 +22,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [holographicPlugin, neumorphismPlugin, typographyPlugin],
+  plugins: [
+    holographicPlugin,
+    neumorphismPlugin,
+    typographyPlugin,
+    proseInlineCode,
+  ],
 }
 export default config

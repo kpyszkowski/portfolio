@@ -1,3 +1,4 @@
+import { Article } from '@/components/ui/article'
 import { getWritingsDataBySlug, getWritingsMetadata } from '@/lib/writings'
 
 type WritingPageParams = {
@@ -10,13 +11,13 @@ type WritingPageProps = {
 
 export default async function WritingPage(props: WritingPageProps) {
   const { slug } = props.params
-  const { metadata, content: Content } = await getWritingsDataBySlug(slug)
+  const { metadata, content } = await getWritingsDataBySlug(slug)
 
   return (
-    <article className="prose prose-neutral prose-invert mx-auto">
+    <>
       <h1>{metadata.title}</h1>
-      <Content />
-    </article>
+      <Article content={content} />
+    </>
   )
 }
 
