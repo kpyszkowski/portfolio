@@ -10,12 +10,13 @@ In the ever-evolving landscape of software development, the debate between dynam
 
 One of the most compelling reasons to use static typing is the improvement it brings to code quality and safety. By enforcing type checks at compile time, static typing catches errors early in the development process, reducing the chances of runtime errors.
 
-```ts
+```ts title="TypeScript Example"
 function greet(name: string): string {
   return `Hello, ${name}!`
 }
 
-// This will throw an error at compile time, preventing potential runtime issues.
+// This will throw an error at compile time, preventing potential runtime
+// issues.
 let message: string = greet(123)
 ```
 

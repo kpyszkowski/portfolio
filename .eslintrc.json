@@ -40,8 +40,7 @@
             "maxDepth": 1,
             "ignoreExternal": true
           }
-        ],
-        "react/no-unknown-property": "off"
+        ]
       }
     }
   ]

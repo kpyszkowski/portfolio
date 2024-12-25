@@ -4,13 +4,7 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import remarkReadingTime from 'remark-reading-time'
 import remarkMDXReadingTime from 'remark-reading-time/mdx.js'
-import rehypePrettyCode from 'rehype-pretty-code'
-
-/** @type {import('rehype-pretty-code').Options} */
-const rehypePrettyCodeOptions = {
-  theme: 'one-dark-pro',
-  keepBackground: false,
-}
+import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 
 const withMDX = getWithMDX({
   options: {
@@ -21,7 +15,7 @@ const withMDX = getWithMDX({
       remarkReadingTime,
       remarkMDXReadingTime,
     ],
-    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+    rehypePlugins: [rehypeMdxCodeProps],
   },
 })
 
