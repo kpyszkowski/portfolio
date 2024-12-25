@@ -2,7 +2,7 @@ import { getHighlightedSyntaxTokens } from '@/lib/syntax-highlighting'
 import cn from '@/utils/cn'
 import { MDXComponents } from 'mdx/types'
 import React, { Children } from 'react'
-import { tv } from 'tailwind-variants'
+import { tv, VariantProps } from 'tailwind-variants'
 
 // TODO: Find/create copyright-free alternative background image
 // TODO: Add copy button
@@ -28,10 +28,18 @@ type CodeChildElement = React.ReactElement<{
   children: string
 }>
 
-const CodeBlock: MDXComponents['pre'] = async (props) => {
+interface CodeBlockProps extends VariantProps<typeof getStyles> {
+  className?: string
+  children?: React.ReactNode
+  title?: string
+}
+
+const CodeBlock = async (props: CodeBlockProps) => {
   const { className = '', children, title, ...restProps } = props
 
   const styles = getStyles()
+
+  if (!children) return null
 
   const codeChild = Children.toArray(children).at(0) as CodeChildElement
 
