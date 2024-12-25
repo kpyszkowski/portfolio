@@ -1,4 +1,5 @@
 import { Article } from '@/components/ui/article'
+import { WritingIntro } from '@/components/writing-intro'
 import { getWritingsDataBySlug, getWritingsMetadata } from '@/lib/writings'
 
 type WritingPageParams = {
@@ -15,7 +16,13 @@ export default async function WritingPage(props: WritingPageProps) {
 
   return (
     <>
-      <h1>{metadata.title}</h1>
+      <WritingIntro
+        className="mb-12 mt-16"
+        title={metadata.title}
+        publishedAt={metadata.publishedAt}
+        modifiedAt={metadata.modifiedAt}
+        readingTime={metadata.readingTime}
+      />
       <Article content={content} />
     </>
   )

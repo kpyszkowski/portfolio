@@ -32,7 +32,7 @@ const getStyles = tv({
 
 interface BadgeProps extends VariantProps<typeof getStyles> {
   className?: string
-  children: string
+  children: React.ReactNode
 }
 
 function Badge(props: BadgeProps) {
@@ -41,7 +41,7 @@ function Badge(props: BadgeProps) {
   const styles = getStyles({ color })
 
   return (
-    <div className={cn(className, styles.container())} {...restProps}>
+    <div className={cn(styles.container(), className)} {...restProps}>
       {children}
     </div>
   )
