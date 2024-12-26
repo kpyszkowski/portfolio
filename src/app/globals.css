@@ -16,12 +16,18 @@ body {
   .header-background {
     backdrop-filter: blur(theme(backdropBlur.sm));
     background-color: theme(colors.transparent);
-    background-image: radial-gradient(
-        theme(colors.transparent) 1px,
-        theme(colors.neutral.900) 1px
+    background-image: linear-gradient(
+        theme(colors.transparent) 3px,
+        theme(colors.neutral.900)
       ),
-      linear-gradient(to bottom, theme(colors.neutral.900), transparent 50%);
+      linear-gradient(
+        90deg,
+        theme(colors.transparent) 3px,
+        theme(colors.neutral.900)
+      ),
+      linear-gradient(to bottom, theme(colors.neutral.900), transparent 75%);
     background-size:
+      4px 4px,
       4px 4px,
       auto;
     mask: linear-gradient(
@@ -29,6 +35,36 @@ body {
       theme(colors.black) 50%,
       theme(colors.transparent) 100%
     );
+  }
+
+  .writing-outro-background {
+    --writing-outro-background-fg: theme(colors.neutral.800/0.56);
+    --writing-outro-background-fg-offset: calc(100% - 1px);
+
+    background-size: theme(size.8) theme(size.8);
+    background-image: linear-gradient(
+        transparent var(--writing-outro-background-fg-offset),
+        var(--writing-outro-background-fg)
+      ),
+      linear-gradient(
+        90deg,
+        transparent var(--writing-outro-background-fg-offset),
+        var(--writing-outro-background-fg)
+      );
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent 20%,
+        theme(colors.white),
+        transparent 80%
+      );
+      mix-blend-mode: overlay;
+    }
   }
 
   .placeholder-background {

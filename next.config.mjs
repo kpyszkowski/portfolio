@@ -22,6 +22,10 @@ const withMDX = getWithMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  images: {
+    loader: 'custom',
+    loaderFile: './src/image-loader.ts',
+  },
 }
 
 export default withMDX(nextConfig)

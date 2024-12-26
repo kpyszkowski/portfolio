@@ -27,10 +27,10 @@ export default function WritingsLayout({
 }>) {
   return (
     <div className="font-sans">
-      <div className="mx-auto flex max-w-screen-lg flex-col px-5">
+      <div className="flex flex-col px-5">
         <Header />
 
-        <main>{children}</main>
+        {children}
       </div>
     </div>
   )

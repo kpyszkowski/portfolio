@@ -14,10 +14,10 @@ const getStyles = tv({
       'relative -mx-20 my-6 rounded-3xl bg-[url(https://4kwallpapers.com/images/walls/thumbs_3t/5584.jpg)] bg-cover p-20',
     figure:
       'm-0 rounded-xl bg-black/[0.64] shadow-lg backdrop-blur-lg backdrop-contrast-[0.52] backdrop-saturate-[1.24] neumorphism',
-    figcaption: 'm-0 flex px-5 py-6 leading-6',
+    figcaption: 'm-0 flex px-5 pb-6 pt-4 leading-6',
     decorator: 'w-12',
     label: 'flex-1 text-center text-xs text-neutral-300',
-    pre: 'rounded-none bg-transparent p-0 pb-6',
+    pre: 'rounded-none bg-transparent p-0 pb-4',
     code: '[counter-reset:line]',
     line: 'before:sticky before:left-0 before:ml-px before:inline-block before:h-full before:px-5 before:text-neutral-500 before:content-[counter(line)] before:[counter-increment:line]',
   },
