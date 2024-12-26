@@ -34,7 +34,7 @@ function WritingOutro(props: WritingOutroProps) {
           height="128"
           viewBox="0 0 64 128"
           style={{
-            transformOrigin: '104% 12%',
+            transformOrigin: '112% 20%',
           }}
           initial={{
             opacity: 0.24,
@@ -44,9 +44,10 @@ function WritingOutro(props: WritingOutroProps) {
           }}
           whileInView={{
             opacity: 0.32,
-            rotate: 35,
-            scaleX: 1.82,
-            scaleY: 1.48,
+            rotate: 40,
+            scaleX: 2.1,
+            scaleY: 1.6,
+            x: '50%',
             transition: {
               delay: 1,
               duration: 2,
