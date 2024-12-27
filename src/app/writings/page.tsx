@@ -20,7 +20,7 @@ export default async function WritingsPage() {
 
   return (
     <main className="mx-auto max-w-screen-lg px-5">
-      <div className="flex gap-12 py-24">
+      <div className="flex flex-col gap-12 py-24 md:flex-row">
         <div className="flex basis-2/6 flex-col gap-4">
           <h1 className="text-3xl">Hi everyone! ✋🏻</h1>
           <p className="text-xl text-neutral-400">

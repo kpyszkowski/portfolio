@@ -1,17 +1,15 @@
 import { getHighlightedSyntaxTokens } from '@/lib/syntax-highlighting'
 import cn from '@/utils/cn'
-import { MDXComponents } from 'mdx/types'
 import React, { Children } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
-// TODO: Find/create copyright-free alternative background image
 // TODO: Add copy button
 // TODO: Add line highlighting
 
 const getStyles = tv({
   slots: {
     container:
-      'relative -mx-20 my-6 rounded-3xl bg-[url(https://4kwallpapers.com/images/walls/thumbs_3t/5584.jpg)] bg-cover p-20',
+      'code-block-background relative -mx-20 my-6 rounded-3xl bg-cover p-20',
     figure:
       'm-0 rounded-xl bg-black/[0.64] shadow-lg backdrop-blur-lg backdrop-contrast-[0.52] backdrop-saturate-[1.24] neumorphism',
     figcaption: 'm-0 flex px-5 pb-6 pt-4 leading-6',

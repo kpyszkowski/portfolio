@@ -1,7 +1,7 @@
 'use client'
 import { Signature } from '@/components/signature'
 import cn from '@/utils/cn'
-import { delay, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
