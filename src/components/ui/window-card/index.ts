@@ -1,0 +1,1 @@
+export { default as WindowCard } from './window-card'
