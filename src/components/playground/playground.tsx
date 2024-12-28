@@ -13,19 +13,25 @@ const getStyles = tv({
   },
 })
 
-type PlaygroundControl<S> = [S, (value: S) => void]
+type PlaygroundValue = string | number
+type PlaygroundRegistryEntry<V = PlaygroundValue> = [
+  value: V,
+  setter: (value: V) => void,
+]
+type PlaygroundControls = {
+  [name: string]: PlaygroundValue
+}
+type PlaygroundRegistry<V = PlaygroundValue> = {
+  [name: string]: PlaygroundRegistryEntry<V>
+}
 
-type PlaygroundControlRegisterFn = <S = unknown>(
+type PlaygroundRegisterFn = <V>(
   name: string,
-  defaultValue: S,
-) => PlaygroundControl<S>
-
-type PlaygroundValues = Record<string, unknown>
-
-type PlaygroundControls = Record<string, PlaygroundControl<unknown>>
+  defaultValue: V,
+) => PlaygroundRegistryEntry<V>
 
 type PlaygroundRenderProps = {
-  registerControl: PlaygroundControlRegisterFn
+  registerControl: PlaygroundRegisterFn
 }
 interface PlaygroundProps extends VariantProps<typeof getStyles> {
   className?: string
@@ -38,46 +44,41 @@ function Playground(props: PlaygroundProps) {
 
   const styles = getStyles()
 
-  // Controls state stores the current value of each control to ensure the UI
-  // is reactive
-  const [controls, setControls] = useState<PlaygroundValues>({})
-  // Controls ref stores the control value and setter function to update the
-  // value
-  const controlsRef = useRef<PlaygroundControls>({})
+  const [controls, setControls] = useState<PlaygroundControls>({})
+  const registry = useRef<PlaygroundRegistry>({})
 
-  const isControlRegistered = (name: string) => name in controlsRef.current
+  const isControlRegistered = (name: string) => name in registry.current
 
-  const setControl = (name: string, value: unknown) => {
-    const control: PlaygroundControl<typeof value> = [
-      value,
-      (value: unknown) => {
+  // @ts-expect-error Dunno how to type this, generic are awkward 🤷🏻‍♂️
+  const registerControl: PlaygroundRegisterFn = <V extends PlaygroundValue>(
+    name: string,
+    defaultValue: V,
+  ) => {
+    if (isControlRegistered(name)) {
+      const registryEntry = registry.current[name]
+      return registryEntry
+    }
+
+    const registryEntry: PlaygroundRegistryEntry = [
+      defaultValue,
+      (latestValue) => {
         setControls((prev) => ({
           ...prev,
-          [name]: value,
+          [name]: latestValue,
         }))
-        controlsRef.current[name][0] = value
+        registry.current[name][0] = latestValue
       },
     ]
 
-    controlsRef.current[name] = control
-    setControls((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const getControl = (name: string) => {
-    return controlsRef.current[name]
-  }
-
-  const registerControl: PlaygroundControlRegisterFn = (name, defaultValue) => {
-    if (!isControlRegistered(name)) {
-      setControl(name, defaultValue)
-    }
-
-    return getControl(name) as PlaygroundControl<typeof defaultValue>
+    setControls((prev) => ({ ...prev, [name]: defaultValue }))
+    registry.current[name] = registryEntry
+    return registryEntry
   }
 
   const handleValueChange = (name: string, value: string) => {
     if (!isControlRegistered(name)) return
-    const [, setValue] = getControl(name)
+
+    const [, setValue] = registry.current[name]
     setValue(value)
   }
 
