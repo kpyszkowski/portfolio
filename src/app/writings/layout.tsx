@@ -15,7 +15,7 @@ export default function WritingsLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="flex min-h-screen flex-col px-5 font-sans">
+    <div className="flex min-h-screen flex-col font-sans">
       <Header />
 
       {children}

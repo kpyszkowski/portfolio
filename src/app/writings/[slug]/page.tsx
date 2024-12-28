@@ -16,7 +16,7 @@ export default async function WritingPage(props: WritingPageProps) {
   const { metadata, content } = await getWritingData(slug)
 
   return (
-    <main>
+    <main className="px-5">
       <WritingIntro
         className="mx-auto mb-12 mt-16 max-w-screen-lg"
         title={metadata.title}

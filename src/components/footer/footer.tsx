@@ -9,8 +9,8 @@ const getStyles = tv({
   slots: {
     container:
       'mt-auto border-t border-neutral-800 bg-neutral-900 font-mono text-xs text-neutral-500',
-    wrapper: 'mx-auto flex w-full max-w-screen-lg items-center py-6',
-    decorator: 'flex flex-col',
+    wrapper: 'mx-auto flex w-full max-w-screen-lg items-center px-5 py-6',
+    decorator: 'flex flex-col items-end',
     logo: 'mx-auto',
   },
 })
@@ -52,14 +52,16 @@ function Footer(props: FooterProps) {
     <div className={cn(className, styles.container())} {...restProps}>
       <div className={styles.wrapper()}>
         <div className={styles.decorator()}>
-          <span>Poznan, PL</span>
           <span suppressHydrationWarning>{dateDecorator}</span>
         </div>
 
         <Logo className={styles.logo()} size="sm" color="light" />
 
         <div className={styles.decorator()}>
-          <span>Made with ☕️ and 🤍 &copy; {new Date().getFullYear()}</span>
+          <span>
+            &copy; {new Date().getFullYear()} <br />
+          </span>
+          <span>Genuinely crafted in Poland</span>
         </div>
       </div>
     </div>
