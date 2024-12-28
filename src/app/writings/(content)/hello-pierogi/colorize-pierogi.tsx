@@ -2,7 +2,7 @@
 import { Playground } from '@/components/playground'
 
 const ColorizePierogi = () => (
-  <Playground title="Colorize Pierogi">
+  <Playground title="Colorize pierożek">
     {({ registerControl }) => {
       const [hue] = registerControl('hue', 0, {
         min: 0,
@@ -10,7 +10,11 @@ const ColorizePierogi = () => (
         label: 'Hue',
         valueLabel: ['0°', '360°'],
       })
-      const [name] = registerControl('name', 'Colorized pierożek')
+      const [name] = registerControl('name', '', {
+        withClearButton: true,
+        label: 'Name your pierożek',
+        placeholder: 'You gave me color, now give me name',
+      })
       return (
         <div style={{ position: 'relative' }}>
           <img

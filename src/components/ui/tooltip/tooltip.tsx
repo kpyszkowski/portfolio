@@ -50,6 +50,8 @@ interface TooltipProps
   children: React.ReactNode
   label: string
   disabled?: boolean
+  triggerAsChild?: boolean
+  delayDuration?: number
 }
 
 // TODO: Investigate the error - the use of `forwardRef` doesn't help
@@ -62,6 +64,8 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
     label,
     disabled = false,
     sideOffset = 4,
+    triggerAsChild = true,
+    delayDuration = 400,
     ...restProps
   } = props
 
@@ -81,9 +85,9 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
     )
 
   return (
-    <TooltipPrimitive.Provider delayDuration={400}>
+    <TooltipPrimitive.Provider delayDuration={delayDuration}>
       <TooltipPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
-        <TooltipPrimitive.Trigger asChild>
+        <TooltipPrimitive.Trigger asChild={triggerAsChild}>
           {triggerContent}
         </TooltipPrimitive.Trigger>
 

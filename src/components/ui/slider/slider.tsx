@@ -1,8 +1,9 @@
+'use client'
+import { Badge } from '@/components/ui/badge'
 import cn from '@/utils/cn'
 import * as SliderPrimitive from '@radix-ui/react-slider'
+import { useCallback, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
-
-// TODO: Disable outline and style custom ring
 
 const getStyles = tv({
   slots: {
@@ -12,9 +13,11 @@ const getStyles = tv({
     track: 'relative flex-grow overflow-hidden rounded bg-neutral-50/25',
     range: 'absolute bg-neutral-50',
     thumb:
-      'relative block size-4 rounded-full bg-neutral-50 shadow-[0_0_4px] shadow-neutral-600',
+      'relative block size-4 rounded-full bg-neutral-50 shadow-[0_0_4px] shadow-neutral-600 outline-none ring-neutral-50/50 transition-shadow focus-visible:ring-4',
     valueLabelsWrapper: 'text-xs text-neutral-400',
     valueLabel: '',
+    valuesWrapper: 'flex justify-between',
+    value: 'ml-auto min-w-12 px-2 text-center',
   },
   variants: {
     orientation: {
@@ -41,12 +44,13 @@ const getStyles = tv({
   },
 })
 
+type SliderValue = [number] | [number, number]
 interface SliderProps
   extends VariantProps<typeof getStyles>,
     SliderPrimitive.SliderProps {
   className?: string
   label?: string
-  defaultValue?: [number] | [number, number]
+  defaultValue?: SliderValue
   valueLabel?: [string] | [string, string]
 }
 
@@ -54,12 +58,14 @@ function Slider(props: SliderProps) {
   const {
     className = '',
     label,
-    defaultValue,
+    defaultValue = [0],
     valueLabel,
-    orientation,
-    onChange,
+    orientation = 'horizontal',
+    onValueChange,
     ...restProps
   } = props
+
+  const [_value, _setValue] = useState(defaultValue)
 
   const styles = getStyles({ orientation })
 
@@ -68,15 +74,32 @@ function Slider(props: SliderProps) {
 
   const [minValueLabel, maxValueLabel] = valueLabel || []
 
+  const handleValueChange = useCallback(
+    (value: SliderValue) => {
+      _setValue(value)
+      onValueChange && onValueChange(value)
+    },
+    [onValueChange],
+  )
+
+  // TODO: Adapt to dual range mode and vertical orientation
+  const showValue = !isDualRangeMode && orientation === 'horizontal'
+
   return (
     <div className={styles.container()}>
-      {label && <span className={styles.label()}>{label}</span>}
+      <div className={styles.valuesWrapper()}>
+        {label && <span className={styles.label()}>{label}</span>}
+
+        {showValue && <Badge className={styles.value()}>{_value}</Badge>}
+      </div>
 
       <SliderPrimitive.Root
         className={cn(styles.sliderRoot(), className)}
         defaultValue={defaultValue}
         minStepsBetweenThumbs={isDualRangeMode ? 1 : undefined}
         orientation={orientation}
+        value={_value}
+        onValueChange={handleValueChange}
         {...restProps}
       >
         <SliderPrimitive.Track className={styles.track()}>

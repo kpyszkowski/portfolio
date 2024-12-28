@@ -7,11 +7,12 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container:
-      'mt-auto border-t border-neutral-800 bg-neutral-900 font-mono text-xs text-neutral-500',
-    wrapper: 'mx-auto flex w-full max-w-screen-lg items-center px-5 py-6',
-    decorator: 'flex flex-col items-end',
-    logo: 'mx-auto',
+    container: 'mt-auto border-t border-neutral-800 bg-neutral-900',
+    wrapper:
+      'mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 sm:flex-row',
+    decorator:
+      'flex flex-col items-end font-mono text-xs/relaxed text-neutral-500',
+    logo: 'order-last mx-auto mb-4 sm:order-none sm:mb-0',
   },
 })
 
@@ -59,9 +60,8 @@ function Footer(props: FooterProps) {
 
         <div className={styles.decorator()}>
           <span>
-            &copy; {new Date().getFullYear()} <br />
+            Genuinely crafted in Poland &copy; {new Date().getFullYear()}
           </span>
-          <span>Genuinely crafted in Poland</span>
         </div>
       </div>
     </div>

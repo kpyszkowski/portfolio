@@ -1,5 +1,6 @@
 // @ts-nocheck TODO: Fix types
 'use client'
+import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
 import { WindowCard } from '@/components/ui/window-card'
 import cn from '@/utils/cn'
@@ -11,7 +12,7 @@ const getStyles = tv({
     container: 'overflow-hidden',
     contentWrapper: 'p-5',
     controlsWrapper:
-      'grid grid-flow-col grid-cols-2 gap-x-5 gap-y-3 border-t border-neutral-700 bg-neutral-800 p-5',
+      'grid grid-flow-col grid-cols-2 gap-x-8 gap-y-3 border-t border-neutral-700 bg-neutral-800 px-8 py-6',
   },
 })
 
@@ -19,7 +20,7 @@ const getComponentByValue = (value: PlaygroundValue) => {
   switch (typeof value) {
     default:
     case 'string':
-      return 'input'
+      return Input
     case 'number':
       return Slider
   }
@@ -27,7 +28,7 @@ const getComponentByValue = (value: PlaygroundValue) => {
 
 type PlaygroundControlProps<V> = Omit<
   V extends string
-    ? React.HTMLProps<HTMLInputElement>
+    ? React.ComponentProps<typeof Input>
     : V extends number
       ? React.ComponentProps<typeof Slider>
       : never,
@@ -115,11 +116,14 @@ function Playground(props: PlaygroundProps) {
       <div className={styles.controlsWrapper()}>
         {Object.entries(controls).map(([id, value]) => {
           const [, , props] = registry.current[id]
+          const isNumber = typeof value === 'number'
           const Component = getComponentByValue(value)
           return (
             <Component
-              value={[value]}
-              onValueChange={([value]) => handleValueChange(id, value)}
+              value={isNumber ? [value] : value}
+              onValueChange={(value) =>
+                handleValueChange(id, isNumber ? value[0] : value)
+              }
               {...props}
             />
           )

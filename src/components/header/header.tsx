@@ -42,12 +42,6 @@ const ITEMS = [
     label: 'Writings',
     href: '/writings',
   },
-  {
-    id: 'item-5',
-    label: 'Contact',
-    disabled: true,
-    disabledLabel: DISABLED_LABEL,
-  },
 ]
 
 function Header(props: HeaderProps) {
