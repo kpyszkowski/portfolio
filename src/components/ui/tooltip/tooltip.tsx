@@ -2,7 +2,7 @@
 import cn from '@/utils/cn'
 import { tv, type VariantProps } from 'tailwind-variants'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 
 const getStyles = tv({
@@ -52,7 +52,9 @@ interface TooltipProps
   disabled?: boolean
 }
 
-function Tooltip(props: TooltipProps) {
+// TODO: Investigate the error - the use of `forwardRef` doesn't help
+
+const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   const {
     className = '',
     children,
@@ -104,6 +106,7 @@ function Tooltip(props: TooltipProps) {
                     transformOrigin:
                       'var(--radix-tooltip-content-transform-origin)',
                   }}
+                  ref={ref}
                 >
                   <TooltipPrimitive.Arrow className={styles.arrow()} />
                   {label}
@@ -115,6 +118,6 @@ function Tooltip(props: TooltipProps) {
       </TooltipPrimitive.Root>
     </TooltipPrimitive.Provider>
   )
-}
+})
 
 export default Tooltip

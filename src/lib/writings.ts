@@ -25,9 +25,14 @@ type MDXFile = {
   }
 }
 
-const getWritingDataByFileName = async (fileName: string) => {
+type Language = 'en' | 'pl'
+
+export const getWritingData = async (
+  slug: string,
+  language: Language = 'en',
+) => {
   const file = (await import(
-    `../app/writings/(content)/${fileName}`
+    `../app/writings/(content)/${slug}/${language}.mdx`
   )) as MDXFile
 
   const data = file.frontmatter
@@ -37,7 +42,6 @@ const getWritingDataByFileName = async (fileName: string) => {
   const publishedAt = new Date(data.publishedAt)
   const modifiedAt = data.modifiedAt ? new Date(data.modifiedAt) : undefined
   const readingTime = Math.ceil(readingTimeStats.minutes)
-  const slug = fileName.replace(/\.mdx$/, '')
 
   const metadata: WritingMetadata = {
     title: data.title,
@@ -51,11 +55,6 @@ const getWritingDataByFileName = async (fileName: string) => {
   return { metadata, content }
 }
 
-export const getWritingsDataBySlug = async (slug: string) => {
-  const fileName = `${slug}.mdx`
-  return getWritingDataByFileName(fileName)
-}
-
 export const getWritingsMetadata = async () => {
   const writingsDirectory = await readdir(BASE_PATH, {
     withFileTypes: true,
@@ -63,7 +62,8 @@ export const getWritingsMetadata = async () => {
 
   const writings = await Promise.all(
     writingsDirectory.map(async ({ name }) => {
-      const { metadata } = await getWritingDataByFileName(name)
+      const slug = name.replace('.mdx', '')
+      const { metadata } = await getWritingData(slug)
       return metadata
     }),
   )

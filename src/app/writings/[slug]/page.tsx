@@ -1,7 +1,7 @@
 import { Article } from '@/components/ui/article'
 import { WritingIntro } from '@/components/writing-intro'
 import { WritingOutro } from '@/components/writing-outro'
-import { getWritingsDataBySlug, getWritingsMetadata } from '@/lib/writings'
+import { getWritingData, getWritingsMetadata } from '@/lib/writings'
 
 type WritingPageParams = {
   slug: string
@@ -13,7 +13,7 @@ type WritingPageProps = {
 
 export default async function WritingPage(props: WritingPageProps) {
   const { slug } = props.params
-  const { metadata, content } = await getWritingsDataBySlug(slug)
+  const { metadata, content } = await getWritingData(slug)
 
   return (
     <main>
@@ -40,7 +40,7 @@ export const dynamicParams = false
 
 export async function generateMetadata(props: WritingPageProps) {
   const { slug } = props.params
-  const { metadata } = await getWritingsDataBySlug(slug)
+  const { metadata } = await getWritingData(slug)
   return {
     title: metadata.title,
   }

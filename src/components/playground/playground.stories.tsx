@@ -1,40 +1,63 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import Playground from './playground'
-import withPlayground from './with-playground'
+import { Button } from '@/components/ui/button'
 
 const meta: Meta<typeof Playground> = {
   title: 'Playground',
   component: Playground,
   tags: ['autodocs'],
+  args: {
+    title: 'Example of interactive playground',
+  },
 }
 
 export default meta
-type Story = StoryObj<typeof Playground>
+type Story = StoryFn<typeof Playground>
 
-export const Default: Story = {
-  args: {},
-}
-
-export const WithHOC: StoryFn = () => {
-  const ComponentWithPlayground = withPlayground(
-    ({ registerControl, ...restProps }) => {
-      const [text, setText] = registerControl('text', 21)
+export const Default: Story = (props) => (
+  <Playground {...props}>
+    {({ registerControl }) => {
+      const [text, setText] = registerControl('text', 'Example text')
+      const [number, setNumber] = registerControl('number', 1234)
 
       return (
-        <div {...restProps}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            gap: '1rem',
+          }}
+        >
+          <p>
+            The following values can be controlled not only with controls given
+            below but also by itself with buttons. The state is shared.
+          </p>
+
           <p>{text}</p>
-          <button
+          <p>{number}</p>
+
+          <Button
+            size="sm"
             onClick={() => {
-              setText(2137)
+              setText('It was set with button')
             }}
           >
             Set sample text
-          </button>
+          </Button>
+
+          <Button
+            size="sm"
+            onClick={() => {
+              setNumber(2137)
+              setText('🙈')
+            }}
+          >
+            Set sample number
+          </Button>
         </div>
       )
-    },
-  )
-
-  return <ComponentWithPlayground />
-}
+    }}
+  </Playground>
+)

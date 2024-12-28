@@ -1,6 +1,5 @@
 import { WindowCard } from '@/components/ui/window-card'
 import { getHighlightedSyntaxTokens } from '@/lib/syntax-highlighting'
-import cn from '@/utils/cn'
 import React, { Children } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 

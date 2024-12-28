@@ -89,6 +89,7 @@ export interface ButtonProps extends VariantProps<typeof getStyles> {
   icon?: Icon
   href?: string
   isExternal?: boolean
+  onClick?: React.MouseEventHandler
 }
 
 function Button(props: ButtonProps) {
