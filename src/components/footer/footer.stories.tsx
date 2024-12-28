@@ -6,9 +6,7 @@ const meta: Meta<typeof Footer> = {
   title: 'Footer',
   component: Footer,
   tags: ['autodocs'],
-  args: {
-    children: 'Footer',
-  },
+  args: {},
 }
 
 export default meta

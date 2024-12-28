@@ -1,6 +1,7 @@
 'use client'
 import { Logo } from '@/components/logo'
 import cn from '@/utils/cn'
+import getFormattedDate from '@/utils/get-formatted-date'
 import { useEffect, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -9,6 +10,7 @@ const getStyles = tv({
     container:
       'mt-auto border-t border-neutral-800 bg-neutral-900 font-mono text-xs text-neutral-500',
     wrapper: 'mx-auto flex w-full max-w-screen-lg items-center py-6',
+    decorator: 'flex flex-col',
     logo: 'mx-auto',
   },
 })
@@ -33,17 +35,32 @@ function Footer(props: FooterProps) {
   }, [])
 
   const dateDecorator = useMemo(
-    () => new Date(currentTime).toUTCString(),
+    () =>
+      getFormattedDate(new Date(currentTime), {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZone: 'Europe/Warsaw',
+      }),
     [currentTime],
   )
   return (
     <div className={cn(className, styles.container())} {...restProps}>
       <div className={styles.wrapper()}>
-        <span suppressHydrationWarning>{dateDecorator}</span>
+        <div className={styles.decorator()}>
+          <span>Poznan, PL</span>
+          <span suppressHydrationWarning>{dateDecorator}</span>
+        </div>
 
         <Logo className={styles.logo()} size="sm" color="light" />
 
-        <span>Proudly made in Poland &copy; {new Date().getFullYear()}</span>
+        <div className={styles.decorator()}>
+          <span>Made with ☕️ and 🤍 &copy; {new Date().getFullYear()}</span>
+        </div>
       </div>
     </div>
   )

@@ -17,9 +17,9 @@ type GetFormattedDateOptions = Intl.DateTimeFormatOptions & {
  */
 
 const getFormattedDate = (date: Date, options?: GetFormattedDateOptions) =>
-  date.toLocaleDateString(options?.locale || DEFAULT_LOCALE, {
+  Intl.DateTimeFormat(options?.locale || DEFAULT_LOCALE, {
     ...DEFAULT_OPTIONS,
     ...options,
-  })
+  }).format(date)
 
 export default getFormattedDate
