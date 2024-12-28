@@ -1,7 +1,9 @@
+// @ts-nocheck TODO: Fix types
 'use client'
+import { Slider } from '@/components/ui/slider'
 import { WindowCard } from '@/components/ui/window-card'
 import cn from '@/utils/cn'
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -13,21 +15,42 @@ const getStyles = tv({
   },
 })
 
+const getComponentByValue = (value: PlaygroundValue) => {
+  switch (typeof value) {
+    default:
+    case 'string':
+      return 'input'
+    case 'number':
+      return Slider
+  }
+}
+
+type PlaygroundControlProps<V> = Omit<
+  V extends string
+    ? React.HTMLProps<HTMLInputElement>
+    : V extends number
+      ? React.ComponentProps<typeof Slider>
+      : never,
+  'value' | 'onChange'
+>
+
 type PlaygroundValue = string | number
 type PlaygroundRegistryEntry<V = PlaygroundValue> = [
   value: V,
   setter: (value: V) => void,
+  props: PlaygroundControlProps<V>,
 ]
 type PlaygroundControls = {
-  [name: string]: PlaygroundValue
+  [id: string]: PlaygroundValue
 }
 type PlaygroundRegistry<V = PlaygroundValue> = {
-  [name: string]: PlaygroundRegistryEntry<V>
+  [id: string]: PlaygroundRegistryEntry<V>
 }
 
 type PlaygroundRegisterFn = <V>(
-  name: string,
+  id: string,
   defaultValue: V,
+  props?: PlaygroundControlProps<V>,
 ) => PlaygroundRegistryEntry<V>
 
 type PlaygroundRenderProps = {
@@ -47,15 +70,15 @@ function Playground(props: PlaygroundProps) {
   const [controls, setControls] = useState<PlaygroundControls>({})
   const registry = useRef<PlaygroundRegistry>({})
 
-  const isControlRegistered = (name: string) => name in registry.current
+  const isControlRegistered = (id: string) => id in registry.current
 
-  // @ts-expect-error Dunno how to type this, generic are awkward 🤷🏻‍♂️
   const registerControl: PlaygroundRegisterFn = <V extends PlaygroundValue>(
-    name: string,
+    id: string,
     defaultValue: V,
+    props: PlaygroundControlProps<V> = {},
   ) => {
-    if (isControlRegistered(name)) {
-      const registryEntry = registry.current[name]
+    if (isControlRegistered(id)) {
+      const registryEntry = registry.current[id]
       return registryEntry
     }
 
@@ -64,21 +87,22 @@ function Playground(props: PlaygroundProps) {
       (latestValue) => {
         setControls((prev) => ({
           ...prev,
-          [name]: latestValue,
+          [id]: latestValue,
         }))
-        registry.current[name][0] = latestValue
+        registry.current[id][0] = latestValue
       },
+      props,
     ]
 
-    setControls((prev) => ({ ...prev, [name]: defaultValue }))
-    registry.current[name] = registryEntry
+    setControls((prev) => ({ ...prev, [id]: defaultValue }))
+    registry.current[id] = registryEntry
     return registryEntry
   }
 
-  const handleValueChange = (name: string, value: string) => {
-    if (!isControlRegistered(name)) return
+  const handleValueChange = (id: string, value: PlaygroundValue) => {
+    if (!isControlRegistered(id)) return
 
-    const [, setValue] = registry.current[name]
+    const [, setValue] = registry.current[id]
     setValue(value)
   }
 
@@ -89,18 +113,17 @@ function Playground(props: PlaygroundProps) {
       </div>
 
       <div className={styles.controlsWrapper()}>
-        {Object.entries(controls).map(([name, value]) => (
-          // TODO: Implement controls components such as Input, Range, Toggle etc.
-          <label key={name}>
-            <span>{name}</span>
-            <input
-              style={{ color: 'black' }}
-              type="text"
-              value={value as string}
-              onChange={(e) => handleValueChange(name, e.target.value)}
+        {Object.entries(controls).map(([id, value]) => {
+          const [, , props] = registry.current[id]
+          const Component = getComponentByValue(value)
+          return (
+            <Component
+              value={[value]}
+              onValueChange={([value]) => handleValueChange(id, value)}
+              {...props}
             />
-          </label>
-        ))}
+          )
+        })}
       </div>
     </WindowCard>
   )

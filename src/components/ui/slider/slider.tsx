@@ -57,6 +57,7 @@ function Slider(props: SliderProps) {
     defaultValue,
     valueLabel,
     orientation,
+    onChange,
     ...restProps
   } = props
 

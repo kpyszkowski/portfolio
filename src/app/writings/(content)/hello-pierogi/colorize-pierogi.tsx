@@ -4,20 +4,40 @@ import { Playground } from '@/components/playground'
 const ColorizePierogi = () => (
   <Playground title="Colorize Pierogi">
     {({ registerControl }) => {
-      const [hue] = registerControl('Hue', 0)
+      const [hue] = registerControl('hue', 0, {
+        min: 0,
+        max: 360,
+        label: 'Hue',
+        valueLabel: ['0°', '360°'],
+      })
+      const [name] = registerControl('name', 'Colorized pierożek')
       return (
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Pier%C3%B3g_ruski.JPG"
-          style={{
-            filter: `hue-rotate(${hue}deg)`,
-            maxWidth: '512px',
-            height: 'auto',
-            borderRadius: '8px',
-            transition: 'filter 0.3s ease-in-out',
-            width: '100%',
-            margin: '0 auto',
-          }}
-        />
+        <div style={{ position: 'relative' }}>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Pier%C3%B3g_ruski.JPG"
+            style={{
+              filter: `hue-rotate(${hue}deg)`,
+              height: 'auto',
+              borderRadius: '8px',
+              width: '100%',
+              margin: '0 auto',
+            }}
+          />
+          <span
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              color: 'black',
+              fontSize: '4rem',
+              textAlign: 'center',
+              lineHeight: 1,
+            }}
+          >
+            {name}
+          </span>
+        </div>
       )
     }}
   </Playground>
