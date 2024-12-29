@@ -15,6 +15,10 @@ const ColorizePierogi = () => (
         label: 'Name your pierożek',
         placeholder: 'You gave me color, now give me name',
       })
+      const [isRotated] = registerControl('isRotated', false, {
+        label: 'Rotate pierożek',
+      })
+
       return (
         <div style={{ position: 'relative' }}>
           <img
@@ -25,6 +29,7 @@ const ColorizePierogi = () => (
               borderRadius: '8px',
               width: '100%',
               margin: '0 auto',
+              transform: isRotated ? 'rotate(180deg)' : 'none',
             }}
           />
           <span

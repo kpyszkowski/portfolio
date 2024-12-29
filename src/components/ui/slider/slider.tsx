@@ -12,8 +12,11 @@ const getStyles = tv({
     label: 'block text-sm text-neutral-50',
     track: 'relative flex-grow overflow-hidden rounded bg-neutral-50/25',
     range: 'absolute bg-neutral-50',
-    thumb:
-      'relative block size-4 rounded-full bg-neutral-50 shadow-[0_0_4px] shadow-neutral-600 outline-none ring-neutral-50/50 transition-shadow focus-visible:ring-4',
+    thumb: [
+      'relative block size-4 rounded-full bg-neutral-50 transition-shadow',
+      'outline-none ring-neutral-50/50 focus-visible:ring-4',
+      'shadow-[0_0_4px] shadow-neutral-600',
+    ],
     valueLabelsWrapper: 'text-xs text-neutral-400',
     valueLabel: '',
     valuesWrapper: 'flex justify-between',

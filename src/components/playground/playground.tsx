@@ -2,6 +2,7 @@
 'use client'
 import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
+import { Toggle } from '@/components/ui/toggle'
 import { WindowCard } from '@/components/ui/window-card'
 import cn from '@/utils/cn'
 import { useRef, useState } from 'react'
@@ -12,7 +13,7 @@ const getStyles = tv({
     container: 'overflow-hidden',
     contentWrapper: 'p-5',
     controlsWrapper:
-      'grid grid-flow-col grid-cols-2 gap-x-8 gap-y-3 border-t border-neutral-700 bg-neutral-800 px-8 py-6',
+      'grid grid-flow-row gap-8 border-t border-neutral-700 bg-neutral-800 px-8 py-6 md:grid-cols-2',
   },
 })
 
@@ -23,6 +24,8 @@ const getComponentByValue = (value: PlaygroundValue) => {
       return Input
     case 'number':
       return Slider
+    case 'boolean':
+      return Toggle
   }
 }
 
@@ -31,8 +34,10 @@ type PlaygroundControlProps<V> = Omit<
     ? React.ComponentProps<typeof Input>
     : V extends number
       ? React.ComponentProps<typeof Slider>
-      : never,
-  'value' | 'onChange'
+      : V extends boolean
+        ? React.ComponentProps<typeof Toggle>
+        : never,
+  'value' | 'onChange' | 'onValueChange' | 'checked' | 'onCheckedChange'
 >
 
 type PlaygroundValue = string | number
@@ -116,13 +121,20 @@ function Playground(props: PlaygroundProps) {
       <div className={styles.controlsWrapper()}>
         {Object.entries(controls).map(([id, value]) => {
           const [, , props] = registry.current[id]
+
           const isNumber = typeof value === 'number'
+          const isBoolean = typeof value === 'boolean'
+
           const Component = getComponentByValue(value)
           return (
             <Component
               value={isNumber ? [value] : value}
               onValueChange={(value) =>
                 handleValueChange(id, isNumber ? value[0] : value)
+              }
+              checked={isBoolean ? value : undefined}
+              onCheckedChange={
+                isBoolean ? (value) => handleValueChange(id, value) : undefined
               }
               {...props}
             />
