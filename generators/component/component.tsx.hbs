@@ -17,9 +17,9 @@ function {{pascalCase name}}(props: {{pascalCase name}}Props) {
   const styles = getStyles()
 
   return (
-  <div className={cn(className, styles.container())} {...restProps}>
+    <div className={cn(styles.container(), className)} {...restProps}>
 
-  </div>
+    </div>
   )
 }
 

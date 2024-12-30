@@ -13,14 +13,14 @@ const componentGenerator = {
     {
       type: 'confirm',
       name: 'isUiComponent',
-      message: 'Is i the UI component?',
+      message: 'Is it the UI component?',
     },
   ],
   actions: (data) => {
     const isUiComponent = data?.isUiComponent
     const basePath = isUiComponent
       ? 'src/components/ui/{{kebabCase name}}'
-      : 'src/components/{{kebabCase  name}}'
+      : 'src/components/{{kebabCase name}}'
 
     return [
       {
