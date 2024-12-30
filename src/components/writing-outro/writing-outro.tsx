@@ -1,7 +1,9 @@
 'use client'
 import { Signature } from '@/components/signature'
+import { WritingNavigationContext } from '@/components/writing-navigation/writing-navigation'
 import cn from '@/utils/cn'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useContext, useEffect } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -24,8 +26,21 @@ function WritingOutro(props: WritingOutroProps) {
 
   const styles = getStyles()
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(containerRef)
+
+  const { setIsVisible: setNavigationVisible } = useContext(
+    WritingNavigationContext,
+  )
+
+  useEffect(() => setNavigationVisible(!isInView), [isInView])
+
   return (
-    <div className={cn(styles.container(), className)} {...restProps}>
+    <div
+      className={cn(styles.container(), className)}
+      ref={containerRef}
+      {...restProps}
+    >
       <div className={styles.wrapper()}>
         <motion.svg
           className={styles.spotlight()}

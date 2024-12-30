@@ -1,5 +1,6 @@
 import { readdir } from 'fs/promises'
 import { MDXContent } from 'mdx/types'
+import type { Toc as TableOfContents } from '@stefanprobst/rehype-extract-toc'
 
 const BASE_PATH = './src/app/writings/(content)'
 
@@ -10,6 +11,10 @@ export type WritingMetadata = {
   tags?: string[]
   publishedAt: Date
   modifiedAt?: Date
+  tableOfContents: {
+    id: string
+    title: string
+  }[]
 }
 
 type Frontmatter = Pick<
@@ -23,6 +28,7 @@ type MDXFile = {
   readingTime: {
     minutes: number
   }
+  tableOfContents: TableOfContents
 }
 
 type Language = 'en' | 'pl'
@@ -38,6 +44,9 @@ export const getWritingData = async (
   const data = file.frontmatter
   const readingTimeStats = file.readingTime
   const content = file.default
+  const tableOfContents = file.tableOfContents
+    .filter((entry) => entry.id && entry.depth === 2)
+    .map(({ id, value }) => ({ id: id!, title: value }))
 
   const publishedAt = new Date(data.publishedAt)
   const modifiedAt = data.modifiedAt ? new Date(data.modifiedAt) : undefined
@@ -50,6 +59,7 @@ export const getWritingData = async (
     tags: data.tags,
     publishedAt,
     modifiedAt,
+    tableOfContents,
   }
 
   return { metadata, content }

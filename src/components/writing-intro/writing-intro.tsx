@@ -1,8 +1,12 @@
+'use client'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip } from '@/components/ui/tooltip'
+import { WritingNavigationContext } from '@/components/writing-navigation/writing-navigation'
 import cn from '@/utils/cn'
 import getFormattedDate from '@/utils/get-formatted-date'
+import { useInView } from 'framer-motion'
 import Image from 'next/image'
+import { useContext, useEffect, useRef } from 'react'
 import {
   Edit3 as EditIcon,
   Share as ShareIcon,
@@ -50,8 +54,21 @@ function WritingIntro(props: WritingIntroProps) {
 
   const styles = getStyles()
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(containerRef)
+
+  const { setIsVisible: setNavigationVisible } = useContext(
+    WritingNavigationContext,
+  )
+
+  useEffect(() => setNavigationVisible(!isInView), [isInView])
+
   return (
-    <div className={cn(className, styles.container())} {...restProps}>
+    <div
+      className={cn(className, styles.container())}
+      ref={containerRef}
+      {...restProps}
+    >
       <div className={styles.datesWrapper()}>
         <time className={styles.publishDate()}>
           {getFormattedDate(publishedAt, {

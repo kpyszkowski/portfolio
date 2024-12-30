@@ -1,5 +1,6 @@
 import cn from '@/utils/cn'
 import { MDXContent } from 'mdx/types'
+import React, { forwardRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -16,16 +17,20 @@ interface ArticleProps extends VariantProps<typeof getStyles> {
   content: MDXContent
 }
 
-function Article(props: ArticleProps) {
+const Article = forwardRef<HTMLElement, ArticleProps>((props, ref) => {
   const { className = '', content: Content, ...restProps } = props
 
   const styles = getStyles()
 
   return (
-    <article className={cn(className, styles.container())} {...restProps}>
+    <article
+      className={cn(className, styles.container())}
+      ref={ref}
+      {...restProps}
+    >
       <Content />
     </article>
   )
-}
+})
 
 export default Article
