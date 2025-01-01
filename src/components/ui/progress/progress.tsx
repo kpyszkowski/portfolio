@@ -6,7 +6,6 @@ import {
   MotionValue,
   SpringOptions,
   useMotionValue,
-  useSpring,
   useTransform,
 } from 'framer-motion'
 import { tv, type VariantProps } from 'tailwind-variants'
@@ -58,6 +57,7 @@ function Progress(props: ProgressProps) {
     transition = {
       stiffness: 96,
       damping: 12,
+      bounce: 4,
     },
     ...restProps
   } = props
@@ -72,7 +72,6 @@ function Progress(props: ProgressProps) {
     [0, max],
     [PROGRESS_PATH_LENGTH, 0],
   )
-  const smoothStrokeDashoffset = useSpring(strokeDashoffset, transition)
 
   return (
     <ProgressPrimititve.Root
@@ -101,7 +100,7 @@ function Progress(props: ProgressProps) {
             r="14"
             strokeDasharray={PROGRESS_PATH_LENGTH}
             style={{
-              strokeDashoffset: smoothStrokeDashoffset,
+              strokeDashoffset,
             }}
           />
         </ProgressPrimititve.Indicator>
