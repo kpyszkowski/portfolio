@@ -22,8 +22,8 @@ const getStyles = tv({
     ],
     chaptersLabel: 'mb-2 text-xs uppercase text-neutral-400',
     chaptersList: 'flex flex-col text-sm',
-    chaptersListLink:
-      'block w-full py-1 transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
+    chaptersListButton:
+      'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
     chaptersTriggerButton: 'relative -m-4 flex items-center gap-4 p-4',
     indicatorLabelsWrapper: 'flex flex-col gap-1 text-left',
     indicatorChapterLabel: 'text-xs uppercase text-neutral-400',
@@ -96,6 +96,12 @@ function WritingNavigation(props: WritingNavigationProps) {
     setIsExpanded(false),
   )
 
+  const handleGoToChapter = (id: string) => {
+    const element = document.querySelector(getSelectorFromId(id))
+    if (!element) return
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
   return (
     <WritingNavigationContext.Provider value={contextValue}>
       {children}
@@ -125,12 +131,13 @@ function WritingNavigation(props: WritingNavigationProps) {
               <ul className={styles.chaptersList()}>
                 {items.map((item) => (
                   <li key={item.id}>
-                    <a
-                      className={styles.chaptersListLink()}
-                      href={getSelectorFromId(item.id)}
+                    <button
+                      type="button"
+                      onClick={() => handleGoToChapter(item.id)}
+                      className={styles.chaptersListButton()}
                     >
                       {item.title}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
