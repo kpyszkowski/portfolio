@@ -17,7 +17,7 @@ export default async function WritingPage(props: WritingPageProps) {
   const { metadata, content } = await getWritingData(slug)
 
   return (
-    <main className="px-5">
+    <main className="overflow-x-hidden px-5">
       <WritingNavigation items={metadata.tableOfContents}>
         <WritingIntro
           className="mx-auto mb-12 mt-16 max-w-screen-lg"

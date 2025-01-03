@@ -2,8 +2,9 @@
 import { Playground } from '@/components/playground'
 
 const ColorizePierogi = () => (
-  <Playground title="Colorize pierożek">
-    {({ registerControl }) => {
+  <Playground
+    title="Colorize pierożek"
+    content={({ registerControl }) => {
       const [hue] = registerControl('hue', 0, {
         min: 0,
         max: 360,
@@ -25,10 +26,6 @@ const ColorizePierogi = () => (
             src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Pier%C3%B3g_ruski.JPG"
             style={{
               filter: `hue-rotate(${hue}deg)`,
-              height: 'auto',
-              borderRadius: '8px',
-              width: '100%',
-              margin: '0 auto',
               transform: isRotated ? 'rotate(180deg)' : 'none',
             }}
           />
@@ -49,6 +46,18 @@ const ColorizePierogi = () => (
         </div>
       )
     }}
-  </Playground>
+    sourceCode={({ hue, name, isRotated }) => [
+      '<img',
+      ' src="..." // image source',
+      ' style={{',
+      `   filter: 'hue-rotate(${hue}deg)',`,
+      `   transform: '${isRotated ? 'rotate(180deg)' : 'none'}',`,
+      ' }}',
+      '/>',
+      '<span>',
+      ` {"${name}"}`,
+      '</span>',
+    ]}
+  />
 )
 export default ColorizePierogi

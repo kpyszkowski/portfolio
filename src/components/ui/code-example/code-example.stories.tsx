@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import CodeBlock from './code-block'
+import CodeExample from './code-example'
 
-const meta: Meta<typeof CodeBlock> = {
-  title: 'UI/CodeBlock',
-  component: CodeBlock as React.ComponentType,
+const meta: Meta<typeof CodeExample> = {
+  title: 'UI/CodeExample',
+  component: CodeExample as React.ComponentType,
   tags: ['autodocs'],
   args: {
     children: (
@@ -22,7 +22,7 @@ const meta: Meta<typeof CodeBlock> = {
 }
 
 export default meta
-type Story = StoryObj<typeof CodeBlock>
+type Story = StoryObj<typeof CodeExample>
 
 export const Default: Story = {
   args: {},

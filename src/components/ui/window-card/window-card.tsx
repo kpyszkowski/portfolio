@@ -1,14 +1,16 @@
+import WindowCardContent from '@/components/ui/window-card/window-card-content'
 import cn from '@/utils/cn'
+import { ComponentProps } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
     container:
-      'code-block-background relative -mx-20 my-6 rounded-3xl bg-cover p-20',
-    wrapper:
-      'm-0 rounded-xl bg-black/[0.64] shadow-lg backdrop-blur-lg backdrop-contrast-[0.52] backdrop-saturate-[1.24] neumorphism',
-    captionWrapper: 'm-0 flex px-5 pb-6 pt-4 leading-6',
-    decorator: 'w-12',
+      'window-card-background relative -mx-20 my-6 rounded-3xl bg-cover p-20',
+    wrapper: 'm-0 shadow-lg neumorphism [clip-path:inset(0_round_1rem)]',
+    captionWrapper: 'm-0 flex h-14 px-5 pb-6 pt-4 leading-6',
+    contentWrapper: 'divide-y divide-neutral-700',
+    decorator: 'z-10 w-12',
     label: 'flex-1 text-center text-xs text-neutral-300',
   },
 })
@@ -17,17 +19,28 @@ interface WindowCardProps extends VariantProps<typeof getStyles> {
   className?: string
   children?: React.ReactNode
   title?: string
+  captionVariant?: ComponentProps<typeof WindowCardContent>['variant']
 }
 
-function WindowCard(props: WindowCardProps) {
-  const { className = '', title, children, ...restProps } = props
+function WindowCardRoot(props: WindowCardProps) {
+  const {
+    className = '',
+    title,
+    children,
+    captionVariant,
+    ...restProps
+  } = props
 
   const styles = getStyles()
 
   return (
     <div className={cn(styles.container(), className)} {...restProps}>
-      <figure className={cn(className, styles.wrapper())}>
-        <figcaption className={styles.captionWrapper()}>
+      <figure className={styles.wrapper()}>
+        <WindowCardContent
+          as="figcaption"
+          className={styles.captionWrapper()}
+          variant={captionVariant}
+        >
           <svg
             className={styles.decorator()}
             viewBox="0 0 48 12"
@@ -40,12 +53,14 @@ function WindowCard(props: WindowCardProps) {
           </svg>
 
           {title && <span className={styles.label()}>{title}</span>}
-        </figcaption>
+        </WindowCardContent>
 
-        {children}
+        <div className={styles.contentWrapper()}>{children}</div>
       </figure>
     </div>
   )
 }
+
+const WindowCard = Object.assign(WindowCardRoot, { Content: WindowCardContent })
 
 export default WindowCard

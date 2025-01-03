@@ -1,11 +1,11 @@
-import { CodeBlock } from '@/components/ui/code-block'
+import { CodeExample } from '@/components/ui/code-example'
 import { WritingNavigationTrigger } from '@/components/writing-navigation'
 import type { MDXComponents } from 'mdx/types'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
-    pre: CodeBlock,
+    pre: CodeExample,
     section: WritingNavigationTrigger,
   }
 }

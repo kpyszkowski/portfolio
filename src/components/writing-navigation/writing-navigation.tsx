@@ -102,7 +102,12 @@ function WritingNavigation(props: WritingNavigationProps) {
 
       <motion.div
         initial={false}
-        animate={{ y: isVisible ? 0 : 128 }}
+        animate={{ y: isVisible ? 0 : 256, opacity: isVisible ? 1 : 0 }}
+        transition={{
+          type: 'spring',
+          damping: 14,
+          stiffness: 96,
+        }}
         className={styles.container()}
         layout
         {...restProps}

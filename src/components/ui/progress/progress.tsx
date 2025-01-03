@@ -5,9 +5,11 @@ import {
   motion,
   MotionValue,
   SpringOptions,
+  transform,
   useMotionValue,
   useTransform,
 } from 'framer-motion'
+import { useEffect } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -64,11 +66,13 @@ function Progress(props: ProgressProps) {
 
   const styles = getStyles({ size })
 
-  const motionValue = isMotionValue(value)
-    ? value
-    : useMotionValue((value as number) ?? 0)
+  const motionValue = useMotionValue(0)
+  useEffect(() => {
+    if (typeof value === 'number') motionValue.set(value ?? 0)
+  }, [value])
+
   const strokeDashoffset = useTransform(
-    motionValue,
+    isMotionValue(value) ? value : motionValue,
     [0, max],
     [PROGRESS_PATH_LENGTH, 0],
   )

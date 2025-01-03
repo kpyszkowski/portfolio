@@ -1,5 +1,6 @@
 // @ts-nocheck TODO: Fix types
 'use client'
+import { HighlightedCode } from '@/components/ui/highlighted-code'
 import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
 import { Toggle } from '@/components/ui/toggle'
@@ -12,8 +13,8 @@ const getStyles = tv({
   slots: {
     container: 'overflow-hidden',
     contentWrapper: 'p-5',
-    controlsWrapper:
-      'grid grid-flow-row gap-8 border-t border-neutral-700 bg-neutral-800 px-8 py-6 md:grid-cols-2',
+    controlsWrapper: 'grid grid-flow-row gap-8 px-8 py-6 md:grid-cols-2',
+    sourceCodeWrapper: 'py-4',
   },
 })
 
@@ -40,7 +41,7 @@ type PlaygroundControlProps<V> = Omit<
   'value' | 'onChange' | 'onValueChange' | 'checked' | 'onCheckedChange'
 >
 
-type PlaygroundValue = string | number
+type PlaygroundValue = string | number | boolean
 type PlaygroundRegistryEntry<V = PlaygroundValue> = [
   value: V,
   setter: (value: V) => void,
@@ -64,12 +65,13 @@ type PlaygroundRenderProps = {
 }
 interface PlaygroundProps extends VariantProps<typeof getStyles> {
   className?: string
-  children: (props: PlaygroundRenderProps) => React.ReactNode
+  content: (props: PlaygroundRenderProps) => React.ReactNode
   title?: string
+  sourceCode?: (controls: PlaygroundControls) => string[]
 }
 
 function Playground(props: PlaygroundProps) {
-  const { className = '', children, ...restProps } = props
+  const { className = '', content, sourceCode, ...restProps } = props
 
   const styles = getStyles()
 
@@ -114,11 +116,11 @@ function Playground(props: PlaygroundProps) {
 
   return (
     <WindowCard className={cn(styles.container(), className)} {...restProps}>
-      <div className={styles.contentWrapper()}>
-        {children({ registerControl })}
-      </div>
+      <WindowCard.Content className={styles.contentWrapper()}>
+        {content({ registerControl })}
+      </WindowCard.Content>
 
-      <div className={styles.controlsWrapper()}>
+      <WindowCard.Content variant="solid" className={styles.controlsWrapper()}>
         {Object.entries(controls).map(([id, value]) => {
           const [, , props] = registry.current[id]
 
@@ -140,7 +142,15 @@ function Playground(props: PlaygroundProps) {
             />
           )
         })}
-      </div>
+      </WindowCard.Content>
+
+      {sourceCode && (
+        <WindowCard.Content as="pre" className={styles.sourceCodeWrapper()}>
+          <HighlightedCode language="tsx">
+            {sourceCode(controls).join('\n')}
+          </HighlightedCode>
+        </WindowCard.Content>
+      )}
     </WindowCard>
   )
 }

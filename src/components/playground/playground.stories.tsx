@@ -16,8 +16,15 @@ export default meta
 type Story = StoryFn<typeof Playground>
 
 export const Default: Story = (props) => (
-  <Playground {...props}>
-    {({ registerControl }) => {
+  <Playground
+    {...props}
+    sourceCode={({ text, number }) => `
+      <>
+        <p>${text}</p>
+        <p>${number}</p>
+      </>
+    `}
+    content={({ registerControl }) => {
       const [text, setText] = registerControl('text', 'Example text')
       const [number, setNumber] = registerControl('number', 1234)
 
@@ -59,5 +66,5 @@ export const Default: Story = (props) => (
         </div>
       )
     }}
-  </Playground>
+  />
 )
