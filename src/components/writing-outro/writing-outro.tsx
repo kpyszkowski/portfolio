@@ -47,7 +47,6 @@ function WritingOutro(props: WritingOutroProps) {
             rotate: 40,
             scaleX: 2.1,
             scaleY: 1.6,
-            x: '50%',
             transition: {
               delay: 1,
               duration: 2,

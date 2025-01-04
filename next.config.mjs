@@ -1,14 +1,32 @@
 import getWithMDX from '@next/mdx'
-import remarkGfm from 'remark-gfm'
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import remarkCallout from '@r4ai/remark-callout'
 import rehypeToc from '@stefanprobst/rehype-extract-toc'
 import rehypeExtractToc from '@stefanprobst/rehype-extract-toc/mdx'
-import remarkSectionize from 'remark-sectionize'
+import rehypeMdxCodeProps from 'rehype-mdx-code-props'
+import rehypeSlug from 'rehype-slug'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkGfm from 'remark-gfm'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import remarkReadingTime from 'remark-reading-time'
 import remarkMDXReadingTime from 'remark-reading-time/mdx.js'
-import rehypeSlug from 'rehype-slug'
-import rehypeMdxCodeProps from 'rehype-mdx-code-props'
+import remarkSectionize from 'remark-sectionize'
+
+/** @type {import('@r4ai/remark-callout').Options} */
+const calloutOptions = {
+  root: (callout) => ({
+    tagName: 'callout',
+    properties: {
+      dataCallout: '',
+      type: callout.type,
+    },
+  }),
+  title: {
+    tagName: 'span',
+  },
+  body: {
+    tagName: 'div',
+  },
+}
 
 const withMDX = getWithMDX({
   options: {
@@ -19,6 +37,7 @@ const withMDX = getWithMDX({
       remarkSectionize,
       remarkReadingTime,
       remarkMDXReadingTime,
+      [remarkCallout, calloutOptions],
     ],
     rehypePlugins: [
       rehypeSlug,

@@ -14,6 +14,9 @@ dependencies:
   '@next/mdx':
     specifier: ^15.1.2
     version: 15.1.2(@mdx-js/loader@3.1.0)(@mdx-js/react@3.1.0)
+  '@r4ai/remark-callout':
+    specifier: ^0.6.2
+    version: 0.6.2
   '@radix-ui/react-progress':
     specifier: ^1.1.1
     version: 1.1.1(@types/react-dom@18.3.5)(@types/react@18.3.16)(react-dom@18.3.1)(react@18.3.1)
@@ -2421,6 +2424,14 @@ packages:
       source-map: 0.7.4
       webpack: 5.97.1(esbuild@0.17.19)
     dev: true
+
+  /@r4ai/remark-callout@0.6.2:
+    resolution: {integrity: sha512-yRj0dzEqdGYquJqTcr68CtAAh47AamWGMbZwiXBTeH6tf2MAh3Rc8C3xYhsRHKX91j9h5JZPTV2YLv+zL08AHQ==}
+    engines: {node: '>=16'}
+    dependencies:
+      defu: 6.1.4
+      unist-util-visit: 5.0.0
+    dev: false
 
   /@radix-ui/number@1.1.0:
     resolution: {integrity: sha512-V3gRzhVNU1ldS5XhAPTom1fOIo4ccrjjJgmE+LI2h/WaFpHmx0MQApT+KZHnx8abG6Avtfcz4WoEciMnpFT3HQ==}
@@ -5207,7 +5218,6 @@ packages:
 
   /defu@6.1.4:
     resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
-    dev: true
 
   /del@7.1.0:
     resolution: {integrity: sha512-v2KyNk7efxhlyHpjEvfyxaAihKKK0nWCuf6ZtqZcFFpQRG0bJ12Qsr0RpvsICMjAAZ8DOVCxrlqpxISlMHC4Kg==}
