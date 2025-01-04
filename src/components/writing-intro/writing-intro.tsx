@@ -1,5 +1,7 @@
+'use client'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip } from '@/components/ui/tooltip'
+import useBreakpoint from '@/hooks/use-breakpoint'
 import cn from '@/utils/cn'
 import getFormattedDate from '@/utils/get-formatted-date'
 import Image from 'next/image'
@@ -16,11 +18,11 @@ const getStyles = tv({
   slots: {
     container: 'grid grid-cols-2 grid-rows-[repeat(3,auto)] gap-x-12 gap-y-6',
     datesWrapper: 'flex items-center gap-8 whitespace-nowrap',
-    publishDate: 'text-2xl text-neutral-400',
+    publishDate: 'text-lg text-neutral-400 md:text-2xl',
     modifiedDate: 'flex items-center gap-3 text-sm text-neutral-400',
     modifiedIcon: 'size-3',
     shareButton: 'justify-self-end',
-    title: 'col-span-2 mb-4 text-6xl/tight',
+    title: 'col-span-2 mb-4 text-4xl/snug md:text-6xl/tight',
     author: 'flex items-center gap-4',
     authorImage: 'size-12 rounded-full bg-neutral-600 p-0.5',
     authorName: 'text-md text-neutral-400',
@@ -50,6 +52,16 @@ function WritingIntro(props: WritingIntroProps) {
 
   const styles = getStyles()
 
+  const isDesktop = useBreakpoint('md')
+  const formattedModifiedDate = modifiedAt
+    ? getFormattedDate(modifiedAt, {
+        weekday: 'short',
+        year: 'numeric',
+      })
+    : ''
+  const modifiedTooltipLabel =
+    'Last modified' + (isDesktop ? `: ${formattedModifiedDate}` : '')
+
   return (
     <div className={cn(className, styles.container())} {...restProps}>
       <div className={styles.datesWrapper()}>
@@ -61,13 +73,10 @@ function WritingIntro(props: WritingIntroProps) {
         </time>
 
         {modifiedAt && (
-          <Tooltip label="Last modified" size="xs" side="right">
+          <Tooltip label={modifiedTooltipLabel} size="xs" side="right">
             <Badge className={styles.modifiedDate()}>
               <EditIcon className={styles.modifiedIcon()} />
-              {getFormattedDate(modifiedAt, {
-                weekday: 'short',
-                year: 'numeric',
-              })}
+              {isDesktop && formattedModifiedDate}
             </Badge>
           </Tooltip>
         )}

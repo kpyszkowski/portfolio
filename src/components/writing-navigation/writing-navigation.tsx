@@ -112,7 +112,7 @@ function WritingNavigation(props: WritingNavigationProps) {
         transition={{
           type: 'spring',
           damping: 14,
-          stiffness: 96,
+          stiffness: 72,
         }}
         className={styles.container()}
         layout

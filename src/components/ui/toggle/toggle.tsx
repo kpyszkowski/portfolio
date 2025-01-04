@@ -9,6 +9,7 @@ const getStyles = tv({
       'flex min-w-9 rounded-3xl bg-neutral-600/75 p-0.5',
       'hover:bg-neutral-600 focus-visible:bg-neutral-600',
       'outline-none ring-neutral-50/50 focus-visible:ring-4',
+      'transition-colors data-[state=checked]:bg-orange-300/85',
     ],
 
     thumb: [
