@@ -1,5 +1,6 @@
 import { HighlightedCodeAsync } from '@/components/ui/highlighted-code'
 import { WindowCard } from '@/components/ui/window-card'
+import { BundledLanguage } from '@/lib/syntax-highlighting'
 import React, { Children } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
@@ -31,7 +32,10 @@ const CodeExample = async (props: CodeExampleProps) => {
 
   const codeChild = Children.toArray(children).at(0) as CodeChildElement
 
-  const language = codeChild.props.className.replace('language-', '')
+  const language = codeChild.props.className.replace(
+    'language-',
+    '',
+  ) as BundledLanguage
   const code = codeChild.props.children.trim()
 
   return (

@@ -8,7 +8,7 @@ const meta: Meta<typeof HighlightedCode> = {
   tags: ['autodocs'],
   args: {
     children: 'let banana = "🍌"',
-    language: 'javascript',
+    language: 'ts',
   },
 }
 

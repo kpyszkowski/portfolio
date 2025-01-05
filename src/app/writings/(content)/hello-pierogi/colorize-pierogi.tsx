@@ -24,10 +24,12 @@ const ColorizePierogi = () => (
       return (
         <div style={{ position: 'relative' }}>
           <Image
-            width={320}
+            width={480}
+            height={320}
             alt="Pieróg ruski"
             src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Pier%C3%B3g_ruski.JPG"
             style={{
+              margin: '0 auto',
               filter: `hue-rotate(${hue}deg)`,
               transform: isRotated ? 'rotate(180deg)' : 'none',
             }}
@@ -61,6 +63,7 @@ const ColorizePierogi = () => (
       `  {"${name}"}`,
       '</span>',
     ]}
+    sourceCodeLanguage="tsx"
   />
 )
 export default ColorizePierogi

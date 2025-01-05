@@ -1,12 +1,15 @@
 'use client'
-import HighlightedCodeImpl from '@/components/ui/highlighted-code/highlighted-code-impl'
-import { getHighlightedSyntaxTokens } from '@/lib/syntax-highlighting'
-import { useLayoutEffect, useState } from 'react'
+import HighlightedCodeImpl from './highlighted-code-impl'
+import {
+  BundledLanguage,
+  requestCodeHighlighter,
+} from '@/lib/syntax-highlighting'
+import { use, useLayoutEffect, useState } from 'react'
 import { TokensResult } from 'shiki'
 
 interface HighlightedCodeProps {
   children: string
-  language: string
+  language: BundledLanguage
 }
 
 function HighlightedCode(props: HighlightedCodeProps) {
@@ -14,13 +17,13 @@ function HighlightedCode(props: HighlightedCodeProps) {
 
   const [tokens, setTokens] = useState<TokensResult['tokens']>([])
 
+  const { codeToTokens } = use(requestCodeHighlighter())
+
   useLayoutEffect(() => {
     const code = children.trim()
-
-    void getHighlightedSyntaxTokens(code, language).then(({ tokens }) =>
-      setTokens(tokens),
-    )
-  }, [children, language])
+    const { tokens } = codeToTokens(code, language)
+    setTokens(tokens)
+  }, [children, codeToTokens, language])
 
   return <HighlightedCodeImpl tokens={tokens} {...restProps} />
 }

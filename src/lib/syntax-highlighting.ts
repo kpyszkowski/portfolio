@@ -1,13 +1,28 @@
-import { BundledLanguage } from 'shiki'
+export type BundledLanguage = 'css' | 'ts' | 'tsx' | 'json'
 
-export const getHighlightedSyntaxTokens = async (
-  code: string,
-  lang: string,
-) => {
-  const { codeToTokens } = await import('shiki')
+export const requestCodeHighlighter = async () => {
+  const [{ createHighlighterCore }, loadWasm] = await Promise.all([
+    import('shiki/core'),
+    import('shiki/wasm'),
+  ])
 
-  return codeToTokens(code, {
-    lang: lang as BundledLanguage,
-    theme: 'one-dark-pro',
+  const themes = await Promise.all([import('shiki/themes/one-dark-pro.mjs')])
+
+  const langs = await Promise.all([
+    import('shiki/langs/css.mjs'),
+    import('shiki/langs/ts.mjs'),
+    import('shiki/langs/tsx.mjs'),
+    import('shiki/langs/json.mjs'),
+  ])
+
+  const { codeToTokens } = await createHighlighterCore({
+    themes,
+    langs,
+    loadWasm,
   })
+
+  return {
+    codeToTokens: (code: string, language: BundledLanguage) =>
+      codeToTokens(code, { theme: 'one-dark-pro', lang: language }),
+  }
 }

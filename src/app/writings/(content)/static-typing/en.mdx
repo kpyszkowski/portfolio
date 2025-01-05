@@ -32,20 +32,19 @@ Static typing makes code more readable and maintainable. By explicitly declaring
 
 Modern IDEs leverage static typing to offer advanced features like code completion, refactoring, and static analysis. These tools can automatically detect issues, suggest fixes, and safely refactor code, enhancing developer productivity and reducing the likelihood of introducing bugs during refactoring.
 
-```csharp
-// Refactoring example: Renaming a method in C#
-public class Calculator {
-    public int Add(int a, int b) {
-        return a + b;
-    }
+```ts
+// Before refactoring: Method named `add`
+class Calculator {
+  add(a: number, b: number): number {
+    return a + b
+  }
 }
 
-// After refactoring `Add` to `Sum`, all references are
-// automatically updated.
-public class Calculator {
-    public int Sum(int a, int b) {
-        return a + b;
-    }
+// After refactoring: Renamed `add` to `sum`
+class Calculator {
+  sum(a: number, b: number): number {
+    return a + b
+  }
 }
 ```
 
