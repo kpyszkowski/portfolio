@@ -25,7 +25,7 @@ interface HighlightedCodeImplProps extends VariantProps<typeof getStyles> {
 }
 
 function HighlightedCodeImpl(props: HighlightedCodeImplProps) {
-  const { className, tokens = [], ...restProps } = props
+  const { className, tokens, ...restProps } = props
 
   const styles = getStyles()
 

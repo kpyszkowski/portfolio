@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
 import { Toggle } from '@/components/ui/toggle'
 import { WindowCard } from '@/components/ui/window-card'
+import { BundledLanguage } from '@/lib/syntax-highlighting'
 import cn from '@/utils/cn'
 import { useRef, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
@@ -89,10 +90,17 @@ interface PlaygroundProps extends VariantProps<typeof getStyles> {
   content: (props: PlaygroundRenderProps) => React.ReactNode
   title?: string
   sourceCode?: (controls: PlaygroundControls) => string[]
+  sourceCodeLanguage?: BundledLanguage
 }
 
 function Playground(props: PlaygroundProps) {
-  const { className = '', content, sourceCode, ...restProps } = props
+  const {
+    className = '',
+    content,
+    sourceCode,
+    sourceCodeLanguage = 'ts',
+    ...restProps
+  } = props
 
   const styles = getStyles()
 
@@ -159,7 +167,7 @@ function Playground(props: PlaygroundProps) {
 
       {sourceCode && (
         <WindowCard.Content as="pre" className={styles.sourceCodeWrapper()}>
-          <HighlightedCode language="tsx">
+          <HighlightedCode language={sourceCodeLanguage}>
             {sourceCode(controls).join('\n')}
           </HighlightedCode>
         </WindowCard.Content>

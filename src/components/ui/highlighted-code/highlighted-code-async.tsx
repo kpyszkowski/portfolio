@@ -1,17 +1,22 @@
 import HighlightedCodeImpl from '@/components/ui/highlighted-code/highlighted-code-impl'
-import { getHighlightedSyntaxTokens } from '@/lib/syntax-highlighting'
+import { BundledLanguage, getCodeHighlighter } from '@/lib/syntax-highlighting'
 
 interface HighlightedCodeAsyncProps {
   className?: string
   children: string
-  language: string
+  language: BundledLanguage
 }
 
 async function HighlightedCodeAsync(props: HighlightedCodeAsyncProps) {
   const { children, language, ...restProps } = props
 
   const code = children.trim()
-  const { tokens } = await getHighlightedSyntaxTokens(code, language)
+  const highlighter = await getCodeHighlighter()
+  const { tokens = [] } =
+    highlighter?.codeToTokens(code, {
+      lang: language,
+      theme: 'one-dark-pro',
+    }) || {}
 
   return <HighlightedCodeImpl tokens={tokens} {...restProps} />
 }

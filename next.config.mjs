@@ -56,6 +56,7 @@ const nextConfig = {
     loaderFile: './src/image-loader.ts',
     unoptimized: process.env.NODE_ENV === 'development',
   },
+  transpilePackages: ['shiki'],
 }
 
 export default withMDX(nextConfig)
