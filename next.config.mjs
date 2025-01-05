@@ -54,6 +54,7 @@ const nextConfig = {
   images: {
     loader: 'custom',
     loaderFile: './src/image-loader.ts',
+    unoptimized: process.env.NODE_ENV === 'development',
   },
 }
 

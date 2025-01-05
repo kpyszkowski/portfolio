@@ -1,6 +1,7 @@
 import { Tooltip } from '@/components/ui/tooltip'
 import { motion, MotionProps } from 'framer-motion'
 import Link from 'next/link'
+import { forwardRef } from 'react'
 import { Icon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -52,54 +53,56 @@ export type TabsMenuItemType = Pick<
   id: string
 }
 
-function TabsMenuItem(props: TabsMenuItemProps) {
-  const {
-    label,
-    icon: IconComponent,
-    onClick,
-    href,
-    _active,
-    disabled,
-    disabledLabel = '',
-    isExternal,
-    ...restProps
-  } = props
+const TabsMenuItem = forwardRef<HTMLDivElement, TabsMenuItemProps>(
+  (props, ref) => {
+    const {
+      label,
+      icon: IconComponent,
+      onClick,
+      href,
+      _active,
+      disabled,
+      disabledLabel = '',
+      isExternal,
+      ...restProps
+    } = props
 
-  const styles = getStyles({ disabled })
+    const styles = getStyles({ disabled })
 
-  const LinkComponent = isExternal ? 'a' : Link
-  const Component = href ? LinkComponent : 'button'
+    const LinkComponent = isExternal ? 'a' : Link
+    const Component = href ? LinkComponent : 'button'
 
-  return (
-    <motion.li {...restProps}>
-      <Tooltip
-        label={disabledLabel}
-        disabled={!disabled}
-        size="xs"
-        sideOffset={12}
-      >
-        <Component
-          className={styles.wrapper()}
-          href={href!} // `href` is already defined
-          onClick={onClick}
-          disabled={disabled}
+    return (
+      <motion.li {...restProps}>
+        <Tooltip
+          label={disabledLabel}
+          disabled={!disabled}
+          size="xs"
+          sideOffset={16}
         >
-          {IconComponent && <IconComponent className={styles.icon()} />}
-          <span className={styles.label()}>{label}</span>
+          <Component
+            className={styles.wrapper()}
+            href={href!} // `href` is already defined
+            onClick={onClick}
+            disabled={disabled}
+          >
+            {IconComponent && <IconComponent className={styles.icon()} />}
+            <span className={styles.label()}>{label}</span>
 
-          {_active && (
-            <motion.span
-              style={{
-                borderRadius: 24 - 8 / 2,
-              }}
-              className={styles.highlight()}
-              layoutId="tabs-menu-item-highlight"
-            />
-          )}
-        </Component>
-      </Tooltip>
-    </motion.li>
-  )
-}
+            {_active && (
+              <motion.span
+                style={{
+                  borderRadius: 24 - 8 / 2,
+                }}
+                className={styles.highlight()}
+                layoutId="tabs-menu-item-highlight"
+              />
+            )}
+          </Component>
+        </Tooltip>
+      </motion.li>
+    )
+  },
+)
 
 export default TabsMenuItem

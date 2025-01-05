@@ -35,10 +35,10 @@ function HighlightedCodeImpl(props: HighlightedCodeImplProps) {
         {tokens.map((line, index) => (
           <div key={index} className={styles.line()}>
             {line.map(
-              (character) =>
+              (character, index) =>
                 character.content && (
                   <span
-                    key={character.content}
+                    key={[character.content, index].join('-')}
                     style={{
                       color: character.color,
                     }}

@@ -1,4 +1,3 @@
-// @ts-nocheck TODO: Fix types
 'use client'
 import { HighlightedCode } from '@/components/ui/highlighted-code'
 import { Input } from '@/components/ui/input'
@@ -18,15 +17,37 @@ const getStyles = tv({
   },
 })
 
-const getComponentByValue = (value: PlaygroundValue) => {
+const getControlComponent = (
+  id: string,
+  value: PlaygroundValue,
+  handler: (id: string, value: PlaygroundValue) => void,
+): [React.ComponentType<any>, any] => {
   switch (typeof value) {
     default:
     case 'string':
-      return Input
+      return [
+        Input,
+        {
+          value,
+          onValueChange: (newValue: string) => handler(id, newValue),
+        },
+      ]
     case 'number':
-      return Slider
+      return [
+        Slider,
+        {
+          value: [value],
+          onValueChange: ([newValue]: number[]) => handler(id, newValue),
+        },
+      ]
     case 'boolean':
-      return Toggle
+      return [
+        Toggle,
+        {
+          checked: value,
+          onCheckedChange: (newValue: boolean) => handler(id, newValue),
+        },
+      ]
   }
 }
 
@@ -80,9 +101,11 @@ function Playground(props: PlaygroundProps) {
 
   const isControlRegistered = (id: string) => id in registry.current
 
+  // @ts-expect-error
   const registerControl: PlaygroundRegisterFn = <V extends PlaygroundValue>(
     id: string,
     defaultValue: V,
+    // @ts-expect-error
     props: PlaygroundControlProps<V> = {},
   ) => {
     if (isControlRegistered(id)) {
@@ -124,23 +147,12 @@ function Playground(props: PlaygroundProps) {
         {Object.entries(controls).map(([id, value]) => {
           const [, , props] = registry.current[id]
 
-          const isNumber = typeof value === 'number'
-          const isBoolean = typeof value === 'boolean'
-
-          const Component = getComponentByValue(value)
-          return (
-            <Component
-              value={isNumber ? [value] : value}
-              onValueChange={(value) =>
-                handleValueChange(id, isNumber ? value[0] : value)
-              }
-              checked={isBoolean ? value : undefined}
-              onCheckedChange={
-                isBoolean ? (value) => handleValueChange(id, value) : undefined
-              }
-              {...props}
-            />
+          const [Component, controlProps] = getControlComponent(
+            id,
+            value,
+            handleValueChange,
           )
+          return <Component key={id} {...controlProps} {...props} />
         })}
       </WindowCard.Content>
 

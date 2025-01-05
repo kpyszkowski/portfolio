@@ -2,28 +2,28 @@
 import cn from '@/utils/cn'
 import { tv, type VariantProps } from 'tailwind-variants'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
 
 const getStyles = tv({
   slots: {
     container:
-      'rounded-3xl bg-neutral-500/50 px-5 py-0.5 font-sans text-neutral-200 backdrop-blur-sm',
-    arrow: 'fill-neutral-500/50 backdrop-blur-sm',
+      'rounded-3xl bg-neutral-700/50 px-4 py-1 font-sans text-neutral-200 ring-1 ring-inset ring-neutral-600/50 backdrop-blur-sm',
+    arrow: '-m-px fill-neutral-700',
     triggerContent: 'font-sans',
   },
   variants: {
     size: {
       xs: {
-        container: 'px-3 py-0.5 text-xs',
+        container: 'text-xs',
         arrow: 'h-1 w-2',
       },
       sm: {
-        container: 'px-4 py-0.5 text-sm',
+        container: 'text-sm',
         arrow: 'h-1 w-2',
       },
       md: {
-        container: 'px-4 py-1 text-base',
+        container: 'text-base',
         arrow: 'h-1.5 w-3',
       },
     },
@@ -56,7 +56,7 @@ interface TooltipProps
 
 // TODO: Investigate the error - the use of `forwardRef` doesn't help
 
-const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
+const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
   const {
     className = '',
     children,
@@ -69,7 +69,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
     ...restProps
   } = props
 
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const styles = getStyles({ size })
 
@@ -87,15 +87,15 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
   return (
     <TooltipPrimitive.Provider delayDuration={delayDuration}>
       <TooltipPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
-        <TooltipPrimitive.Trigger asChild={triggerAsChild}>
+        <TooltipPrimitive.Trigger ref={ref} asChild={triggerAsChild}>
           {triggerContent}
         </TooltipPrimitive.Trigger>
 
-        <TooltipPrimitive.Portal forceMount>
-          <AnimatePresence>
-            {isOpen && (
+        <AnimatePresence>
+          {isOpen && (
+            <TooltipPrimitive.Portal forceMount>
               <TooltipPrimitive.Content
-                className={cn(className, styles.container())}
+                className={cn(styles.container(), className)}
                 asChild
                 sideOffset={sideOffset}
                 {...restProps}
@@ -110,15 +110,14 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
                     transformOrigin:
                       'var(--radix-tooltip-content-transform-origin)',
                   }}
-                  ref={ref}
                 >
                   <TooltipPrimitive.Arrow className={styles.arrow()} />
                   {label}
                 </motion.div>
               </TooltipPrimitive.Content>
-            )}
-          </AnimatePresence>
-        </TooltipPrimitive.Portal>
+            </TooltipPrimitive.Portal>
+          )}
+        </AnimatePresence>
       </TooltipPrimitive.Root>
     </TooltipPrimitive.Provider>
   )

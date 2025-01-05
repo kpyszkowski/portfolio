@@ -60,7 +60,7 @@ function WritingIntro(props: WritingIntroProps) {
       })
     : ''
   const modifiedTooltipLabel =
-    'Last modified' + (isDesktop ? `: ${formattedModifiedDate}` : '')
+    'Last modified' + (isDesktop ? '' : `: ${formattedModifiedDate}`)
 
   return (
     <div className={cn(className, styles.container())} {...restProps}>
