@@ -1,4 +1,13 @@
-import { BundledLanguage, codeToTokens } from 'shiki'
+import { BundledLanguage } from 'shiki'
 
-export const getHighlightedSyntaxTokens = (code: string, lang: string) =>
-  codeToTokens(code, { lang: lang as BundledLanguage, theme: 'one-dark-pro' })
+export const getHighlightedSyntaxTokens = async (
+  code: string,
+  lang: string,
+) => {
+  const { codeToTokens } = await import('shiki')
+
+  return codeToTokens(code, {
+    lang: lang as BundledLanguage,
+    theme: 'one-dark-pro',
+  })
+}
