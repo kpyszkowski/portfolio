@@ -32,8 +32,8 @@ export default async function WritingsPage() {
           Mastery is not only skills but also knowledge. Writing down
           experiences is a great way to consolidate learnings. It also creates a
           useful resource should any of the experiences prove useful in the
-          future. If these writings also prove useful to any of you - I'll be
-          more than happy!
+          future. If these writings also prove useful to any of you - I&apos;ll
+          be more than happy!
         </p>
       </div>
 

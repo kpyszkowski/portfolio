@@ -37,7 +37,7 @@ const CodeExample = async (props: CodeExampleProps) => {
   return (
     <WindowCard {...restProps}>
       <WindowCard.Content as="pre" className={styles.content()}>
-        <HighlightedCodeAsync language={language} children={code} />
+        <HighlightedCodeAsync language={language}>{code}</HighlightedCodeAsync>
       </WindowCard.Content>
     </WindowCard>
   )

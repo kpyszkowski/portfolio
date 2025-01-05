@@ -47,20 +47,20 @@ function Input(props: InputProps) {
   >(() => {
     if (!inputRef.current) return
 
-    onValueChange && onValueChange('')
+    if (onValueChange) onValueChange('')
     inputRef.current.value = ''
 
     inputRef.current.focus()
-  }, [])
+  }, [onValueChange])
 
   const handleOnChange = useCallback<
     React.ChangeEventHandler<HTMLInputElement>
   >(
     (event) => {
-      onValueChange && onValueChange(event.target.value)
-      onChange && onChange(event)
+      if (onValueChange) onValueChange(event.target.value)
+      if (onChange) onChange(event)
     },
-    [onValueChange],
+    [onChange, onValueChange],
   )
 
   const styles = getStyles()

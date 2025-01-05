@@ -1,6 +1,7 @@
 'use client'
 import { Progress } from '@/components/ui/progress'
 import useOutsideClick from '@/hooks/use-outside-click'
+import cn from '@/utils/cn'
 import getSelectorFromId from '@/utils/get-selector-from-id'
 import {
   AnimatePresence,
@@ -8,7 +9,7 @@ import {
   MotionValue,
   useMotionValue,
 } from 'framer-motion'
-import { createContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 // TODO: Investigate and improve a11y
@@ -75,9 +76,13 @@ function WritingNavigation(props: WritingNavigationProps) {
 
   const currentChapterNumber =
     items.findIndex((item) => item.id === currentItemId) + 1
+
   const itemsCount = items.length
-  const getItemIndexById = (id: string) =>
-    items.findIndex((item) => item.id === id)
+
+  const getItemIndexById = useCallback(
+    (id: string) => items.findIndex((item) => item.id === id),
+    [items],
+  )
 
   const contextValue = useMemo<WritingNavigationContextValue>(
     () => ({
@@ -89,7 +94,7 @@ function WritingNavigation(props: WritingNavigationProps) {
       itemsCount,
       getItemIndexById,
     }),
-    [currentItemId, currentProgress],
+    [currentItemId, currentProgress, getItemIndexById, isVisible, itemsCount],
   )
 
   const chaptersWrapperRef = useOutsideClick<HTMLDivElement>(() =>
@@ -114,7 +119,7 @@ function WritingNavigation(props: WritingNavigationProps) {
           damping: 14,
           stiffness: 72,
         }}
-        className={styles.container()}
+        className={cn(styles.container(), className)}
         layout
         {...restProps}
       >

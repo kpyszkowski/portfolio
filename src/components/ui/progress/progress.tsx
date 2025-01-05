@@ -5,7 +5,6 @@ import {
   motion,
   MotionValue,
   SpringOptions,
-  transform,
   useMotionValue,
   useTransform,
 } from 'framer-motion'
@@ -51,25 +50,14 @@ interface ProgressProps
 const PROGRESS_PATH_LENGTH = 88
 
 function Progress(props: ProgressProps) {
-  const {
-    className = '',
-    value,
-    size,
-    max = 100,
-    transition = {
-      stiffness: 96,
-      damping: 12,
-      bounce: 4,
-    },
-    ...restProps
-  } = props
+  const { className = '', value, size, max = 100, ...restProps } = props
 
   const styles = getStyles({ size })
 
   const motionValue = useMotionValue(0)
   useEffect(() => {
     if (typeof value === 'number') motionValue.set(value ?? 0)
-  }, [value])
+  }, [motionValue, value])
 
   const strokeDashoffset = useTransform(
     isMotionValue(value) ? value : motionValue,

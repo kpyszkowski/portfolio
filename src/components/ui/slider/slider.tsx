@@ -80,7 +80,7 @@ function Slider(props: SliderProps) {
   const handleValueChange = useCallback(
     (value: SliderValue) => {
       _setValue(value)
-      onValueChange && onValueChange(value)
+      if (onValueChange) onValueChange(value)
     },
     [onValueChange],
   )

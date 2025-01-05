@@ -63,10 +63,10 @@ function WritingOutro(props: WritingOutroProps) {
 
         <p className={styles.content()}>
           I hope you found this article helpful and that it added value to your
-          learning journey. I'd love to hear your thoughts, feedback, or
+          learning journey. I&apos;d love to hear your thoughts, feedback, or
           questions — feel free to reach out via email at kamil@pyszkowski.dev.
           If you enjoyed this writing, take a moment to explore other articles.
-          Don't forget to check back soon for fresh insights and updates!
+          Don&apos;t forget to check back soon for fresh insights and updates!
         </p>
 
         <p className={styles.content()}>

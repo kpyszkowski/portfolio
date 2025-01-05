@@ -123,4 +123,6 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
   )
 })
 
+Tooltip.displayName = 'Tooltip'
+
 export default Tooltip

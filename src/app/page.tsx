@@ -13,7 +13,7 @@ import {
 import { CSSProperties, useEffect } from 'react'
 import { GitHub, Linkedin, Send } from 'react-feather'
 
-const Background = (props: any) => {
+const Background = (props: { className?: string }) => {
   const { className = '', ...restProps } = props
 
   const mouseX = useMotionValue(0)
@@ -30,7 +30,7 @@ const Background = (props: any) => {
 
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [mouseX, mouseY])
 
   const smoothMouseX = useSpring(mouseX, SPRING_OPTIONS)
   const smoothMouseY = useSpring(mouseY, SPRING_OPTIONS)

@@ -23,7 +23,7 @@ const pathVariants: Variants = {
   hidden: ([reverse]: [boolean]) => ({
     strokeDashoffset: PATH_LENGTH * (reverse ? 1 : -1),
   }),
-  visible: ([reverse, transition]: [boolean, Transition]) => ({
+  visible: ([, transition]: [boolean, Transition]) => ({
     strokeDashoffset: 0,
     transition: {
       ease: [0.5, 0, 0.25, 1],

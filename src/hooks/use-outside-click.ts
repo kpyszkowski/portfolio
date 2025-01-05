@@ -20,7 +20,7 @@ function useOutsideClick<T extends HTMLElement>(callback: VoidFunction) {
     return () => {
       document.removeEventListener('click', handleClick, true)
     }
-  }, [ref])
+  }, [callback, ref])
 
   return ref
 }

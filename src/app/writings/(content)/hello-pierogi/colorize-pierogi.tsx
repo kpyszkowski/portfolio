@@ -1,5 +1,6 @@
 'use client'
 import { Playground } from '@/components/playground'
+import Image from 'next/image'
 
 const ColorizePierogi = () => (
   <Playground
@@ -22,7 +23,9 @@ const ColorizePierogi = () => (
 
       return (
         <div style={{ position: 'relative' }}>
-          <img
+          <Image
+            width={320}
+            alt="Pieróg ruski"
             src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Pier%C3%B3g_ruski.JPG"
             style={{
               filter: `hue-rotate(${hue}deg)`,
@@ -48,14 +51,14 @@ const ColorizePierogi = () => (
     }}
     sourceCode={({ hue, name, isRotated }) => [
       '<img',
-      ' src="..." // image source',
-      ' style={{',
-      `   filter: 'hue-rotate(${hue}deg)',`,
-      `   transform: '${isRotated ? 'rotate(180deg)' : 'none'}',`,
-      ' }}',
+      '  src="..." // image source',
+      '  style={{',
+      `    filter: 'hue-rotate(${hue}deg)',`,
+      `    transform: '${isRotated ? 'rotate(180deg)' : 'none'}',`,
+      '  }}',
       '/>',
       '<span>',
-      ` {"${name}"}`,
+      `  {"${name}"}`,
       '</span>',
     ]}
   />

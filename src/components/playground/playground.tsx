@@ -21,7 +21,7 @@ const getControlComponent = (
   id: string,
   value: PlaygroundValue,
   handler: (id: string, value: PlaygroundValue) => void,
-): [React.ComponentType<any>, any] => {
+): [React.ComponentType<never>, unknown] => {
   switch (typeof value) {
     default:
     case 'string':
@@ -101,11 +101,11 @@ function Playground(props: PlaygroundProps) {
 
   const isControlRegistered = (id: string) => id in registry.current
 
-  // @ts-expect-error
+  // @ts-expect-error TODO: Fix typings
   const registerControl: PlaygroundRegisterFn = <V extends PlaygroundValue>(
     id: string,
     defaultValue: V,
-    // @ts-expect-error
+    // @ts-expect-error TODO: Fix typings
     props: PlaygroundControlProps<V> = {},
   ) => {
     if (isControlRegistered(id)) {
@@ -152,6 +152,7 @@ function Playground(props: PlaygroundProps) {
             value,
             handleValueChange,
           )
+          // @ts-expect-error TODO: Fix typings
           return <Component key={id} {...controlProps} {...props} />
         })}
       </WindowCard.Content>

@@ -33,4 +33,6 @@ const Article = forwardRef<HTMLElement, ArticleProps>((props, ref) => {
   )
 })
 
+Article.displayName = 'Article'
+
 export default Article
