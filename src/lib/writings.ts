@@ -1,5 +1,6 @@
 import { readdir } from 'fs/promises'
 import { MDXContent } from 'mdx/types'
+import type { Toc as TableOfContents } from '@stefanprobst/rehype-extract-toc'
 
 const BASE_PATH = './src/app/writings/(content)'
 
@@ -10,6 +11,10 @@ export type WritingMetadata = {
   tags?: string[]
   publishedAt: Date
   modifiedAt?: Date
+  tableOfContents: {
+    id: string
+    title: string
+  }[]
 }
 
 type Frontmatter = Pick<
@@ -23,21 +28,29 @@ type MDXFile = {
   readingTime: {
     minutes: number
   }
+  tableOfContents: TableOfContents
 }
 
-const getWritingDataByFileName = async (fileName: string) => {
+type Language = 'en' | 'pl'
+
+export const getWritingData = async (
+  slug: string,
+  language: Language = 'en',
+) => {
   const file = (await import(
-    `../app/writings/(content)/${fileName}`
+    `../app/writings/(content)/${slug}/${language}.mdx`
   )) as MDXFile
 
   const data = file.frontmatter
   const readingTimeStats = file.readingTime
   const content = file.default
+  const tableOfContents = file.tableOfContents
+    .filter((entry) => entry.id && entry.depth === 2)
+    .map(({ id, value }) => ({ id: id!, title: value }))
 
   const publishedAt = new Date(data.publishedAt)
   const modifiedAt = data.modifiedAt ? new Date(data.modifiedAt) : undefined
   const readingTime = Math.ceil(readingTimeStats.minutes)
-  const slug = fileName.replace(/\.mdx$/, '')
 
   const metadata: WritingMetadata = {
     title: data.title,
@@ -46,14 +59,10 @@ const getWritingDataByFileName = async (fileName: string) => {
     tags: data.tags,
     publishedAt,
     modifiedAt,
+    tableOfContents,
   }
 
   return { metadata, content }
-}
-
-export const getWritingsDataBySlug = async (slug: string) => {
-  const fileName = `${slug}.mdx`
-  return getWritingDataByFileName(fileName)
 }
 
 export const getWritingsMetadata = async () => {
@@ -63,7 +72,8 @@ export const getWritingsMetadata = async () => {
 
   const writings = await Promise.all(
     writingsDirectory.map(async ({ name }) => {
-      const { metadata } = await getWritingDataByFileName(name)
+      const slug = name.replace('.mdx', '')
+      const { metadata } = await getWritingData(slug)
       return metadata
     }),
   )

@@ -8,7 +8,8 @@ const neumorphismPlugin = plugin(({ addUtilities }) => {
 
       boxShadow: `
         inset 1px -1px 1px 0 var(--tw-neumorphism-tr-color), 
-        inset -1px 1px 1px 0 var(--tw-neumorphism-bl-color)
+        inset -1px 1px 1px 0 var(--tw-neumorphism-bl-color),
+        var(--tw-shadow)
       `,
     },
   })

@@ -1,5 +1,8 @@
 import { Article } from '@/components/ui/article'
-import { getWritingsDataBySlug, getWritingsMetadata } from '@/lib/writings'
+import { WritingIntro } from '@/components/writing-intro'
+import { WritingNavigation } from '@/components/writing-navigation'
+import { WritingOutro } from '@/components/writing-outro'
+import { getWritingData, getWritingsMetadata } from '@/lib/writings'
 
 type WritingPageParams = {
   slug: string
@@ -11,13 +14,24 @@ type WritingPageProps = {
 
 export default async function WritingPage(props: WritingPageProps) {
   const { slug } = props.params
-  const { metadata, content } = await getWritingsDataBySlug(slug)
+  const { metadata, content } = await getWritingData(slug)
 
   return (
-    <>
-      <h1>{metadata.title}</h1>
-      <Article content={content} />
-    </>
+    <main className="overflow-x-hidden px-5">
+      <WritingNavigation items={metadata.tableOfContents}>
+        <WritingIntro
+          className="mx-auto mb-12 mt-16 max-w-screen-lg"
+          title={metadata.title}
+          publishedAt={metadata.publishedAt}
+          modifiedAt={metadata.modifiedAt}
+          readingTime={metadata.readingTime}
+        />
+
+        <Article content={content} />
+
+        <WritingOutro className="-mx-5" />
+      </WritingNavigation>
+    </main>
   )
 }
 
@@ -31,7 +45,7 @@ export const dynamicParams = false
 
 export async function generateMetadata(props: WritingPageProps) {
   const { slug } = props.params
-  const { metadata } = await getWritingsDataBySlug(slug)
+  const { metadata } = await getWritingData(slug)
   return {
     title: metadata.title,
   }

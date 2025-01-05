@@ -5,18 +5,21 @@ const DEFAULT_OPTIONS: Intl.DateTimeFormatOptions = {
   month: 'short',
 }
 
+type GetFormattedDateOptions = Intl.DateTimeFormatOptions & {
+  locale?: string
+}
+
 /**
  * Returns a formatted date string.
  * @param date - The date to format.
- * @param locale - The locale to use.
- * @param options - The formatting options.
+ * @param options - The formatting options with an locale string.
  * @returns The formatted date string.
  */
 
-const getFormattedDate = (
-  date: Date,
-  locale: string = DEFAULT_LOCALE,
-  options: Intl.DateTimeFormatOptions = DEFAULT_OPTIONS,
-) => date.toLocaleDateString(locale, options)
+const getFormattedDate = (date: Date, options?: GetFormattedDateOptions) =>
+  Intl.DateTimeFormat(options?.locale || DEFAULT_LOCALE, {
+    ...DEFAULT_OPTIONS,
+    ...options,
+  }).format(date)
 
 export default getFormattedDate

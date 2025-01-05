@@ -2,20 +2,25 @@
 title: 'The Power of Static Typing in Programming'
 tags: ['Programming', 'Static typing', 'Software development']
 publishedAt: 2023-06-23
+modifiedAt: 2023-06-27
 ---
 
 In the ever-evolving landscape of software development, the debate between dynamic and static typing continues to be a hot topic. While dynamic typing offers flexibility and rapid development, static typing brings its own set of powerful advantages that can significantly improve the quality and maintainability of code. In this post, we'll explore why static typing is crucial for developers, accompanied by practical examples through markdown code snippets.
+
+> [!note]
+> Static typing can help prevent common errors like passing the wrong type of argument to a function or accessing properties that don't exist on an object.
 
 ## Improved Code Quality and Safety
 
 One of the most compelling reasons to use static typing is the improvement it brings to code quality and safety. By enforcing type checks at compile time, static typing catches errors early in the development process, reducing the chances of runtime errors.
 
-```ts
+```ts title="TypeScript Example"
 function greet(name: string): string {
   return `Hello, ${name}!`
 }
 
-// This will throw an error at compile time, preventing potential runtime issues.
+// This will throw an error at compile time, preventing potential
+// runtime issues.
 let message: string = greet(123)
 ```
 
@@ -35,7 +40,8 @@ public class Calculator {
     }
 }
 
-// After refactoring `Add` to `Sum`, all references are automatically updated.
+// After refactoring `Add` to `Sum`, all references are
+// automatically updated.
 public class Calculator {
     public int Sum(int a, int b) {
         return a + b;
@@ -44,6 +50,15 @@ public class Calculator {
 ```
 
 ## Performance Optimizations
+
+Static typing can lead to better performance. Since types are known at compile time, compilers can optimize the generated code more effectively. This can result in faster execution times and lower resource consumption.
+
+Static typing can lead to better performance. Since types are known at compile time, compilers can optimize the generated code more effectively. This can result in faster execution times and lower resource consumption.
+
+> [!warning]
+> Refactoring code without static typing can be error-prone and time-consuming, as the lack of type information makes it difficult to ensure that changes are applied consistently across the codebase.
+>
+> Refactoring code without static typing can be error-prone and time-consuming, as the lack of type information makes it difficult to ensure that changes are applied consistently across the codebase.
 
 Static typing can lead to better performance. Since types are known at compile time, compilers can optimize the generated code more effectively. This can result in faster execution times and lower resource consumption.
 

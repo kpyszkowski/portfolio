@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import Article from './article'
+import Image from 'next/image'
 
 const meta: Meta<typeof Article> = {
   title: 'UI/Article',
@@ -28,7 +29,8 @@ const meta: Meta<typeof Article> = {
         </p>
 
         <blockquote>
-          "This is a blockquote. Use it to highlight important quotes or ideas."
+          &quot;This is a blockquote. Use it to highlight important quotes or
+          ideas.&quot;
         </blockquote>
 
         <ul>
@@ -77,7 +79,8 @@ const meta: Meta<typeof Article> = {
 
         <h3>Images</h3>
         <p>Below is an example of an image:</p>
-        <img
+        <Image
+          width={400}
           src="https://via.placeholder.com/400x200"
           alt="Placeholder image"
         />
@@ -85,8 +88,8 @@ const meta: Meta<typeof Article> = {
         <hr />
 
         <p>
-          That's all for now! Experiment with the <code>prose</code> class and
-          see how it works for your content.
+          That&apos;s all for now! Experiment with the <code>prose</code> class
+          and see how it works for your content.
         </p>
       </>
     ),

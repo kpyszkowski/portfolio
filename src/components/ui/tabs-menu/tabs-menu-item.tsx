@@ -9,7 +9,7 @@ const getStyles = tv({
     wrapper: 'relative flex gap-2 px-4 py-2',
     icon: 'size-4',
     label: 'font-sans text-sm leading-4',
-    highlight: 'absolute inset-0 size-full bg-white/20',
+    highlight: 'fixed inset-0 size-full bg-white/20',
   },
   variants: {
     disabled: {
@@ -52,7 +52,7 @@ export type TabsMenuItemType = Pick<
   id: string
 }
 
-function TabsMenuItem(props: TabsMenuItemProps) {
+const TabsMenuItem = (props: TabsMenuItemProps) => {
   const {
     label,
     icon: IconComponent,
@@ -76,7 +76,7 @@ function TabsMenuItem(props: TabsMenuItemProps) {
         label={disabledLabel}
         disabled={!disabled}
         size="xs"
-        sideOffset={12}
+        sideOffset={16}
       >
         <Component
           className={styles.wrapper()}

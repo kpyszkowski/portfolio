@@ -50,16 +50,12 @@ function TabsMenu(props: TabsMenuProps) {
   const smoothGlareX = useSpring(glareX, SPRING_OPTIONS)
   const smoothGlareY = useSpring(glareY, SPRING_OPTIONS)
 
-  const handleMouseEnter: React.MouseEventHandler = (event) => {
-    smoothGlareX.jump(event.clientX)
-    smoothGlareY.jump(event.clientY)
-  }
-  const handleMouseMove: React.MouseEventHandler = (event) => {
-    const containerBoundingRect = event.currentTarget.getBoundingClientRect()
-    if (!containerBoundingRect) return
+  const handleSetGlarePosition: React.MouseEventHandler = (event) => {
+    const containerRect = event.currentTarget.getBoundingClientRect()
+    if (!containerRect) return
 
-    const x = event.clientX - containerBoundingRect.left
-    const y = event.clientY - containerBoundingRect.top
+    const x = event.clientX - containerRect.left
+    const y = event.clientY - containerRect.top
 
     glareX.set(x)
     glareY.set(y)
@@ -80,8 +76,7 @@ function TabsMenu(props: TabsMenuProps) {
   return (
     <div
       className={cn(className, styles.container())}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleSetGlarePosition}
       {...restProps}
     >
       <div className={styles.wrapper()}>

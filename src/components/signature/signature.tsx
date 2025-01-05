@@ -1,11 +1,11 @@
+'use client'
 import cn from '@/utils/cn'
-import { motion, Variants } from 'framer-motion'
-import { init } from 'next/dist/compiled/webpack/webpack'
+import { motion, Transition, Variants } from 'framer-motion'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'stroke-black',
+    container: 'stroke-current stroke-[0.5] text-neutral-50',
   },
 })
 
@@ -14,21 +14,23 @@ interface SignatureProps extends VariantProps<typeof getStyles> {
   initial?: boolean
   whileInView?: boolean
   reverse?: boolean
+  transition?: Transition
 }
 
 const PATH_LENGTH = 398
 
 const pathVariants: Variants = {
-  hidden: (reverse: boolean) => ({
+  hidden: ([reverse]: [boolean]) => ({
     strokeDashoffset: PATH_LENGTH * (reverse ? 1 : -1),
   }),
-  visible: {
+  visible: ([, transition]: [boolean, Transition]) => ({
     strokeDashoffset: 0,
     transition: {
       ease: [0.5, 0, 0.25, 1],
       duration: 4.2,
+      ...transition,
     },
-  },
+  }),
 }
 
 function Signature(props: SignatureProps) {
@@ -37,6 +39,7 @@ function Signature(props: SignatureProps) {
     initial = true,
     whileInView = false,
     reverse = false,
+    transition = {},
     ...restProps
   } = props
 
@@ -44,7 +47,7 @@ function Signature(props: SignatureProps) {
 
   return (
     <motion.svg
-      className={cn(className, styles.container())}
+      className={cn(styles.container(), className)}
       width="255.324"
       height="148.626"
       viewBox="0 0 67.555 39.324"
@@ -52,7 +55,7 @@ function Signature(props: SignatureProps) {
     >
       <motion.path
         variants={pathVariants}
-        custom={reverse}
+        custom={[reverse, transition]}
         initial={initial ? 'hidden' : false}
         whileInView={whileInView ? 'visible' : undefined}
         animate={whileInView ? undefined : 'visible'}
@@ -60,7 +63,6 @@ function Signature(props: SignatureProps) {
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={0.325437}
         strokeDasharray={PATH_LENGTH}
       />
     </motion.svg>

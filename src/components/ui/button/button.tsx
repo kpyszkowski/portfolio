@@ -89,6 +89,7 @@ export interface ButtonProps extends VariantProps<typeof getStyles> {
   icon?: Icon
   href?: string
   isExternal?: boolean
+  onClick?: React.MouseEventHandler
 }
 
 function Button(props: ButtonProps) {
@@ -115,6 +116,7 @@ function Button(props: ButtonProps) {
 
   if (variant === 'solid') {
     const ButtonSolid = dynamic(() =>
+      // eslint-disable-next-line import/no-cycle
       import('./button-solid').then((mod) => mod.default),
     )
 

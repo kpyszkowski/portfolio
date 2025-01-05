@@ -1,4 +1,5 @@
 import cn from '@/utils/cn'
+import { forwardRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -32,19 +33,21 @@ const getStyles = tv({
 
 interface BadgeProps extends VariantProps<typeof getStyles> {
   className?: string
-  children: string
+  children: React.ReactNode
 }
 
-function Badge(props: BadgeProps) {
+const Badge = forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
   const { className = '', children, color, ...restProps } = props
 
   const styles = getStyles({ color })
 
   return (
-    <div className={cn(className, styles.container())} {...restProps}>
+    <div className={cn(styles.container(), className)} ref={ref} {...restProps}>
       {children}
     </div>
   )
-}
+})
+
+Badge.displayName = 'Badge'
 
 export default Badge

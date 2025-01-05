@@ -7,9 +7,9 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'sticky top-6 z-20 my-6 self-center',
-    background:
-      'header-background fixed inset-0 z-10 mx-auto h-24 w-full max-w-screen-lg',
+    container: 'sticky top-0 z-30 flex justify-center px-5',
+    menu: 'z-20 my-6',
+    background: 'header-background absolute inset-0 z-10 size-full',
   },
 })
 
@@ -42,12 +42,6 @@ const ITEMS = [
     label: 'Writings',
     href: '/writings',
   },
-  {
-    id: 'item-5',
-    label: 'Contact',
-    disabled: true,
-    disabledLabel: DISABLED_LABEL,
-  },
 ]
 
 function Header(props: HeaderProps) {
@@ -59,16 +53,16 @@ function Header(props: HeaderProps) {
   const defaultActive = ITEMS.findIndex((item) => item.href === pathname)
 
   return (
-    <>
+    <header className={cn(className, styles.container())}>
       <TabsMenu
-        className={cn(className, styles.container())}
+        className={styles.menu()}
         items={ITEMS}
         defaultActive={defaultActive}
         renderBefore={<Logo color="light" className="mx-3" size="sm" />}
         {...restProps}
       />
       <span className={styles.background()} />
-    </>
+    </header>
   )
 }
 
