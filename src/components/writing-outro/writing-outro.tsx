@@ -1,5 +1,6 @@
 'use client'
 import { Signature } from '@/components/signature'
+import { CopyButton } from '@/components/ui/copy-button'
 import useBreakpoint from '@/hooks/use-breakpoint'
 import cn from '@/utils/cn'
 import { motion } from 'framer-motion'
@@ -13,6 +14,7 @@ const getStyles = tv({
       'pointer-events-none absolute right-0 top-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
       'text-balance text-justify text-base text-neutral-300 md:text-wrap md:text-lg',
+    copyButton: 'inline-flex underline',
     signature: 'h-auto w-36 text-neutral-400',
   },
 })
@@ -66,9 +68,13 @@ function WritingOutro(props: WritingOutroProps) {
         <p className={styles.content()}>
           I hope you found this article helpful and that it added value to your
           learning journey. I&apos;d love to hear your thoughts, feedback, or
-          questions — feel free to reach out via email at kamil@pyszkowski.dev.
-          If you enjoyed this writing, take a moment to explore other articles.
-          Don&apos;t forget to check back soon for fresh insights and updates!
+          questions — feel free to reach out via email at{' '}
+          <CopyButton className={styles.copyButton()}>
+            kamil@pyszkowski.dev
+          </CopyButton>
+          . If you enjoyed this writing, take a moment to explore other
+          articles. Don&apos;t forget to check back soon for fresh insights and
+          updates!
         </p>
 
         <p className={styles.content()}>
