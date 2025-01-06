@@ -11,7 +11,8 @@ const getStyles = tv({
     wrapper: 'prose relative mx-auto px-5 py-20',
     spotlight:
       'pointer-events-none absolute right-0 top-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
-    content: 'text-base text-neutral-300 md:text-lg',
+    content:
+      'text-balance text-justify text-base text-neutral-300 md:text-wrap md:text-lg',
     signature: 'h-auto w-36 text-neutral-400',
   },
 })

@@ -9,7 +9,7 @@ const getStyles = tv({
     wrapper: 'relative flex px-3 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
     label: 'font-sans text-xs leading-4 md:text-sm',
-    highlight: 'fixed inset-0 size-full bg-white/20',
+    highlight: 'absolute inset-0 size-full bg-white/20',
   },
   variants: {
     disabled: {
