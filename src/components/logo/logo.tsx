@@ -43,7 +43,7 @@ function Logo(props: LogoProps) {
 
   return (
     <svg
-      className={cn(className, styles.container())}
+      className={cn(styles.container(), className)}
       viewBox="0 0 32 32"
       {...restProps}
     >

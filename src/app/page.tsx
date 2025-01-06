@@ -1,41 +1,11 @@
 'use client'
-
 import { Logo } from '@/components/logo'
 import cn from '@/utils/cn'
-import {
-  motion,
-  SpringOptions,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  Variants,
-} from 'framer-motion'
-import { CSSProperties, useEffect } from 'react'
+import { motion, Variants } from 'framer-motion'
 import { GitHub, Linkedin, Send } from 'react-feather'
 
 const Background = (props: { className?: string }) => {
   const { className = '', ...restProps } = props
-
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  useEffect(() => {
-    mouseX.set(window.innerWidth / 2)
-    mouseY.set(window.innerWidth / 2)
-
-    const handleMouseMove = (event: MouseEvent) => {
-      mouseX.set(event.clientX)
-      mouseY.set(event.clientY)
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
-
-  const smoothMouseX = useSpring(mouseX, SPRING_OPTIONS)
-  const smoothMouseY = useSpring(mouseY, SPRING_OPTIONS)
-  const rotate = useTransform(smoothMouseX, [0, 2137], [-180, 180])
-
   return (
     <div
       className={cn(
@@ -44,41 +14,7 @@ const Background = (props: { className?: string }) => {
       )}
       {...restProps}
     >
-      <div className="placeholder-background z-20 size-full" />
-
-      <motion.svg
-        className="absolute -inset-[24rem] z-10 hidden size-[48rem] opacity-25 mix-blend-darken saturate-150 lg:block dark:opacity-50 dark:mix-blend-normal"
-        width="458.751"
-        height="447.742"
-        viewBox="0 0 121.378 118.465"
-        style={{
-          x: smoothMouseX,
-          y: smoothMouseY,
-          rotate,
-        }}
-      >
-        <defs>
-          <filter
-            id="a"
-            width="2.399"
-            height="2.399"
-            x="-.7"
-            y="-.7"
-            style={
-              {
-                colorInterpolationFilters: 'sRGB',
-              } as CSSProperties
-            }
-          >
-            <feGaussianBlur result="blur" stdDeviation="16" />
-          </filter>
-        </defs>
-        <g transform="translate(-25.254 -137.364)" filter="url(#a)">
-          <circle cx="86.244" cy="187.423" r="20.862" fill="#00aaa8" />
-          <circle cx="96.573" cy="205.77" r="20.862" fill="#aa8c00" />
-          <circle cx="75.314" cy="205.77" r="20.862" fill="#aa00a3" />
-        </g>
-      </motion.svg>
+      <div className="writing-outro-background z-20 size-full [mask:radial-gradient(black,transparent)]" />
     </div>
   )
 }
@@ -122,11 +58,6 @@ const DOT_VARIANTS: Variants = {
       duration: 0.48,
     },
   },
-}
-
-const SPRING_OPTIONS: SpringOptions = {
-  damping: 24,
-  stiffness: 120,
 }
 
 export default function Home() {
@@ -181,8 +112,8 @@ export default function Home() {
           ))}
         </ul>
 
-        <p className="mt-auto text-sm text-neutral-600 dark:text-neutral-200 dark:opacity-50">
-          🐭 {new Date().getFullYear()}
+        <p className="mt-auto font-mono text-sm text-neutral-600">
+          {new Date().getFullYear()}
         </p>
       </main>
 

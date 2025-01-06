@@ -27,7 +27,7 @@ function useClipboard(options?: UseClipboardOptions): UseClipboardReturnType {
 
       return () => clearTimeout(id)
     }
-  }, [hasCopied])
+  }, [hasCopied, flagDuration])
 
   return {
     hasCopied,

@@ -38,7 +38,11 @@ body {
   }
 
   .writing-outro-background {
-    --writing-outro-background-fg: theme(colors.neutral.800/0.56);
+    --writing-outro-background-fg: theme(colors.neutral.300/0.56);
+    @media (prefers-color-scheme: dark) {
+      --writing-outro-background-fg: theme(colors.neutral.800/0.56);
+    }
+
     --writing-outro-background-fg-offset: calc(100% - 1px);
 
     background-size: theme(size.8) theme(size.8);
@@ -64,32 +68,6 @@ body {
         transparent 80%
       );
       mix-blend-mode: overlay;
-    }
-  }
-
-  .placeholder-background {
-    --placeholder-background-color: theme(colors.neutral.200);
-    --placeholder-foreground-color: theme(colors.neutral.50);
-
-    @media (prefers-color-scheme: dark) {
-      --placeholder-background-color: theme(colors.neutral.800);
-      --placeholder-foreground-color: theme(colors.neutral.900);
-    }
-
-    background: radial-gradient(
-      var(--placeholder-background-color) 1px,
-      transparent 1px
-    );
-    background-size: 4px 4px;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        transparent 12.5vw,
-        var(--placeholder-foreground-color)
-      );
     }
   }
 
