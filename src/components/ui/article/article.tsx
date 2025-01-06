@@ -6,7 +6,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 const getStyles = tv({
   slots: {
     container: [
-      'prose prose-neutral prose-invert mx-auto',
+      'prose prose-sm prose-neutral mx-auto md:prose-base dark:prose-invert',
       'prose-inline-code:rounded-md prose-inline-code:bg-neutral-800 prose-inline-code:px-3 prose-inline-code:py-1 prose-inline-code:before:hidden prose-inline-code:after:hidden',
     ],
   },

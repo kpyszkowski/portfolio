@@ -16,16 +16,18 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'grid grid-cols-2 grid-rows-[repeat(3,auto)] gap-x-12 gap-y-6',
-    datesWrapper: 'flex items-center gap-8 whitespace-nowrap',
-    publishDate: 'text-lg text-neutral-400 md:text-2xl',
+    container:
+      'grid grid-cols-2 grid-rows-[repeat(3,auto)] gap-x-12 gap-y-4 md:gap-y-6',
+    datesWrapper: 'flex items-center gap-4 whitespace-nowrap md:gap-8',
+    publishDate: 'text-md text-neutral-400 md:text-2xl',
     modifiedDate: 'flex items-center gap-3 text-sm text-neutral-400',
     modifiedIcon: 'size-3',
     shareButton: 'justify-self-end',
+    shareButtonIcon: 'size-4 justify-self-end md:size-5',
     title: 'col-span-2 mb-4 text-4xl/snug md:text-6xl/tight',
-    author: 'flex items-center gap-4',
-    authorImage: 'size-12 rounded-full bg-neutral-600 p-0.5',
-    authorName: 'text-md text-neutral-400',
+    author: 'flex items-center gap-3 md:gap-4',
+    authorImage: 'size-10 rounded-full bg-neutral-600 p-0.5 md:size-12',
+    authorName: 'text-sm text-neutral-400 md:text-base',
     readingTime:
       'flex items-center gap-2 justify-self-end text-sm text-neutral-400',
     readingTimeIcon: 'size-4',
@@ -83,7 +85,7 @@ function WritingIntro(props: WritingIntroProps) {
       </div>
 
       <button className={styles.shareButton()}>
-        <ShareIcon />
+        <ShareIcon className={styles.shareButtonIcon()} />
       </button>
 
       <h1 className={styles.title()}>{title}</h1>

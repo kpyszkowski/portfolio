@@ -15,12 +15,12 @@ const SPRING_OPTIONS: SpringOptions = {
 const getStyles = tv({
   slots: {
     container:
-      'group inline-block overflow-hidden rounded-3xl bg-neutral-500/25 backdrop-blur-sm backdrop-brightness-[0.65] backdrop-contrast-[0.85] backdrop-saturate-[1.5] neumorphism',
+      'group inline-block overflow-hidden rounded-3xl bg-neutral-500 bg-opacity-10 backdrop-blur-sm backdrop-brightness-[0.65] backdrop-contrast-[0.85] backdrop-saturate-[1.5] neumorphism md:bg-opacity-25',
     wrapper:
       'relative flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
-    list: 'inline-flex gap-3',
+    list: 'inline-flex gap-1 md:gap-3',
     glare:
-      'pointer-events-none absolute -inset-12 size-24 rounded-full bg-neutral-500/25 opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
+      'pointer-events-none absolute -inset-12 size-24 rounded-full bg-neutral-500/20 opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
   },
 })
 

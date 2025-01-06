@@ -21,12 +21,6 @@ export const WithoutOnMountAnimation: Story = {
   },
 }
 
-export const WithReversedAnimation: Story = {
-  args: {
-    reverse: true,
-  },
-}
-
 export const AnimateWhileInView: Story = {
   args: {
     whileInView: true,

@@ -12,10 +12,10 @@ import { tv, type VariantProps } from 'tailwind-variants'
 const getStyles = tv({
   slots: {
     container:
-      'rounded-lg border-l-4 border-current px-8 py-5 neumorphism md:-mx-8',
+      'rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
     title: 'flex items-center gap-4 text-base',
-    content: 'text-base text-neutral-200 prose-p:my-2',
-    icon: '-ml-[3.25rem] size-9 bg-neutral-900 p-2 [clip-path:inset(0_round_4rem)]',
+    content: 'text-neutral-200 prose-p:my-2',
+    icon: '-ml-[2.85rem] size-8 bg-neutral-900 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)]',
   },
   variants: {
     type: {

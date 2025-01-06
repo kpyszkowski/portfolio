@@ -7,8 +7,8 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'flex flex-col gap-3',
-    sliderRoot: 'relative flex items-center',
+    container: 'flex touch-none select-none flex-col',
+    sliderRoot: 'relative flex cursor-grab items-center py-3',
     label: 'block text-sm text-neutral-50',
     track: 'relative flex-grow overflow-hidden rounded bg-neutral-50/25',
     range: 'absolute bg-neutral-50',

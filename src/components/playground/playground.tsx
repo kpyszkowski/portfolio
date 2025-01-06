@@ -13,8 +13,9 @@ const getStyles = tv({
   slots: {
     container: 'overflow-hidden',
     contentWrapper: 'p-5',
-    controlsWrapper: 'grid grid-flow-row gap-8 px-8 py-6 md:grid-cols-2',
-    sourceCodeWrapper: 'py-4',
+    controlsWrapper:
+      'grid grid-flow-row gap-8 px-5 py-6 md:grid-cols-2 md:px-8',
+    sourceCodeWrapper: 'pb-6 pt-4',
   },
 })
 

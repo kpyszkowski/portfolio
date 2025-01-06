@@ -1,5 +1,6 @@
 'use client'
 import { Signature } from '@/components/signature'
+import useBreakpoint from '@/hooks/use-breakpoint'
 import cn from '@/utils/cn'
 import { motion } from 'framer-motion'
 import { tv, type VariantProps } from 'tailwind-variants'
@@ -9,8 +10,8 @@ const getStyles = tv({
     container: 'writing-outro-background mt-24 overflow-hidden',
     wrapper: 'prose relative mx-auto px-5 py-20',
     spotlight:
-      'pointer-events-none absolute right-0 top-0 h-full w-auto fill-neutral-400 mix-blend-color-dodge blur-md',
-    content: 'text-lg text-neutral-300',
+      'pointer-events-none absolute right-0 top-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
+    content: 'text-base text-neutral-300 md:text-lg',
     signature: 'h-auto w-36 text-neutral-400',
   },
 })
@@ -23,6 +24,7 @@ function WritingOutro(props: WritingOutroProps) {
   const { className = '', ...restProps } = props
 
   const styles = getStyles()
+  const isDesktop = useBreakpoint('md')
 
   return (
     <div className={cn(styles.container(), className)} {...restProps}>
@@ -33,20 +35,19 @@ function WritingOutro(props: WritingOutroProps) {
           width="64"
           height="128"
           viewBox="0 0 64 128"
-          style={{
-            transformOrigin: '112% 20%',
-          }}
           initial={{
             opacity: 0.24,
-            rotate: 90,
+            rotate: isDesktop ? 90 : 48,
             scaleX: 2.25,
             scaleY: 1,
+            x: 0,
           }}
           whileInView={{
             opacity: 0.32,
-            rotate: 40,
-            scaleX: 2.1,
-            scaleY: 1.6,
+            rotate: isDesktop ? 40 : 16,
+            scaleX: isDesktop ? 2.06 : 1.24,
+            scaleY: isDesktop ? 1.6 : 1.12,
+            x: isDesktop ? 0 : '24%',
             transition: {
               delay: 1,
               duration: 2,
@@ -73,13 +74,7 @@ function WritingOutro(props: WritingOutroProps) {
           See you around! <br /> — Kamil
         </p>
 
-        <Signature
-          className={styles.signature()}
-          whileInView
-          transition={{
-            delay: 1.5,
-          }}
-        />
+        <Signature className={styles.signature()} whileInView />
       </div>
     </div>
   )
