@@ -1,4 +1,4 @@
-import HighlightedCodeImpl from '@/components/ui/highlighted-code/highlighted-code-impl'
+import HighlightedCodeTokens from '@/components/ui/highlighted-code/highlighted-code-tokens'
 import { BundledLanguage, getCodeHighlighter } from '@/lib/syntax-highlighting'
 
 interface HighlightedCodeAsyncProps {
@@ -18,7 +18,7 @@ async function HighlightedCodeAsync(props: HighlightedCodeAsyncProps) {
       theme: 'one-dark-pro',
     }) || {}
 
-  return <HighlightedCodeImpl tokens={tokens} {...restProps} />
+  return <HighlightedCodeTokens tokens={tokens} {...restProps} />
 }
 
 export default HighlightedCodeAsync

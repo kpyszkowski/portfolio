@@ -1,8 +1,9 @@
 'use client'
-import HighlightedCodeImpl from './highlighted-code-impl'
 import { BundledLanguage, getCodeHighlighter } from '@/lib/syntax-highlighting'
 import { useLayoutEffect, useState } from 'react'
 import { TokensResult } from 'shiki'
+import HighlightedCodeTokens from './highlighted-code-tokens'
+import HighlightedCodeAsync from './highlighted-code-async'
 
 interface HighlightedCodeProps {
   children: string
@@ -32,7 +33,9 @@ function HighlightedCode(props: HighlightedCodeProps) {
     handleSyntaxHighlighting()
   }, [children, lang])
 
-  return <HighlightedCodeImpl tokens={tokens} {...restProps} />
+  if (!tokens.length) return <HighlightedCodeAsync {...props} />
+
+  return <HighlightedCodeTokens tokens={tokens} {...restProps} />
 }
 
 export default HighlightedCode
