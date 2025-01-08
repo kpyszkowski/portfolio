@@ -38,12 +38,11 @@ next-env.d.ts
 
 # Cloudflare related
 /.save.next
-/.worker-next
 /.wrangler
+/.open-next
 
 # wrangler files
 .wrangler
-.dev.vars
 
 *storybook.log
 
