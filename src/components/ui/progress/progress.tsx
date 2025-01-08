@@ -4,10 +4,9 @@ import {
   isMotionValue,
   motion,
   MotionValue,
-  SpringOptions,
   useMotionValue,
   useTransform,
-} from 'framer-motion'
+} from 'motion/react'
 import { useEffect } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -44,7 +43,7 @@ interface ProgressProps
     Pick<ProgressPrimititve.ProgressProps, 'getValueLabel' | 'max'> {
   className?: string
   value?: number | MotionValue<number> | null
-  transition?: SpringOptions
+  transition?: Record<string, unknown>
 }
 
 const PROGRESS_PATH_LENGTH = 88

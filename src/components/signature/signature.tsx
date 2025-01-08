@@ -1,6 +1,6 @@
 'use client'
 import cn from '@/utils/cn'
-import { motion, Transition, useInView, Variants } from 'framer-motion'
+import { motion, Transition, useInView, Variants } from 'motion/react'
 import { useRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 

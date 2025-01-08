@@ -1,13 +1,8 @@
+// TODO: Resolve circular dependency
 // eslint-disable-next-line import/no-cycle
 import { ButtonProps } from '@/components/ui/button/button'
 import cn from '@/utils/cn'
-import {
-  motion,
-  SpringOptions,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import Link from 'next/link'
 import { CSSProperties } from 'react'
 import { tv } from 'tailwind-variants'
@@ -43,7 +38,7 @@ const getStyles = tv({
   },
 })
 
-const SPRING_OPTIONS: SpringOptions = { stiffness: 100, damping: 8 }
+const SPRING_OPTIONS = { stiffness: 100, damping: 8 }
 
 type ButtonSolidProps = Omit<
   ButtonProps,

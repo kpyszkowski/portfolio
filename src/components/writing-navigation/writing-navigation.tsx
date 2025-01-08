@@ -8,7 +8,7 @@ import {
   motion,
   MotionValue,
   useMotionValue,
-} from 'framer-motion'
+} from 'motion/react'
 import { createContext, useCallback, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 

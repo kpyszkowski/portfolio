@@ -3,7 +3,7 @@ import { Signature } from '@/components/signature'
 import { CopyButton } from '@/components/ui/copy-button'
 import useBreakpoint from '@/hooks/use-breakpoint'
 import cn from '@/utils/cn'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({

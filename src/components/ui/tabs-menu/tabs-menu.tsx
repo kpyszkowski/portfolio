@@ -3,11 +3,11 @@ import TabsMenuItem, {
   type TabsMenuItemType,
 } from '@/components/ui/tabs-menu/tabs-menu-item'
 import cn from '@/utils/cn'
-import { motion, SpringOptions, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'motion/react'
 import { useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
-const SPRING_OPTIONS: SpringOptions = {
+const SPRING_OPTIONS = {
   damping: 16,
   stiffness: 120,
 }

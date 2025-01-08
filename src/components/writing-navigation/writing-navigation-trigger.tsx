@@ -1,5 +1,5 @@
 'use client'
-import { useMotionValueEvent, useScroll } from 'framer-motion'
+import { useMotionValueEvent, useScroll } from 'motion/react'
 import { useContext, useRef } from 'react'
 import { WritingNavigationContext } from './writing-navigation'
 

@@ -1,9 +1,9 @@
 'use client'
 import cn from '@/utils/cn'
-import { tv, type VariantProps } from 'tailwind-variants'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import { AnimatePresence, motion, Transition, Variants } from 'motion/react'
 import React, { forwardRef, useState } from 'react'
-import { AnimatePresence, motion, Transition, Variants } from 'framer-motion'
+import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
