@@ -19,8 +19,11 @@ const getStyles = tv({
   },
   variants: {
     type: {
-      note: {
+      tip: {
         container: 'bg-blue-600/5 text-blue-400',
+      },
+      note: {
+        container: 'bg-zinc-600/5 text-zinc-400',
       },
       warning: {
         container: 'bg-yellow-600/5 text-yellow-400',
@@ -33,11 +36,15 @@ const getStyles = tv({
       },
     },
   },
+  defaultVariants: {
+    type: 'note',
+  },
 })
 
 const getIconByType = (type: CalloutType) => {
-  switch (type) {
+  switch (type.toLowerCase()) {
     default:
+    case 'tip':
     case 'note':
       return InfoIcon
     case 'warning':
@@ -49,7 +56,7 @@ const getIconByType = (type: CalloutType) => {
   }
 }
 
-export type CalloutType = 'note' | 'warning' | 'danger' | 'success'
+export type CalloutType = 'tip' | 'warning' | 'danger' | 'success' | 'note'
 
 interface CalloutProps extends VariantProps<typeof getStyles> {
   className?: string

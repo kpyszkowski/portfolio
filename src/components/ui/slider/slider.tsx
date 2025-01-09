@@ -61,7 +61,8 @@ function Slider(props: SliderProps) {
   const {
     className = '',
     label,
-    defaultValue = [0],
+    value,
+    defaultValue = value,
     valueLabel,
     orientation = 'horizontal',
     onValueChange,

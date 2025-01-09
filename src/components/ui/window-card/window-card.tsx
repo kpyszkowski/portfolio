@@ -6,8 +6,9 @@ import { tv, type VariantProps } from 'tailwind-variants'
 const getStyles = tv({
   slots: {
     container:
-      'window-card-background relative -mx-16 my-6 rounded-3xl bg-cover px-16 py-12',
-    wrapper: 'm-0 shadow-lg neumorphism [clip-path:inset(0_round_1rem)]',
+      'window-card-background relative -mx-16 my-10 rounded-3xl bg-cover px-16 py-3',
+    wrapper:
+      'm-0 rounded-2xl backdrop-blur-2xl neumorphism [clip-path:inset(0_round_1rem)]',
     captionWrapper: 'm-0 flex h-14 px-5 pb-6 pt-4 leading-6',
     contentWrapper: 'divide-y divide-neutral-700',
     decorator: 'z-10 w-12',

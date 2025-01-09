@@ -7,7 +7,7 @@ const getStyles = tv({
   slots: {
     container: [
       'prose prose-sm prose-neutral mx-auto md:prose-base dark:prose-invert',
-      'prose-inline-code:rounded-md prose-inline-code:bg-neutral-800 prose-inline-code:px-3 prose-inline-code:py-1 prose-inline-code:before:hidden prose-inline-code:after:hidden',
+      'prose-inline-code:rounded-md prose-inline-code:bg-neutral-700 prose-inline-code:px-1.5 prose-inline-code:py-0.5 prose-inline-code:font-medium prose-inline-code:before:hidden prose-inline-code:after:hidden',
     ],
   },
 })
