@@ -42,7 +42,11 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
   const styles = getStyles({ color })
 
   return (
-    <div className={cn(styles.container(), className)} ref={ref} {...restProps}>
+    <div
+      className={cn(styles.container(), className)}
+      ref={ref}
+      {...restProps}
+    >
       {children}
     </div>
   )

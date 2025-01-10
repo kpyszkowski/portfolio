@@ -118,7 +118,10 @@ function ButtonSolid(props: ButtonSolidProps) {
         <span className={styles.glow()} />
       </div>
 
-      <motion.div className={styles.wrapper()} style={wrapperStyle}>
+      <motion.div
+        className={styles.wrapper()}
+        style={wrapperStyle}
+      >
         <span className={styles.backgroundWrapper()}>
           <span className={styles.background()} />
         </span>

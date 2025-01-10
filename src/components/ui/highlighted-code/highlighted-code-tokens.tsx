@@ -22,7 +22,10 @@ function HighlightedCodeImpl(props: HighlightedCodeImplProps) {
   const styles = getStyles()
 
   return (
-    <code className={cn(styles.container(), className)} {...restProps}>
+    <code
+      className={cn(styles.container(), className)}
+      {...restProps}
+    >
       <div className={styles.wrapper()}>
         {tokens.map((line, index) => (
           <div key={index}>

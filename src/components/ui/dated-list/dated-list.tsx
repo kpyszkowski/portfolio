@@ -68,14 +68,23 @@ function DatedList(props: DatedListProps) {
   const groupedItems = getItemsGroupedByYear(items, order)
 
   return (
-    <div className={cn(className, styles.container())} {...restProps}>
+    <div
+      className={cn(className, styles.container())}
+      {...restProps}
+    >
       {groupedItems.map(([year, items]) => (
-        <section className={styles.wrapper()} key={year}>
+        <section
+          className={styles.wrapper()}
+          key={year}
+        >
           <Heading className={styles.year()}>{year}</Heading>
 
           <ul className={styles.list()}>
             {items.map((item) => (
-              <li key={item.id} className={styles.item()}>
+              <li
+                key={item.id}
+                className={styles.item()}
+              >
                 <time
                   className={styles.itemDate()}
                   dateTime={getDateString(item.date)}

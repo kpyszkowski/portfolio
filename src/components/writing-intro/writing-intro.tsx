@@ -65,7 +65,10 @@ function WritingIntro(props: WritingIntroProps) {
     'Last modified' + (isDesktop ? '' : `: ${formattedModifiedDate}`)
 
   return (
-    <div className={cn(className, styles.container())} {...restProps}>
+    <div
+      className={cn(className, styles.container())}
+      {...restProps}
+    >
       <div className={styles.datesWrapper()}>
         <time className={styles.publishDate()}>
           {getFormattedDate(publishedAt, {
@@ -75,7 +78,11 @@ function WritingIntro(props: WritingIntroProps) {
         </time>
 
         {modifiedAt && (
-          <Tooltip label={modifiedTooltipLabel} size="xs" side="right">
+          <Tooltip
+            label={modifiedTooltipLabel}
+            size="xs"
+            side="right"
+          >
             <Badge className={styles.modifiedDate()}>
               <EditIcon className={styles.modifiedIcon()} />
               {isDesktop && formattedModifiedDate}

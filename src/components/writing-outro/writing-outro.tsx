@@ -30,7 +30,10 @@ function WritingOutro(props: WritingOutroProps) {
   const isDesktop = useBreakpoint('md')
 
   return (
-    <div className={cn(styles.container(), className)} {...restProps}>
+    <div
+      className={cn(styles.container(), className)}
+      {...restProps}
+    >
       <div className={styles.wrapper()}>
         <motion.svg
           className={styles.spotlight()}
@@ -81,7 +84,10 @@ function WritingOutro(props: WritingOutroProps) {
           See you around! <br /> — Kamil
         </p>
 
-        <Signature className={styles.signature()} whileInView />
+        <Signature
+          className={styles.signature()}
+          whileInView
+        />
       </div>
     </div>
   )

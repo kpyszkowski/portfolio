@@ -41,7 +41,12 @@ function WritingNavigationTrigger(props: WritingNavigationTriggerProps) {
     setIsVisible(isInProgress || hasFirstItemStarted || hasLastItemFinished)
   })
 
-  return <section ref={ref} {...props} />
+  return (
+    <section
+      ref={ref}
+      {...props}
+    />
+  )
 }
 
 export default WritingNavigationTrigger

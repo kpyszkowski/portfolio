@@ -86,8 +86,14 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
 
   return (
     <TooltipPrimitive.Provider delayDuration={delayDuration}>
-      <TooltipPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
-        <TooltipPrimitive.Trigger ref={ref} asChild={triggerAsChild}>
+      <TooltipPrimitive.Root
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      >
+        <TooltipPrimitive.Trigger
+          ref={ref}
+          asChild={triggerAsChild}
+        >
           {triggerContent}
         </TooltipPrimitive.Trigger>
 

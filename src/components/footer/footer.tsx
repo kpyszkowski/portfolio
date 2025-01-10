@@ -50,13 +50,20 @@ function Footer(props: FooterProps) {
     [currentTime],
   )
   return (
-    <div className={cn(className, styles.container())} {...restProps}>
+    <div
+      className={cn(className, styles.container())}
+      {...restProps}
+    >
       <div className={styles.wrapper()}>
         <div className={styles.decorator()}>
           <span suppressHydrationWarning>{dateDecorator}</span>
         </div>
 
-        <Logo className={styles.logo()} size="sm" color="light" />
+        <Logo
+          className={styles.logo()}
+          size="sm"
+          color="light"
+        />
 
         <div className={styles.decorator()}>
           <span>

@@ -35,7 +35,12 @@ function HighlightedCode(props: HighlightedCodeProps) {
 
   if (!tokens.length) return <HighlightedCodeAsync {...props} />
 
-  return <HighlightedCodeTokens tokens={tokens} {...restProps} />
+  return (
+    <HighlightedCodeTokens
+      tokens={tokens}
+      {...restProps}
+    />
+  )
 }
 
 export default HighlightedCode

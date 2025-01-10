@@ -147,12 +147,18 @@ function Playground(props: PlaygroundProps) {
   }
 
   return (
-    <WindowCard className={cn(styles.container(), className)} {...restProps}>
+    <WindowCard
+      className={cn(styles.container(), className)}
+      {...restProps}
+    >
       <WindowCard.Content className={styles.contentWrapper()}>
         {content({ registerControl })}
       </WindowCard.Content>
 
-      <WindowCard.Content variant="solid" className={styles.controlsWrapper()}>
+      <WindowCard.Content
+        variant="solid"
+        className={styles.controlsWrapper()}
+      >
         {Object.entries(controls).map(([id, value]) => {
           const [, , props] = registry.current[id]
 
@@ -162,12 +168,21 @@ function Playground(props: PlaygroundProps) {
             handleValueChange,
           )
           // @ts-expect-error TODO: Fix typings
-          return <Component key={id} {...controlProps} {...props} />
+          return (
+            <Component
+              key={id}
+              {...controlProps}
+              {...props}
+            />
+          )
         })}
       </WindowCard.Content>
 
       {sourceCode && (
-        <WindowCard.Content as="pre" className={styles.sourceCodeWrapper()}>
+        <WindowCard.Content
+          as="pre"
+          className={styles.sourceCodeWrapper()}
+        >
           <HighlightedCode language={sourceCodeLanguage}>
             {sourceCode(controls).join('\n')}
           </HighlightedCode>

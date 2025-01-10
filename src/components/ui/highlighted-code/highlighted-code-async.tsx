@@ -18,7 +18,12 @@ async function HighlightedCodeAsync(props: HighlightedCodeAsyncProps) {
       theme: 'one-dark-pro',
     }) || {}
 
-  return <HighlightedCodeTokens tokens={tokens} {...restProps} />
+  return (
+    <HighlightedCodeTokens
+      tokens={tokens}
+      {...restProps}
+    />
+  )
 }
 
 export default HighlightedCodeAsync

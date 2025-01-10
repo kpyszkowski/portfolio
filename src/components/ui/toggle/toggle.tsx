@@ -34,7 +34,10 @@ function Toggle(props: ToggleProps) {
 
   return (
     <label className={cn(className, styles.container())}>
-      <TogglePrimitive.Root className={styles.switchRoot()} {...restProps}>
+      <TogglePrimitive.Root
+        className={styles.switchRoot()}
+        {...restProps}
+      >
         <TogglePrimitive.Thumb className={styles.thumb()} />
       </TogglePrimitive.Root>
 

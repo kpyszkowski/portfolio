@@ -150,7 +150,10 @@ function WritingNavigation(props: WritingNavigationProps) {
           )}
         </AnimatePresence>
 
-        <AnimatePresence mode="popLayout" initial={false}>
+        <AnimatePresence
+          mode="popLayout"
+          initial={false}
+        >
           {!isExpanded && (
             <motion.button
               onClick={() => setIsExpanded(true)}
@@ -160,7 +163,10 @@ function WritingNavigation(props: WritingNavigationProps) {
               exit={{ y: -128 }}
               animate={{ y: 0 }}
             >
-              <Progress value={currentProgress} max={1} />
+              <Progress
+                value={currentProgress}
+                max={1}
+              />
 
               <div className={styles.indicatorLabelsWrapper()}>
                 <span className={styles.indicatorChapterLabel()}>

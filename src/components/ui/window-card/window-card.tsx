@@ -35,7 +35,10 @@ function WindowCardRoot(props: WindowCardProps) {
   const styles = getStyles()
 
   return (
-    <div className={cn(styles.container(), className)} {...restProps}>
+    <div
+      className={cn(styles.container(), className)}
+      {...restProps}
+    >
       <figure className={styles.wrapper()}>
         <WindowCardContent
           as="figcaption"
@@ -48,9 +51,24 @@ function WindowCardRoot(props: WindowCardProps) {
             xmlns="http://www.w3.org/2000/svg"
             role="img"
           >
-            <circle cx="6" cy="6" r="6" fill="#FF5F57" />
-            <circle cx="24" cy="6" r="6" fill="#FFBD2E" />
-            <circle cx="42" cy="6" r="6" fill="#28C840" />
+            <circle
+              cx="6"
+              cy="6"
+              r="6"
+              fill="#FF5F57"
+            />
+            <circle
+              cx="24"
+              cy="6"
+              r="6"
+              fill="#FFBD2E"
+            />
+            <circle
+              cx="42"
+              cy="6"
+              r="6"
+              fill="#28C840"
+            />
           </svg>
 
           {title && <span className={styles.label()}>{title}</span>}

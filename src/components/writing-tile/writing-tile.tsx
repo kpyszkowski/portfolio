@@ -63,7 +63,12 @@ function WritingTile(props: WritingTileProps) {
         </div>
       )}
 
-      <Tooltip label="Reading time" side="left" align="end" size="xs">
+      <Tooltip
+        label="Reading time"
+        side="left"
+        align="end"
+        size="xs"
+      >
         <div
           className={styles.readTimeWrapper()}
           aria-label={`Reading time: ${readingTime} minutes`}

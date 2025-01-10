@@ -6,13 +6,14 @@ import {
   Info as InfoIcon,
   CheckCircle as SuccessIcon,
   AlertTriangle as WarningIcon,
+  Zap as TipIcon,
 } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
     container:
-      'rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
+      'my-6 rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
     title: 'flex items-center gap-4 text-base',
     content: 'text-neutral-200 prose-p:my-2',
     icon: '-ml-[2.85rem] size-8 bg-neutral-900 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)]',
@@ -44,9 +45,10 @@ const getStyles = tv({
 const getIconByType = (type: CalloutType) => {
   switch (type.toLowerCase()) {
     default:
-    case 'tip':
     case 'note':
       return InfoIcon
+    case 'tip':
+      return TipIcon
     case 'warning':
       return WarningIcon
     case 'danger':
@@ -73,7 +75,10 @@ function Callout(props: CalloutProps) {
   const [title, content] = Children.toArray(children).filter(isValidElement)
 
   return (
-    <aside className={cn(styles.container(), className)} {...restProps}>
+    <aside
+      className={cn(styles.container(), className)}
+      {...restProps}
+    >
       <div className={styles.title()}>
         <Icon className={styles.icon()} />
         {title}

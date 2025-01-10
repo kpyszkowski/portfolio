@@ -38,7 +38,10 @@ function WindowCardContent(props: WindowCardContentProps) {
   const styles = getStyles({ variant })
 
   return (
-    <Component className={cn(styles.container(), className)} {...restProps}>
+    <Component
+      className={cn(styles.container(), className)}
+      {...restProps}
+    >
       {children}
     </Component>
   )
