@@ -8,10 +8,10 @@ const getStyles = tv({
   variants: {
     variant: {
       translucent: {
-        container: 'bg-neutral-800/[0.32]',
+        container: 'bg-neutral-900/[0.52]',
       },
       solid: {
-        container: 'bg-neutral-800',
+        container: 'bg-neutral-800/85',
       },
     },
   },

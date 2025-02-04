@@ -8,7 +8,7 @@ const getStyles = tv({
     container:
       'window-card-background relative -mx-16 my-10 rounded-3xl bg-cover px-16 py-3',
     wrapper:
-      'm-0 rounded-2xl backdrop-blur-2xl neumorphism [clip-path:inset(0_round_1rem)]',
+      'm-0 rounded-2xl backdrop-blur-2xl backdrop-brightness-75 backdrop-saturate-200 neumorphism [clip-path:inset(0_round_1rem)]',
     captionWrapper: 'm-0 flex h-14 px-5 pb-6 pt-4 leading-6',
     contentWrapper: 'divide-y divide-neutral-700',
     decorator: 'z-10 w-12',

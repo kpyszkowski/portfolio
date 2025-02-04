@@ -5,6 +5,14 @@
   "tabWidth": 2,
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindFunctions": ["tv"],
-  "proseWrap": "always",
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "overrides": [
+    {
+      "files": "*.mdx",
+      "options": {
+        "proseWrap": "always",
+        "printWidth": 100
+      }
+    }
+  ]
 }

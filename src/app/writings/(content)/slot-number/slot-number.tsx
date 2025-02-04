@@ -77,14 +77,20 @@ function SlotNumber(props: SlotNumberProps) {
   }, [formatFunction, value])
 
   return (
-    <motion.div layout className={cn(styles.container(), className)}>
+    <motion.div
+      layout
+      className={cn(styles.container(), className)}
+    >
       {characters.map((character, index) =>
         typeof character === 'number' ? (
           <SlotNumberDigit key={`slot-number-character-${index}`}>
             {character}
           </SlotNumberDigit>
         ) : (
-          <motion.span layout key={`slot-number-character-${index}`}>
+          <motion.span
+            layout
+            key={`slot-number-character-${index}`}
+          >
             {character}
           </motion.span>
         ),
