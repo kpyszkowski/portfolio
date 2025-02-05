@@ -1,9 +1,9 @@
 'use client'
-import { BundledLanguage, getCodeHighlighter } from '@/lib/syntax-highlighting'
+import { BundledLanguage } from '@/lib/code-highlighting'
 import { useLayoutEffect, useState } from 'react'
 import { TokensResult } from 'shiki'
-import HighlightedCodeTokens from './highlighted-code-tokens'
 import HighlightedCodeAsync from './highlighted-code-async'
+import HighlightedCodeTokens from './highlighted-code-tokens'
 
 interface HighlightedCodeProps {
   children: string
@@ -11,7 +11,7 @@ interface HighlightedCodeProps {
 }
 
 function HighlightedCode(props: HighlightedCodeProps) {
-  const { children, language: lang, ...restProps } = props
+  const { children, language, ...restProps } = props
 
   const [tokens, setTokens] = useState<TokensResult['tokens']>([])
 
@@ -19,19 +19,14 @@ function HighlightedCode(props: HighlightedCodeProps) {
     const code = children.trim()
 
     const handleSyntaxHighlighting = async () => {
-      const highlighter = await getCodeHighlighter()
-
-      const { tokens } =
-        highlighter?.codeToTokens(code, {
-          lang,
-          theme: 'one-dark-pro',
-        }) || {}
-      setTokens(tokens || [])
-      highlighter.dispose()
+      const { createCodeHighlighter } = await import('@/lib/code-highlighting')
+      const highlighter = await createCodeHighlighter()
+      const { tokens } = await highlighter.codeToTokens(code, language)
+      setTokens(tokens)
     }
 
     handleSyntaxHighlighting()
-  }, [children, lang])
+  }, [children, language])
 
   if (!tokens.length) return <HighlightedCodeAsync {...props} />
 

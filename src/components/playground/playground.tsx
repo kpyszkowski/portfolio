@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
 import { Toggle } from '@/components/ui/toggle'
 import { WindowCard } from '@/components/ui/window-card'
-import { BundledLanguage } from '@/lib/syntax-highlighting'
+import { BundledLanguage } from '@/lib/code-highlighting'
 import cn from '@/utils/cn'
 import { useRef, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
@@ -23,7 +23,8 @@ const getControlComponent = (
   id: string,
   value: PlaygroundValue,
   handler: (id: string, value: PlaygroundValue) => void,
-): [React.ComponentType<never>, unknown] => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): [React.ComponentType<any>, object] => {
   switch (typeof value) {
     default:
     case 'string':
@@ -167,7 +168,6 @@ function Playground(props: PlaygroundProps) {
             value,
             handleValueChange,
           )
-          // @ts-expect-error TODO: Fix typings
           return (
             <Component
               key={id}
