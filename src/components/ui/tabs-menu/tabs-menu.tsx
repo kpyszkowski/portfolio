@@ -15,9 +15,9 @@ const SPRING_OPTIONS = {
 const getStyles = tv({
   slots: {
     container: [
-      'group inline-block overflow-hidden rounded-3xl bg-neutral-200 bg-opacity-10 neumorphism md:bg-opacity-25',
+      'group inline-block overflow-hidden rounded-3xl bg-neutral-200 bg-opacity-10 neumorphism md:bg-opacity-75',
       'backdrop-blur-sm backdrop-brightness-[0.95] backdrop-saturate-[1.5]',
-      'dark:bg-neutral-500 dark:backdrop-brightness-[0.65]',
+      'dark:bg-neutral-700 dark:backdrop-brightness-[0.65]',
     ],
     wrapper:
       'relative flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',

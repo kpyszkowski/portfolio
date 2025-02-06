@@ -23,12 +23,12 @@ export default async function WritingsPage() {
       <div className="flex flex-col gap-10 pb-24 pt-12 md:flex-row md:gap-12 md:pt-24">
         <div className="flex basis-2/6 flex-col gap-4">
           <h1 className="text-3xl">Hi everyone! ✋🏻</h1>
-          <p className="text-xl/none text-neutral-400">
+          <p className="text-xl/none text-neutral-500 dark:text-neutral-400">
             Welcome to my writings page
           </p>
         </div>
 
-        <p className="text-md/loose flex-1 md:text-lg/loose">
+        <p className="text-md/loose flex-1 text-neutral-500 md:text-lg/loose dark:text-neutral-400">
           Mastery is not only skills but also knowledge. Writing down
           experiences is a great way to consolidate learnings. It also creates a
           useful resource should any of the experiences prove useful in the
