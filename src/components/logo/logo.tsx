@@ -17,6 +17,9 @@ const getStyles = tv({
       },
     },
     color: {
+      auto: {
+        container: 'stroke-current',
+      },
       dark: {
         container: 'stroke-neutral-900',
       },
@@ -27,7 +30,7 @@ const getStyles = tv({
   },
   defaultVariants: {
     size: 'md',
-    color: 'dark',
+    color: 'auto',
   },
 })
 
