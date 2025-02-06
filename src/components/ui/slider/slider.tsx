@@ -3,7 +3,6 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import { useCallback, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { Badge } from '~/components/ui/badge'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -98,7 +97,7 @@ function Slider(props: SliderProps) {
       </div>
 
       <SliderPrimitive.Root
-        className={cn(styles.sliderRoot(), className)}
+        className={styles.sliderRoot({ className })}
         defaultValue={defaultValue}
         minStepsBetweenThumbs={isDualRangeMode ? 1 : undefined}
         orientation={orientation}

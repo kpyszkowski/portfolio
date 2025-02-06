@@ -8,7 +8,6 @@ import {
   AlertTriangle as WarningIcon,
 } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -76,7 +75,7 @@ function Callout(props: CalloutProps) {
 
   return (
     <aside
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.title()}>

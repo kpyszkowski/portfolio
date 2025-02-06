@@ -9,7 +9,6 @@ import { tv, type VariantProps } from 'tailwind-variants'
 import { Badge } from '~/components/ui/badge'
 import { Tooltip } from '~/components/ui/tooltip'
 import useBreakpoint from '~/hooks/use-breakpoint'
-import cn from '~/utils/cn'
 import getFormattedDate from '~/utils/get-formatted-date'
 
 // TODO: Add mobile styles
@@ -66,7 +65,7 @@ function WritingIntro(props: WritingIntroProps) {
 
   return (
     <div
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.datesWrapper()}>

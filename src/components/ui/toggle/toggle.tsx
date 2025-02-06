@@ -1,6 +1,5 @@
 import * as TogglePrimitive from '@radix-ui/react-switch'
 import { tv, type VariantProps } from 'tailwind-variants'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -33,7 +32,7 @@ function Toggle(props: ToggleProps) {
   const styles = getStyles()
 
   return (
-    <label className={cn(className, styles.container())}>
+    <label className={styles.container({ className })}>
       <TogglePrimitive.Root
         className={styles.switchRoot()}
         {...restProps}

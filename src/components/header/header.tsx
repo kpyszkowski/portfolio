@@ -3,7 +3,6 @@ import { usePathname } from 'next/navigation'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { Logo } from '~/components/logo'
 import { TabsMenu } from '~/components/ui/tabs-menu'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -54,7 +53,7 @@ function Header(props: HeaderProps) {
   const defaultActive = ITEMS.findIndex((item) => item.href === pathname)
 
   return (
-    <header className={cn(className, styles.container())}>
+    <header className={styles.container({ className })}>
       <TabsMenu
         className={styles.menu()}
         items={ITEMS}

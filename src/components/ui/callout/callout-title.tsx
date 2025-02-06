@@ -6,7 +6,6 @@ import {
 } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { CalloutType } from '~/components/ui/callout/callout'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -56,7 +55,7 @@ function CalloutTitle(props: CalloutTitleProps) {
   return (
     <Element
       open={!defaultFolded}
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <Icon className="mr-2 inline-block" />

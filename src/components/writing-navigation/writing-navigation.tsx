@@ -9,7 +9,6 @@ import { createContext, useCallback, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { Progress } from '~/components/ui/progress'
 import useOutsideClick from '~/hooks/use-outside-click'
-import cn from '~/utils/cn'
 import getSelectorFromId from '~/utils/get-selector-from-id'
 
 // TODO: Investigate and improve a11y
@@ -119,7 +118,7 @@ function WritingNavigation(props: WritingNavigationProps) {
           damping: 14,
           stiffness: 72,
         }}
-        className={cn(styles.container(), className)}
+        className={styles.container({ className })}
         layout
         {...restProps}
       >

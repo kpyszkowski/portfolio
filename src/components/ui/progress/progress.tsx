@@ -66,7 +66,7 @@ function Progress(props: ProgressProps) {
 
   return (
     <ProgressPrimititve.Root
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       asChild
       max={max}
       {...restProps}

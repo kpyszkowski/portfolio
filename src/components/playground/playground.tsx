@@ -7,7 +7,6 @@ import { Slider } from '~/components/ui/slider'
 import { Toggle } from '~/components/ui/toggle'
 import { WindowCard } from '~/components/ui/window-card'
 import { BundledLanguage } from '~/lib/code-highlighting'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -149,7 +148,7 @@ function Playground(props: PlaygroundProps) {
 
   return (
     <WindowCard
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <WindowCard.Content className={styles.contentWrapper()}>

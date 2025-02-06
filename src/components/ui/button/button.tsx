@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { Icon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -138,7 +137,7 @@ function Button(props: ButtonProps) {
 
   return (
     <Component
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       href={href!} // `href` is defined
       target={href && isExternal ? '_blank' : undefined}
       {...restProps}

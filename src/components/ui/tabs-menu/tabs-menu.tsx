@@ -75,7 +75,7 @@ function TabsMenu(props: TabsMenuProps) {
 
   return (
     <div
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       onMouseMove={handleSetGlarePosition}
       {...restProps}
     >

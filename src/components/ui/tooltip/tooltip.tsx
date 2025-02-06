@@ -3,7 +3,6 @@ import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import { AnimatePresence, motion, Transition, Variants } from 'motion/react'
 import React, { forwardRef, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -101,7 +100,7 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
           {isOpen && (
             <TooltipPrimitive.Portal forceMount>
               <TooltipPrimitive.Content
-                className={cn(styles.container(), className)}
+                className={styles.container({ className })}
                 asChild
                 sideOffset={sideOffset}
                 {...restProps}

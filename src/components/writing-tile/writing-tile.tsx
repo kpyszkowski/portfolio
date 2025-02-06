@@ -3,7 +3,6 @@ import { ArrowRight as ArrowIcon, Watch as WatchIcon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { Badge } from '~/components/ui/badge'
 import { Tooltip } from '~/components/ui/tooltip'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -47,7 +46,7 @@ function WritingTile(props: WritingTileProps) {
 
   return (
     <Link
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       href={url}
       {...restProps}
     >

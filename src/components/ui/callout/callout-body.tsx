@@ -1,5 +1,4 @@
 import { tv, type VariantProps } from 'tailwind-variants'
-import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
@@ -19,7 +18,7 @@ function CalloutBody(props: CalloutBodyProps) {
 
   return (
     <div
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       {children}
