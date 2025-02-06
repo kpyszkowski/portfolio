@@ -1,4 +1,3 @@
-import cn from '@/utils/cn'
 import { forwardRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -43,7 +42,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
 
   return (
     <div
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       ref={ref}
       {...restProps}
     >

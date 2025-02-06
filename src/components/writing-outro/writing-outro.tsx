@@ -1,10 +1,9 @@
 'use client'
-import { Signature } from '@/components/signature'
-import { CopyButton } from '@/components/ui/copy-button'
-import useBreakpoint from '@/hooks/use-breakpoint'
-import cn from '@/utils/cn'
 import { motion } from 'motion/react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Signature } from '~/components/signature'
+import { CopyButton } from '~/components/ui/copy-button'
+import useBreakpoint from '~/hooks/use-breakpoint'
 
 const getStyles = tv({
   slots: {
@@ -31,7 +30,7 @@ function WritingOutro(props: WritingOutroProps) {
 
   return (
     <div
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.wrapper()}>

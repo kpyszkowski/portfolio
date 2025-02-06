@@ -1,4 +1,3 @@
-import cn from '@/utils/cn'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -39,7 +38,7 @@ function WindowCardContent(props: WindowCardContentProps) {
 
   return (
     <Component
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       {children}

@@ -1,6 +1,6 @@
-import { DatedList, type DatedListItem } from '@/components/ui/dated-list'
-import { WritingTile } from '@/components/writing-tile'
-import { getWritingsMetadata } from '@/lib/writings'
+import { DatedList, type DatedListItem } from '~/components/ui/dated-list'
+import { WritingTile } from '~/components/writing-tile'
+import { getWritingsMetadata } from '~/lib/writings'
 
 export default async function WritingsPage() {
   const writingsMetadata = await getWritingsMetadata()

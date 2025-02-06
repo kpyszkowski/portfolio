@@ -1,8 +1,8 @@
 'use client'
-import { Logo } from '@/components/logo'
-import cn from '@/utils/cn'
 import { motion, Variants } from 'motion/react'
 import { GitHub, Linkedin, Send } from 'react-feather'
+import { Logo } from '~/components/logo'
+import cn from '~/utils/cn'
 
 const Background = (props: { className?: string }) => {
   const { className = '', ...restProps } = props

@@ -1,8 +1,8 @@
-import { Tooltip } from '@/components/ui/tooltip'
 import { motion, MotionProps } from 'motion/react'
 import Link from 'next/link'
 import { Icon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Tooltip } from '~/components/ui/tooltip'
 
 const getStyles = tv({
   slots: {

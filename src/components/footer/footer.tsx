@@ -1,9 +1,8 @@
 'use client'
-import { Logo } from '@/components/logo'
-import cn from '@/utils/cn'
-import getFormattedDate from '@/utils/get-formatted-date'
 import { useEffect, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Logo } from '~/components/logo'
+import getFormattedDate from '~/utils/get-formatted-date'
 
 const getStyles = tv({
   slots: {
@@ -51,7 +50,7 @@ function Footer(props: FooterProps) {
   )
   return (
     <div
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.wrapper()}>

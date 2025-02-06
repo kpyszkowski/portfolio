@@ -1,5 +1,4 @@
 'use client'
-import cn from '@/utils/cn'
 import { motion, Transition, useInView, Variants } from 'motion/react'
 import { useRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
@@ -53,7 +52,7 @@ function Signature(props: SignatureProps) {
 
   return (
     <svg
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       width="255.324"
       height="148.626"
       viewBox="0 0 67.555 39.324"

@@ -1,7 +1,6 @@
-import WindowCardContent from '@/components/ui/window-card/window-card-content'
-import cn from '@/utils/cn'
 import { ComponentProps } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import WindowCardContent from '~/components/ui/window-card/window-card-content'
 
 const getStyles = tv({
   slots: {
@@ -36,7 +35,7 @@ function WindowCardRoot(props: WindowCardProps) {
 
   return (
     <div
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <figure className={styles.wrapper()}>

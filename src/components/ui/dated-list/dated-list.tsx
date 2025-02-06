@@ -1,8 +1,7 @@
-import cn from '@/utils/cn'
-import getDateString from '@/utils/get-date-string'
-import getFormattedDate from '@/utils/get-formatted-date'
-import sortByKey, { type SortOrder } from '@/utils/sort-by-key'
 import { tv, type VariantProps } from 'tailwind-variants'
+import getDateString from '~/utils/get-date-string'
+import getFormattedDate from '~/utils/get-formatted-date'
+import sortByKey, { type SortOrder } from '~/utils/sort-by-key'
 
 const getStyles = tv({
   slots: {
@@ -69,7 +68,7 @@ function DatedList(props: DatedListProps) {
 
   return (
     <div
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       {...restProps}
     >
       {groupedItems.map(([year, items]) => (

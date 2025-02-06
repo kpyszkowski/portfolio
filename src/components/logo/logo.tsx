@@ -1,4 +1,3 @@
-import cn from '@/utils/cn'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -43,7 +42,7 @@ function Logo(props: LogoProps) {
 
   return (
     <svg
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       viewBox="0 0 32 32"
       {...restProps}
     >

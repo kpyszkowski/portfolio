@@ -1,12 +1,11 @@
 'use-client'
-import cn from '@/utils/cn'
 import { Children, isValidElement } from 'react'
 import {
   AlertOctagon as DangerIcon,
   Info as InfoIcon,
   CheckCircle as SuccessIcon,
-  AlertTriangle as WarningIcon,
   Zap as TipIcon,
+  AlertTriangle as WarningIcon,
 } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -76,7 +75,7 @@ function Callout(props: CalloutProps) {
 
   return (
     <aside
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.title()}>

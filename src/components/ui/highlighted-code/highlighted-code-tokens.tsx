@@ -1,4 +1,3 @@
-import cn from '@/utils/cn'
 import { TokensResult } from 'shiki'
 import { tv, type VariantProps } from 'tailwind-variants'
 
@@ -23,7 +22,7 @@ function HighlightedCodeImpl(props: HighlightedCodeImplProps) {
 
   return (
     <code
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.wrapper()}>

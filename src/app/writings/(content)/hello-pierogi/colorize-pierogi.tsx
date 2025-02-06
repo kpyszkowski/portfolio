@@ -1,6 +1,6 @@
 'use client'
-import { Playground } from '@/components/playground'
 import Image from 'next/image'
+import { Playground } from '~/components/playground'
 
 const ColorizePierogi = () => (
   <Playground

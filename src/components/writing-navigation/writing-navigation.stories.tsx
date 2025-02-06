@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from '@storybook/react'
 import {
   WritingNavigation,
   WritingNavigationTrigger,
-} from '@/components/writing-navigation'
+} from '~/components/writing-navigation'
 
 const items = [
   { id: 'item-1', title: 'Item 1' },
