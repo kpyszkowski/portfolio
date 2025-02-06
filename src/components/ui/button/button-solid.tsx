@@ -1,10 +1,8 @@
-// TODO: Resolve circular dependency
-// eslint-disable-next-line import/no-cycle
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import Link from 'next/link'
 import { CSSProperties } from 'react'
-import { tv } from 'tailwind-variants'
-import { ButtonProps } from '~/components/ui/button/button'
+import { Icon } from 'react-feather'
+import { tv, VariantProps } from 'tailwind-variants'
 import cn from '~/utils/cn'
 
 const getStyles = tv({
@@ -40,10 +38,12 @@ const getStyles = tv({
 
 const SPRING_OPTIONS = { stiffness: 100, damping: 8 }
 
-type ButtonSolidProps = Omit<
-  ButtonProps,
-  'variant' | 'iconPosition' | 'children'
-> & {
+export interface ButtonSolidProps extends VariantProps<typeof getStyles> {
+  className?: string
+  icon?: Icon
+  href?: string
+  isExternal?: boolean
+  onClick?: React.MouseEventHandler
   children: React.ReactNode
 }
 
