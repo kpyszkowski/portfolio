@@ -60,7 +60,6 @@ function Header(props: HeaderProps) {
         defaultActive={defaultActive}
         renderBefore={
           <Logo
-            color="light"
             className={styles.logo()}
             size="sm"
           />

@@ -8,13 +8,13 @@ const getStyles = tv({
   slots: {
     wrapper: 'relative flex px-3 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
-    label: 'font-sans text-xs leading-4 md:text-sm',
-    highlight: 'absolute inset-0 size-full bg-white/20',
+    label: 'font-sans text-xs leading-4 text-neutral-950 md:text-sm',
+    highlight: 'absolute inset-0 -z-10 size-full bg-white/40 dark:bg-white/20',
   },
   variants: {
     disabled: {
       true: {
-        label: 'text-neutral-400',
+        label: 'text-neutral-500',
         highlight: 'bg-transparent',
         wrapper: 'cursor-not-allowed',
       },

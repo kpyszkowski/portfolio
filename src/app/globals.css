@@ -14,18 +14,20 @@ body {
 
 @layer utilities {
   .header-background {
+    --header-background-bg: theme(colors.neutral.200);
+
     backdrop-filter: blur(theme(backdropBlur.sm));
     background-color: theme(colors.transparent);
     background-image: linear-gradient(
         theme(colors.transparent) 3px,
-        theme(colors.neutral.900)
+        var(--header-background-bg)
       ),
       linear-gradient(
         90deg,
         theme(colors.transparent) 3px,
-        theme(colors.neutral.900)
+        var(--header-background-bg)
       ),
-      linear-gradient(to bottom, theme(colors.neutral.900), transparent 75%);
+      linear-gradient(to bottom, var(--header-background-bg), transparent 75%);
     background-size:
       4px 4px,
       4px 4px,
@@ -35,6 +37,10 @@ body {
       theme(colors.black) 50%,
       theme(colors.transparent) 100%
     );
+
+    @media (prefers-color-scheme: dark) {
+      --header-background-bg: theme(colors.neutral.900);
+    }
   }
 
   .writing-outro-background {
