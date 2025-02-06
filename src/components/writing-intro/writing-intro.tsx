@@ -18,15 +18,16 @@ const getStyles = tv({
     container:
       'grid grid-cols-2 grid-rows-[repeat(3,auto)] gap-x-12 gap-y-4 md:gap-y-6',
     datesWrapper: 'flex items-center gap-4 whitespace-nowrap md:gap-8',
-    publishDate: 'text-md text-neutral-400 md:text-2xl',
+    publishDate: 'text-md text-neutral-500 md:text-2xl dark:text-neutral-400',
     modifiedDate: 'flex items-center gap-3 text-sm text-neutral-400',
     modifiedIcon: 'size-3',
     shareButton: 'justify-self-end',
     shareButtonIcon: 'size-4 justify-self-end md:size-5',
     title: 'col-span-2 mb-4 text-4xl/snug md:text-6xl/tight',
     author: 'flex items-center gap-3 md:gap-4',
-    authorImage: 'size-10 rounded-full bg-neutral-600 p-0.5 md:size-12',
-    authorName: 'text-sm text-neutral-400 md:text-base',
+    authorImage:
+      'size-10 rounded-full bg-neutral-300 p-0.5 md:size-12 dark:bg-neutral-600',
+    authorName: 'text-sm text-neutral-500 md:text-base dark:text-neutral-400',
     readingTime:
       'flex items-center gap-2 justify-self-end text-sm text-neutral-400',
     readingTimeIcon: 'size-4',
