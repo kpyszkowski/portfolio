@@ -2,6 +2,7 @@ import getWithMDX from '@next/mdx'
 import remarkCallout from '@r4ai/remark-callout'
 import rehypeToc from '@stefanprobst/rehype-extract-toc'
 import rehypeExtractToc from '@stefanprobst/rehype-extract-toc/mdx'
+import getWithSVGR from 'next-plugin-svgr'
 import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 import rehypeSlug from 'rehype-slug'
 import remarkFrontmatter from 'remark-frontmatter'
@@ -48,6 +49,25 @@ const withMDX = getWithMDX({
   },
 })
 
+const withSVGR = (nextConfig) =>
+  getWithSVGR({
+    ...nextConfig,
+    svgrOptions: {
+      svgoConfig: {
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeViewBox: false,
+              },
+            },
+          },
+        ],
+      },
+    },
+  })
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
@@ -59,4 +79,4 @@ const nextConfig = {
   transpilePackages: ['shiki'],
 }
 
-export default withMDX(nextConfig)
+export default withMDX(withSVGR(nextConfig))

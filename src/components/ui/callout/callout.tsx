@@ -8,6 +8,7 @@ import {
   AlertTriangle as WarningIcon,
   Zap as TipIcon,
 } from 'react-feather'
+import { BulbIcon } from '@/assets/icons'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -27,13 +28,16 @@ const getStyles = tv({
         container: 'bg-zinc-600/15 text-zinc-50',
       },
       warning: {
-        container: 'bg-yellow-600/5 text-yellow-400',
+        container: 'bg-orange-600/5 text-orange-400',
       },
       danger: {
         container: 'bg-red-600/5 text-red-400',
       },
       success: {
         container: 'bg-green-600/5 text-green-400',
+      },
+      tidbit: {
+        container: 'bg-yellow-600/5 text-yellow-400',
       },
     },
   },
@@ -55,10 +59,18 @@ const getIconByType = (type: CalloutType) => {
       return DangerIcon
     case 'success':
       return SuccessIcon
+    case 'tidbit':
+      return BulbIcon
   }
 }
 
-export type CalloutType = 'tip' | 'warning' | 'danger' | 'success' | 'note'
+export type CalloutType =
+  | 'tip'
+  | 'warning'
+  | 'danger'
+  | 'success'
+  | 'note'
+  | 'tidbit'
 
 interface CalloutProps extends VariantProps<typeof getStyles> {
   className?: string
