@@ -1,8 +1,4 @@
 'use client'
-import { Progress } from '@/components/ui/progress'
-import useOutsideClick from '@/hooks/use-outside-click'
-import cn from '@/utils/cn'
-import getSelectorFromId from '@/utils/get-selector-from-id'
 import {
   AnimatePresence,
   motion,
@@ -11,6 +7,10 @@ import {
 } from 'motion/react'
 import { createContext, useCallback, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Progress } from '~/components/ui/progress'
+import useOutsideClick from '~/hooks/use-outside-click'
+import cn from '~/utils/cn'
+import getSelectorFromId from '~/utils/get-selector-from-id'
 
 // TODO: Investigate and improve a11y
 

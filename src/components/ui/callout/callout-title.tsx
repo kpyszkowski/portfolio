@@ -1,12 +1,12 @@
-import cn from '@/utils/cn'
-import { tv, type VariantProps } from 'tailwind-variants'
 import {
   AlertOctagon as DangerIcon,
   Info as InfoIcon,
   CheckCircle as SuccessIcon,
   AlertTriangle as WarningIcon,
 } from 'react-feather'
-import { CalloutType } from '@/components/ui/callout/callout'
+import { tv, type VariantProps } from 'tailwind-variants'
+import { CalloutType } from '~/components/ui/callout/callout'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

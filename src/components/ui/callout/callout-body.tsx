@@ -1,5 +1,5 @@
-import cn from '@/utils/cn'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

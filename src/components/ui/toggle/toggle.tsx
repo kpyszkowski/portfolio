@@ -1,6 +1,6 @@
-import cn from '@/utils/cn'
 import * as TogglePrimitive from '@radix-ui/react-switch'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

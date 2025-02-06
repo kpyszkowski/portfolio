@@ -1,8 +1,8 @@
-import { Tooltip } from '@/components/ui/tooltip'
-import cn from '@/utils/cn'
 import { useCallback, useRef } from 'react'
 import { XCircle as ClearIcon, HelpCircle as HelpIcon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Tooltip } from '~/components/ui/tooltip'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

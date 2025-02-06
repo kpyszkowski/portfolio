@@ -1,11 +1,11 @@
 'use client'
-import TabsMenuItem, {
-  type TabsMenuItemType,
-} from '@/components/ui/tabs-menu/tabs-menu-item'
-import cn from '@/utils/cn'
 import { motion, useMotionValue, useSpring } from 'motion/react'
 import { useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import TabsMenuItem, {
+  type TabsMenuItemType,
+} from '~/components/ui/tabs-menu/tabs-menu-item'
+import cn from '~/utils/cn'
 
 const SPRING_OPTIONS = {
   damping: 16,

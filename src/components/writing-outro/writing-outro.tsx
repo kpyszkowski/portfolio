@@ -1,10 +1,10 @@
 'use client'
-import { Signature } from '@/components/signature'
-import { CopyButton } from '@/components/ui/copy-button'
-import useBreakpoint from '@/hooks/use-breakpoint'
-import cn from '@/utils/cn'
 import { motion } from 'motion/react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Signature } from '~/components/signature'
+import { CopyButton } from '~/components/ui/copy-button'
+import useBreakpoint from '~/hooks/use-breakpoint'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

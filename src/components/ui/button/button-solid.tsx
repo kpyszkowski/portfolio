@@ -1,11 +1,11 @@
 // TODO: Resolve circular dependency
 // eslint-disable-next-line import/no-cycle
-import { ButtonProps } from '@/components/ui/button/button'
-import cn from '@/utils/cn'
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import Link from 'next/link'
 import { CSSProperties } from 'react'
 import { tv } from 'tailwind-variants'
+import { ButtonProps } from '~/components/ui/button/button'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

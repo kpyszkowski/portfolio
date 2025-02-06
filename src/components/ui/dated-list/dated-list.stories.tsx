@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { WritingTile } from '~/components/writing-tile'
 import DatedList from './dated-list'
-import { WritingTile } from '@/components/writing-tile'
 
 const meta: Meta<typeof DatedList> = {
   title: 'UI/DatedList',

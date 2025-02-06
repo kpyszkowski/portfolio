@@ -1,9 +1,9 @@
-import { Badge } from '@/components/ui/badge'
-import { Tooltip } from '@/components/ui/tooltip'
-import cn from '@/utils/cn'
 import Link from 'next/link'
-import { Watch as WatchIcon, ArrowRight as ArrowIcon } from 'react-feather'
+import { ArrowRight as ArrowIcon, Watch as WatchIcon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Badge } from '~/components/ui/badge'
+import { Tooltip } from '~/components/ui/tooltip'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

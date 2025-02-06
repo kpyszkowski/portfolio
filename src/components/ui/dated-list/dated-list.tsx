@@ -1,8 +1,8 @@
-import cn from '@/utils/cn'
-import getDateString from '@/utils/get-date-string'
-import getFormattedDate from '@/utils/get-formatted-date'
-import sortByKey, { type SortOrder } from '@/utils/sort-by-key'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
+import getDateString from '~/utils/get-date-string'
+import getFormattedDate from '~/utils/get-formatted-date'
+import sortByKey, { type SortOrder } from '~/utils/sort-by-key'
 
 const getStyles = tv({
   slots: {

@@ -1,8 +1,8 @@
 'use client'
-import cn from '@/utils/cn'
 import { AnimatePresence, motion } from 'motion/react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { tv } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 type SlotNumberProps = {
   className?: string

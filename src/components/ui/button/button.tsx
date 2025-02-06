@@ -1,8 +1,8 @@
-import cn from '@/utils/cn'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { Icon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

@@ -1,14 +1,14 @@
 'use-client'
-import cn from '@/utils/cn'
 import { Children, isValidElement } from 'react'
 import {
   AlertOctagon as DangerIcon,
   Info as InfoIcon,
   CheckCircle as SuccessIcon,
-  AlertTriangle as WarningIcon,
   Zap as TipIcon,
+  AlertTriangle as WarningIcon,
 } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

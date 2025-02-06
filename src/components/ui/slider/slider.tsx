@@ -1,9 +1,9 @@
 'use client'
-import { Badge } from '@/components/ui/badge'
-import cn from '@/utils/cn'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { useCallback, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Badge } from '~/components/ui/badge'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

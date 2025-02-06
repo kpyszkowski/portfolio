@@ -1,5 +1,5 @@
 'use client'
-import { Playground } from '@/components/playground'
+import { Playground } from '~/components/playground'
 import SlotNumber from './slot-number'
 
 const Example = () => (

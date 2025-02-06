@@ -1,7 +1,7 @@
-import WindowCardContent from '@/components/ui/window-card/window-card-content'
-import cn from '@/utils/cn'
 import { ComponentProps } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import WindowCardContent from '~/components/ui/window-card/window-card-content'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

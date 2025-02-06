@@ -1,7 +1,7 @@
-import cn from '@/utils/cn'
 import { MDXContent } from 'mdx/types'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {

@@ -1,8 +1,8 @@
-import { Article } from '@/components/ui/article'
-import { WritingIntro } from '@/components/writing-intro'
-import { WritingNavigation } from '@/components/writing-navigation'
-import { WritingOutro } from '@/components/writing-outro'
-import { getWritingData, getWritingsMetadata } from '@/lib/writings'
+import { Article } from '~/components/ui/article'
+import { WritingIntro } from '~/components/writing-intro'
+import { WritingNavigation } from '~/components/writing-navigation'
+import { WritingOutro } from '~/components/writing-outro'
+import { getWritingData, getWritingsMetadata } from '~/lib/writings'
 
 type WritingPageParams = {
   slug: string

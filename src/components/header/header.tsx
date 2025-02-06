@@ -1,9 +1,9 @@
 'use client'
-import { Logo } from '@/components/logo'
-import { TabsMenu } from '@/components/ui/tabs-menu'
-import cn from '@/utils/cn'
 import { usePathname } from 'next/navigation'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Logo } from '~/components/logo'
+import { TabsMenu } from '~/components/ui/tabs-menu'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
