@@ -6,7 +6,7 @@ import getFormattedDate from '~/utils/get-formatted-date'
 
 const getStyles = tv({
   slots: {
-    container: 'mt-auto border-t border-neutral-800 bg-neutral-900',
+    container: 'mt-auto border-t dark:border-neutral-800 dark:bg-neutral-900',
     wrapper:
       'mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 sm:flex-row',
     decorator:
@@ -60,8 +60,7 @@ function Footer(props: FooterProps) {
 
         <Logo
           className={styles.logo()}
-          size="sm"
-          color="light"
+          size="md"
         />
 
         <div className={styles.decorator()}>

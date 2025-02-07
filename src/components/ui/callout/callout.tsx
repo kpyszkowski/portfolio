@@ -14,25 +14,26 @@ const getStyles = tv({
     container:
       'my-6 rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
     title: 'flex items-center gap-4 text-base',
-    content: 'text-neutral-200 prose-p:my-2',
-    icon: '-ml-[2.85rem] size-8 bg-neutral-900 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)]',
+    content: 'text-neutral-800 prose-p:my-2 dark:text-neutral-200',
+    icon: '-ml-[2.85rem] size-8 bg-neutral-50 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] dark:bg-neutral-900',
   },
   variants: {
     type: {
       tip: {
-        container: 'bg-blue-600/5 text-blue-400',
+        container: 'bg-blue-600/5 text-blue-500',
       },
       note: {
-        container: 'bg-zinc-600/15 text-zinc-50',
+        container:
+          'bg-zinc-600/5 text-zinc-950 dark:bg-zinc-600/15 dark:text-zinc-50',
       },
       warning: {
-        container: 'bg-yellow-600/5 text-yellow-400',
+        container: 'bg-yellow-600/5 text-yellow-500',
       },
       danger: {
-        container: 'bg-red-600/5 text-red-400',
+        container: 'bg-red-600/5 text-red-500',
       },
       success: {
-        container: 'bg-green-600/5 text-green-400',
+        container: 'bg-green-600/5 text-green-500',
       },
     },
   },

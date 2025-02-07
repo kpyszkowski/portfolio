@@ -12,11 +12,11 @@ const getStyles = tv({
     title: 'font-sans',
     tags: 'flex gap-1 overflow-hidden sm:gap-2',
     readTimeWrapper:
-      'relative flex items-center gap-1.5 self-start justify-self-end text-neutral-400 [grid-area:-2/-2/-1/-1]',
+      'relative flex items-center gap-1.5 self-start justify-self-end text-neutral-500 [grid-area:-2/-2/-1/-1] dark:text-neutral-400',
     readTimeIcon: 'size-3 sm:size-4',
     readTimeLabel: 'font-sans text-xs leading-5 sm:text-sm sm:leading-6',
     readTimeMask:
-      'absolute -left-8 top-0 h-full w-8 bg-gradient-to-l from-neutral-900 from-50%',
+      'absolute -left-8 top-0 h-full w-8 bg-gradient-to-l from-neutral-50 from-50% dark:from-neutral-900',
   },
 })
 
