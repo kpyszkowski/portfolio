@@ -65,9 +65,23 @@ similar functionality. The one I like the most is the
 > generation process is somehow automated, eg. in CI/CD pipeline I wouldn't see any reasons to
 > switch. In fact it's used by many companies and battle-tested in production.
 
-## TODO: Theoretical introduction, vocabulary
+## Concepts and vocabulary
 
-Procedures (private and public), routers, context, validations, middlewares.
+Before we dive into the code let's get familiar with the vocabulary used around tRPC:
+
+- **Procedure** - a function that can be called remotely. It can be public or protected. It can take
+  the input, process it and return the output.
+- **Query** - a kind of procedure that doesn't change the state of the server, gets the data.
+- **Mutation** - a kind of procedure that changes the state of the server, modifies the data.
+- **Subscription** - a kind of procedure that allows to listen to the server events. It creates
+  persistent connection and listens to changes.
+- **Router** - a collection of procedures. It's a place where all the procedures of given namespace
+  are defined.
+- **Context** - a place where shared data between procedures is stored. It's passed to all the
+  procedures. Usually the place where database or service handlers are instantiated.
+- **Middleware** - a function that can run before or after the procedure. It can modify the context.
+- **Validator** - a function that validates the input and/or the output of the procedure. It can be
+  used to ensure the data is in the correct shape.
 
 ## Creating the server
 
@@ -159,7 +173,7 @@ const tasksRouter = createRouter({
         description: z.string().optional(),
       }),
     )
-    .mutation(({ input, ctx }) => {
+    .mutation(({ input }) => {
       const { title, description } = input
       const newTask = { id: TASKS.length + 1, title, description }
       TASKS.push(newTask)
@@ -172,7 +186,7 @@ const tasksRouter = createRouter({
         id: z.number(),
       }),
     )
-    .mutation(({ input, ctx }) => {
+    .mutation(({ input }) => {
       const { id } = input
       const taskIndex = TASKS.findIndex((task) => task.id === id)
       const [deletedTask] = TASKS.splice(taskIndex, 1)
@@ -192,7 +206,7 @@ As you can see, procedures are defined in a declarative way. I like the fact her
 the other eg. the input is followed by the mutation so you can naturally expect the mutation to use
 the input. As you can see it's easy to reason about procedures and deduce what they do.
 
-### Creating the server
+### Creating the app
 
 The last step is to create the server and hook it up with the middleware. Before you do that you
 need to create the root router that aggregates all the routers. It's important to remember about
@@ -241,3 +255,134 @@ Procedures via REST endpoints it automatically exposes. You can find them under 
 For example the `getAll` procedure from the `tasksRouter` will be available under the
 `/api/trpc/tasks.getAll` endpoint. It's useful when you need to access the API from eg. Bash
 scripts.
+
+## Creating the client
+
+If the concept of procedures and mutations sounds familiar in your frontend venture - you are right!
+In fact it's the same concept used in the [Tanstack React Query](https://tanstack.com/query) - the
+popular library for managing remote data in React. It's also the core of the React tRPC integration.
+It means with minimal setup you can get all the goodies such as caching, suspense, error handling,
+batching, optimistic updates and many more. Let's make it happen!
+
+Before you start you need to install the following dependencies:
+
+- [`@trpc/client`](https://www.npmjs.com/package/@trpc/client) - the core tRPC client package,
+- [`@trpc/react-query`](https://www.npmjs.com/package/@trpc/react-query) - the React bindings for
+  tRPC,
+- [`@tanstack/react-query`](https://www.npmjs.com/package/@tanstack/react-query) - the core of the
+  Tanstack React Query library.
+- [`superjson`](https://www.npmjs.com/package/superjson) - for serialization and deserialization.
+
+> [!note]
+>
+> Ensure your server bundler includes TypeScript type definitions. With that said you should also
+> install the server package as a dev dependency. It will allow you to import the router type
+> definition that will be used in the client.
+
+### Initializing the client and React provider
+
+First let's initialize the tRPC client. The `createTRPCReact` function is a generic function that
+accepts the type of the router. That's how the client is natively aware of changes on the server.
+The function will create the integration layer for React featuring scoped Tanstack React Query
+hooks, the provider and scoped utlity functions.
+
+Next create the TRPCProvider which is the hybrid of the `trpc.Provider` you just created and
+`QueryClientProvider`. It's also the place where you instantiate the `queryClient` and `trpcClient`.
+
+Worth mentioning is the `httpBatchLink` that is used to batch the requests. In will give your client
+superpowers of marging multiple queries into one request. It really reduces the network overhead and
+improves the performance. If you don't need batching you can use `httpLink` instead.
+
+> [!note]
+>
+> The HTTP link is enough to consume the server you created. However, if you implement subscriptions
+> you will need to use the WebSocket or HTTP subsciption link as well. For more details reach out
+> the [documentation](https://trpc.io/docs/client/links).
+
+Also pay attention to the transformer. As I mentioned earlier if you use it on the client as well
+the serialization and deserialization process will be bidirectional so you won't need to struggle
+with manually handling `Date`s or `BigInt`s.
+
+```tsx
+const trpc = createTRPCReact<AppRouter>()
+
+function TRPCProvider({ children }: PropsWithChildren) {
+  const [queryClient] = useState(() => new QueryClient())
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [
+        httpBatchLink({
+          url: env.TRPC_API_URL,
+          transformer: superjson,
+        }),
+      ],
+    }),
+  )
+
+  return (
+    <trpc.Provider
+      client={trpcClient}
+      queryClient={queryClient}
+    >
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </trpc.Provider>
+  )
+}
+```
+
+With the `TRPCProvider` all you need to do is wrap your application with it. It will allow you to
+use tRPC scoped hooks and utilities.
+
+### Consuming procedures
+
+As I mentioned if you are familiar with **Tanstack React Query** you will feel like home. The `trpc`
+object you created is a collection of scoped hooks and utilities. You can use them to query and
+mutate. Also handle invaliation and trigger refetches.
+
+Personally I'd like to create custom hooks per subrouter/domain - considering you keep it relatively
+granular. It's a neat way to enclose business logic into reusable methods.
+
+```ts
+function useTasks() {
+  const { tasks: tasksUtils } = trpc.useUtils()
+
+  const { data: tasks, isLoading, error } = trpc.tasks.getAll.useQuery()
+
+  const { mutate: createTask, isPending: isCreatingTask } = trpc.tasks.create.useMutation({
+    onSuccess: () => tasksUtils.invalidate(),
+  })
+
+  const { mutate: deleteTask } = trpc.tasks.deleteById.useMutation({
+    onSuccess: ([removedTask]) => {
+      tasksUtils.getAll.setData(undefined, (cachedTasks) =>
+        cachedTasks?.filter((task) => task.id !== removedTask.id),
+      )
+    },
+  })
+
+  return {
+    tasks,
+    isLoading,
+    error,
+    createTask,
+    deleteTask,
+    isCreatingTask,
+  }
+}
+
+export default useTasks
+```
+
+The fact you wrapped your app with the `TRPCProvider` allows you to use the hook in any place of
+your application. It also guarantees the data consistency and caching. Each method is type safe and
+raises linter errors in case of any change in the API. If linter is the part of your CI/CD pipeline
+it will prevent you from deploying the broken code.
+
+You can try it yourself. Just go to the `tasks` subrouter and rename some procedure or change the
+input shape. You will see the linter will raise an error in the place where you use the procedure.
+
+> [!tip]
+>
+> If you click on the procedure name in the client while holding the **⌘ Command** key you will be
+> taken to the definition in the server. It's a great way to navigate between the client and the
+> server code.

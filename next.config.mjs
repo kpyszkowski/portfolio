@@ -1,10 +1,13 @@
 import getWithMDX from '@next/mdx'
-import remarkCallout from '@r4ai/remark-callout'
+import getWithSVGR from 'next-plugin-svgr'
+
 import rehypeToc from '@stefanprobst/rehype-extract-toc'
 import rehypeExtractToc from '@stefanprobst/rehype-extract-toc/mdx'
-import getWithSVGR from 'next-plugin-svgr'
+import rehypeExternalLinks from 'rehype-external-links'
 import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 import rehypeSlug from 'rehype-slug'
+
+import remarkCallout from '@r4ai/remark-callout'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
@@ -29,6 +32,12 @@ const calloutOptions = {
   },
 }
 
+/** @type {import('rehype-external-links').Options} */
+const externalLinksOptions = {
+  target: '_blank',
+  rel: ['noopener', 'noreferrer'],
+}
+
 const withMDX = getWithMDX({
   options: {
     remarkPlugins: [
@@ -45,6 +54,7 @@ const withMDX = getWithMDX({
       rehypeToc,
       rehypeExtractToc,
       rehypeMdxCodeProps,
+      [rehypeExternalLinks, externalLinksOptions],
     ],
   },
 })
