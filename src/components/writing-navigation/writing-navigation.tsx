@@ -1,8 +1,4 @@
 'use client'
-import { Progress } from '@/components/ui/progress'
-import useOutsideClick from '@/hooks/use-outside-click'
-import cn from '@/utils/cn'
-import getSelectorFromId from '@/utils/get-selector-from-id'
 import {
   AnimatePresence,
   motion,
@@ -11,6 +7,9 @@ import {
 } from 'motion/react'
 import { createContext, useCallback, useMemo, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Progress } from '~/components/ui/progress'
+import useOutsideClick from '~/hooks/use-outside-click'
+import getSelectorFromId from '~/utils/get-selector-from-id'
 
 // TODO: Investigate and improve a11y
 
@@ -19,7 +18,8 @@ const getStyles = tv({
     container: [
       'fixed bottom-0 left-0 z-30 m-4 rounded-lg p-4 shadow-md backdrop-blur-md',
       'overflow-hidden',
-      'border border-neutral-800 bg-neutral-900/85',
+      'border border-neutral-200 bg-neutral-100/85',
+      'dark:border-neutral-800 dark:bg-neutral-900/85',
     ],
     chaptersLabel: 'mb-2 text-xs uppercase text-neutral-400',
     chaptersList: 'flex flex-col text-sm',
@@ -27,7 +27,8 @@ const getStyles = tv({
       'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
     chaptersTriggerButton: 'relative -m-4 flex items-center gap-4 p-4',
     indicatorLabelsWrapper: 'flex flex-col gap-1 text-left',
-    indicatorChapterLabel: 'text-xs uppercase text-neutral-400',
+    indicatorChapterLabel:
+      'text-xs uppercase text-neutral-500 dark:text-neutral-400',
     indicatorChapterName: 'text-sm',
   },
 })
@@ -119,7 +120,7 @@ function WritingNavigation(props: WritingNavigationProps) {
           damping: 14,
           stiffness: 72,
         }}
-        className={cn(styles.container(), className)}
+        className={styles.container({ className })}
         layout
         {...restProps}
       >

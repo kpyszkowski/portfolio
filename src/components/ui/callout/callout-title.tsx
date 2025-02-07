@@ -1,12 +1,11 @@
-import cn from '@/utils/cn'
-import { tv, type VariantProps } from 'tailwind-variants'
 import {
   AlertOctagon as DangerIcon,
   Info as InfoIcon,
   CheckCircle as SuccessIcon,
   AlertTriangle as WarningIcon,
 } from 'react-feather'
-import { CalloutType } from '@/components/ui/callout/callout'
+import { tv, type VariantProps } from 'tailwind-variants'
+import { CalloutType } from '~/components/ui/callout/callout'
 
 const getStyles = tv({
   slots: {
@@ -56,7 +55,7 @@ function CalloutTitle(props: CalloutTitleProps) {
   return (
     <Element
       open={!defaultFolded}
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <Icon className="mr-2 inline-block" />

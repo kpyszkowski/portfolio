@@ -1,5 +1,5 @@
-import HighlightedCodeTokens from '@/components/ui/highlighted-code/highlighted-code-tokens'
-import { BundledLanguage, createCodeHighlighter } from '@/lib/code-highlighting'
+import HighlightedCodeTokens from '~/components/ui/highlighted-code/highlighted-code-tokens'
+import { BundledLanguage, createCodeHighlighter } from '~/lib/code-highlighting'
 
 interface HighlightedCodeAsyncProps {
   className?: string

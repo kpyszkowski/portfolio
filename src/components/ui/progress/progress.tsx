@@ -1,4 +1,3 @@
-import cn from '@/utils/cn'
 import * as ProgressPrimititve from '@radix-ui/react-progress'
 import {
   isMotionValue,
@@ -9,13 +8,14 @@ import {
 } from 'motion/react'
 import { useEffect } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import cn from '~/utils/cn'
 
 const getStyles = tv({
   slots: {
     container: 'size-10 rotate-90',
     indicator: 'fill-none',
     indicatorForeground: 'stroke-orange-300',
-    indicatorBackground: 'stroke-neutral-600',
+    indicatorBackground: 'stroke-neutral-300 dark:stroke-neutral-600',
   },
   variants: {
     size: {
@@ -66,7 +66,7 @@ function Progress(props: ProgressProps) {
 
   return (
     <ProgressPrimititve.Root
-      className={cn(className, styles.container())}
+      className={styles.container({ className })}
       asChild
       max={max}
       {...restProps}

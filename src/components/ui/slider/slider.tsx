@@ -1,23 +1,23 @@
 'use client'
-import { Badge } from '@/components/ui/badge'
-import cn from '@/utils/cn'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { useCallback, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Badge } from '~/components/ui/badge'
 
 const getStyles = tv({
   slots: {
     container: 'flex touch-none select-none flex-col',
     sliderRoot: 'relative flex cursor-grab items-center py-3',
-    label: 'block text-sm text-neutral-50',
-    track: 'relative flex-grow overflow-hidden rounded bg-neutral-50/25',
-    range: 'absolute bg-neutral-50',
+    label: 'block text-sm text-neutral-950 dark:text-neutral-50',
+    track:
+      'relative flex-grow overflow-hidden rounded bg-neutral-300 dark:bg-neutral-50/25',
+    range: 'absolute bg-orange-300',
     thumb: [
       'relative block size-4 rounded-full bg-neutral-50 transition-shadow',
       'outline-none ring-neutral-50/50 focus-visible:ring-4',
       'shadow-[0_0_4px] shadow-neutral-600',
     ],
-    valueLabelsWrapper: 'text-xs text-neutral-400',
+    valueLabelsWrapper: 'text-xs text-neutral-600 dark:text-neutral-400',
     valueLabel: '',
     valuesWrapper: 'flex justify-between',
     value: 'ml-auto min-w-12 px-2 text-center',
@@ -98,7 +98,7 @@ function Slider(props: SliderProps) {
       </div>
 
       <SliderPrimitive.Root
-        className={cn(styles.sliderRoot(), className)}
+        className={styles.sliderRoot({ className })}
         defaultValue={defaultValue}
         minStepsBetweenThumbs={isDualRangeMode ? 1 : undefined}
         orientation={orientation}

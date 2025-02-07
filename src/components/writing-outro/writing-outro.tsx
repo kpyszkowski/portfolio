@@ -1,10 +1,9 @@
 'use client'
-import { Signature } from '@/components/signature'
-import { CopyButton } from '@/components/ui/copy-button'
-import useBreakpoint from '@/hooks/use-breakpoint'
-import cn from '@/utils/cn'
 import { motion } from 'motion/react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Signature } from '~/components/signature'
+import { CopyButton } from '~/components/ui/copy-button'
+import useBreakpoint from '~/hooks/use-breakpoint'
 
 const getStyles = tv({
   slots: {
@@ -13,9 +12,9 @@ const getStyles = tv({
     spotlight:
       'pointer-events-none absolute right-0 top-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
-      'text-balance text-justify text-base text-neutral-300 md:text-wrap md:text-lg',
+      'text-balance text-justify text-base text-neutral-800 md:text-wrap md:text-lg dark:text-neutral-300',
     copyButton: 'inline-flex underline',
-    signature: 'h-auto w-36 text-neutral-400',
+    signature: 'h-auto w-36 text-neutral-900 dark:text-neutral-400',
   },
 })
 
@@ -31,7 +30,7 @@ function WritingOutro(props: WritingOutroProps) {
 
   return (
     <div
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.wrapper()}>

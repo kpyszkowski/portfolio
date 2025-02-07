@@ -1,8 +1,8 @@
-import { HighlightedCodeAsync } from '@/components/ui/highlighted-code'
-import { WindowCard } from '@/components/ui/window-card'
-import { BundledLanguage } from '@/lib/code-highlighting'
 import React, { Children } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
+import { HighlightedCodeAsync } from '~/components/ui/highlighted-code'
+import { WindowCard } from '~/components/ui/window-card'
+import { BundledLanguage } from '~/lib/code-highlighting'
 
 // TODO: Add copy button
 

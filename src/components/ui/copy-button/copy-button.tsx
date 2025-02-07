@@ -1,8 +1,7 @@
-import useClipboard from '@/hooks/use-clipboard'
-import cn from '@/utils/cn'
 import { AnimatePresence, motion } from 'motion/react'
 import { Copy as CopyIcon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import useClipboard from '~/hooks/use-clipboard'
 
 const getStyles = tv({
   slots: {
@@ -35,7 +34,7 @@ function CopyButton(props: CopyButtonProps) {
     <button
       type="button"
       onClick={() => onCopy(children)}
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <CopyIcon className={styles.icon()} />

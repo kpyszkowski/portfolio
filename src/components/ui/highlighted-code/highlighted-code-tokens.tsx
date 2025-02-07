@@ -1,29 +1,29 @@
-import cn from '@/utils/cn'
 import { TokensResult } from 'shiki'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'relative m-0 block',
+    container:
+      'relative m-0 block brightness-[0.8] contrast-[0.8] saturate-200 dark:filter-none',
     wrapper: 'w-full overflow-x-scroll text-sm md:text-base/7',
     lineIndex:
-      'ml-3 mr-5 inline-block w-[3ch] select-none text-right text-neutral-500',
+      'ml-3 mr-5 inline-block w-[3ch] select-none text-right text-neutral-200 dark:text-neutral-500',
   },
 })
 
-interface HighlightedCodeImplProps extends VariantProps<typeof getStyles> {
+interface HighlightedCodeTokensProps extends VariantProps<typeof getStyles> {
   className?: string
   tokens: TokensResult['tokens']
 }
 
-function HighlightedCodeImpl(props: HighlightedCodeImplProps) {
+function HighlightedCodeTokens(props: HighlightedCodeTokensProps) {
   const { className, tokens, ...restProps } = props
 
   const styles = getStyles()
 
   return (
     <code
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.wrapper()}>
@@ -50,4 +50,4 @@ function HighlightedCodeImpl(props: HighlightedCodeImplProps) {
   )
 }
 
-export default HighlightedCodeImpl
+export default HighlightedCodeTokens

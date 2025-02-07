@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
+import { fontsClassName } from '~/lib/fonts'
 import './globals.css'
-import { fontsClassName } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'Kamil Pyszkowski - Software Engineer',

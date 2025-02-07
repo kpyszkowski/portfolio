@@ -1,28 +1,28 @@
-import cn from '@/utils/cn'
 import { forwardRef } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
     container:
-      'inline-block whitespace-nowrap rounded-2xl px-4 py-0.5 font-sans text-xs backdrop-blur-sm neumorphism sm:py-1',
+      'inline-block whitespace-nowrap rounded-2xl bg-opacity-10 px-4 py-0.5 font-sans text-xs backdrop-blur-sm neumorphism sm:py-1 dark:bg-opacity-25',
   },
   variants: {
     color: {
       neutral: {
-        container: 'bg-neutral-500/25 text-neutral-200',
+        container:
+          'bg-neutral-500 text-neutral-600 dark:bg-neutral-500 dark:text-neutral-200',
       },
       green: {
-        container: 'bg-green-500/25 text-green-200',
+        container: 'bg-green-500 text-green-200',
       },
       yellow: {
-        container: 'bg-yellow-500/25 text-yellow-200',
+        container: 'bg-yellow-500 text-yellow-200',
       },
       red: {
-        container: 'bg-red-500/25 text-red-200',
+        container: 'bg-red-500 text-red-200',
       },
       blue: {
-        container: 'bg-blue-500/25 text-blue-200',
+        container: 'bg-blue-500 text-blue-200',
       },
     },
   },
@@ -43,7 +43,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
 
   return (
     <div
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       ref={ref}
       {...restProps}
     >

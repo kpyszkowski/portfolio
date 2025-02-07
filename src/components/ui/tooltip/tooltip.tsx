@@ -1,5 +1,4 @@
 'use client'
-import cn from '@/utils/cn'
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import { AnimatePresence, motion, Transition, Variants } from 'motion/react'
 import React, { forwardRef, useState } from 'react'
@@ -7,9 +6,12 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container:
-      'rounded-3xl bg-neutral-700/50 px-4 py-1 font-sans text-neutral-200 ring-1 ring-inset ring-neutral-600/50 backdrop-blur-sm',
-    arrow: '-m-px fill-neutral-700',
+    container: [
+      'rounded-3xl bg-neutral-200/50 px-4 py-1 backdrop-blur-sm dark:bg-neutral-700/50',
+      'font-sans text-neutral-800 dark:text-neutral-200',
+      'ring-1 ring-inset ring-neutral-300/50 dark:ring-neutral-600/50',
+    ],
+    arrow: '-m-px fill-neutral-200 dark:fill-neutral-700',
     triggerContent: 'font-sans',
   },
   variants: {
@@ -101,7 +103,7 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
           {isOpen && (
             <TooltipPrimitive.Portal forceMount>
               <TooltipPrimitive.Content
-                className={cn(styles.container(), className)}
+                className={styles.container({ className })}
                 asChild
                 sideOffset={sideOffset}
                 {...restProps}

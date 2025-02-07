@@ -1,13 +1,12 @@
 'use client'
-import { HighlightedCode } from '@/components/ui/highlighted-code'
-import { Input } from '@/components/ui/input'
-import { Slider } from '@/components/ui/slider'
-import { Toggle } from '@/components/ui/toggle'
-import { WindowCard } from '@/components/ui/window-card'
-import { BundledLanguage } from '@/lib/code-highlighting'
-import cn from '@/utils/cn'
 import { useRef, useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { HighlightedCode } from '~/components/ui/highlighted-code'
+import { Input } from '~/components/ui/input'
+import { Slider } from '~/components/ui/slider'
+import { Toggle } from '~/components/ui/toggle'
+import { WindowCard } from '~/components/ui/window-card'
+import { BundledLanguage } from '~/lib/code-highlighting'
 
 const getStyles = tv({
   slots: {
@@ -149,7 +148,7 @@ function Playground(props: PlaygroundProps) {
 
   return (
     <WindowCard
-      className={cn(styles.container(), className)}
+      className={styles.container({ className })}
       {...restProps}
     >
       <WindowCard.Content className={styles.contentWrapper()}>

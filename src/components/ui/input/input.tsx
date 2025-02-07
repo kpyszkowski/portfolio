@@ -1,16 +1,18 @@
-import { Tooltip } from '@/components/ui/tooltip'
-import cn from '@/utils/cn'
 import { useCallback, useRef } from 'react'
 import { XCircle as ClearIcon, HelpCircle as HelpIcon } from 'react-feather'
 import { tv, type VariantProps } from 'tailwind-variants'
+import { Tooltip } from '~/components/ui/tooltip'
 
 const getStyles = tv({
   slots: {
     container: 'flex flex-col gap-2',
-    label: 'flex w-full items-center gap-2 text-sm text-neutral-50',
+    label:
+      'flex w-full items-center gap-2 text-sm text-neutral-950 dark:text-neutral-50',
     helpIcon: 'text- size-3.5',
-    inputWrapper:
-      'flex rounded bg-neutral-600/75 transition-all focus-within:bg-neutral-600 hover:bg-neutral-600',
+    inputWrapper: [
+      'flex rounded bg-neutral-200/75 transition-all focus-within:bg-neutral-200 hover:bg-neutral-200',
+      'dark:bg-neutral-600/75 dark:focus-within:bg-neutral-600 dark:hover:bg-neutral-600',
+    ],
     input:
       'peer flex-grow bg-transparent py-1 pl-3 text-sm outline-none placeholder:text-neutral-400',
     clearButton:
@@ -66,7 +68,7 @@ function Input(props: InputProps) {
   const styles = getStyles()
 
   return (
-    <label className={cn(className, styles.container())}>
+    <label className={styles.container({ className })}>
       <span className={styles.label()}>
         {label}
         {helpNote && (
