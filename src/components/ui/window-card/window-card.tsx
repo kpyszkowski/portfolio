@@ -6,12 +6,14 @@ const getStyles = tv({
   slots: {
     container:
       'window-card-background relative -mx-16 my-10 rounded-3xl bg-cover px-16 py-3',
-    wrapper:
-      'm-0 rounded-2xl backdrop-blur-2xl backdrop-brightness-75 backdrop-saturate-200 neumorphism [clip-path:inset(0_round_1rem)]',
+    wrapper: [
+      'm-0 rounded-2xl backdrop-blur-2xl backdrop-saturate-200 neumorphism [clip-path:inset(0_round_1rem)]',
+      'dark:backdrop-brightness-75',
+    ],
     captionWrapper: 'm-0 flex h-14 px-5 pb-6 pt-4 leading-6',
-    contentWrapper: 'divide-y divide-neutral-700',
+    contentWrapper: 'divide-y divide-neutral-200 dark:divide-neutral-700',
     decorator: 'z-10 w-12',
-    label: 'flex-1 text-center text-xs text-neutral-300',
+    label: 'flex-1 text-center text-xs text-neutral-600 dark:text-neutral-300',
   },
 })
 

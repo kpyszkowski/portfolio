@@ -60,7 +60,7 @@ function Footer(props: FooterProps) {
 
         <Logo
           className={styles.logo()}
-          size="sm"
+          size="md"
         />
 
         <div className={styles.decorator()}>

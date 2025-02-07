@@ -5,17 +5,18 @@ const getStyles = tv({
   slots: {
     container: 'flex items-start gap-3',
     switchRoot: [
-      'flex min-w-9 rounded-3xl bg-neutral-600/75 p-0.5',
-      'hover:bg-neutral-600 focus-visible:bg-neutral-600',
+      'flex min-w-9 rounded-3xl bg-neutral-300 p-0.5',
+      'hover:bg-opacity-100 focus-visible:bg-opacity-100',
       'outline-none ring-neutral-50/50 focus-visible:ring-4',
-      'transition-colors data-[state=checked]:bg-orange-300/85',
+      'transition-colors data-[state=checked]:bg-orange-300',
+      'dark:bg-neutral-600',
     ],
 
     thumb: [
       'size-4 rounded-full bg-neutral-50 shadow-[0_0_4px] shadow-neutral-600',
       'transition-all data-[state=checked]:translate-x-full',
     ],
-    label: 'text-sm text-neutral-50',
+    label: 'text-sm text-neutral-950 dark:text-neutral-50',
   },
 })
 

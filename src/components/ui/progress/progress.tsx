@@ -15,7 +15,7 @@ const getStyles = tv({
     container: 'size-10 rotate-90',
     indicator: 'fill-none',
     indicatorForeground: 'stroke-orange-300',
-    indicatorBackground: 'stroke-neutral-600',
+    indicatorBackground: 'stroke-neutral-300 dark:stroke-neutral-600',
   },
   variants: {
     size: {

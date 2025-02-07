@@ -29,7 +29,7 @@ const getStyles = tv({
       'size-10 rounded-full bg-neutral-300 p-0.5 md:size-12 dark:bg-neutral-600',
     authorName: 'text-sm text-neutral-500 md:text-base dark:text-neutral-400',
     readingTime:
-      'flex items-center gap-2 justify-self-end text-sm text-neutral-400',
+      'flex items-center gap-2 justify-self-end text-sm text-neutral-500 dark:text-neutral-400',
     readingTimeIcon: 'size-4',
   },
 })

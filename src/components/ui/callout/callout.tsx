@@ -23,7 +23,8 @@ const getStyles = tv({
         container: 'bg-blue-600/5 text-blue-500',
       },
       note: {
-        container: 'bg-zinc-600/15 text-zinc-950 dark:text-zinc-50',
+        container:
+          'bg-zinc-600/5 text-zinc-950 dark:bg-zinc-600/15 dark:text-zinc-50',
       },
       warning: {
         container: 'bg-yellow-600/5 text-yellow-500',
