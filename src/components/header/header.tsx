@@ -6,8 +6,8 @@ import { TabsMenu } from '~/components/ui/tabs-menu'
 
 const getStyles = tv({
   slots: {
-    container: 'sticky top-0 z-30 flex justify-center px-5',
-    menu: 'z-20 my-6',
+    container: 'sticky top-0 z-30 flex justify-center',
+    menu: 'z-20 my-3 md:my-6',
     background: 'header-background absolute inset-0 z-10 size-full',
     logo: 'mx-2 md:mx-3',
   },

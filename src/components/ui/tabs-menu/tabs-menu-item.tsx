@@ -6,7 +6,7 @@ import { Tooltip } from '~/components/ui/tooltip'
 
 const getStyles = tv({
   slots: {
-    wrapper: 'relative flex px-3 py-1 md:px-5 md:py-1.5',
+    wrapper: 'relative flex px-3.5 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
     label:
       'font-sans text-xs leading-4 text-neutral-950 md:text-sm dark:text-neutral-50',
