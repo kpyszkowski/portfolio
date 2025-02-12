@@ -4,8 +4,8 @@ import { Header } from '~/components/header'
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - Kamil Pyszkowski's writings",
-    default: "Kamil Pyszkowski's writings",
+    template: "%s - Kamil's writings",
+    default: "Kamil's writings",
   },
 }
 

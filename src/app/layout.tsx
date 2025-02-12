@@ -23,6 +23,16 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   userScalable: false,
+  themeColor: [
+    {
+      media: '(prefers-color-scheme: light)',
+      color: '#e5e5e5', // colors.neutral.200
+    },
+    {
+      media: '(prefers-color-scheme: dark)',
+      color: '#171717', // colors.neutral.900
+    },
+  ],
 }
 
 export default function RootLayout({

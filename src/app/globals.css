@@ -27,7 +27,7 @@ body {
         theme(colors.transparent) 3px,
         var(--header-background-bg)
       ),
-      linear-gradient(to bottom, var(--header-background-bg), transparent 75%);
+      linear-gradient(to bottom, var(--header-background-bg), transparent 50%);
     background-size:
       4px 4px,
       4px 4px,

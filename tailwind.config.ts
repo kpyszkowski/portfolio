@@ -19,6 +19,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-fira-code)', 'monospace'],
       },
     },
   },
