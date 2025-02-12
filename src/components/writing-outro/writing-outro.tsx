@@ -34,38 +34,40 @@ function WritingOutro(props: WritingOutroProps) {
       {...restProps}
     >
       <div className={styles.wrapper()}>
-        <motion.svg
-          className={styles.spotlight()}
-          xmlns="http://www.w3.org/2000/svg"
-          width="64"
-          height="128"
-          viewBox="0 0 64 128"
-          initial={{
-            opacity: 0.24,
-            rotate: isDesktop ? 90 : 48,
-            scaleX: 2.25,
-            scaleY: 1,
-            x: 0,
-          }}
-          whileInView={{
-            opacity: 0.32,
-            rotate: isDesktop ? 40 : 16,
-            scaleX: isDesktop ? 2.06 : 1.24,
-            scaleY: isDesktop ? 1.6 : 1.12,
-            x: isDesktop ? 0 : '24%',
-            transition: {
-              delay: 1,
-              duration: 2,
-              ease: [0.5, 0, 0, 1],
-            },
-          }}
-        >
-          <path
-            d="M11.065 0h33.701L56 108.454c-13.016 26.078-42.967 26.044-56 0z"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </motion.svg>
+        {isDesktop && (
+          <motion.svg
+            className={styles.spotlight()}
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="128"
+            viewBox="0 0 64 128"
+            initial={{
+              opacity: 0.24,
+              rotate: 90,
+              scaleX: 2.25,
+              scaleY: 1,
+              x: 0,
+            }}
+            whileInView={{
+              opacity: 0.32,
+              rotate: 40,
+              scaleX: 2.06,
+              scaleY: 1.6,
+              x: 0,
+              transition: {
+                delay: 1,
+                duration: 2,
+                ease: [0.5, 0, 0, 1],
+              },
+            }}
+          >
+            <path
+              d="M11.065 0h33.701L56 108.454c-13.016 26.078-42.967 26.044-56 0z"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </motion.svg>
+        )}
 
         <p className={styles.content()}>
           I hope you found this article helpful and that it added value to your
