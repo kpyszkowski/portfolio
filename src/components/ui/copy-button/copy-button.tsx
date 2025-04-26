@@ -15,25 +15,31 @@ const getStyles = tv({
 interface CopyButtonProps extends VariantProps<typeof getStyles> {
   className?: string
   children: string
-  copiedLabel?: string
+  label?: {
+    default?: string
+    copied?: string
+  }
 }
 
 function CopyButton(props: CopyButtonProps) {
   const {
     className = '',
     children,
-    copiedLabel = 'Copied to clipboard',
+    label = {
+      default: children,
+      copied: 'Copied to clipboard!',
+    },
     ...restProps
   } = props
 
-  const { hasCopied, onCopy } = useClipboard()
+  const { hasCopied, onCopy } = useClipboard(children)
 
   const styles = getStyles()
 
   return (
     <button
       type="button"
-      onClick={() => onCopy(children)}
+      onClick={() => onCopy()}
       className={styles.container({ className })}
       {...restProps}
     >
@@ -48,10 +54,11 @@ function CopyButton(props: CopyButtonProps) {
               exit={{ filter: 'blur(4px) opacity(0)' }}
               className={styles.copiedLabel()}
             >
-              {copiedLabel}
+              {label.copied}
             </motion.span>
           )}
         </AnimatePresence>
+
         <motion.span
           initial={false}
           animate={{
@@ -60,7 +67,7 @@ function CopyButton(props: CopyButtonProps) {
               : 'blur(0px) opacity(1)',
           }}
         >
-          {children}
+          {label.default}
         </motion.span>
       </div>
     </button>

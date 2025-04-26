@@ -2,22 +2,25 @@ import { useCallback, useEffect, useState } from 'react'
 
 interface UseClipboardReturnType {
   hasCopied: boolean
-  onCopy: (content: string) => void
+  onCopy: () => void
 }
 
 type UseClipboardOptions = {
   flagDuration?: number
 }
 
-function useClipboard(options?: UseClipboardOptions): UseClipboardReturnType {
+function useClipboard(
+  content: string,
+  options?: UseClipboardOptions,
+): UseClipboardReturnType {
   const { flagDuration = 2000 } = options || {}
 
   const [hasCopied, setHasCopied] = useState(false)
 
-  const onCopy = useCallback((content: string) => {
+  const onCopy = useCallback(() => {
     navigator.clipboard.writeText(content)
     setHasCopied(true)
-  }, [])
+  }, [content])
 
   useEffect(() => {
     if (hasCopied) {
