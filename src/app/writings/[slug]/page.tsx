@@ -9,11 +9,11 @@ type WritingPageParams = {
 }
 
 type WritingPageProps = {
-  params: Promise<WritingPageParams>
+  params: WritingPageParams
 }
 
 export default async function WritingPage(props: WritingPageProps) {
-  const { slug } = await props.params
+  const { slug } = props.params
   const { metadata, content } = await getWritingData(slug)
 
   return (
@@ -44,7 +44,7 @@ export async function generateStaticParams() {
 export const dynamicParams = false
 
 export async function generateMetadata(props: WritingPageProps) {
-  const { slug } = await props.params
+  const { slug } = props.params
   const { metadata } = await getWritingData(slug)
   return {
     title: metadata.title,

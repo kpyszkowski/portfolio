@@ -15,10 +15,6 @@ import remarkReadingTime from 'remark-reading-time'
 import remarkMDXReadingTime from 'remark-reading-time/mdx.js'
 import remarkSectionize from 'remark-sectionize'
 
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
-
-initOpenNextCloudflareForDev()
-
 /** @type {import('@r4ai/remark-callout').Options} */
 const calloutOptions = {
   root: (callout) => ({
