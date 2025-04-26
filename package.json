@@ -12,11 +12,10 @@
     "generate": "plop",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typegen:worker": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "build:worker": "opennextjs-cloudflare",
-    "dev:worker": "wrangler dev --port 8771",
-    "preview:worker": "npm run build:worker && npm run dev:worker",
-    "deploy:worker": "npm run build:worker && wrangler deploy"
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -40,9 +39,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
-    "@cloudflare/workers-types": "^4.20241230.0",
+    "@cloudflare/workers-types": "^4.20250426.0",
     "@opennextjs/aws": "^3.3.1",
-    "@opennextjs/cloudflare": "^0.3.4",
+    "@opennextjs/cloudflare": "1.0.0-beta.3",
     "@stefanprobst/rehype-extract-toc": "^2.2.1",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
@@ -80,6 +79,6 @@
     "storybook": "^8.4.7",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
-    "wrangler": "^3.100.0"
+    "wrangler": "^4.13.2"
   }
 }
