@@ -6,48 +6,54 @@ publishedAt: 2025-01-08
 
 import Example from './example'
 
-I've been following stock markets for a while now. Also crypto wallets and apps. What binds them
-together is the presence of numbers that are constantly changing - it's usually the amount of
-certain asset - crypto or fiat. I came up to conclusion that it would be a neat detail to visually
-indicate the change to the user. Users like animations, right? It makes them feel taken care of.
-It's a small detail, but it can make a difference. Also makes the product more memorable. That's why
-I decided to implement a `SlotNumber` component. It's simple component that takes a number and
-animates it's change. The animation is inspired by the slot machines. The number is displayed as a
-sequence of digits that are spinning.
+I've been following stock markets for a while now. Also crypto wallets and apps.
+What binds them together is the presence of numbers that are constantly
+changing - it's usually the amount of certain asset - crypto or fiat. I came up
+to conclusion that it would be a neat detail to visually indicate the change to
+the user. Users like animations, right? It makes them feel taken care of. It's a
+small detail, but it can make a difference. Also makes the product more
+memorable. That's why I decided to implement a `SlotNumber` component. It's
+simple component that takes a number and animates it's change. The animation is
+inspired by the slot machines. The number is displayed as a sequence of digits
+that are spinning.
 
 ## Overview
 
 The API of the component is simple. It accepts two props:
 
 - `children` - the number to display
-- `formatFunction` - an optional function that will format the number before displaying it. It will
-  be useful if you want to add a currency symbol or format the number to add delimiters. It takes a
-  number and returns a string.
+- `formatFunction` - an optional function that will format the number before
+  displaying it. It will be useful if you want to add a currency symbol or
+  format the number to add delimiters. It takes a number and returns a string.
 
 For animations I used [Motion](https://motion.dev/). Styles were written with
 [Tailwind](https://tailwindcss.com/) but you can use literally anything.
 
 > [!tip]
 >
-> To organize styles better I use [Tailwind Variants](https://www.tailwind-variants.org/). It
-> creates nice abstraction over classnames with API similar to [Stitches](https://stitches.dev/)
-> taking the classnames hussle away.
+> To organize styles better I use
+> [Tailwind Variants](https://www.tailwind-variants.org/). It creates nice
+> abstraction over classnames with API similar to
+> [Stitches](https://stitches.dev/) taking the classnames hussle away.
 
-There is an interactive example below. You can play with the component and see how it works. I added
-the toggle for you to see it in action with more meaningful context.
+There is an interactive example below. You can play with the component and see
+how it works. I added the toggle for you to see it in action with more
+meaningful context.
 
 <Example />
 
-Generally speaking the component will take the value, format it, split it into characters. From the
-collection of characters we will distinguish the ones that are digits and the ones that are not.
-Digits will be passed to the `SlotNumberDigit` component that encapsulates the spinning animation.
-Any other characters will be rendered as is.
+Generally speaking the component will take the value, format it, split it into
+characters. From the collection of characters we will distinguish the ones that
+are digits and the ones that are not. Digits will be passed to the
+`SlotNumberDigit` component that encapsulates the spinning animation. Any other
+characters will be rendered as is.
 
 ## Implementation
 
 ### Preparing value for rendering
 
-First I prepared the value for rendering. The preparation consists of three stages:
+First I prepared the value for rendering. The preparation consists of three
+stages:
 
 - formatting the value with the `formatFunction` if it's provided,
 - splitting the value into characters,
@@ -55,8 +61,9 @@ First I prepared the value for rendering. The preparation consists of three stag
 
 I memoized the `characters` array to avoid unnecessary recalculations.
 
-Pay attention to the `reverse` method. It's there to make the animation more natural. Characters
-will be reverted back later with flexbox. It will prevent unnecessary content shifting.
+Pay attention to the `reverse` method. It's there to make the animation more
+natural. Characters will be reverted back later with flexbox. It will prevent
+unnecessary content shifting.
 
 ```tsx
 type SlotNumberProps = {
@@ -68,7 +75,9 @@ function SlotNumber(props: SlotNumberProps) {
   const { children: value, formatFunction, ...restProps } = props
 
   const characters = useMemo(() => {
-    const formattedValue = formatFunction ? formatFunction(value) : value.toString()
+    const formattedValue = formatFunction
+      ? formatFunction(value)
+      : value.toString()
 
     return formattedValue
       .split('')
@@ -82,8 +91,8 @@ function SlotNumber(props: SlotNumberProps) {
 
 ### Rendering characters
 
-Next I rendered characters. If the character is type of `number` it's passed to the
-`SlotNumberDigit` component I will introduce in the following chapters.
+Next I rendered characters. If the character is type of `number` it's passed to
+the `SlotNumberDigit` component I will introduce in the following chapters.
 
 ```tsx
 type SlotNumberProps = {
@@ -100,7 +109,9 @@ function SlotNumber(props: SlotNumberProps) {
     <div {...restProps}>
       {characters.map((character, index) =>
         typeof character === 'number' ? (
-          <SlotNumberDigit key={`slot-number-character-${index}`}>{character}</SlotNumberDigit>
+          <SlotNumberDigit key={`slot-number-character-${index}`}>
+            {character}
+          </SlotNumberDigit>
         ) : (
           <span key={`slot-number-character-${index}`}>{character}</span>
         ),
@@ -112,25 +123,29 @@ function SlotNumber(props: SlotNumberProps) {
 
 > [!note]
 >
-> As [it's well known](https://react.dev/learn/rendering-lists#rules-of-keys), React keys should be
-> unique and indexes as keys are not the best choice. In this case they are "more unique" than the
-> characters themselves so it's safe to use them.
+> As [it's well known](https://react.dev/learn/rendering-lists#rules-of-keys),
+> React keys should be unique and indexes as keys are not the best choice. In
+> this case they are "more unique" than the characters themselves so it's safe
+> to use them.
 >
-> What's more using then in component-scoped strings brings additional variance to the keys.
+> What's more using then in component-scoped strings brings additional variance
+> to the keys.
 
 > [!tip]
 >
-> As long as you are sure keys are unique and stable you can use indexes as keys. Just always try to
-> introduce additional variance.
+> As long as you are sure keys are unique and stable you can use indexes as
+> keys. Just always try to introduce additional variance.
 >
-> In fact indexes are the default fallback React applies when keys are not provided.
+> In fact indexes are the default fallback React applies when keys are not
+> provided.
 
 ### Styling the `SlotNumber` component
 
-As I mentioned eariler digits are reversed back with the use of flexbox. Please note that I
-justified the content to the end. Together with reversed flexbox direction it will make the digits
-appear from the left side of the container. It's also important to hide the overflow. It will hide
-stacked digits that are out of the container area.
+As I mentioned eariler digits are reversed back with the use of flexbox. Please
+note that I justified the content to the end. Together with reversed flexbox
+direction it will make the digits appear from the left side of the container.
+It's also important to hide the overflow. It will hide stacked digits that are
+out of the container area.
 
 ```tsx
 const getStyles = tv({
@@ -158,8 +173,8 @@ function SlotNumber(props: SlotNumberProps) {
 
 ### Implementing `SlotNumberDigit` component
 
-The `SlotNumberDigit` component is responsible for animating the digit change. It consists of two
-main parts:
+The `SlotNumberDigit` component is responsible for animating the digit change.
+It consists of two main parts:
 
 - the placeholder that occupies the space in DOM for the digit to be visible,
 - the stack of digits that spins vertically accordingly to the value change.
@@ -205,53 +220,60 @@ const SlotNumberDigit = (props: SlotNumberDigitProps) => {
 }
 ```
 
-To make things move I calculated the vertical offset of the stack basing on the current value.
-Please note the number of digits is constant and equals 10. It's because we are dealing with decimal
-system. It allowed me to use percentage values for the offset with the given formula:
+To make things move I calculated the vertical offset of the stack basing on the
+current value. Please note the number of digits is constant and equals 10. It's
+because we are dealing with decimal system. It allowed me to use percentage
+values for the offset with the given formula:
 
 <center>_(value / 10) \* -100_</center>
 
-Now I don't have to explicitly measure the height of the digit. It will be always one tenth of the
-container height.
+Now I don't have to explicitly measure the height of the digit. It will be
+always one tenth of the container height.
 
 ### Making things smooth
 
-It's decent but not perfect. The animation is not smooth. That's where the **Motion** comes into
-play.
+It's decent but not perfect. The animation is not smooth. That's where the
+**Motion** comes into play.
 
-Primarily I replaced digits wrapper `div` with the `motion.div` component. It allowed me to define
-`MotionProps` that will animate the transition between offsets. I applied the offset using the `y`
-shorthand property within the `animate` prop. I also set the `initial` property to `false` to
-prevent the initial animation. Now digits update smoothly. The default spring options are good
-enough for this case. You can tweak it with `transition` property.
+Primarily I replaced digits wrapper `div` with the `motion.div` component. It
+allowed me to define `MotionProps` that will animate the transition between
+offsets. I applied the offset using the `y` shorthand property within the
+`animate` prop. I also set the `initial` property to `false` to prevent the
+initial animation. Now digits update smoothly. The default spring options are
+good enough for this case. You can tweak it with `transition` property.
 
-It can look even better with use of motion layout components. It will automatically calculate
-position of each character in flexbox and move it around smoothly.
+It can look even better with use of motion layout components. It will
+automatically calculate position of each character in flexbox and move it around
+smoothly.
 
-To do so I replaced the container `div` with the `motion.div` component and wrapped whole
-`SlotNumberDigit` component with the `AnimatePresence` component. It will handle the presence of
-characters in the DOM and animate it as it mounts. I added proper `initial` and `animate`
-transitions and disabled the initial animation using `AnimatePresence`'s `initial` property. It's
-important to mention the `layout` property. It's set to `"position"` to enable the layout animations
-scoped to the position of characters. It prevents characters from unexpectedly stretching.
+To do so I replaced the container `div` with the `motion.div` component and
+wrapped whole `SlotNumberDigit` component with the `AnimatePresence` component.
+It will handle the presence of characters in the DOM and animate it as it
+mounts. I added proper `initial` and `animate` transitions and disabled the
+initial animation using `AnimatePresence`'s `initial` property. It's important
+to mention the `layout` property. It's set to `"position"` to enable the layout
+animations scoped to the position of characters. It prevents characters from
+unexpectedly stretching.
 
-Finally I tweaked the structure of `SlotNumber` component to utilize motion layout components as
-well. I wrapped non-digit characters with `motion.span` with the `layout` property. The same for the
-root `div` element.
+Finally I tweaked the structure of `SlotNumber` component to utilize motion
+layout components as well. I wrapped non-digit characters with `motion.span`
+with the `layout` property. The same for the root `div` element.
 
 > [!tip]
 >
 > If you don't feel confident with Motion components feel free to check the
-> [official documentation](https://motion.dev/docs/react-animation). It's well written, easy to
-> understand, and loaded with examples.
+> [official documentation](https://motion.dev/docs/react-animation). It's well
+> written, easy to understand, and loaded with examples.
 >
-> There are a lot of nuances to keep in mind when working with animations. If you don't understand
-> why I did something it's more than likely explained there.
+> There are a lot of nuances to keep in mind when working with animations. If
+> you don't understand why I did something it's more than likely explained
+> there.
 
 ## Conclusion
 
-The `SlotNumber` component is ready. It's quite simple but effective and performant. It can be used
-in various contexts. With `formatFunction` property it's flexible and extensible.
+The `SlotNumber` component is ready. It's quite simple but effective and
+performant. It can be used in various contexts. With `formatFunction` property
+it's flexible and extensible.
 
 ```tsx
 type SlotNumberProps = {
@@ -316,7 +338,9 @@ function SlotNumber(props: SlotNumberProps) {
   const styles = getStyles()
 
   const characters = useMemo(() => {
-    const formattedValue = formatFunction ? formatFunction(value) : value.toString()
+    const formattedValue = formatFunction
+      ? formatFunction(value)
+      : value.toString()
 
     return formattedValue
       .split('')
@@ -331,7 +355,9 @@ function SlotNumber(props: SlotNumberProps) {
     >
       {characters.map((character, index) =>
         typeof character === 'number' ? (
-          <SlotNumberDigit key={`slot-number-character-${index}`}>{character}</SlotNumberDigit>
+          <SlotNumberDigit key={`slot-number-character-${index}`}>
+            {character}
+          </SlotNumberDigit>
         ) : (
           <motion.span
             layout

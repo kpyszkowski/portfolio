@@ -10,10 +10,11 @@ const getStyles = tv({
       'm-0 rounded-2xl backdrop-blur-2xl backdrop-saturate-200 neumorphism [clip-path:inset(0_round_1rem)]',
       'dark:backdrop-brightness-75',
     ],
-    captionWrapper: 'm-0 flex h-14 px-5 pb-6 pt-4 leading-6',
+    captionWrapper: 'm-0 flex items-baseline px-5 pb-6 pt-4 leading-6',
     contentWrapper: 'divide-y divide-neutral-200 dark:divide-neutral-700',
     decorator: 'z-10 w-12',
     label: 'flex-1 text-center text-xs text-neutral-600 dark:text-neutral-300',
+    captionSlot: 'ml-auto',
   },
 })
 
@@ -21,6 +22,7 @@ interface WindowCardProps extends VariantProps<typeof getStyles> {
   className?: string
   children?: React.ReactNode
   title?: string
+  captionSlot?: React.ReactNode
   captionVariant?: ComponentProps<typeof WindowCardContent>['variant']
 }
 
@@ -28,6 +30,7 @@ function WindowCardRoot(props: WindowCardProps) {
   const {
     className = '',
     title,
+    captionSlot,
     children,
     captionVariant,
     ...restProps
@@ -71,8 +74,11 @@ function WindowCardRoot(props: WindowCardProps) {
               fill="#28C840"
             />
           </svg>
-
           {title && <span className={styles.label()}>{title}</span>}
+
+          {captionSlot && (
+            <div className={styles.captionSlot()}>{captionSlot}</div>
+          )}
         </WindowCardContent>
 
         <div className={styles.contentWrapper()}>{children}</div>

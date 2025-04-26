@@ -16,7 +16,7 @@ const getStyles = tv({
       'my-6 rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
     title: 'flex items-center gap-4 text-base',
     content: 'text-neutral-800 prose-p:my-2 dark:text-neutral-200',
-    icon: '-ml-[2.85rem] size-8 bg-neutral-50 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] dark:bg-neutral-900',
+    icon: '-ml-11 size-7 bg-neutral-50 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] dark:bg-neutral-900',
   },
   variants: {
     type: {
@@ -36,7 +36,7 @@ const getStyles = tv({
       success: {
         container: 'bg-green-600/5 text-green-500',
       },
-      tidbit: {
+      insight: {
         container: 'bg-yellow-600/5 text-yellow-400',
       },
     },
@@ -59,7 +59,7 @@ const getIconByType = (type: CalloutType) => {
       return DangerIcon
     case 'success':
       return SuccessIcon
-    case 'tidbit':
+    case 'insight':
       return BulbIcon
   }
 }
@@ -70,7 +70,7 @@ export type CalloutType =
   | 'danger'
   | 'success'
   | 'note'
-  | 'tidbit'
+  | 'insight'
 
 interface CalloutProps extends VariantProps<typeof getStyles> {
   className?: string

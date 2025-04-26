@@ -1,14 +1,18 @@
 import React, { Children } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
+import { CopyButton } from '~/components/ui/copy-button'
 import { HighlightedCodeAsync } from '~/components/ui/highlighted-code'
 import { WindowCard } from '~/components/ui/window-card'
 import { BundledLanguage } from '~/lib/code-highlighting'
 
-// TODO: Add copy button
-
 const getStyles = tv({
   slots: {
+    container: 'group',
     content: 'pb-4',
+    copyButton: [
+      'gap-3 py-1 text-sm opacity-50 group-hover:opacity-100',
+      'text-neutral-300 transition-opacity active:text-neutral-50',
+    ],
   },
 })
 
@@ -24,7 +28,7 @@ interface CodeExampleProps extends VariantProps<typeof getStyles> {
 }
 
 const CodeExample = async (props: CodeExampleProps) => {
-  const { children, ...restProps } = props
+  const { children, className, ...restProps } = props
 
   const styles = getStyles()
 
@@ -39,7 +43,21 @@ const CodeExample = async (props: CodeExampleProps) => {
   const code = codeChild.props.children.trim()
 
   return (
-    <WindowCard {...restProps}>
+    <WindowCard
+      className={styles.container({ className })}
+      captionSlot={
+        <CopyButton
+          className={styles.copyButton()}
+          label={{
+            default: 'Copy code',
+            copied: 'Copied',
+          }}
+        >
+          {code}
+        </CopyButton>
+      }
+      {...restProps}
+    >
       <WindowCard.Content
         as="pre"
         className={styles.content()}
