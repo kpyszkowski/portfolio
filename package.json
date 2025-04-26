@@ -12,16 +12,15 @@
     "generate": "plop",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typegen:worker": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "build:worker": "opennextjs-cloudflare",
-    "dev:worker": "wrangler dev --port 8771",
-    "preview:worker": "npm run build:worker && npm run dev:worker",
-    "deploy:worker": "npm run build:worker && wrangler deploy"
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^15.1.2",
+    "@next/mdx": "15.3.1",
     "@r4ai/remark-callout": "^0.6.2",
     "@radix-ui/react-progress": "^1.1.1",
     "@radix-ui/react-slider": "^1.2.2",
@@ -29,10 +28,10 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "clsx": "^2.1.1",
     "motion": "^11.16.1",
-    "next": "14.2.5",
+    "next": "15.3.1",
     "next-plugin-svgr": "^1.1.12",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-feather": "^2.0.10",
     "rehype-external-links": "^3.0.0",
     "tailwind-merge": "^2.5.5",
@@ -40,9 +39,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
-    "@cloudflare/workers-types": "^4.20241230.0",
+    "@cloudflare/workers-types": "^4.20250426.0",
     "@opennextjs/aws": "^3.3.1",
-    "@opennextjs/cloudflare": "^0.3.4",
+    "@opennextjs/cloudflare": "1.0.0-beta.3",
     "@stefanprobst/rehype-extract-toc": "^2.2.1",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
@@ -54,11 +53,11 @@
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.2",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5",
+    "eslint-config-next": "15.3.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-check-file": "^2.8.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -80,6 +79,12 @@
     "storybook": "^8.4.7",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
-    "wrangler": "^3.100.0"
+    "wrangler": "^4.13.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.1.2",
+      "@types/react-dom": "19.1.2"
+    }
   }
 }
