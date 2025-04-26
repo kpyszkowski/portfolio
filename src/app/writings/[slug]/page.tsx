@@ -9,7 +9,7 @@ type WritingPageParams = {
 }
 
 type WritingPageProps = {
-  params: WritingPageParams
+  params: Promise<WritingPageParams>
 }
 
 export default async function WritingPage(props: WritingPageProps) {
