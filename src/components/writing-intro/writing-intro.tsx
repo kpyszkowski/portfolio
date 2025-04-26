@@ -100,6 +100,7 @@ function WritingIntro(props: WritingIntroProps) {
       <div className={styles.author()}>
         <Image
           className={styles.authorImage()}
+          priority
           src="/author-image.jpg"
           width={48}
           height={48}
