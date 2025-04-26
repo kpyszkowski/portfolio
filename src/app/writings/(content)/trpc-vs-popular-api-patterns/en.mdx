@@ -4,117 +4,137 @@ tags: ['tRPC', 'REST', 'API', 'React', 'Next.js', 'Hono']
 publishedAt: 2025-02-06
 ---
 
-It's been 4 years since tRPC was officially released. I need to admit it really drawn my attention.
-It seems like the perfect balance between REST and GraphQL - and it's imperfections. Like the golden
-mean of API design. This article is my journey of exploring tRPC and how it can be used as an
-alternative to REST API. I took a peek at the history of RPC in general, compared tRPC against
-popular API design patterns and finally implemented a simple monorepo with React and Hono.
+It's been 4 years since tRPC was officially released. I need to admit it really
+drawn my attention. It seems like the perfect balance between REST and GraphQL -
+and it's imperfections. Like the golden mean of API design. This article is my
+journey of exploring tRPC and how it can be used as an alternative to REST API.
+I took a peek at the history of RPC in general, compared tRPC against popular
+API design patterns and finally implemented a simple monorepo with React and
+Hono.
 
 ## Brief history of RPC and the rise of tRPC
 
-**RPC (Remote Procedure Call)** is essentially a protocol that allows to call functions on one
-computer from another. It's been around since the 80s and has been used in various forms. One of the
-most popular modern implementations of RPC is **gRPC**, which is a high-performance, open-source
-universal RPC framework. Even though gRPC is implemented in many languages, including JavaScript,
-it's not the most developer-friendly solution. It's quite verbose and requires a lot of boilerplate
-code to implement.
+**RPC (Remote Procedure Call)** is essentially a protocol that allows to call
+functions on one computer from another. It's been around since the 80s and has
+been used in various forms. One of the most popular modern implementations of
+RPC is **gRPC**, which is a high-performance, open-source universal RPC
+framework. Even though gRPC is implemented in many languages, including
+JavaScript, it's not the most developer-friendly solution. It's quite verbose
+and requires a lot of boilerplate code to implement.
 
-The response to this issue was the rise of **tRPC (TypeScript RPC)** - a modern, type-safe RPC
-framework for TypeScript. It works both with classic monorepos and monolithic applications such as
-Next.js. It's a perfect solution for TypeScript driven full-stack teams fulfilling gaps between
-frontend and backend.
+The response to this issue was the rise of **tRPC (TypeScript RPC)** - a modern,
+type-safe RPC framework for TypeScript. It works both with classic monorepos and
+monolithic applications such as Next.js. It's a perfect solution for TypeScript
+driven full-stack teams fulfilling gaps between frontend and backend.
 
 ## Comparing tRPC against REST API
 
-REST API is the most popular API design pattern. It's simple, stateless, and cacheable. It's easy to
-understand and implement. However, it has its limitations. One of the biggest issues with REST API
-is over-fetching and under-fetching. It's hard to design a REST API that fits all the needs of the
+REST API is the most popular API design pattern. It's simple, stateless, and
+cacheable. It's easy to understand and implement. However, it has its
+limitations. One of the biggest issues with REST API is over-fetching and
+under-fetching. It's hard to design a REST API that fits all the needs of the
 frontend causing friction between frontend and backend implementations.
 
-This is where tRPC shines. Just like in GraphQL you can precisely define the shape of data you'd
-like to receive from server. Also it's even easier to implement than REST API. It takes away the
-hussle of HTTP implementation details and allows to focus on the business logic. It handles errors,
-caching, and even serialization out of the box. You don't need to bother with choosing correct HTTP
-method nor explicitly validate each payload attached to the request. It's all handled automatically
-for you. Also scales well with the project size which is not that trivial with REST APIs.
+This is where tRPC shines. Just like in GraphQL you can precisely define the
+shape of data you'd like to receive from server. Also it's even easier to
+implement than REST API. It takes away the hussle of HTTP implementation details
+and allows to focus on the business logic. It handles errors, caching, and even
+serialization out of the box. You don't need to bother with choosing correct
+HTTP method nor explicitly validate each payload attached to the request. It's
+all handled automatically for you. Also scales well with the project size which
+is not that trivial with REST APIs.
 
 ## What about GraphQL?
 
-GraphQL looked like the perfect solution to REST API problems. It solves the over-fetching and
-under-fetching issues by allowing to query only the data you need. However, it has its own
-limitations. Frontend-wise the association between the backend is more like illusion. There is a
-schema that serves as a source of truth. However it needs to be updated with every change in the
-backend. Comparing to tRPC the type definition is resolved on the runtime which makes it more
-flexible and easier to maintain. It gives an impression of a native association between frontend and
-backend.
+GraphQL looked like the perfect solution to REST API problems. It solves the
+over-fetching and under-fetching issues by allowing to query only the data you
+need. However, it has its own limitations. Frontend-wise the association between
+the backend is more like illusion. There is a schema that serves as a source of
+truth. However it needs to be updated with every change in the backend.
+Comparing to tRPC the type definition is resolved on the runtime which makes it
+more flexible and easier to maintain. It gives an impression of a native
+association between frontend and backend.
 
-What I don't like about the GraphQL is the need of context switching when it comes to write queries.
-With tRPC you stay in the TypeScript land. Your code editor will help you with autocompletion
-providing first class developer experience.
+What I don't like about the GraphQL is the need of context switching when it
+comes to write queries. With tRPC you stay in the TypeScript land. Your code
+editor will help you with autocompletion providing first class developer
+experience.
 
-One of the major pros of GraphQL is it's ability to self-document. It exposes an interactive
-playground where you can explore the schema and test queries. tRPC doesn't fall behind in this
-aspect. Even though it's pretty minimal in it's core - there is a variety of
-[extensions](https://trpc.io/docs/community/awesome-trpc#extensions) that can be used to achieve
-similar functionality. The one I like the most is the
+One of the major pros of GraphQL is it's ability to self-document. It exposes an
+interactive playground where you can explore the schema and test queries. tRPC
+doesn't fall behind in this aspect. Even though it's pretty minimal in it's
+core - there is a variety of
+[extensions](https://trpc.io/docs/community/awesome-trpc#extensions) that can be
+used to achieve similar functionality. The one I like the most is the
 [OpenAPI](https://github.com/mcampa/trpc-to-openapi) standard integration.
 
 > [!tip]
 >
-> If your Backend team is not using TypeScript I'd recommend to stick with GraphQL. If the schema
-> generation process is somehow automated, eg. in CI/CD pipeline I wouldn't see any reasons to
-> switch. In fact it's used by many companies and battle-tested in production.
+> If your Backend team is not using TypeScript I'd recommend to stick with
+> GraphQL. If the schema generation process is somehow automated, eg. in CI/CD
+> pipeline I wouldn't see any reasons to switch. In fact it's used by many
+> companies and battle-tested in production.
 
 ## Concepts and vocabulary
 
-Before we dive into the code let's get familiar with the vocabulary used around tRPC:
+Before we dive into the code let's get familiar with the vocabulary used around
+tRPC:
 
-- **Procedure** - a function that can be called remotely. It can be public or protected. It can take
-  the input, process it and return the output.
-- **Query** - a kind of procedure that doesn't change the state of the server, gets the data.
-- **Mutation** - a kind of procedure that changes the state of the server, modifies the data.
-- **Subscription** - a kind of procedure that allows to listen to the server events. It creates
-  persistent connection and listens to changes.
-- **Router** - a collection of procedures. It's a place where all the procedures of given namespace
-  are defined.
-- **Context** - a place where shared data between procedures is stored. It's passed to all the
-  procedures. Usually the place where database or service handlers are instantiated.
-- **Middleware** - a function that can run before or after the procedure. It can modify the context.
-- **Validator** - a function that validates the input and/or the output of the procedure. It can be
-  used to ensure the data is in the correct shape.
+- **Procedure** - a function that can be called remotely. It can be public or
+  protected. It can take the input, process it and return the output.
+- **Query** - a kind of procedure that doesn't change the state of the server,
+  gets the data.
+- **Mutation** - a kind of procedure that changes the state of the server,
+  modifies the data.
+- **Subscription** - a kind of procedure that allows to listen to the server
+  events. It creates persistent connection and listens to changes.
+- **Router** - a collection of procedures. It's a place where all the procedures
+  of given namespace are defined.
+- **Context** - a place where shared data between procedures is stored. It's
+  passed to all the procedures. Usually the place where database or service
+  handlers are instantiated.
+- **Middleware** - a function that can run before or after the procedure. It can
+  modify the context.
+- **Validator** - a function that validates the input and/or the output of the
+  procedure. It can be used to ensure the data is in the correct shape.
 
 ## Creating the server
 
-Are you hyped to try tRPC out? Let's get it done! I've prepared a simple monorepo with React and
-Hono. I will take you through all the key steps to set up the server and client.
+Are you hyped to try tRPC out? Let's get it done! I've prepared a simple
+monorepo with React and Hono. I will take you through all the key steps to set
+up the server and client.
 
 > [!tidbit]
 >
-> [Hono](https://hono.dev) is a fast and lightweight backend framework. It's built on Web Standards
-> and works in any JavaScript runtime. It was created by Cloudflare's engineer - Yusuke Wada and
-> integrates well with their stack. Also it's
-> [the fastest](https://hono.dev/docs/concepts/benchmarks) backend framework available. It's syntax
-> is quite concise and reminds Express.js.
+> [Hono](https://hono.dev) is a fast and lightweight backend framework. It's
+> built on Web Standards and works in any JavaScript runtime. It was created by
+> Cloudflare's engineer - Yusuke Wada and integrates well with their stack. Also
+> it's [the fastest](https://hono.dev/docs/concepts/benchmarks) backend
+> framework available. It's syntax is quite concise and reminds Express.js.
 
-Hono integrates tRPC with the use of middleware. Besides standard Hono setup you will need the
-following dependencies:
+Hono integrates tRPC with the use of middleware. Besides standard Hono setup you
+will need the following dependencies:
 
-- [`@hono/trpc-server`](https://www.npmjs.com/package/@hono/trpc-server) - the middleware itself,
-- [`@trpc/server`](https://www.npmjs.com/package/@trpc/server) - the core tRPC server package,
-- [`zod`](https://www.npmjs.com/package/zod) - for schema based payload shaping and validation,
-- [`superjson`](https://www.npmjs.com/package/superjson) - for serialization and deserialization.
+- [`@hono/trpc-server`](https://www.npmjs.com/package/@hono/trpc-server) - the
+  middleware itself,
+- [`@trpc/server`](https://www.npmjs.com/package/@trpc/server) - the core tRPC
+  server package,
+- [`zod`](https://www.npmjs.com/package/zod) - for schema based payload shaping
+  and validation,
+- [`superjson`](https://www.npmjs.com/package/superjson) - for serialization and
+  deserialization.
 
 > [!note]
 >
-> The use of **Zod** or **Superjson** is opinionated and optional. You can use any other library or
-> just skip it and handle yourself which I wouldn't recommend. It sky rockets overall developer
-> experience.
+> The use of **Zod** or **Superjson** is opinionated and optional. You can use
+> any other library or just skip it and handle yourself which I wouldn't
+> recommend. It sky rockets overall developer experience.
 
 ### Initializing the tRPC
 
-First let's initialize the tRPC. You can export whole `t` object if you wish. In fact you will need
-only `procedure` and `router` so to keep it minimal I've decided to export them separately. You can
-always export anything else you need.
+First let's initialize the tRPC. You can export whole `t` object if you wish. In
+fact you will need only `procedure` and `router` so to keep it minimal I've
+decided to export them separately. You can always export anything else you need.
 
 ```ts
 import { initTRPC } from '@trpc/server'
@@ -130,33 +150,40 @@ export const createRouter = t.router
 
 > [!note]
 >
-> As you might notice I called the procedure _public_. It indicates the procedure can also be
-> _private_. It's the perfect place to validate user sessions and/or permissions and eventually
-> revoke the procedure call.
+> As you might notice I called the procedure _public_. It indicates the
+> procedure can also be _private_. It's the perfect place to validate user
+> sessions and/or permissions and eventually revoke the procedure call.
 
-Pay attention to the `transformer` property. That's where you hook up the **Superjson**. It will
-automatically serialize and deserialize the payloads for you. If you use it also on the client the
-process will be bidirectional.
+Pay attention to the `transformer` property. That's where you hook up the
+**Superjson**. It will automatically serialize and deserialize the payloads for
+you. If you use it also on the client the process will be bidirectional.
 
 ### Creating the router
 
-The next step is to create the router. It's a place where you define all the procedures. To do so
-you just pass the object where keys are the procedure names and values are the procedures
-themselves. The procedure factory uses the pattern of chaining.
+The next step is to create the router. It's a place where you define all the
+procedures. To do so you just pass the object where keys are the procedure names
+and values are the procedures themselves. The procedure factory uses the pattern
+of chaining.
 
 > [!tip]
 >
-> For enhanced composition you can freely nest multiple routers. It's a good practice to separate
-> them by the domain therefore keeping them small thus easier to maintain.
+> For enhanced composition you can freely nest multiple routers. It's a good
+> practice to separate them by the domain therefore keeping them small thus
+> easier to maintain.
 
 > [!tidbit]
 >
-> Chainging in programming is a pattern where you call a method on an object and it returns the
-> object itself. It allows to write more concise and readable in one pipeline.
+> Chainging in programming is a pattern where you call a method on an object and
+> it returns the object itself. It allows to write more concise and readable in
+> one pipeline.
 
 ```ts
 const TASKS = [
-  { id: 1, title: 'Buy milk', description: 'Remember to buy a lactose-free one' },
+  {
+    id: 1,
+    title: 'Buy milk',
+    description: 'Remember to buy a lactose-free one',
+  },
   { id: 2, title: 'Walk the dog', description: "Don't forget about the leash" },
   { id: 3, title: 'Water the plants', description: 'Use the watering can' },
 ]
@@ -195,22 +222,26 @@ const tasksRouter = createRouter({
 })
 ```
 
-For the sake of simplicity I've used an in-memory array to store the tasks. I introduced three
-procedures: `getAll`, `create`, and `deleteById`:
+For the sake of simplicity I've used an in-memory array to store the tasks. I
+introduced three procedures: `getAll`, `create`, and `deleteById`:
 
 - `getAll` - returns all the tasks,
-- `create` - accepts a title and an optional description creates a new task and returns it,
-- `deleteById` - accepts an id of the task to delete and returns the deleted task.
+- `create` - accepts a title and an optional description creates a new task and
+  returns it,
+- `deleteById` - accepts an id of the task to delete and returns the deleted
+  task.
 
-As you can see, procedures are defined in a declarative way. I like the fact here that one follows
-the other eg. the input is followed by the mutation so you can naturally expect the mutation to use
-the input. As you can see it's easy to reason about procedures and deduce what they do.
+As you can see, procedures are defined in a declarative way. I like the fact
+here that one follows the other eg. the input is followed by the mutation so you
+can naturally expect the mutation to use the input. As you can see it's easy to
+reason about procedures and deduce what they do.
 
 ### Creating the app
 
-The last step is to create the server and hook it up with the middleware. Before you do that you
-need to create the root router that aggregates all the routers. It's important to remember about
-exporting the type of the router. It will be used in the client to feed type definitions.
+The last step is to create the server and hook it up with the middleware. Before
+you do that you need to create the root router that aggregates all the routers.
+It's important to remember about exporting the type of the router. It will be
+used in the client to feed type definitions.
 
 ```ts
 const app = new Hono()
@@ -236,72 +267,84 @@ export type AppRouter = typeof appRouter
 >
 > Remember to configure CORS policy to access the server from foreign origins.
 
-Besides the `endpoint` and `router` you can define the global error handling and eg. configure
-Sentry using `onError` handler. With the use of `createContext` you can also define context that
-will be passed to all the procedures. It's a good place to instantiate the database connection or
-additional services like AWS S3 client.
+Besides the `endpoint` and `router` you can define the global error handling and
+eg. configure Sentry using `onError` handler. With the use of `createContext`
+you can also define context that will be passed to all the procedures. It's a
+good place to instantiate the database connection or additional services like
+AWS S3 client.
 
 > [!note]
 >
-> Presented example is a bare minimum setup. tRPC is very flexible and allows to customize almost
-> everything. Reach out to the [official documentation](https://trpc.io/docs) to learn more.
+> Presented example is a bare minimum setup. tRPC is very flexible and allows to
+> customize almost everything. Reach out to the
+> [official documentation](https://trpc.io/docs) to learn more.
 
 ### REST endpoints
 
-In case you need to use the API in an environment any other than TypeScript you can access
-Procedures via REST endpoints it automatically exposes. You can find them under the
-`/<prefix>/<subroute>.<procedureName>`.
+In case you need to use the API in an environment any other than TypeScript you
+can access Procedures via REST endpoints it automatically exposes. You can find
+them under the `/<prefix>/<subroute>.<procedureName>`.
 
-For example the `getAll` procedure from the `tasksRouter` will be available under the
-`/api/trpc/tasks.getAll` endpoint. It's useful when you need to access the API from eg. Bash
-scripts.
+For example the `getAll` procedure from the `tasksRouter` will be available
+under the `/api/trpc/tasks.getAll` endpoint. It's useful when you need to access
+the API from eg. Bash scripts.
 
 ## Creating the client
 
-If the concept of procedures and mutations sounds familiar in your frontend venture - you are right!
-In fact it's the same concept used in the [Tanstack React Query](https://tanstack.com/query) - the
-popular library for managing remote data in React. It's also the core of the React tRPC integration.
-It means with minimal setup you can get all the goodies such as caching, suspense, error handling,
-batching, optimistic updates and many more. Let's make it happen!
+If the concept of procedures and mutations sounds familiar in your frontend
+venture - you are right! In fact it's the same concept used in the
+[Tanstack React Query](https://tanstack.com/query) - the popular library for
+managing remote data in React. It's also the core of the React tRPC integration.
+It means with minimal setup you can get all the goodies such as caching,
+suspense, error handling, batching, optimistic updates and many more. Let's make
+it happen!
 
 Before you start you need to install the following dependencies:
 
-- [`@trpc/client`](https://www.npmjs.com/package/@trpc/client) - the core tRPC client package,
-- [`@trpc/react-query`](https://www.npmjs.com/package/@trpc/react-query) - the React bindings for
-  tRPC,
-- [`@tanstack/react-query`](https://www.npmjs.com/package/@tanstack/react-query) - the core of the
-  Tanstack React Query library.
-- [`superjson`](https://www.npmjs.com/package/superjson) - for serialization and deserialization.
+- [`@trpc/client`](https://www.npmjs.com/package/@trpc/client) - the core tRPC
+  client package,
+- [`@trpc/react-query`](https://www.npmjs.com/package/@trpc/react-query) - the
+  React bindings for tRPC,
+- [`@tanstack/react-query`](https://www.npmjs.com/package/@tanstack/react-query) -
+  the core of the Tanstack React Query library.
+- [`superjson`](https://www.npmjs.com/package/superjson) - for serialization and
+  deserialization.
 
 > [!note]
 >
-> Ensure your server bundler includes TypeScript type definitions. With that said you should also
-> install the server package as a dev dependency. It will allow you to import the router type
-> definition that will be used in the client.
+> Ensure your server bundler includes TypeScript type definitions. With that
+> said you should also install the server package as a dev dependency. It will
+> allow you to import the router type definition that will be used in the
+> client.
 
 ### Initializing the client and React provider
 
-First let's initialize the tRPC client. The `createTRPCReact` function is a generic function that
-accepts the type of the router. That's how the client is natively aware of changes on the server.
-The function will create the integration layer for React featuring scoped Tanstack React Query
-hooks, the provider and scoped utlity functions.
+First let's initialize the tRPC client. The `createTRPCReact` function is a
+generic function that accepts the type of the router. That's how the client is
+natively aware of changes on the server. The function will create the
+integration layer for React featuring scoped Tanstack React Query hooks, the
+provider and scoped utlity functions.
 
-Next create the TRPCProvider which is the hybrid of the `trpc.Provider` you just created and
-`QueryClientProvider`. It's also the place where you instantiate the `queryClient` and `trpcClient`.
+Next create the TRPCProvider which is the hybrid of the `trpc.Provider` you just
+created and `QueryClientProvider`. It's also the place where you instantiate the
+`queryClient` and `trpcClient`.
 
-Worth mentioning is the `httpBatchLink` that is used to batch the requests. In will give your client
-superpowers of marging multiple queries into one request. It really reduces the network overhead and
-improves the performance. If you don't need batching you can use `httpLink` instead.
+Worth mentioning is the `httpBatchLink` that is used to batch the requests. In
+will give your client superpowers of marging multiple queries into one request.
+It really reduces the network overhead and improves the performance. If you
+don't need batching you can use `httpLink` instead.
 
 > [!note]
 >
-> The HTTP link is enough to consume the server you created. However, if you implement subscriptions
-> you will need to use the WebSocket or HTTP subsciption link as well. For more details reach out
-> the [documentation](https://trpc.io/docs/client/links).
+> The HTTP link is enough to consume the server you created. However, if you
+> implement subscriptions you will need to use the WebSocket or HTTP subsciption
+> link as well. For more details reach out the
+> [documentation](https://trpc.io/docs/client/links).
 
-Also pay attention to the transformer. As I mentioned earlier if you use it on the client as well
-the serialization and deserialization process will be bidirectional so you won't need to struggle
-with manually handling `Date`s or `BigInt`s.
+Also pay attention to the transformer. As I mentioned earlier if you use it on
+the client as well the serialization and deserialization process will be
+bidirectional so you won't need to struggle with manually handling `Date`s or
+`BigInt`s.
 
 ```tsx
 const trpc = createTRPCReact<AppRouter>()
@@ -330,17 +373,19 @@ function TRPCProvider({ children }: PropsWithChildren) {
 }
 ```
 
-With the `TRPCProvider` all you need to do is wrap your application with it. It will allow you to
-use tRPC scoped hooks and utilities.
+With the `TRPCProvider` all you need to do is wrap your application with it. It
+will allow you to use tRPC scoped hooks and utilities.
 
 ### Consuming procedures
 
-As I mentioned if you are familiar with **Tanstack React Query** you will feel like home. The `trpc`
-object you created is a collection of scoped hooks and utilities. You can use them to query and
-mutate. Also handle invaliation and trigger refetches.
+As I mentioned if you are familiar with **Tanstack React Query** you will feel
+like home. The `trpc` object you created is a collection of scoped hooks and
+utilities. You can use them to query and mutate. Also handle invaliation and
+trigger refetches.
 
-Personally I'd like to create custom hooks per subrouter/domain - considering you keep it relatively
-granular. It's a neat way to enclose business logic into reusable methods.
+Personally I'd like to create custom hooks per subrouter/domain - considering
+you keep it relatively granular. It's a neat way to enclose business logic into
+reusable methods.
 
 ```ts
 function useTasks() {
@@ -348,9 +393,10 @@ function useTasks() {
 
   const { data: tasks, isLoading, error } = trpc.tasks.getAll.useQuery()
 
-  const { mutate: createTask, isPending: isCreatingTask } = trpc.tasks.create.useMutation({
-    onSuccess: () => tasksUtils.invalidate(),
-  })
+  const { mutate: createTask, isPending: isCreatingTask } =
+    trpc.tasks.create.useMutation({
+      onSuccess: () => tasksUtils.invalidate(),
+    })
 
   const { mutate: deleteTask } = trpc.tasks.deleteById.useMutation({
     onSuccess: ([removedTask]) => {
@@ -373,16 +419,18 @@ function useTasks() {
 export default useTasks
 ```
 
-The fact you wrapped your app with the `TRPCProvider` allows you to use the hook in any place of
-your application. It also guarantees the data consistency and caching. Each method is type safe and
-raises linter errors in case of any change in the API. If linter is the part of your CI/CD pipeline
-it will prevent you from deploying the broken code.
+The fact you wrapped your app with the `TRPCProvider` allows you to use the hook
+in any place of your application. It also guarantees the data consistency and
+caching. Each method is type safe and raises linter errors in case of any change
+in the API. If linter is the part of your CI/CD pipeline it will prevent you
+from deploying the broken code.
 
-You can try it yourself. Just go to the `tasks` subrouter and rename some procedure or change the
-input shape. You will see the linter will raise an error in the place where you use the procedure.
+You can try it yourself. Just go to the `tasks` subrouter and rename some
+procedure or change the input shape. You will see the linter will raise an error
+in the place where you use the procedure.
 
 > [!tip]
 >
-> If you click on the procedure name in the client while holding the **⌘ Command** key you will be
-> taken to the definition in the server. It's a great way to navigate between the client and the
-> server code.
+> If you click on the procedure name in the client while holding the **⌘
+> Command** key you will be taken to the definition in the server. It's a great
+> way to navigate between the client and the server code.
