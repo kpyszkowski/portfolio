@@ -1,0 +1,97 @@
+---
+title: 'Lucia Auth - what makes self-hosted authentication so special?'
+tags: ['Auth', 'Authentication', 'Lucia Auth', 'Self-hosted']
+publishedAt: 2025-04-27
+---
+
+[Lucia Auth](https://lucia-auth.com/) is an open-source authentication
+implementation guide that provides a comprehensive solution for implementing
+authentication in your applications. It allows you to take complete control of
+your authentication process, ensuring that you can fine-tune it to meet your
+business requirements.
+
+## Wait, implementation guide?
+
+Yes, and that's awesome. You just read through and implement it yourself bit by
+bit. All the source code is in your project. Actually Lucia Auth used to be a
+library with exact the same mission - to let users implement self-hosted
+authentication solutions. But it's a pain to maintain such a library. Numerous
+frameworks, database adapters, authentication providers and so on.
+
+> [!note]
+>
+> Creators of Lucia Auth did their best to take all the complicated heavy
+> lifting out of your head. They provide both set of OAuth adapters -
+> [Arctic](https://arcticjs.dev/) and set of cryptographic functions -
+> [Oslo](https://oslojs.dev/) to empower your authentication flow with
+> battle-tested utilities.
+
+## Fine, but what's wrong with hosted solutions?
+
+The answer is simple - the ownership and resposibility. Hosted solutions such as
+Kinde, Supabase Auth, Clerk or Auth0 works just fine. The catch is that by using
+it you let third-parties to manage your user's credentials. Not very
+thrustworthy huh? You also have to rely on their uptime and availability. If
+they go down, your application goes down too. And if they decide to shut down
+their service, you are baked.
+
+One of the major arguments against self-hosted solutions is the difficulty of
+implemention. And that's a fair point. But not with Lucia Auth. As long as you
+carefully follow the guide you are provided with production-grade authentication
+solution that works well and is completely safe.
+
+Also personally it has ideological reasons. As long as I remember, I didn't like
+vendor locking. I gave up using Windows for Linux - now I'm on macOS but it's a
+strange kind of situationship 🤣. Also I gave up Vercel and I host my Next.js
+applications on Cloudflare Workers. What makes these cases common is that at
+some point I hit the ceiling and I had to find a solution that works for me.
+
+Also it's just an object of engineer's curiosity. I like to understand how
+things work and I like to get my hands dirty.
+
+So to sum up - ownership, responsibility and curiosity. Fair enough.
+
+> [!tip]
+>
+> If you are tight on time, if you are prototyping or building the POC hosted
+> solution will be completely fine. Just keep in mind that at some point you
+> might need to migrate.
+
+> [!insight]
+>
+> I'm sure at some point you have encountered endless backlog with refactoring
+> tasks and technical debt. Let's be honest - if you don't take care of key
+> functionalities at the very beginning - you will never touch it.
+>
+> Authentication is definitely one of them. So if you are building a product
+> that you plan to maintain for a long time - I highly encourage you to go for
+> Lucia.
+
+## How it works
+
+Lucia Auth is a modular authentication implementation guide that provides you
+with code snippets and detailed explainations.
+
+You should not be suprised if I say that software development is usually an art
+of copy pasting. But please, not in a bad way. You should always try to
+understand your code. With that said, before you start, I highly encourage you
+to read [The Copenhagen Book](https://thecopenhagenbook.com/). It's a great
+theoretical breakdown of authentication and authorization brought by authors of
+Lucia.
+
+## My work is done here
+
+I won't copy the whole guide here. I just gave you a brief overview and context
+on authentication solutions with all the why's. If you buy it - just go ahead
+and give it a try!
+
+## Conclusion
+
+As you can see there are many reasons to choose self-hosted authentication. It's
+great you don't have to do it yourself. Lucia Auth is just great for that. It
+provides you with a comprehensive guide that covers all the difficulties for
+you.
+
+In closing words, I'd like shoutout the author of Lucia Auth -
+[pilcrow](https://x.com/pilcrowOnPaper) and all the contributors. You did a
+great job.
