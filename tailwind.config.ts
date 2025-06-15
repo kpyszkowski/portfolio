@@ -23,6 +23,7 @@ const config: Config = {
       },
     },
   },
+  darkMode: ['selector', '[data-theme="dark"]'],
   plugins: [
     holographicPlugin,
     neumorphismPlugin,
