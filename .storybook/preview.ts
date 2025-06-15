@@ -2,6 +2,8 @@ import type { Preview } from '@storybook/react'
 import '../src/app/globals.css'
 import { fontsClassName } from '../src/lib/fonts'
 
+import { withThemeByDataAttribute } from '@storybook/addon-themes'
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -16,9 +18,19 @@ const preview: Preview = {
   },
   decorators: [
     (story) => {
-      document.documentElement.classList.add(fontsClassName)
+      fontsClassName.split(' ').forEach((font) => {
+        document.documentElement.classList.add(font)
+      })
       return story()
     },
+    withThemeByDataAttribute({
+      defaultTheme: 'light',
+      themes: {
+        light: 'light',
+        dark: 'dark',
+      },
+      attributeName: 'data-theme',
+    }),
   ],
 }
 
