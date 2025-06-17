@@ -22,7 +22,7 @@
     "@base-ui-components/react": "1.0.0-beta.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^15.1.2",
+    "@next/mdx": "15.3.3",
     "@r4ai/remark-callout": "^0.6.2",
     "@radix-ui/react-progress": "^1.1.1",
     "@radix-ui/react-slider": "^1.2.2",
@@ -30,10 +30,10 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "clsx": "^2.1.1",
     "motion": "^11.16.1",
-    "next": "14.2.5",
+    "next": "15.3.3",
     "next-plugin-svgr": "^1.1.12",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-feather": "^2.0.10",
     "rehype-external-links": "^3.0.0",
     "tailwind-merge": "^2.5.5",
@@ -56,11 +56,11 @@
     "@tailwindcss/typography": "^0.5.15",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.2",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5",
+    "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-check-file": "^2.8.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -83,5 +83,11 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "wrangler": "^3.100.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.1.8",
+      "@types/react-dom": "19.1.6"
+    }
   }
 }
