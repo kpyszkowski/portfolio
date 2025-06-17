@@ -30,5 +30,6 @@ const config: Config = {
     typographyPlugin,
     proseInlineCode,
   ],
+  darkMode: 'class',
 }
 export default config

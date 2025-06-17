@@ -7,11 +7,11 @@ const getStyles = tv({
   slots: {
     container: 'flex flex-col divide-y font-sans dark:divide-neutral-700',
     wrapper: 'flex flex-col items-baseline py-6 sm:flex-row sm:py-5',
-    year: 'font-mediun basis-1/4 select-none text-xl text-neutral-500 lg:basis-1/6 dark:text-neutral-400',
+    year: 'font-mediun basis-1/4 select-none text-xl text-neutral-500 dark:text-neutral-400 lg:basis-1/6',
     list: 'group flex w-full flex-1 flex-col',
     item: 'flex flex-col py-5 transition-opacity hover:!opacity-100 group-hover:opacity-65 lg:flex-row lg:gap-12', // TODO: Find replacement for !important
     itemDate:
-      'mb-2 basis-1/4 select-none text-sm text-neutral-500 lg:basis-1/6 lg:text-end lg:text-base dark:text-neutral-400',
+      'mb-2 basis-1/4 select-none text-sm text-neutral-500 dark:text-neutral-400 lg:basis-1/6 lg:text-end lg:text-base',
     itemContent: 'flex-1',
   },
 })

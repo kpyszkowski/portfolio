@@ -65,19 +65,19 @@ export default function Home() {
     <div className="font-sans font-extralight">
       <main className="relative z-30 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
         <div className="mb-28 mt-auto flex items-center gap-8 lg:mb-56 lg:gap-16">
-          <Logo className="size-20 stroke-neutral-950 lg:size-32 dark:stroke-neutral-50" />
+          <Logo className="size-20 stroke-neutral-950 dark:stroke-neutral-50 lg:size-32" />
 
           <div className="flex flex-col gap-3 lg:gap-6">
-            <h1 className="text-3xl text-neutral-950 lg:text-6xl dark:text-neutral-50">
+            <h1 className="text-3xl text-neutral-950 dark:text-neutral-50 lg:text-6xl">
               Kamil Pyszkowski
             </h1>
-            <span className="text-2xl text-neutral-600 lg:text-4xl dark:text-neutral-400">
+            <span className="text-2xl text-neutral-600 dark:text-neutral-400 lg:text-4xl">
               Software Engineer
             </span>
           </div>
         </div>
 
-        <p className="mb-16 text-xl text-neutral-950 lg:mb-32 lg:text-2xl dark:text-neutral-50">
+        <p className="mb-16 text-xl text-neutral-950 dark:text-neutral-50 lg:mb-32 lg:text-2xl">
           Coming soon in 2025
           <motion.span
             className="mx-2"
