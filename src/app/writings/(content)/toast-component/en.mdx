@@ -1,0 +1,342 @@
+---
+title: 'How I built animated Toast component'
+tags: ['UI', 'React', 'Base UI', 'Toast', 'Primitives', 'Motion']
+publishedAt: 2025-06-18
+---
+
+import Example from './example'
+
+Toasts are a common UI pattern used to provide feedback to users in a
+non-intrusive way. They can be used to display success messages, errors,
+generally speaking - notifications. Conceptually it's quite simple - a message
+appears on the screen for a short period of time and then disappears. However,
+implementing a toast component with animations can be tricky, especially when it
+comes to managing timing, order, priority and accessibility. It was a great
+venture to build a toast component that is not only functional but also visually
+appealing and accessible. With use of modern tools it's really simple and
+effective.
+
+## Overview
+
+The core of the component is Base UI primitive `Toast` component. It provides a
+solid foundation including accessibility features, orchestration and consistent
+imperative API which is ideal for toasts.
+
+> [!insight]
+>
+> Imperative programming is a programming paradigm that focuses on describing
+> how a program operates, using statements that change a program's state. It
+> this particular case it means you call the function to trigger the toast which
+> is uncommon in React where JSX is declarative by design.
+
+You can think of the `Toast` component as a queue of messages that are displayed
+on top of the screen. Technically it uses Portal. State management is embedded
+in the primitive.
+
+> [!insight]
+>
+> Portals are a feature in React that allows you to render children into a DOM
+> node that exists outside the DOM hierarchy of the parent component. This is
+> useful for toasts as they need to be displayed on top of the application.
+
+The `Toast` component I built consist of three main parts:
+
+- `ToastProvider` - a context provider to wrap the application
+- `useToast` - a hook to access the toast manager
+- `toastManager` - a global toast manager that can be accessed outside of React
+  components
+
+> [!note]
+>
+> The hook provided by Base UI is called `useToastManager`, but I renamed it to
+> `useToast`. It's only a matter of preference. The term of "manager" is more an
+> implementation detail. If I want to render a toast I'd just like to _use
+> toast_ - pretty simple huh? 😅
+
+For available props and options reach out the
+[Base UI documentation](https://base-ui.com/react/components/toast). `Provider`
+props allow you to set global timeout or limit the number of toasts visible at a
+time.
+
+Animations are powered by [Motion](https://motion.dev/). But you can use plain
+CSS transitions if you wish. Toast primitive exposes useful data attributes to
+be used as selectors. Styles are written with
+[Tailwind](https://tailwindcss.com/) but you can use literally anything.
+
+> [!tip]
+>
+> To organize styles better I use
+> [Tailwind Variants](https://www.tailwind-variants.org/). It creates nice
+> abstraction over classnames with API similar to
+> [Stitches](https://stitches.dev/) taking the classnames hussle away.
+
+<Example />
+
+## Implementation
+
+Let's get into this. First I will walk you through the structure. There are two
+main components - `ToastProvider` and `ToastList`.
+
+### Structure
+
+The `ToastProvider` consists of `Toast.Provider`, `Toast.Portal` and
+`ToastList`. I don't have much to say here and it's beautyful. It clearly
+presents the benefits of primitive components. These 20 lines of code do all the
+heavy lifting.
+
+```tsx
+import { Toast } from '@base-ui-components/react/toast'
+
+export const toastManager = Toast.createToastManager()
+
+type ToastProviderProps = Toast.Provider.Props
+
+export function ToastProvider(props: ToastProviderProps) {
+  const { children, ...restProps } = props
+
+  return (
+    <Toast.Provider
+      toastManager={toastManager}
+      {...restProps}
+    >
+      {children}
+
+      <Toast.Portal>
+        <ToastList />
+      </Toast.Portal>
+    </Toast.Provider>
+  )
+}
+```
+
+The `ToastList` renders a `Toast.Viewport` and each toast by iterating over
+array of toasts. The general reason it got split like this was to access the
+context in the `ToastList`. The array is not available one level up because it's
+not yet in the scope of `Toast.Provider`.
+
+```tsx
+import { Toast } from '@base-ui-components/react/toast'
+import { tv } from 'tailwind-variants'
+import {
+  AnimatePresence,
+  motion,
+  type MotionProps,
+  type Transition,
+  type Variants,
+} from 'motion/react'
+
+const getStyles = tv({
+  slots: {
+    viewport: 'fixed bottom-5 right-5 w-full max-w-xs',
+    toastContainer: [
+      'absolute bottom-0 flex w-full flex-col rounded-xl border border-neutral-700 bg-neutral-800 p-4 font-sans shadow-lg',
+      // To create hoverable area between toasts preventing glitches when moving cursor between them
+      'before:absolute before:-bottom-3 before:left-0 before:h-3 before:w-full first:before:hidden',
+    ],
+    label: 'text-sm text-neutral-50',
+    description:
+      'mask-r-from-90% overflow-hidden text-ellipsis whitespace-nowrap text-sm text-neutral-400',
+  },
+})
+
+export function ToastList() {
+  const { toasts } = Toast.useToastManager()
+
+  const styles = getStyles()
+
+  return (
+    <Toast.Viewport className={styles.viewport()}>
+      {toasts.map((toast) => (
+        <Toast.Root
+          className={styles.toastContainer()}
+          swipeDirection={[]} // Disabled swipe gestures
+          key={toast.id}
+          toast={toast}
+        >
+          <Toast.Title className={styles.label()} />
+          <Toast.Description className={styles.description()} />
+        </Toast.Root>
+      ))}
+    </Toast.Viewport>
+  )
+}
+```
+
+### Animations
+
+That's pretty much all for the structure. It works and looks decent. The only
+missing part are animations and interactivity. The best part is the effect of
+stacked toasts which expands as you hover or focus on them. To do that let's
+enhance the `ToastList` with some animations.
+
+First you need to understand the `render` prop provided by the `Toast.Root`
+primitive. It allows you to render the component as a complete custom component.
+It will allow you use `motion` component and implement animations. The `render`
+prop allows both `ReactNode` and a function which returns `ReactNode`. Since
+it's a function, you can access the `state` object which contains useful
+information about the toast such as `expanded` and `limited`. The only missing
+data bit is the `index` of the toast in the list but it can be easiliy accessed
+while mapping over the `toasts` array.
+
+```tsx
+import { Toast } from '@base-ui-components/react/toast'
+import {
+  AnimatePresence,
+  motion,
+  type MotionProps,
+  type Transition,
+  type Variants,
+} from 'motion/react'
+
+type ToastState = Toast.Root.State & {
+  index: number
+}
+
+const toastVariants: Variants = {
+  idle: (state: ToastState) => ({
+    y: state.expanded
+      ? `calc((-100% - 0.75rem) * ${state.index})`
+      : `${-16 * state.index}%`,
+    scale: state.expanded ? 1 : 1 - state.index * 0.1,
+    opacity: state.limited ? 0 : 1,
+  }),
+  slide: (state: ToastState) => ({
+    y: `calc((100% + 0.75rem) * ${state.index + 1})`,
+    opacity: 0,
+  }),
+}
+
+const toastTransition: Transition = {
+  type: 'spring',
+  damping: 24,
+  stiffness: 280,
+}
+
+function ToastList() {
+  const { toasts } = Toast.useToastManager()
+
+  const styles = getStyles()
+
+  return (
+    <Toast.Viewport className={styles.viewport()}>
+      <AnimatePresence mode="popLayout">
+        {toasts.map((toast, index) => (
+          <Toast.Root
+            className={styles.toastContainer()}
+            swipeDirection={[]} // Disabled swipe gestures
+            key={toast.id}
+            toast={toast}
+            render={(props, state) => (
+              <motion.div
+                custom={{ ...state, index }}
+                animate="idle"
+                initial="slide"
+                exit="slide"
+                variants={toastVariants}
+                transition={toastTransition}
+                {...(props as MotionProps)}
+                style={{
+                  zIndex: 1000 - index,
+                }}
+              />
+            )}
+          >
+            <Toast.Title className={styles.label()} />
+            <Toast.Description className={styles.description()} />
+          </Toast.Root>
+        ))}
+      </AnimatePresence>
+    </Toast.Viewport>
+  )
+}
+```
+
+The animation itself is beginner friendly. Basically it's just a presence
+animation with conditional styles based on the toast state in `idle` variant.
+Since the toast slides up on mount and slides down on exit - it uses shared
+`slide` variant. The `mode` prop on `AnimatePresence` makes the mounting
+animations properly orchestrated without waiting for each toast to slide up or
+down.
+
+The `props` spread over the `motion.div` is important as it contains internals
+of the `Toast.Root` component crucial for interactivity and accessibility. The
+only "internal" safe to overwrite is the `style` prop. It contains CSS variables
+that can be used for animations but since I used Motion, I don't need them. The
+`zIndex` is the only set to ensure that the toasts are stacked correctly.
+
+## How it works
+
+That's it! The component is now fully functional with animations. Now let me
+explain how it works in practice. The only thing you need to do is to wrap your
+application with the `ToastProvider` and use the `useToast` hook to trigger
+toasts.
+
+The example below shows how to use the `useToast` hook to trigger a toast when
+an HTTP Server-sent Event is received. The `useToast` hook provides an `add`
+function that can be used to trigger a toast with a message and options.
+
+```ts
+import { useToast } from '~/components/toast'
+import { useTRPC } from '~/lib/trpc/client'
+import { useQueryClient } from '@tanstack/react-query'
+import { useSubscription } from '@trpc/tanstack-react-query'
+
+function Notifications() {
+  const trpc = useTRPC()
+  const queryClient = useQueryClient()
+
+  const toasts = useToast()
+
+  useSubscription(
+    trpc.notifications.onNotification.subscriptionOptions(undefined, {
+      onData: (notification) => {
+        toasts.add({
+          title: notification.data.label,
+          description: notification.data.description,
+          data: {
+            userId: notification.data.userId,
+            createdAt: notification.data.createdAt,
+          },
+        })
+
+        queryClient.setQueryData(
+          trpc.notifications.getAll.queryKey(),
+          (cachedData) => {
+            if (!cachedData) return [notification.data]
+            return [notification.data, ...cachedData]
+          },
+        )
+      },
+    }),
+  )
+
+  return ()
+}
+```
+
+As you can see, custom `data` can be passed to the toast. It can be used to
+render additional information in the toast or to handle actions within the
+toast. The fact API is imperative allows you to trigger toasts as a consequence
+of business logic, no side effects, no implicit state management such as
+`isNotificationToastVisible` monster. All clean. Briliant! 💎
+
+## Closing words
+
+I didn't cover all the features `Toast` primitive provides, such swipe gestures
+or promise API. Feel free to explore the documentation for more details. There
+are dozens of possibilities and that's what I like the most about the concept of
+primitive components 🔥.
+
+> [!tip]
+>
+> If you'd like to implement swipe gestures, I suggest you to use
+> [pan gestures](https://motion.dev/docs/react-motion-component#pan) provided by
+> Motion. Staying in Motion ecosystem will make gestures and animation
+> consistent.
+
+One last thing. You need to know that you don't have to build this component
+yourself. There is a [Sonner](https://sonner.emilkowal.ski/) library that
+provides almost identical component with similar API. The only drawbacks (at
+least to me) are that it's much more opinionated and much less customizable.
+Literally in minutes you can have exact the same result with much more
+flexibility. But you still have a choice 😉.
