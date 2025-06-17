@@ -28,7 +28,7 @@ export default async function WritingsPage() {
           </p>
         </div>
 
-        <p className="text-md/loose flex-1 text-neutral-500 dark:text-neutral-400 md:text-lg/loose">
+        <p className="text-md/loose flex-1 text-neutral-500 md:text-lg/loose dark:text-neutral-400">
           Mastery is not only skills but also knowledge. Writing down
           experiences is a great way to consolidate learnings. It also creates a
           useful resource should any of the experiences prove useful in the

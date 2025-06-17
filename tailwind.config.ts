@@ -23,13 +23,11 @@ const config: Config = {
       },
     },
   },
-  darkMode: ['selector', '[data-theme="dark"]'],
   plugins: [
     holographicPlugin,
     neumorphismPlugin,
     typographyPlugin,
     proseInlineCode,
   ],
-  darkMode: 'class',
 }
 export default config
