@@ -4,16 +4,14 @@ import { WritingNavigation } from '~/components/writing-navigation'
 import { WritingOutro } from '~/components/writing-outro'
 import { getWritingData, getWritingsMetadata } from '~/lib/writings'
 
-type WritingPageParams = {
-  slug: string
-}
-
 type WritingPageProps = {
-  params: WritingPageParams
+  params: Promise<{
+    slug: string
+  }>
 }
 
 export default async function WritingPage(props: WritingPageProps) {
-  const { slug } = (await props.params)
+  const { slug } = await props.params
   const { metadata, content } = await getWritingData(slug)
 
   return (
@@ -44,7 +42,7 @@ export async function generateStaticParams() {
 export const dynamicParams = false
 
 export async function generateMetadata(props: WritingPageProps) {
-  const { slug } = (await props.params)
+  const { slug } = await props.params
   const { metadata } = await getWritingData(slug)
   return {
     title: metadata.title,
