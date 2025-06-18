@@ -14,6 +14,7 @@ import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import remarkReadingTime from 'remark-reading-time'
 import remarkMDXReadingTime from 'remark-reading-time/mdx.js'
 import remarkSectionize from 'remark-sectionize'
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 
 /** @type {import('@r4ai/remark-callout').Options} */
 const calloutOptions = {
@@ -77,6 +78,8 @@ const withSVGR = (nextConfig) =>
       },
     },
   })
+
+initOpenNextCloudflareForDev()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
