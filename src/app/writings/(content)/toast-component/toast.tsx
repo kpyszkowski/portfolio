@@ -16,13 +16,13 @@ const getStyles = tv({
   slots: {
     viewport: 'fixed bottom-5 right-5 w-full max-w-xs',
     toastContainer: [
-      'absolute bottom-0 flex w-full flex-col rounded-xl border border-neutral-700 bg-neutral-800 p-4 font-sans shadow-lg',
+      'absolute bottom-0 flex w-full flex-col rounded-xl border border-neutral-200 bg-neutral-100 p-4 font-sans shadow-md dark:border-neutral-700 dark:bg-neutral-800',
       // To create hoverable area between toasts preventing glitches when moving cursor between them
       'before:absolute before:-bottom-3 before:left-0 before:h-3 before:w-full first:before:hidden',
     ],
-    label: 'text-sm text-neutral-50',
+    label: 'text-sm text-neutral-900 dark:text-neutral-50',
     description:
-      'mask-r-from-90% overflow-hidden text-ellipsis whitespace-nowrap text-sm text-neutral-400',
+      'mask-r-from-90% overflow-hidden text-ellipsis whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400',
   },
 })
 

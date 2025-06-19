@@ -11,7 +11,7 @@ const getStyles = tv({
     list: 'group flex w-full flex-1 flex-col',
     item: 'flex flex-col py-5 transition-opacity hover:!opacity-100 group-hover:opacity-65 lg:flex-row lg:gap-12', // TODO: Find replacement for !important
     itemDate:
-      'mb-2 basis-1/4 select-none text-sm text-neutral-500 lg:basis-1/6 lg:text-end lg:text-base dark:text-neutral-400',
+      'mb-2 basis-1/4 select-none whitespace-nowrap text-sm text-neutral-500 lg:basis-1/5 lg:text-end lg:text-base dark:text-neutral-400',
     itemContent: 'flex-1',
   },
 })

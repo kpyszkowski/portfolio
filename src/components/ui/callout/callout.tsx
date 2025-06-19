@@ -28,7 +28,7 @@ const getStyles = tv({
           'bg-zinc-600/5 text-zinc-950 dark:bg-zinc-600/15 dark:text-zinc-50',
       },
       warning: {
-        container: 'bg-orange-600/5 text-orange-400',
+        container: 'bg-yellow-600/5 text-yellow-400',
       },
       danger: {
         container: 'bg-red-600/5 text-red-500',
@@ -37,7 +37,7 @@ const getStyles = tv({
         container: 'bg-green-600/5 text-green-500',
       },
       insight: {
-        container: 'bg-yellow-600/5 text-yellow-400',
+        container: 'bg-fuchsia-600/5 text-fuchsia-400',
       },
     },
   },
