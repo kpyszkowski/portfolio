@@ -1,17 +1,16 @@
 'use client'
-import * as SliderPrimitive from '@radix-ui/react-slider'
-import { useCallback, useState } from 'react'
+import { Slider as SliderPrimitive } from '@base-ui-components/react/slider'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { Badge } from '~/components/ui/badge'
 
 const getStyles = tv({
   slots: {
     container: 'flex touch-none select-none flex-col',
-    sliderRoot: 'relative flex cursor-grab items-center py-3',
+    sliderRoot: 'relative flex cursor-grab flex-wrap items-center py-3',
     label: 'block text-sm text-neutral-950 dark:text-neutral-50',
-    track:
-      'relative flex-grow overflow-hidden rounded bg-neutral-300 dark:bg-neutral-50/25',
+    track: 'relative rounded bg-neutral-300 dark:bg-neutral-50/25',
     range: 'absolute bg-orange-300',
+    control: 'w-full py-5',
     thumb: [
       'relative block size-4 rounded-full bg-neutral-50 transition-shadow',
       'outline-none ring-neutral-50/50 focus-visible:ring-4',
@@ -19,7 +18,7 @@ const getStyles = tv({
     ],
     valueLabelsWrapper: 'text-xs text-neutral-600 dark:text-neutral-400',
     valueLabel: '',
-    valuesWrapper: 'flex justify-between',
+    valuesWrapper: 'flex flex-1 justify-between',
     value: 'ml-auto min-w-12 px-2 text-center',
   },
   variants: {
@@ -36,7 +35,7 @@ const getStyles = tv({
       horizontal: {
         sliderRoot: 'flex-row',
         label: 'mb-1',
-        track: 'h-1 w-full',
+        track: 'w-full',
         range: 'h-full',
         valueLabelsWrapper: 'flex w-full justify-between',
       },
@@ -47,13 +46,11 @@ const getStyles = tv({
   },
 })
 
-type SliderValue = [number] | [number, number]
 interface SliderProps
   extends VariantProps<typeof getStyles>,
-    SliderPrimitive.SliderProps {
+    SliderPrimitive.Root.Props {
   className?: string
   label?: string
-  defaultValue?: SliderValue
   valueLabel?: [string] | [string, string]
 }
 
@@ -62,58 +59,45 @@ function Slider(props: SliderProps) {
     className = '',
     label,
     value,
-    defaultValue = value,
     valueLabel,
     orientation = 'horizontal',
-    onValueChange,
     ...restProps
   } = props
 
-  const [_value, _setValue] = useState(defaultValue)
-
   const styles = getStyles({ orientation })
 
-  const isDualRangeMode =
-    Array.isArray(defaultValue) && defaultValue.length === 2
+  const isDualRangeMode = Array.isArray(value) && value.length === 2
 
   const [minValueLabel, maxValueLabel] = valueLabel || []
-
-  const handleValueChange = useCallback(
-    (value: SliderValue) => {
-      _setValue(value)
-      if (onValueChange) onValueChange(value)
-    },
-    [onValueChange],
-  )
 
   // TODO: Adapt to dual range mode and vertical orientation
   const showValue = !isDualRangeMode && orientation === 'horizontal'
 
   return (
     <div className={styles.container()}>
-      <div className={styles.valuesWrapper()}>
-        {label && <span className={styles.label()}>{label}</span>}
-
-        {showValue && <Badge className={styles.value()}>{_value}</Badge>}
-      </div>
-
       <SliderPrimitive.Root
         className={styles.sliderRoot({ className })}
-        defaultValue={defaultValue}
-        minStepsBetweenThumbs={isDualRangeMode ? 1 : undefined}
+        value={value}
+        minStepsBetweenValues={isDualRangeMode ? 1 : undefined}
         orientation={orientation}
-        value={_value}
-        onValueChange={handleValueChange}
         {...restProps}
       >
-        <SliderPrimitive.Track className={styles.track()}>
-          <SliderPrimitive.Range className={styles.range()} />
-        </SliderPrimitive.Track>
+        <div className={styles.valuesWrapper()}>
+          {label && <span className={styles.label()}>{label}</span>}
 
-        <SliderPrimitive.Thumb className={styles.thumb()} />
-        {isDualRangeMode && (
-          <SliderPrimitive.Thumb className={styles.thumb()} />
-        )}
+          {showValue && (
+            <Badge className={styles.value()}>
+              <SliderPrimitive.Value />
+            </Badge>
+          )}
+        </div>
+
+        <SliderPrimitive.Control className={styles.control()}>
+          <SliderPrimitive.Track className={styles.track()}>
+            <SliderPrimitive.Indicator className={styles.range()} />
+            <SliderPrimitive.Thumb className={styles.thumb()} />
+          </SliderPrimitive.Track>
+        </SliderPrimitive.Control>
       </SliderPrimitive.Root>
 
       {valueLabel && (
