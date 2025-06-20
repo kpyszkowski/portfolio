@@ -76,8 +76,7 @@ function Input(props: InputProps) {
             label={helpNote}
             size="xs"
             side="right"
-            triggerAsChild={true}
-            delayDuration={0}
+            delay={0}
           >
             <HelpIcon className={styles.helpIcon()} />
           </Tooltip>
