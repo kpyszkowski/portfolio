@@ -1,12 +1,5 @@
-import * as ProgressPrimititve from '@radix-ui/react-progress'
-import {
-  isMotionValue,
-  motion,
-  MotionValue,
-  useMotionValue,
-  useTransform,
-} from 'motion/react'
-import { useEffect } from 'react'
+import { Progress as ProgressPrimititve } from '@base-ui-components/react/progress'
+import { isMotionValue, motion, MotionValue, useTransform } from 'motion/react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import cn from '~/utils/cn'
 
@@ -40,7 +33,7 @@ const getStyles = tv({
 
 interface ProgressProps
   extends VariantProps<typeof getStyles>,
-    Pick<ProgressPrimititve.ProgressProps, 'getValueLabel' | 'max'> {
+    Pick<ProgressPrimititve.Root.Props, 'getAriaValueText' | 'max'> {
   className?: string
   value?: number | MotionValue<number> | null
   transition?: Record<string, unknown>
@@ -48,42 +41,40 @@ interface ProgressProps
 
 const PROGRESS_PATH_LENGTH = 88
 
+// TODO: Fix aria attributes - use of MotionValue makes it difficult to reflect in DOM
+
 function Progress(props: ProgressProps) {
   const { className = '', value, size, max = 100, ...restProps } = props
 
   const styles = getStyles({ size })
 
-  const motionValue = useMotionValue(0)
-  useEffect(() => {
-    if (typeof value === 'number') motionValue.set(value ?? 0)
-  }, [motionValue, value])
-
   const strokeDashoffset = useTransform(
-    isMotionValue(value) ? value : motionValue,
+    isMotionValue(value) ? value : new MotionValue(),
     [0, max],
     [PROGRESS_PATH_LENGTH, 0],
   )
 
+  const unwrappedValue = isMotionValue(value) ? value.get() : value
+
   return (
     <ProgressPrimititve.Root
       className={styles.container({ className })}
-      asChild
       max={max}
+      value={unwrappedValue}
+      render={<svg viewBox="0 0 32 32" />}
       {...restProps}
     >
-      <svg viewBox="0 0 32 32">
-        <circle
-          className={cn(styles.indicator(), styles.indicatorBackground())}
-          strokeWidth="2"
-          cx="16"
-          cy="16"
-          r="14"
-        />
+      <circle
+        className={cn(styles.indicator(), styles.indicatorBackground())}
+        strokeWidth="2"
+        cx="16"
+        cy="16"
+        r="14"
+      />
 
-        <ProgressPrimititve.Indicator
-          className={cn(styles.indicator(), styles.indicatorForeground())}
-          asChild
-        >
+      <ProgressPrimititve.Indicator
+        className={cn(styles.indicator(), styles.indicatorForeground())}
+        render={
           <motion.circle
             strokeWidth="2"
             cx="16"
@@ -94,8 +85,8 @@ function Progress(props: ProgressProps) {
               strokeDashoffset,
             }}
           />
-        </ProgressPrimititve.Indicator>
-      </svg>
+        }
+      />
     </ProgressPrimititve.Root>
   )
 }
