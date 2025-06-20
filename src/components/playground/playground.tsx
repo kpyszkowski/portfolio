@@ -4,7 +4,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 import { HighlightedCode } from '~/components/ui/highlighted-code'
 import { Input } from '~/components/ui/input'
 import { Slider } from '~/components/ui/slider'
-import { Toggle } from '~/components/ui/toggle'
+import { Switch } from '~/components/ui/switch'
 import { WindowCard } from '~/components/ui/window-card'
 import { BundledLanguage } from '~/lib/code-highlighting'
 
@@ -44,7 +44,7 @@ const getControlComponent = (
       ]
     case 'boolean':
       return [
-        Toggle,
+        Switch,
         {
           checked: value,
           onCheckedChange: (newValue: boolean) => handler(id, newValue),
@@ -59,7 +59,7 @@ type PlaygroundControlProps<V> = Omit<
     : V extends number
       ? React.ComponentProps<typeof Slider>
       : V extends boolean
-        ? React.ComponentProps<typeof Toggle>
+        ? React.ComponentProps<typeof Switch>
         : never,
   'value' | 'onChange' | 'onValueChange' | 'checked' | 'onCheckedChange'
 >

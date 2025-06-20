@@ -6,9 +6,9 @@ import { Badge } from '~/components/ui/badge'
 const getStyles = tv({
   slots: {
     container: 'flex touch-none select-none flex-col',
-    sliderRoot: 'relative flex cursor-grab flex-wrap items-center py-3',
+    sliderRoot: 'relative flex cursor-grab flex-wrap items-center',
     label: 'block text-sm text-neutral-950 dark:text-neutral-50',
-    track: 'relative rounded bg-neutral-300 dark:bg-neutral-50/25',
+    track: 'relative h-1 rounded bg-neutral-300 dark:bg-neutral-50/25',
     range: 'absolute bg-orange-300',
     control: 'w-full py-5',
     thumb: [

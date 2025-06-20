@@ -1,4 +1,4 @@
-import * as TogglePrimitive from '@radix-ui/react-switch'
+import { Switch as SwitchPrimitive } from '@base-ui-components/react/switch'
 import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
@@ -8,42 +8,42 @@ const getStyles = tv({
       'flex min-w-9 rounded-3xl bg-neutral-300 p-0.5',
       'hover:bg-opacity-100 focus-visible:bg-opacity-100',
       'outline-none ring-neutral-50/50 focus-visible:ring-4',
-      'transition-colors data-[state=checked]:bg-orange-300',
+      'transition-colors data-[checked]:bg-orange-300',
       'dark:bg-neutral-600',
     ],
 
     thumb: [
       'size-4 rounded-full bg-neutral-50 shadow-[0_0_4px] shadow-neutral-600',
-      'transition-all data-[state=checked]:translate-x-full',
+      'transition-all data-[checked]:translate-x-full',
     ],
     label: 'text-sm text-neutral-950 dark:text-neutral-50',
   },
 })
 
-interface ToggleProps
+interface SwitchProps
   extends VariantProps<typeof getStyles>,
-    TogglePrimitive.SwitchProps {
+    SwitchPrimitive.Root.Props {
   className?: string
   label: string
 }
 
-function Toggle(props: ToggleProps) {
+function Switch(props: SwitchProps) {
   const { className = '', label, ...restProps } = props
 
   const styles = getStyles()
 
   return (
     <label className={styles.container({ className })}>
-      <TogglePrimitive.Root
+      <SwitchPrimitive.Root
         className={styles.switchRoot()}
         {...restProps}
       >
-        <TogglePrimitive.Thumb className={styles.thumb()} />
-      </TogglePrimitive.Root>
+        <SwitchPrimitive.Thumb className={styles.thumb()} />
+      </SwitchPrimitive.Root>
 
       <span className={styles.label()}>{label}</span>
     </label>
   )
 }
 
-export default Toggle
+export default Switch
