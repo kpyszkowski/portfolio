@@ -3,6 +3,7 @@ import {
   AnimatePresence,
   motion,
   MotionValue,
+  Transition,
   useMotionValue,
 } from 'motion/react'
 import { createContext, useCallback, useMemo, useState } from 'react'
@@ -13,25 +14,30 @@ import getSelectorFromId from '~/utils/get-selector-from-id'
 
 // TODO: Investigate and improve a11y
 
+const HUD_HEIGHT = 72 // px, height of the HUD
+
 const getStyles = tv({
   slots: {
-    container: [
-      'fixed bottom-0 left-0 z-30 m-4 rounded-lg p-4 shadow-md backdrop-blur-md',
-      'overflow-hidden',
-      'border border-neutral-200 bg-neutral-100/85',
-      'dark:border-neutral-800 dark:bg-neutral-900/85',
-    ],
+    container:
+      'fixed bottom-4 left-4 z-30 overflow-hidden border border-neutral-200 bg-neutral-100/85 shadow-md backdrop-blur-md dark:border-neutral-700 dark:bg-neutral-800/75',
+    chaptersWrapper: 'p-4',
     chaptersLabel: 'mb-2 text-xs uppercase text-neutral-400',
     chaptersList: 'flex flex-col text-sm',
     chaptersListButton:
       'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
-    chaptersTriggerButton: 'relative -m-4 flex items-center gap-4 p-4',
+    chaptersTriggerButton: 'relative flex items-center gap-4 p-4',
     indicatorLabelsWrapper: 'flex flex-col gap-1 text-left',
     indicatorChapterLabel:
       'text-xs uppercase text-neutral-500 dark:text-neutral-400',
-    indicatorChapterName: 'text-sm',
+    indicatorChapterName: 'whitespace-nowrap text-sm',
   },
 })
+
+const transition: Transition = {
+  type: 'spring',
+  stiffness: 180,
+  damping: 20,
+}
 
 export type WritingNavigationItem = {
   id: string
@@ -114,24 +120,30 @@ function WritingNavigation(props: WritingNavigationProps) {
 
       <motion.div
         initial={false}
-        animate={{ y: isVisible ? 0 : 256, opacity: isVisible ? 1 : 0 }}
-        transition={{
-          type: 'spring',
-          damping: 14,
-          stiffness: 72,
+        animate={{
+          y: isVisible ? 0 : HUD_HEIGHT * 1.5,
+          borderRadius: 8,
         }}
         className={styles.container({ className })}
         layout
+        transition={transition}
         {...restProps}
       >
-        <AnimatePresence mode="popLayout">
-          {isExpanded && (
+        <AnimatePresence
+          mode="popLayout"
+          initial={false}
+          custom={isExpanded}
+        >
+          {isExpanded && isVisible ? (
             <motion.div
+              className={styles.chaptersWrapper()}
               ref={chaptersWrapperRef}
-              layout="position"
-              initial={{ y: 64 }}
-              exit={{ y: 64 }}
+              initial={{ y: HUD_HEIGHT }}
+              exit={{ y: HUD_HEIGHT }}
               animate={{ y: 0 }}
+              transition={transition}
+              layout
+              key="chapters-wrapper"
             >
               <h2 className={styles.chaptersLabel()}>Chapters</h2>
               <ul className={styles.chaptersList()}>
@@ -148,21 +160,20 @@ function WritingNavigation(props: WritingNavigationProps) {
                 ))}
               </ul>
             </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence
-          mode="popLayout"
-          initial={false}
-        >
-          {!isExpanded && (
+          ) : (
             <motion.button
               onClick={() => setIsExpanded(true)}
-              layout="position"
               className={styles.chaptersTriggerButton()}
-              initial={{ y: -128 }}
-              exit={{ y: -128 }}
+              initial={{
+                y: -HUD_HEIGHT,
+              }}
               animate={{ y: 0 }}
+              exit={{
+                y: -HUD_HEIGHT,
+              }}
+              transition={transition}
+              layout="position"
+              key={`chapters-trigger-button=${currentItemId}`}
             >
               <Progress
                 value={currentProgress}
