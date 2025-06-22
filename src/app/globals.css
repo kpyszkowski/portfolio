@@ -1,17 +1,47 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin "@tailwindcss/typography";
+@plugin '../lib/tailwind/plugins/holographic';
+@plugin '../lib/tailwind/plugins/neumorphism';
+@plugin '../lib/tailwind/plugins/prose-inline-code';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* TODO: Update components to use theme tokens */
+
+@theme {
+  --font-sans: var(--font-dm-sans, 'system-ui');
+  --font-mono: var(--font-fira-code, 'monospace');
+
+  --text-color-primary: var(--color-neutral-900);
+  --background-color-primary: var(--color-neutral-50);
+
+  --text-color-secondary: var(--color-neutral-700);
+  --background-color-secondary: var(--color-neutral-200);
+
+  --text-color-tertiary: var(--color-neutral-500);
+  --background-color-tertiary: var(--color-neutral-100);
+}
+
+@variant dark {
+  --text-color-primary: var(--color-neutral-50);
+  --background-color-primary: var(--color-neutral-900);
+
+  --text-color-secondary: var(--color-neutral-300);
+  --background-color-secondary: var(--color-neutral-800);
+
+  --text-color-tertiary: var(--color-neutral-400);
+  --background-color-tertiary: var(--color-neutral-700);
+}
 
 body {
-  color: theme(colors.neutral.900);
-  background-color: theme(colors.neutral.50);
-  font-family: theme(fontFamily.sans);
-
-  @media (prefers-color-scheme: dark) {
-    color: theme(colors.neutral.50);
-    background-color: theme(colors.neutral.900);
-  }
+  color: var(--text-color-primary);
+  background-color: var(--background-color-primary);
+  font-family: var(--font-sans);
 }
+
+/* 
+TODO: Migrate v3 utilities to v4
 
 @layer utilities {
   .header-background {
@@ -111,4 +141,5 @@ body {
     background-blend-mode: hard-light, color-burn, normal, lighten;
     background-attachment: fixed;
   }
-}
+} 
+*/

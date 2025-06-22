@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '~/../tailwind.config'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
-const fullConfig = resolveConfig(tailwindConfig)
-const {
-  theme: { screens },
-} = fullConfig
+const { screens } = defaultTheme
 
 type UseBreakpointQuery = keyof typeof screens
 type UseBreakpointOptions = Partial<{

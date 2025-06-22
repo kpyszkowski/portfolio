@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { fontsClassName } from '~/lib/fonts'
 import './globals.css'
+import { ThemeProvider } from 'next-themes'
 
 export const metadata: Metadata = {
   title: 'Kamil Pyszkowski - Software Engineer',
@@ -41,8 +42,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={fontsClassName}>{children}</body>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={fontsClassName}
+    >
+      <body>
+        <ThemeProvider attribute="data-theme">{children}</ThemeProvider>
+      </body>
     </html>
   )
 }
