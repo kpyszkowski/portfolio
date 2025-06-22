@@ -5,6 +5,7 @@
 body {
   color: theme(colors.neutral.900);
   background-color: theme(colors.neutral.50);
+  font-family: theme(fontFamily.sans);
 
   @media (prefers-color-scheme: dark) {
     color: theme(colors.neutral.50);

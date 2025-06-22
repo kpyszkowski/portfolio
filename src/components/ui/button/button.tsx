@@ -20,17 +20,17 @@ const getStyles = tv({
     size: {
       sm: {
         container: 'rounded-3xl px-6 py-2',
-        content: 'gap-3 font-sans text-sm font-medium',
+        content: 'gap-3 text-sm font-medium',
         icon: '-mx-1.5 size-3.5',
       },
       md: {
         container: 'rounded-3xl px-8 py-2.5', // 18px
-        content: 'gap-4 font-sans text-base font-medium',
+        content: 'gap-4 text-base font-medium',
         icon: '-mx-2 size-4',
       },
       lg: {
         container: 'rounded-[2rem] px-10 py-3', // 32px
-        content: 'gap-6 font-sans text-lg font-medium',
+        content: 'gap-6 text-lg font-medium',
         icon: '-mx-3 size-5',
       },
     },

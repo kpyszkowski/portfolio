@@ -62,7 +62,7 @@ const DOT_VARIANTS: Variants = {
 
 export default function Home() {
   return (
-    <div className="font-sans font-extralight">
+    <div className="font-extralight">
       <main className="relative z-30 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
         <div className="mb-28 mt-auto flex items-center gap-8 lg:mb-56 lg:gap-16">
           <Logo className="size-20 stroke-neutral-950 lg:size-32 dark:stroke-neutral-50" />
