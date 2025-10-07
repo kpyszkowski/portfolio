@@ -4,11 +4,8 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: [
-      'prose prose-sm prose-neutral mx-auto md:prose-base dark:prose-invert',
-      'prose-inline-code:rounded-md prose-inline-code:px-1.5 prose-inline-code:py-0.5 prose-inline-code:font-medium prose-inline-code:before:hidden prose-inline-code:after:hidden',
-      'prose-inline-code:bg-neutral-200 dark:prose-inline-code:bg-neutral-700',
-    ],
+    container:
+      'prose prose-sm prose-neutral md:prose-base dark:prose-invert prose-inline-code:rounded-md prose-inline-code:px-1.5 prose-inline-code:py-0.5 prose-inline-code:font-medium prose-inline-code:before:hidden prose-inline-code:after:hidden prose-inline-code:bg-tertiary mx-auto',
   },
 })
 

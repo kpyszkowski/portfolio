@@ -10,9 +10,9 @@ const getStyles = tv({
     container: 'writing-outro-background mt-24 overflow-hidden',
     wrapper: 'prose relative mx-auto px-5 py-20',
     spotlight:
-      'pointer-events-none absolute right-0 top-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
+      'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
-      'text-balance text-justify text-base text-neutral-800 md:text-wrap md:text-lg dark:text-neutral-300',
+      'text-justify text-base text-balance text-neutral-800 md:text-lg md:text-wrap dark:text-neutral-300',
     copyButton: 'inline-flex underline',
     signature: 'h-auto w-36 text-neutral-900 dark:text-neutral-400',
   },

@@ -14,7 +14,7 @@ const getStyles = tv({
     contentWrapper: 'p-5',
     controlsWrapper:
       'grid grid-flow-row gap-8 px-5 py-6 md:grid-cols-2 md:px-8',
-    sourceCodeWrapper: 'pb-6 pt-4',
+    sourceCodeWrapper: 'pt-4 pb-6',
   },
 })
 

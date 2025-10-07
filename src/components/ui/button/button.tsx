@@ -14,7 +14,7 @@ const getStyles = tv({
       solid: {},
       outline: {
         container:
-          '-m-0.5 border-2 border-neutral-500 text-neutral-50 outline-none transition-colors hover:border-neutral-400 focus-visible:border-neutral-400 active:border-neutral-200',
+          '-m-0.5 border-2 border-neutral-500 text-neutral-50 transition-colors outline-none hover:border-neutral-400 focus-visible:border-neutral-400 active:border-neutral-200',
       },
     },
     size: {

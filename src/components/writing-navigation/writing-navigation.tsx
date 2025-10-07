@@ -21,15 +21,15 @@ const getStyles = tv({
     container:
       'fixed bottom-4 left-4 z-30 overflow-hidden border border-neutral-200 bg-neutral-100/85 shadow-md backdrop-blur-md dark:border-neutral-700 dark:bg-neutral-800/75',
     chaptersWrapper: 'p-4',
-    chaptersLabel: 'mb-2 text-xs uppercase text-neutral-400',
+    chaptersLabel: 'mb-2 text-xs text-neutral-400 uppercase',
     chaptersList: 'flex flex-col text-sm',
     chaptersListButton:
       'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
     chaptersTriggerButton: 'relative flex items-center gap-4 p-4',
     indicatorLabelsWrapper: 'flex flex-col gap-1 text-left',
     indicatorChapterLabel:
-      'text-xs uppercase text-neutral-500 dark:text-neutral-400',
-    indicatorChapterName: 'whitespace-nowrap text-sm',
+      'text-xs text-neutral-500 uppercase dark:text-neutral-400',
+    indicatorChapterName: 'text-sm whitespace-nowrap',
   },
 })
 

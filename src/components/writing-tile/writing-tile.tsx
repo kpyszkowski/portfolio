@@ -7,7 +7,7 @@ import { Tooltip } from '~/components/ui/tooltip'
 const getStyles = tv({
   slots: {
     container:
-      'grid grid-flow-row grid-cols-[1fr,auto] grid-rows-[auto,1fr] items-center gap-3 lg:gap-4',
+      'grid grid-flow-row grid-cols-[1fr_auto] grid-rows-[auto_1fr] items-center gap-3 lg:gap-4',
     arrowIcon: 'size-4 justify-self-end text-neutral-50 sm:size-5',
     tags: 'flex gap-1 overflow-hidden sm:gap-2',
     readTimeWrapper:
@@ -15,7 +15,7 @@ const getStyles = tv({
     readTimeIcon: 'size-3 sm:size-4',
     readTimeLabel: 'text-xs leading-5 sm:text-sm sm:leading-6',
     readTimeMask:
-      'absolute -left-8 top-0 h-full w-8 bg-gradient-to-l from-neutral-50 from-50% dark:from-neutral-900',
+      'absolute top-0 -left-8 h-full w-8 bg-gradient-to-l from-neutral-50 from-50% dark:from-neutral-900',
   },
 })
 

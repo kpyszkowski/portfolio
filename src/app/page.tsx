@@ -64,7 +64,7 @@ export default function Home() {
   return (
     <div className="font-extralight">
       <main className="relative z-30 flex min-h-[100dvh] flex-col items-center justify-center p-3 lg:p-10">
-        <div className="mb-28 mt-auto flex items-center gap-8 lg:mb-56 lg:gap-16">
+        <div className="mt-auto mb-28 flex items-center gap-8 lg:mb-56 lg:gap-16">
           <Logo className="size-20 stroke-neutral-950 lg:size-32 dark:stroke-neutral-50" />
 
           <div className="flex flex-col gap-3 lg:gap-6">
@@ -104,7 +104,7 @@ export default function Home() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-4 transition-opacity hover:!opacity-100 focus-visible:!opacity-100 group-hover:opacity-25 dark:group-hover:opacity-50"
+                className="block p-4 transition-opacity group-hover:opacity-25 hover:!opacity-100 focus-visible:!opacity-100 dark:group-hover:opacity-50"
               >
                 <Icon className="size-6" />
               </a>

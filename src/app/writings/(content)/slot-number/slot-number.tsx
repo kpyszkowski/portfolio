@@ -13,7 +13,7 @@ type SlotNumberProps = {
 const getStyles = tv({
   slots: {
     container:
-      'flex select-none flex-row-reverse justify-end overflow-hidden text-4xl font-semibold leading-none',
+      'flex flex-row-reverse justify-end overflow-hidden text-4xl leading-none font-semibold select-none',
     digitContainer: 'relative',
     digitsWrapper: 'absolute inset-0 flex h-fit flex-col',
     digitPlaceholder: 'invisible block',

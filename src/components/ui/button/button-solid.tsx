@@ -11,12 +11,12 @@ const getStyles = tv({
     wrapper:
       'relative overflow-hidden bg-neutral-50 shadow-[-1px_0_0,_0_1px_0] shadow-black/5',
     backgroundWrapper: 'absolute inset-0',
-    background: 'absolute inset-0 holographic',
+    background: 'holographic absolute inset-0',
     overlay: 'absolute inset-0.5 bg-white opacity-40',
     typography: 'relative text-neutral-900 drop-shadow-[0_0_2px_white]',
     glowWrapper:
       'absolute inset-0 opacity-40 blur-xl invert transition-opacity group-hover:opacity-50',
-    glow: 'absolute -inset-0.5 holographic',
+    glow: 'holographic absolute -inset-0.5',
   },
   variants: {
     size: {

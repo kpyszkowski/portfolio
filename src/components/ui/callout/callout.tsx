@@ -13,10 +13,10 @@ import { BulbIcon } from '~/assets/icons'
 const getStyles = tv({
   slots: {
     container:
-      'my-6 rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
+      'neumorphism my-6 rounded-lg border-l-4 border-current px-7 py-5 md:-mx-7',
     title: 'flex items-center gap-4 text-base',
-    content: 'text-neutral-800 prose-p:my-2 dark:text-neutral-200',
-    icon: '-ml-11 size-7 bg-neutral-50 p-1.5 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] dark:bg-neutral-900',
+    content: 'prose-p:my-2 text-secondary',
+    icon: 'bg-primary -ml-11 size-7 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
   },
   variants: {
     type: {

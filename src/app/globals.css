@@ -27,7 +27,7 @@
   --text-color-primary: var(--color-neutral-50);
   --background-color-primary: var(--color-neutral-900);
 
-  --text-color-secondary: var(--color-neutral-300);
+  --text-color-secondary: var(--color-neutral-200);
   --background-color-secondary: var(--color-neutral-800);
 
   --text-color-tertiary: var(--color-neutral-400);
@@ -92,14 +92,6 @@ body {
   }
 
   .window-card-background {
-    --window-card-background-primary: var(--color-neutral-200);
-    --window-card-background-secondary: var(--color-neutral-200);
-
-    @media (prefers-color-scheme: dark) {
-      --window-card-background-primary: var(--color-neutral-800);
-      --window-card-background-secondary: var(--color-neutral-900);
-    }
-
     background: linear-gradient(
         var(--background-color-primary) 0%,
         var(--background-color-secondary) 100%

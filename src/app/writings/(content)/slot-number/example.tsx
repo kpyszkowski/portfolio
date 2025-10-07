@@ -23,7 +23,7 @@ const Example = () => (
         <>
           {isFormatted && <p className="mb-2">Your balance</p>}
           <SlotNumber
-            className="text-4xl font-semibold leading-none"
+            className="text-4xl leading-none font-semibold"
             formatFunction={isFormatted ? formatFunction : undefined}
           >
             {value}
