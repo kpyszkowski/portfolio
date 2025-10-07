@@ -1,5 +1,5 @@
 'use client'
-import { motion, useMotionValue, useSpring } from 'motion/react'
+import { motion } from 'motion/react'
 import { useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import TabsMenuItem, {
@@ -7,17 +7,12 @@ import TabsMenuItem, {
 } from '~/components/ui/tabs-menu/tabs-menu-item'
 import cn from '~/utils/cn'
 
-const SPRING_OPTIONS = {
-  damping: 16,
-  stiffness: 120,
-}
-
 const getStyles = tv({
   slots: {
     container:
-      'group bg-opacity-60 neumorphism md:bg-opacity-75 bg-secondary inline-block overflow-hidden rounded-3xl',
+      'group bg-opacity-60 neumorphism md:bg-opacity-75 bg-secondary relative inline-block overflow-hidden rounded-3xl',
     wrapper:
-      'relative flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
+      'flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
     list: 'inline-flex gap-1 md:gap-3',
     glare:
       'bg-tertiary/48 pointer-events-none absolute -inset-12 size-24 rounded-full opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
@@ -44,23 +39,6 @@ function TabsMenu(props: TabsMenuProps) {
 
   const styles = getStyles()
 
-  const glareX = useMotionValue(0)
-  const glareY = useMotionValue(0)
-
-  const smoothGlareX = useSpring(glareX, SPRING_OPTIONS)
-  const smoothGlareY = useSpring(glareY, SPRING_OPTIONS)
-
-  const handleSetGlarePosition: React.MouseEventHandler = (event) => {
-    const containerRect = event.currentTarget.getBoundingClientRect()
-    if (!containerRect) return
-
-    const x = event.clientX - containerRect.left
-    const y = event.clientY - containerRect.top
-
-    glareX.set(x)
-    glareY.set(y)
-  }
-
   const [activeItemIndex, setActiveItemIndex] = useState(defaultActive)
 
   const getItemClickHandler =
@@ -76,7 +54,6 @@ function TabsMenu(props: TabsMenuProps) {
   return (
     <div
       className={styles.container({ className })}
-      onMouseMove={handleSetGlarePosition}
       {...restProps}
     >
       <div className={styles.wrapper()}>
@@ -114,14 +91,6 @@ function TabsMenu(props: TabsMenuProps) {
 
         {renderAfter && renderAfter}
       </div>
-
-      <motion.span
-        className={styles.glare()}
-        style={{
-          x: smoothGlareX,
-          y: smoothGlareY,
-        }}
-      />
     </div>
   )
 }

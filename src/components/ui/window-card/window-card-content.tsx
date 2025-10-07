@@ -10,7 +10,7 @@ const getStyles = tv({
         container: 'bg-primary/86 dark:bg-primary/64',
       },
       solid: {
-        container: 'bg-secondary/85',
+        container: 'bg-primary dark:bg-secondary',
       },
     },
   },

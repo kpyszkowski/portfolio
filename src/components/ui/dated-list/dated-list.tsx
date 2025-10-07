@@ -5,7 +5,8 @@ import sortByKey, { type SortOrder } from '~/utils/sort-by-key'
 
 const getStyles = tv({
   slots: {
-    container: 'flex flex-col divide-y dark:divide-neutral-700',
+    container:
+      'flex flex-col divide-y divide-(--color-neutral-200) dark:divide-(--color-neutral-600)',
     wrapper: 'flex flex-col items-baseline py-6 sm:flex-row sm:py-5',
     year: 'font-mediun basis-1/4 text-xl text-neutral-500 select-none lg:basis-1/6 dark:text-neutral-400',
     list: 'group flex w-full flex-1 flex-col',

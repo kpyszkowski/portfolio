@@ -11,7 +11,7 @@ const getStyles = tv({
       'dark:backdrop-brightness-75',
     ],
     captionWrapper: 'm-0 flex items-baseline px-5 pt-4 pb-6 leading-6',
-    contentWrapper: 'text-primary/12.5 divide-y divide-current',
+    contentWrapper: 'divide-primary/8 divide-y',
     decorator: 'z-10 w-12',
     label: 'text-primary flex-1 text-center text-xs',
     captionSlot: 'ml-auto',

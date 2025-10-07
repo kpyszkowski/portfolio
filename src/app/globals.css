@@ -13,24 +13,24 @@
   --font-sans: var(--font-dm-sans, 'system-ui');
   --font-mono: var(--font-fira-code, 'monospace');
 
-  --text-color-primary: var(--color-neutral-900);
+  --color-primary: var(--color-neutral-900);
   --background-color-primary: var(--color-neutral-50);
 
-  --text-color-secondary: var(--color-neutral-700);
+  --color-secondary: var(--color-neutral-700);
   --background-color-secondary: var(--color-neutral-200);
 
-  --text-color-tertiary: var(--color-neutral-500);
+  --color-tertiary: var(--color-neutral-500);
   --background-color-tertiary: var(--color-neutral-100);
 }
 
 @variant dark {
-  --text-color-primary: var(--color-neutral-50);
+  --color-primary: var(--color-neutral-50);
   --background-color-primary: var(--color-neutral-900);
 
-  --text-color-secondary: var(--color-neutral-200);
+  --color-secondary: var(--color-neutral-200);
   --background-color-secondary: var(--color-neutral-800);
 
-  --text-color-tertiary: var(--color-neutral-400);
+  --color-tertiary: var(--color-neutral-400);
   --background-color-tertiary: var(--color-neutral-700);
 }
 
