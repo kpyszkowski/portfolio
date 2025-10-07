@@ -7,13 +7,13 @@ const getStyles = tv({
     container:
       'window-card-background relative -mx-16 my-10 rounded-3xl bg-cover px-16 py-3',
     wrapper: [
-      'm-0 rounded-2xl backdrop-blur-2xl backdrop-saturate-200 neumorphism [clip-path:inset(0_round_1rem)]',
+      'neumorphism m-0 rounded-2xl backdrop-blur-2xl backdrop-saturate-200 [clip-path:inset(0_round_1rem)]',
       'dark:backdrop-brightness-75',
     ],
-    captionWrapper: 'm-0 flex items-baseline px-5 pb-6 pt-4 leading-6',
-    contentWrapper: 'divide-y divide-neutral-200 dark:divide-neutral-700',
+    captionWrapper: 'm-0 flex items-baseline px-5 pt-4 pb-6 leading-6',
+    contentWrapper: 'divide-primary/8 divide-y',
     decorator: 'z-10 w-12',
-    label: 'flex-1 text-center text-xs text-neutral-600 dark:text-neutral-300',
+    label: 'text-primary flex-1 text-center text-xs',
     captionSlot: 'ml-auto',
   },
 })

@@ -1,5 +1,5 @@
 'use client'
-import { motion, useMotionValue, useSpring } from 'motion/react'
+import { motion } from 'motion/react'
 import { useState } from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
 import TabsMenuItem, {
@@ -7,25 +7,15 @@ import TabsMenuItem, {
 } from '~/components/ui/tabs-menu/tabs-menu-item'
 import cn from '~/utils/cn'
 
-const SPRING_OPTIONS = {
-  damping: 16,
-  stiffness: 120,
-}
-
 const getStyles = tv({
   slots: {
-    container: [
-      'group inline-block overflow-hidden rounded-3xl bg-neutral-200 bg-opacity-60 neumorphism md:bg-opacity-75',
-      'backdrop-blur-sm backdrop-brightness-[0.95] backdrop-saturate-[1.5]',
-      'dark:bg-neutral-700 dark:backdrop-brightness-[0.65]',
-    ],
+    container:
+      'group bg-opacity-60 neumorphism md:bg-opacity-75 bg-secondary relative inline-block overflow-hidden rounded-3xl',
     wrapper:
-      'relative flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
+      'flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
     list: 'inline-flex gap-1 md:gap-3',
-    glare: [
-      'pointer-events-none absolute -inset-12 size-24 rounded-full',
-      'bg-neutral-50/40 opacity-0 blur-2xl transition-opacity group-hover:opacity-100 dark:bg-neutral-500/20',
-    ],
+    glare:
+      'bg-tertiary/48 pointer-events-none absolute -inset-12 size-24 rounded-full opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
   },
 })
 
@@ -49,23 +39,6 @@ function TabsMenu(props: TabsMenuProps) {
 
   const styles = getStyles()
 
-  const glareX = useMotionValue(0)
-  const glareY = useMotionValue(0)
-
-  const smoothGlareX = useSpring(glareX, SPRING_OPTIONS)
-  const smoothGlareY = useSpring(glareY, SPRING_OPTIONS)
-
-  const handleSetGlarePosition: React.MouseEventHandler = (event) => {
-    const containerRect = event.currentTarget.getBoundingClientRect()
-    if (!containerRect) return
-
-    const x = event.clientX - containerRect.left
-    const y = event.clientY - containerRect.top
-
-    glareX.set(x)
-    glareY.set(y)
-  }
-
   const [activeItemIndex, setActiveItemIndex] = useState(defaultActive)
 
   const getItemClickHandler =
@@ -81,7 +54,6 @@ function TabsMenu(props: TabsMenuProps) {
   return (
     <div
       className={styles.container({ className })}
-      onMouseMove={handleSetGlarePosition}
       {...restProps}
     >
       <div className={styles.wrapper()}>
@@ -119,14 +91,6 @@ function TabsMenu(props: TabsMenuProps) {
 
         {renderAfter && renderAfter}
       </div>
-
-      <motion.span
-        className={styles.glare()}
-        style={{
-          x: smoothGlareX,
-          y: smoothGlareY,
-        }}
-      />
     </div>
   )
 }

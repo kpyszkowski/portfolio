@@ -4,13 +4,12 @@ import { tv, type VariantProps } from 'tailwind-variants'
 const getStyles = tv({
   slots: {
     container:
-      'inline-block whitespace-nowrap rounded-2xl bg-opacity-10 px-4 py-0.5 font-sans text-xs backdrop-blur-sm neumorphism sm:py-1 dark:bg-opacity-25',
+      'bg-opacity-10 neumorphism dark:bg-opacity-25 inline-block rounded-2xl px-4 py-0.5 text-xs whitespace-nowrap backdrop-blur-sm sm:py-1',
   },
   variants: {
     color: {
       neutral: {
-        container:
-          'bg-neutral-500 text-neutral-600 dark:bg-neutral-500 dark:text-neutral-200',
+        container: 'bg-tertiary text-secondary',
       },
       green: {
         container: 'bg-green-500 text-green-200',

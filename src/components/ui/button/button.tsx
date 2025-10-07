@@ -14,23 +14,23 @@ const getStyles = tv({
       solid: {},
       outline: {
         container:
-          '-m-0.5 border-2 border-neutral-500 text-neutral-50 outline-none transition-colors hover:border-neutral-400 focus-visible:border-neutral-400 active:border-neutral-200',
+          'text-primary border-secondary -m-0.5 border-2 transition-colors outline-none',
       },
     },
     size: {
       sm: {
         container: 'rounded-3xl px-6 py-2',
-        content: 'gap-3 font-sans text-sm font-medium',
+        content: 'gap-3 text-sm font-medium',
         icon: '-mx-1.5 size-3.5',
       },
       md: {
         container: 'rounded-3xl px-8 py-2.5', // 18px
-        content: 'gap-4 font-sans text-base font-medium',
+        content: 'gap-4 text-base font-medium',
         icon: '-mx-2 size-4',
       },
       lg: {
         container: 'rounded-[2rem] px-10 py-3', // 32px
-        content: 'gap-6 font-sans text-lg font-medium',
+        content: 'gap-6 text-lg font-medium',
         icon: '-mx-3 size-5',
       },
     },

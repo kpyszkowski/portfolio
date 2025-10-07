@@ -7,10 +7,10 @@ const getStyles = tv({
   variants: {
     variant: {
       translucent: {
-        container: 'bg-white/[0.72] dark:bg-neutral-900/[0.52]',
+        container: 'bg-primary/86 dark:bg-primary/64',
       },
       solid: {
-        container: 'bg-neutral-100/85 dark:bg-neutral-800/85',
+        container: 'bg-primary dark:bg-secondary',
       },
     },
   },

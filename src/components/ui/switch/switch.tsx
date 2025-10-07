@@ -7,7 +7,7 @@ const getStyles = tv({
     switchRoot: [
       'flex min-w-9 rounded-3xl bg-neutral-300 p-0.5',
       'hover:bg-opacity-100 focus-visible:bg-opacity-100',
-      'outline-none ring-neutral-50/50 focus-visible:ring-4',
+      'ring-neutral-50/50 outline-none focus-visible:ring-4',
       'transition-colors data-[checked]:bg-orange-300',
       'dark:bg-neutral-600',
     ],

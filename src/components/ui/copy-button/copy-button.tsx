@@ -10,7 +10,7 @@ const getStyles = tv({
     icon: 'size-4',
     labelsWrapper: 'relative',
     copiedLabel:
-      'absolute inset-0 text-nowrap text-center text-sm leading-[inherit]',
+      'absolute inset-0 text-center text-sm leading-[inherit] text-nowrap',
   },
 })
 

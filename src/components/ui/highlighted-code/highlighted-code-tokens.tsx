@@ -7,7 +7,7 @@ const getStyles = tv({
       'relative m-0 block brightness-[0.8] contrast-[0.8] saturate-200 dark:filter-none',
     wrapper: 'w-full overflow-x-scroll text-sm md:text-base/7',
     lineIndex:
-      'ml-3 mr-5 inline-block w-[3ch] select-none text-right text-neutral-200 dark:text-neutral-500',
+      'mr-5 ml-3 inline-block w-[3ch] text-right text-neutral-200 select-none dark:text-neutral-500',
   },
 })
 

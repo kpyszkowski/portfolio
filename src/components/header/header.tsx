@@ -50,7 +50,9 @@ function Header(props: HeaderProps) {
   const styles = getStyles()
 
   const pathname = usePathname()
-  const defaultActive = ITEMS.findIndex((item) => item.href === pathname)
+  const defaultActive = ITEMS.findIndex((item) =>
+    item.href ? pathname.startsWith(item.href) : false,
+  )
 
   return (
     <header className={styles.container({ className })}>

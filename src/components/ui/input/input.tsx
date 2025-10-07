@@ -16,7 +16,7 @@ const getStyles = tv({
     input:
       'peer flex-grow bg-transparent py-1 pl-3 text-sm outline-none placeholder:text-neutral-400',
     clearButton:
-      'visible p-1 text-neutral-400 outline-none transition-colors hover:text-neutral-50 focus-visible:text-neutral-50 peer-placeholder-shown:invisible',
+      'visible p-1 text-neutral-400 transition-colors outline-none peer-placeholder-shown:invisible hover:text-neutral-50 focus-visible:text-neutral-50',
     clearButtonIcon: 'mx-2 size-4',
   },
 })

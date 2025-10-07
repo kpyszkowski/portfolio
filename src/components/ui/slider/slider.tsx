@@ -5,7 +5,7 @@ import { Badge } from '~/components/ui/badge'
 
 const getStyles = tv({
   slots: {
-    container: 'flex touch-none select-none flex-col',
+    container: 'flex touch-none flex-col select-none',
     sliderRoot: 'relative flex cursor-grab flex-wrap items-center',
     label: 'block text-sm text-neutral-950 dark:text-neutral-50',
     track: 'relative h-1 rounded bg-neutral-300 dark:bg-neutral-50/25',
@@ -13,7 +13,7 @@ const getStyles = tv({
     control: 'w-full py-5',
     thumb: [
       'relative block size-4 rounded-full bg-neutral-50 transition-shadow',
-      'outline-none ring-neutral-50/50 focus-visible:ring-4',
+      'ring-neutral-50/50 outline-none focus-visible:ring-4',
       'shadow-[0_0_4px] shadow-neutral-600',
     ],
     valueLabelsWrapper: 'text-xs text-neutral-600 dark:text-neutral-400',

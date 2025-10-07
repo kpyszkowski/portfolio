@@ -18,7 +18,7 @@ export default async function WritingPage(props: WritingPageProps) {
     <main className="overflow-x-hidden px-5">
       <WritingNavigation items={metadata.tableOfContents}>
         <WritingIntro
-          className="mx-auto mb-12 mt-16 max-w-screen-lg"
+          className="mx-auto mt-16 mb-12 max-w-screen-lg"
           title={metadata.title}
           publishedAt={metadata.publishedAt}
           modifiedAt={metadata.modifiedAt}

@@ -6,11 +6,11 @@ import getFormattedDate from '~/utils/get-formatted-date'
 
 const getStyles = tv({
   slots: {
-    container: 'mt-auto border-t dark:border-neutral-800 dark:bg-neutral-900',
+    container: 'bg-primary text-primary/8 mt-auto border-t border-current',
     wrapper:
-      'mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 sm:flex-row',
+      'text-primary mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 sm:flex-row',
     decorator:
-      'flex flex-col items-end font-mono text-xs/relaxed text-neutral-500',
+      'text-tertiary flex flex-col items-end font-mono text-xs/relaxed',
     logo: 'order-last mx-auto mb-4 sm:order-none sm:mb-0',
   },
 })
