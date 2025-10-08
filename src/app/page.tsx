@@ -23,12 +23,12 @@ const SOCIALS = [
   {
     name: 'GitHub',
     icon: GitHub,
-    href: 'https://github.com/kpyszkowski',
+    href: '/github',
   },
   {
     name: 'LinkedIn',
     icon: Linkedin,
-    href: 'https://www.linkedin.com/in/kamil-pyszkowski-8365071ba/',
+    href: '/linkedin',
   },
   {
     name: 'Email',

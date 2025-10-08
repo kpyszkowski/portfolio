@@ -90,6 +90,20 @@ const nextConfig = {
     unoptimized: process.env.NODE_ENV === 'development',
   },
   transpilePackages: ['shiki'],
+  redirects() {
+    return [
+      {
+        source: '/linkedin',
+        destination: 'https://www.linkedin.com/in/kamil-pyszkowski-8365071ba',
+        permanent: true,
+      },
+      {
+        source: '/github',
+        destination: 'https://www.github.com/kpyszkowski',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default withMDX(withSVGR(nextConfig))
