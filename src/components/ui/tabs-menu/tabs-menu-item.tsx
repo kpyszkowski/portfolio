@@ -9,7 +9,7 @@ const getStyles = tv({
     wrapper: 'relative flex px-3.5 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
     label: 'text-primary text-xs leading-4 md:text-sm',
-    highlight: 'bg-tertiary absolute inset-0 -z-10 size-full',
+    highlight: 'bg-tertiary fixed inset-0 -z-10 size-full',
   },
   variants: {
     disabled: {
@@ -27,7 +27,7 @@ const getStyles = tv({
 
 interface TabsMenuItemProps
   extends VariantProps<typeof getStyles>,
-    MotionProps {
+  MotionProps {
   className?: string
   label: string
   icon?: Icon
@@ -64,14 +64,17 @@ const TabsMenuItem = (props: TabsMenuItemProps) => {
     isExternal,
     ...restProps
   } = props
-
   const styles = getStyles({ disabled })
 
   const LinkComponent = isExternal ? 'a' : Link
   const Component = href ? LinkComponent : 'button'
 
   return (
-    <motion.li {...restProps}>
+    <motion.li
+      layout
+      layoutRoot
+      {...restProps}
+    >
       <Tooltip
         label={disabledLabel}
         disabled={!disabled}
