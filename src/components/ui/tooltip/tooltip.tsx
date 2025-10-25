@@ -51,12 +51,15 @@ const contentTransition: Transition = {
 
 type TooltipRenderProp =
   | React.ReactNode
-  | ((isOpen: boolean) => React.ReactNode)
+  | ((internalIsOpen: boolean) => React.ReactNode)
 
 interface TooltipProps
   extends VariantProps<typeof getStyles>,
-    Omit<TooltipPrimitive.Positioner.Props, 'children'>,
-    Pick<TooltipPrimitive.Root.Props, 'delay' | 'defaultOpen'> {
+  Omit<TooltipPrimitive.Positioner.Props, 'children'>,
+  Pick<
+    TooltipPrimitive.Root.Props,
+    'delay' | 'defaultOpen' | 'open' | 'onOpenChange'
+  > {
   className?: string
   children: TooltipRenderProp
   label: TooltipRenderProp
@@ -75,23 +78,29 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
     sideOffset = 4,
     delay = 400,
     defaultOpen = false,
+    open: externalOpen,
+    onOpenChange: externalOnOpenChange,
     ...restProps
   } = props
 
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [internalOpen, setInternalOpen] = useState(defaultOpen)
 
   const styles = getStyles({ size })
 
-  const triggerContent =
-    typeof children === 'function' ? children(isOpen) : children
+  const open = externalOpen !== undefined ? externalOpen : internalOpen
+  const onOpenChange =
+    externalOnOpenChange !== undefined ? externalOnOpenChange : setInternalOpen
 
-  const labelContent = typeof label === 'function' ? label(isOpen) : label
+  const triggerContent =
+    typeof children === 'function' ? children(open) : children
+
+  const labelContent = typeof label === 'function' ? label(open) : label
 
   return (
     <TooltipPrimitive.Provider delay={delay}>
       <TooltipPrimitive.Root
-        open={!disabled && isOpen}
-        onOpenChange={disabled ? undefined : setIsOpen}
+        open={!disabled && open}
+        onOpenChange={disabled ? undefined : onOpenChange}
       >
         <TooltipPrimitive.Trigger
           ref={ref}
@@ -101,7 +110,7 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
         </TooltipPrimitive.Trigger>
 
         <AnimatePresence>
-          {isOpen && (
+          {open && (
             <TooltipPrimitive.Portal>
               <TooltipPrimitive.Positioner
                 sideOffset={sideOffset}

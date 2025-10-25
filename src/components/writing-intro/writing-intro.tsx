@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import {
   Edit3 as EditIcon,
   Share as ShareIcon,
@@ -9,6 +10,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 import { Badge } from '~/components/ui/badge'
 import { Tooltip } from '~/components/ui/tooltip'
 import useBreakpoint from '~/hooks/use-breakpoint'
+import useClipboard from '~/hooks/use-clipboard'
 import getFormattedDate from '~/utils/get-formatted-date'
 
 // TODO: Add mobile styles
@@ -21,7 +23,7 @@ const getStyles = tv({
     publishDate: 'text-md text-tertiary md:text-2xl',
     modifiedDate: 'flex items-center gap-3 text-sm',
     modifiedIcon: 'size-3',
-    shareButton: 'justify-self-end',
+    shareButtonWrapper: 'justify-self-end',
     shareButtonIcon: 'size-4 justify-self-end md:size-5',
     title: 'col-span-2 mb-4 text-4xl/snug md:text-6xl/tight',
     author: 'flex items-center gap-3 md:gap-4',
@@ -56,12 +58,35 @@ function WritingIntro(props: WritingIntroProps) {
   const isDesktop = useBreakpoint('md')
   const formattedModifiedDate = modifiedAt
     ? getFormattedDate(modifiedAt, {
-        weekday: 'short',
-        year: 'numeric',
-      })
+      weekday: 'short',
+      year: 'numeric',
+    })
     : ''
   const modifiedTooltipLabel =
     'Last modified' + (isDesktop ? '' : `: ${formattedModifiedDate}`)
+
+  const pathname = usePathname()
+  const shareableUrl = [pathname].join()
+
+  const copyShareableUrl = useClipboard(shareableUrl)
+
+  const handleShare = async () => {
+    const shareData: ShareData = {
+      title,
+      url: shareableUrl,
+    }
+
+    if (!navigator.canShare(shareData)) {
+      copyShareableUrl.onCopy()
+      return
+    }
+
+    try {
+      await navigator.share(shareData)
+    } catch (error) {
+      return error
+    }
+  }
 
   return (
     <div
@@ -90,9 +115,23 @@ function WritingIntro(props: WritingIntroProps) {
         )}
       </div>
 
-      <button className={styles.shareButton()}>
-        <ShareIcon className={styles.shareButtonIcon()} />
-      </button>
+      <div className={styles.shareButtonWrapper()}>
+        <Tooltip
+          label="Copied URL to clipboard!"
+          open={copyShareableUrl.hasCopied}
+          size="sm"
+          sideOffset={8}
+          side="bottom"
+        >
+          <button
+            aria-label="Share the writing"
+            type="button"
+            onClick={handleShare}
+          >
+            <ShareIcon className={styles.shareButtonIcon()} />
+          </button>
+        </Tooltip>
+      </div>
 
       <h1 className={styles.title()}>{title}</h1>
 
