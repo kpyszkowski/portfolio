@@ -81,6 +81,7 @@ const meta: Meta<typeof Article> = {
         <p>Below is an example of an image:</p>
         <Image
           width={400}
+          height={200}
           src="https://via.placeholder.com/400x200"
           alt="Placeholder image"
         />
