@@ -1,0 +1,49 @@
+---
+title: 'Turborepo, the monorepo the way it should be'
+tags: ['Turborepo', 'Monorepo', 'Tasks', 'TypeScript', 'Web Development']
+publishedAt: 2025-10-29
+---
+
+I've seen many projects in my career. Unfortunately there always was something off with them. Inconsitencies in the
+structure, tooling configs, difficulties in initial setup, etc. Once I discovered **Turborepo**, I felt like I finally
+found the golden grail of monorepos. It's simple, least opinionated, and just works. Let me explain.
+
+## What is Turborepo?
+
+Turborepo is a monorepo tool that helps you manage multiple packages and projects in a single repository. It utilizes
+the concept of tasks outlining their specifications in a single `turbo.json` config file. It allows to orchestrate
+tasks, run them in parallel, and speed up subsequent runs using caching.
+
+## What is the task?
+
+The task is a command that you can run in your monorepo. In a vast majority of cases you can think of a task as a script
+defined in your `package.json` files, but with extra properties.
+
+Using `dependsOn` property you can define dependencies between tasks. For example, before you build an application, you
+might want to do a linting and check types. Then you might want to run tests. Finally, you can build the app. If any of
+intermediate steps fail, the task will fail.
+
+What's more Turborepo can figure out dependant packages and run tasks in the right order. For example, if you have a UI
+package with React components and an Next.js application consuming those components, Turborepo will first build the `ui`
+package, then the Next.js app.
+
+## How the caching works?
+
+Turborepo uses a content-based hashing mechanism to cache the results of tasks. When you run a task, Turborepo generates
+a hash based on the task's inputs, such as the command being run, the files being processed, and the environment
+variables. If the same task is run again with the same inputs, Turborepo can retrieve the results from the cache instead
+of re-executing the task, which saves time and computational resources. Using the previously mentioned example, if you
+do changes in the Next.js app source code, but not in the `ui` package, Turborepo will hit the cache for the `ui` build
+and only rebuild the Next.js app.
+
+More importantly, Turborepo is fully compatible with CI remote caching. It can supercharge your Github Actions or any
+other CI system you use.
+
+## So what's the deal?
+
+It's that simple. It's just another tool that helps you manage your monorepo. But makes it way easier. It just runs
+scripts (tasks) for you, takes care of caching and managing outputs. No complex configurations, no magic. Just a simple
+JSON file.
+
+Interested? Go ahead and try it yourself. The [official docs](https://turborepo.com/docs) makes it easy to start and
+migrate from other monorepo tools.

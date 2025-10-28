@@ -51,7 +51,7 @@ function Header(props: HeaderProps) {
 
   const pathname = usePathname()
   const defaultActive = ITEMS.findIndex((item) =>
-    item.href ? pathname.startsWith(item.href) : false,
+    item.href ? pathname?.startsWith(item.href) : false,
   )
 
   return (

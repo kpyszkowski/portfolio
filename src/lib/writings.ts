@@ -37,9 +37,9 @@ export const getWritingData = async (
   slug: string,
   language: Language = 'en',
 ) => {
-  const file = (await import(
+  const file: MDXFile = await import(
     `../app/writings/(content)/${slug}/${language}.mdx`
-  )) as MDXFile
+  )
 
   const data = file.frontmatter
   const readingTimeStats = file.readingTime
