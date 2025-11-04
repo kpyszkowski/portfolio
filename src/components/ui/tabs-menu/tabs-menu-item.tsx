@@ -27,7 +27,7 @@ const getStyles = tv({
 
 interface TabsMenuItemProps
   extends VariantProps<typeof getStyles>,
-  MotionProps {
+    MotionProps {
   className?: string
   label: string
   icon?: Icon

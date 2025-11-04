@@ -58,9 +58,9 @@ function WritingIntro(props: WritingIntroProps) {
   const isDesktop = useBreakpoint('md')
   const formattedModifiedDate = modifiedAt
     ? getFormattedDate(modifiedAt, {
-      weekday: 'short',
-      year: 'numeric',
-    })
+        weekday: 'short',
+        year: 'numeric',
+      })
     : ''
   const modifiedTooltipLabel =
     'Last modified' + (isDesktop ? '' : `: ${formattedModifiedDate}`)
