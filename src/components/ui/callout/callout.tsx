@@ -12,7 +12,8 @@ import { BulbIcon } from '~/assets/icons'
 
 const getStyles = tv({
   slots: {
-    container: 'neumorphism my-6 rounded-lg border-l-4 border-current px-7 py-5 md:-mx-7',
+    container:
+      'neumorphism my-6 rounded-lg border-l-4 border-current px-7 py-5 md:-mx-7',
     title: 'flex items-center gap-4 text-base',
     content: 'prose-p:my-2 text-secondary',
     icon: 'bg-primary -ml-11 size-7 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
@@ -23,7 +24,8 @@ const getStyles = tv({
         container: 'bg-blue-600/5 text-blue-500',
       },
       note: {
-        container: 'bg-zinc-600/5 text-zinc-950 dark:bg-zinc-600/15 dark:text-zinc-50',
+        container:
+          'bg-zinc-600/5 text-zinc-950 dark:bg-zinc-600/15 dark:text-zinc-50',
       },
       warning: {
         container: 'bg-yellow-600/5 text-yellow-400',
@@ -62,7 +64,13 @@ const getIconByType = (type?: CalloutType) => {
   }
 }
 
-export type CalloutType = 'tip' | 'warning' | 'danger' | 'success' | 'note' | 'insight'
+export type CalloutType =
+  | 'tip'
+  | 'warning'
+  | 'danger'
+  | 'success'
+  | 'note'
+  | 'insight'
 
 interface CalloutProps extends VariantProps<typeof getStyles> {
   className?: string
