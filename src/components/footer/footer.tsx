@@ -6,11 +6,11 @@ import getFormattedDate from '~/utils/get-formatted-date'
 
 const getStyles = tv({
   slots: {
-    container: 'bg-primary text-primary/8 mt-auto border-t border-current',
+    container: 'mt-auto border-t border-current bg-primary text-primary/8',
     wrapper:
-      'text-primary mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 sm:flex-row',
+      'mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 text-primary sm:flex-row',
     decorator:
-      'text-tertiary flex flex-col items-end font-mono text-xs/relaxed',
+      'flex flex-col items-end font-mono text-xs/relaxed text-tertiary',
     logo: 'order-last mx-auto mb-4 sm:order-none sm:mb-0',
   },
 })
@@ -24,7 +24,7 @@ function Footer(props: FooterProps) {
 
   const styles = getStyles()
 
-  const [currentTime, setCurrentTime] = useState(Date.now())
+  const [currentTime, setCurrentTime] = useState(() => Date.now())
 
   useEffect(() => {
     const interval = setInterval(() => {

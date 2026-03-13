@@ -8,13 +8,13 @@ import useBreakpoint from '~/hooks/use-breakpoint'
 const getStyles = tv({
   slots: {
     container: 'writing-outro-background mt-24 overflow-hidden',
-    wrapper: 'prose relative mx-auto px-5 py-20',
+    wrapper: 'relative mx-auto prose px-5 py-20',
     spotlight:
-      'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-neutral-400 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
+      'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-secondary/50 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
-      'text-justify text-base text-balance text-neutral-800 md:text-lg md:text-wrap dark:text-neutral-300',
+      'text-justify text-base text-balance text-primary md:text-lg md:text-wrap',
     copyButton: 'inline-flex underline',
-    signature: 'h-auto w-36 text-neutral-900 dark:text-neutral-400',
+    signature: 'h-auto w-36',
   },
 })
 

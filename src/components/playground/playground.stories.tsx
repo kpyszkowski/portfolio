@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
 import { Button } from '~/components/ui/button'
-import Playground from './playground'
+import Playground from '~/components/playground/playground'
 
 const meta: Meta<typeof Playground> = {
   title: 'Playground',
@@ -25,8 +25,12 @@ export const Default: Story = (props) => (
       '</>',
     ]}
     content={({ registerControl }) => {
-      const [text, setText] = registerControl('text', 'Example text')
-      const [number, setNumber] = registerControl('number', 1234)
+      const [text, setText] = registerControl('text', 'Example text', {
+        label: 'Sample Text',
+      })
+      const [number, setNumber] = registerControl('number', 1234, {
+        label: 'Sample Number',
+      })
 
       return (
         <div

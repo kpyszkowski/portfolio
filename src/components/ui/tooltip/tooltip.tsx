@@ -68,7 +68,7 @@ interface TooltipProps
 
 // TODO: Investigate the error - the use of `forwardRef` doesn't help
 
-const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
+const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>((props, ref) => {
   const {
     className = '',
     children,
@@ -103,8 +103,9 @@ const Tooltip = forwardRef<HTMLButtonElement, TooltipProps>((props, ref) => {
         onOpenChange={disabled ? undefined : onOpenChange}
       >
         <TooltipPrimitive.Trigger
+          className={className}
           ref={ref}
-          render={<div />}
+          render={<span />}
         >
           {triggerContent}
         </TooltipPrimitive.Trigger>

@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import WindowCard from './window-card'
+import WindowCard from '~/components/ui/window-card/window-card'
 
 const meta: Meta<typeof WindowCard> = {
   title: 'UI/WindowCard',

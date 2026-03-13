@@ -1,3 +1,4 @@
+'use client'
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import Link from 'next/link'
 import { CSSProperties } from 'react'
@@ -9,34 +10,28 @@ const getStyles = tv({
   slots: {
     container: 'group relative inline-block',
     wrapper:
-      'relative overflow-hidden bg-neutral-50 shadow-[-1px_0_0,_0_1px_0] shadow-black/5',
-    backgroundWrapper: 'absolute inset-0',
-    background: 'holographic absolute inset-0',
-    overlay: 'absolute inset-0.5 bg-white opacity-40',
-    typography: 'relative text-neutral-900 drop-shadow-[0_0_2px_white]',
-    glowWrapper:
-      'absolute inset-0 opacity-40 blur-xl invert transition-opacity group-hover:opacity-50',
-    glow: 'holographic absolute -inset-0.5',
+      'text-background relative overflow-hidden bg-primary transition-shadow group-hover:shadow-lg',
   },
   variants: {
     size: {
       sm: {
         wrapper: 'rounded-2xl px-6 py-2',
-        overlay: 'rounded-[0.9375rem]', // 15px
       },
       md: {
         wrapper: 'rounded-3xl px-8 py-2.5',
-        overlay: 'inset-1 rounded-[1.375rem]', // 22px
       },
       lg: {
         wrapper: 'rounded-[2rem] px-10 py-3',
-        overlay: 'inset-1 rounded-[1.875rem]', // 30px
       },
     },
   },
 })
 
 const SPRING_OPTIONS = { stiffness: 100, damping: 8 }
+
+const MotionButton = motion.create('button')
+const MotionLink = motion.create(Link)
+const MotionAnchor = motion.create('a')
 
 export interface ButtonSolidProps extends VariantProps<typeof getStyles> {
   className?: string
@@ -90,8 +85,6 @@ function ButtonSolid(props: ButtonSolidProps) {
 
   const containerStyle = {
     perspective: 1000,
-    '--tw-holographic-mx': smoothX,
-    '--tw-holographic-my': smoothY,
   } as CSSProperties
 
   const wrapperStyle = {
@@ -100,8 +93,11 @@ function ButtonSolid(props: ButtonSolidProps) {
     z: smoothZPosition,
   } as CSSProperties
 
-  const LinkComponent = isExternal ? 'a' : Link
-  const Component = motion.create(href ? LinkComponent : 'button')
+  const Component = href
+    ? isExternal
+      ? MotionAnchor
+      : MotionLink
+    : MotionButton
 
   return (
     <Component
@@ -114,21 +110,11 @@ function ButtonSolid(props: ButtonSolidProps) {
       target={href && isExternal ? '_blank' : undefined}
       {...restProps}
     >
-      <div className={styles.glowWrapper()}>
-        <span className={styles.glow()} />
-      </div>
-
       <motion.div
         className={styles.wrapper()}
         style={wrapperStyle}
       >
-        <span className={styles.backgroundWrapper()}>
-          <span className={styles.background()} />
-        </span>
-
-        <span className={styles.overlay()} />
-
-        <span className={styles.typography()}>{children}</span>
+        {children}
       </motion.div>
     </Component>
   )

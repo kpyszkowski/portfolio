@@ -58,6 +58,7 @@ function CalloutTitle(props: CalloutTitleProps) {
       className={styles.container({ className })}
       {...restProps}
     >
+      {/* eslint-disable-next-line react-hooks/static-components */}
       <Icon className="mr-2 inline-block" />
 
       {children}

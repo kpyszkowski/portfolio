@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react'
-import '../src/app/globals.css'
-import { fontsClassName } from '../src/lib/fonts'
+import '~/app/globals.css'
+import { fontsClassName } from '~/lib/fonts'
 
 import { withThemeByDataAttribute } from '@storybook/addon-themes'
 

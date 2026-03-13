@@ -1,7 +1,7 @@
 'use client'
 import { useMotionValueEvent, useScroll } from 'motion/react'
 import { useContext, useRef } from 'react'
-import { WritingNavigationContext } from './writing-navigation'
+import { WritingNavigationContext } from '~/components/writing-navigation/writing-navigation'
 
 interface WritingNavigationTriggerProps {
   className?: string

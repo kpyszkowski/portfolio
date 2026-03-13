@@ -6,10 +6,10 @@ import { Tooltip } from '~/components/ui/tooltip'
 
 const getStyles = tv({
   slots: {
-    wrapper: 'relative flex px-3.5 py-1 md:px-5 md:py-1.5',
+    wrapper: 'flex px-3.5 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
-    label: 'text-primary text-xs leading-4 md:text-sm',
-    highlight: 'bg-tertiary fixed inset-0 -z-10 size-full',
+    label: 'text-xs leading-4 text-primary md:text-sm',
+    highlight: 'absolute inset-0 -z-10 size-full bg-tertiary',
   },
   variants: {
     disabled: {

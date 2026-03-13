@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import CodeExample from './code-example'
+import CodeExample from '~/components/ui/code-example/code-example'
 
 const normalizeCodeIndentation = (code: string) =>
   code

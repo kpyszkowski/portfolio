@@ -8,14 +8,14 @@ const getStyles = tv({
   slots: {
     container:
       'grid grid-flow-row grid-cols-[1fr_auto] grid-rows-[auto_1fr] items-center gap-3 lg:gap-4',
-    arrowIcon: 'size-4 justify-self-end text-neutral-50 sm:size-5',
+    arrowIcon: 'size-4 justify-self-end text-primary sm:size-5',
     tags: 'flex gap-1 overflow-hidden sm:gap-2',
     readTimeWrapper:
-      'relative flex items-center gap-1.5 self-start justify-self-end text-neutral-500 [grid-area:-2/-2/-1/-1] dark:text-neutral-400',
+      'relative flex items-center gap-1.5 self-start justify-self-end text-tertiary [grid-area:-2/-2/-1/-1]',
     readTimeIcon: 'size-3 sm:size-4',
     readTimeLabel: 'text-xs leading-5 sm:text-sm sm:leading-6',
     readTimeMask:
-      'absolute top-0 -left-8 h-full w-8 bg-gradient-to-l from-neutral-50 from-50% dark:from-neutral-900',
+      'absolute top-0 -left-8 h-full w-8 bg-gradient-to-l from-primary from-50%',
   },
 })
 
@@ -66,15 +66,13 @@ function WritingTile(props: WritingTileProps) {
         side="left"
         align="end"
         size="xs"
+        sideOffset={12}
+        className={styles.readTimeWrapper()}
+        aria-label={`Reading time: ${readingTime} minutes`}
       >
-        <div
-          className={styles.readTimeWrapper()}
-          aria-label={`Reading time: ${readingTime} minutes`}
-        >
-          <WatchIcon className={styles.readTimeIcon()} />
-          <span className={styles.readTimeLabel()}>{readingTime} mins</span>
-          <span className={styles.readTimeMask()} />
-        </div>
+        <WatchIcon className={styles.readTimeIcon()} />
+        <span className={styles.readTimeLabel()}>{readingTime} mins</span>
+        <span className={styles.readTimeMask()} />
       </Tooltip>
     </Link>
   )

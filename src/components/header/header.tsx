@@ -9,7 +9,7 @@ const getStyles = tv({
     container: 'sticky top-0 z-30 flex justify-center',
     menu: 'z-20 my-3 md:my-6',
     background: 'header-background absolute inset-0 z-10 size-full',
-    logo: 'mx-2 md:mx-3',
+    logo: 'px-2 md:px-4',
   },
 })
 
@@ -61,10 +61,9 @@ function Header(props: HeaderProps) {
         items={ITEMS}
         defaultActive={defaultActive}
         renderBefore={
-          <Logo
-            className={styles.logo()}
-            size="sm"
-          />
+          <div className={styles.logo()}>
+            <Logo size="sm" />
+          </div>
         }
         {...restProps}
       />

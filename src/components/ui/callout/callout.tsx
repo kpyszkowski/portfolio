@@ -12,11 +12,10 @@ import { BulbIcon } from '~/assets/icons'
 
 const getStyles = tv({
   slots: {
-    container:
-      'neumorphism my-6 rounded-lg border-l-4 border-current px-7 py-5 md:-mx-7',
+    container: 'my-6 rounded-lg border-l-4 border-current px-7 py-5 md:-mx-7',
     title: 'flex items-center gap-4 text-base',
-    content: 'prose-p:my-2 text-secondary',
-    icon: 'bg-primary -ml-11 size-7 [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
+    content: 'text-secondary prose-p:my-2',
+    icon: '-ml-11 size-7 bg-primary [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
   },
   variants: {
     type: {
@@ -82,6 +81,7 @@ function Callout(props: CalloutProps) {
   const { className = '', type, children, ...restProps } = props
 
   const styles = getStyles({ type })
+
   const Icon = getIconByType(type)
 
   const [title, content] = Children.toArray(children).filter(isValidElement)
@@ -92,6 +92,7 @@ function Callout(props: CalloutProps) {
       {...restProps}
     >
       <div className={styles.title()}>
+        {/* eslint-disable-next-line react-hooks/static-components */}
         <Icon className={styles.icon()} />
         {title}
       </div>

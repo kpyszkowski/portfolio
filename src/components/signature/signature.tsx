@@ -5,7 +5,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 
 const getStyles = tv({
   slots: {
-    container: 'stroke-current stroke-[0.5] text-neutral-50',
+    container: 'stroke-primary stroke-[0.5]',
   },
 })
 

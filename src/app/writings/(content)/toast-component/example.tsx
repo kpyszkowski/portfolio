@@ -1,7 +1,10 @@
 'use client'
 import React from 'react'
 import { Playground } from '~/components/playground'
-import { ToastProvider, useToast } from './toast'
+import {
+  ToastProvider,
+  useToast,
+} from '~/app/writings/(content)/toast-component/toast'
 import { Button } from '~/components/ui/button'
 
 const ToastExampleContent = () => {

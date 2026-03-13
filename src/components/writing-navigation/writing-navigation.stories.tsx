@@ -7,7 +7,7 @@ import {
 
 const items = [
   { id: 'item-1', title: 'Item 1' },
-  { id: 'item-2', title: 'Item 2' },
+  { id: 'item-2', title: 'Item 2 longer title asd asd as das d asd asd as' },
   { id: 'item-3', title: 'Item 3' },
   { id: 'item-4', title: 'Item 4' },
 ]
@@ -124,6 +124,7 @@ const meta: Meta<typeof WritingNavigation> = {
   tags: ['autodocs'],
   args: {
     items,
+    className: 'not-prose',
   },
 }
 
@@ -132,7 +133,7 @@ type Story = StoryFn<typeof WritingNavigation>
 
 export const Default: Story = (props) => {
   return (
-    <div className="prose prose-neutral prose-invert mx-auto">
+    <div className="mx-auto prose prose-neutral dark:prose-invert">
       <WritingNavigation {...props}>{content}</WritingNavigation>
     </div>
   )

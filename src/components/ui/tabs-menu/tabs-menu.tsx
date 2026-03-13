@@ -10,12 +10,10 @@ import cn from '~/utils/cn'
 const getStyles = tv({
   slots: {
     container:
-      'group bg-opacity-60 neumorphism md:bg-opacity-75 bg-secondary relative inline-block overflow-hidden rounded-3xl',
+      'group bg-opacity-60 md:bg-opacity-75 relative inline-block overflow-hidden rounded-3xl bg-secondary',
     wrapper:
-      'flex items-center divide-x divide-neutral-500/25 overflow-hidden p-2',
-    list: 'inline-flex gap-1 md:gap-3',
-    glare:
-      'bg-tertiary/48 pointer-events-none absolute -inset-12 size-24 rounded-full opacity-0 blur-2xl transition-opacity group-hover:opacity-100',
+      'flex items-center divide-x divide-tertiary/25 overflow-hidden p-2',
+    list: 'relative isolate inline-flex gap-1 md:gap-3',
   },
 })
 

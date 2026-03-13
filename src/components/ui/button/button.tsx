@@ -14,7 +14,7 @@ const getStyles = tv({
       solid: {},
       outline: {
         container:
-          'text-primary border-secondary -m-0.5 border-2 transition-colors outline-none',
+          '-m-0.5 border-2 border-secondary text-primary transition-colors outline-none',
       },
     },
     size: {
@@ -115,8 +115,7 @@ function Button(props: ButtonProps) {
 
   if (variant === 'solid') {
     const ButtonSolid = dynamic(() =>
-      // eslint-disable-next-line import/no-cycle
-      import('./button-solid').then((mod) => mod.default),
+      import('~/components/ui/button/button-solid').then((mod) => mod.default),
     )
 
     return (

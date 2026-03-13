@@ -1,11 +1,9 @@
 @import 'tailwindcss';
 
 @plugin "@tailwindcss/typography";
-@plugin '../lib/tailwind/plugins/holographic';
-@plugin '../lib/tailwind/plugins/neumorphism';
-@plugin '../lib/tailwind/plugins/prose-inline-code';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant prose-inline-code (&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *)));
 
 /* TODO: Update components to use theme tokens */
 
@@ -34,8 +32,9 @@
   --background-color-tertiary: var(--color-neutral-700);
 }
 
-body {
-  color: var(--text-color-primary);
+body,
+.docs-story {
+  color: var(--color-primary);
   background-color: var(--background-color-primary);
   font-family: var(--font-sans);
 }

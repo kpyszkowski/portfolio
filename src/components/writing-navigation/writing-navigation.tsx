@@ -14,22 +14,23 @@ import getSelectorFromId from '~/utils/get-selector-from-id'
 
 // TODO: Investigate and improve a11y
 
-const HUD_HEIGHT = 72 // px, height of the HUD
+const HUD_HEIGHT = 64 // px, height of the HUD
 
 const getStyles = tv({
   slots: {
     container:
-      'fixed bottom-4 left-4 z-30 overflow-hidden border border-neutral-200 bg-neutral-100/85 shadow-md backdrop-blur-md dark:border-neutral-700 dark:bg-neutral-800/75',
-    chaptersWrapper: 'p-4',
+      'fixed bottom-2 left-4 z-30 max-w-[calc(100%-32px)] overflow-hidden border border-neutral-200 bg-neutral-100/85 shadow-md backdrop-blur-md md:bottom-4 dark:border-neutral-700 dark:bg-neutral-800/75',
+    chaptersWrapper: 'px-4 py-3',
     chaptersLabel: 'mb-2 text-xs text-neutral-400 uppercase',
     chaptersList: 'flex flex-col text-sm',
     chaptersListButton:
       'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
-    chaptersTriggerButton: 'relative flex items-center gap-4 p-4',
-    indicatorLabelsWrapper: 'flex flex-col gap-1 text-left',
+    chaptersTriggerButton:
+      'relative flex items-center gap-4 p-3 md:px-4 md:py-3',
+    indicatorLabelsWrapper: 'flex flex-col gap-1 text-left whitespace-nowrap',
     indicatorChapterLabel:
       'text-xs text-neutral-500 uppercase dark:text-neutral-400',
-    indicatorChapterName: 'text-sm whitespace-nowrap',
+    indicatorChapterName: 'text-sm',
   },
 })
 
@@ -176,6 +177,7 @@ function WritingNavigation(props: WritingNavigationProps) {
               key={`chapters-trigger-button=${currentItemId}`}
             >
               <Progress
+                size="md"
                 value={currentProgress}
                 max={1}
               />

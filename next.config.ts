@@ -3,11 +3,15 @@ import getWithSVGR from 'next-plugin-svgr'
 
 import rehypeToc from '@stefanprobst/rehype-extract-toc'
 import rehypeExtractToc from '@stefanprobst/rehype-extract-toc/mdx'
-import rehypeExternalLinks from 'rehype-external-links'
+import rehypeExternalLinks, {
+  type Options as RehypeExternalLinkOptions,
+} from 'rehype-external-links'
 import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 import rehypeSlug from 'rehype-slug'
 
-import remarkCallout from '@r4ai/remark-callout'
+import remarkCallout, {
+  type Options as RemarkCalloutOptions,
+} from '@r4ai/remark-callout'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
@@ -15,9 +19,9 @@ import remarkReadingTime from 'remark-reading-time'
 import remarkMDXReadingTime from 'remark-reading-time/mdx.js'
 import remarkSectionize from 'remark-sectionize'
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
+import { NextConfig } from 'next'
 
-/** @type {import('@r4ai/remark-callout').Options} */
-const calloutOptions = {
+const calloutOptions: RemarkCalloutOptions = {
   root: (callout) => ({
     tagName: 'callout',
     properties: {
@@ -27,14 +31,15 @@ const calloutOptions = {
   }),
   title: {
     tagName: 'span',
+    properties: {},
   },
   body: {
     tagName: 'div',
+    properties: {},
   },
 }
 
-/** @type {import('rehype-external-links').Options} */
-const externalLinksOptions = {
+const externalLinksOptions: RehypeExternalLinkOptions = {
   target: '_blank',
   rel: ['noopener', 'noreferrer'],
 }
@@ -60,7 +65,7 @@ const withMDX = getWithMDX({
   },
 })
 
-const withSVGR = (nextConfig) =>
+const withSVGR = (nextConfig: NextConfig) =>
   getWithSVGR({
     ...nextConfig,
     svgrOptions: {
@@ -81,7 +86,6 @@ const withSVGR = (nextConfig) =>
 
 initOpenNextCloudflareForDev()
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
@@ -104,6 +108,6 @@ const nextConfig = {
       },
     ]
   },
-}
+} satisfies NextConfig
 
 export default withMDX(withSVGR(nextConfig))

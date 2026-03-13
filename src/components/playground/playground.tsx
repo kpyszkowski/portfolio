@@ -152,6 +152,7 @@ function Playground(props: PlaygroundProps) {
       {...restProps}
     >
       <WindowCard.Content className={styles.contentWrapper()}>
+        {/* eslint-disable-next-line react-hooks/refs */}
         {content({ registerControl })}
       </WindowCard.Content>
 
@@ -159,6 +160,7 @@ function Playground(props: PlaygroundProps) {
         variant="solid"
         className={styles.controlsWrapper()}
       >
+        {/* eslint-disable-next-line react-hooks/refs */}
         {Object.entries(controls).map(([id, value]) => {
           const [, , props] = registry.current[id]
 

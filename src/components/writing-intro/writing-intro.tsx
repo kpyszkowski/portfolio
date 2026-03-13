@@ -27,10 +27,10 @@ const getStyles = tv({
     shareButtonIcon: 'size-4 justify-self-end md:size-5',
     title: 'col-span-2 mb-4 text-4xl/snug md:text-6xl/tight',
     author: 'flex items-center gap-3 md:gap-4',
-    authorImage: 'bg-tertiary size-10 rounded-full p-0.5 md:size-12',
-    authorName: 'text-tertiary text-sm md:text-base',
+    authorImage: 'size-10 rounded-full bg-tertiary p-0.5 md:size-12',
+    authorName: 'text-sm text-tertiary md:text-base',
     readingTime:
-      'text-tertiary flex items-center gap-2 justify-self-end text-sm',
+      'flex items-center gap-2 justify-self-end text-sm text-tertiary',
     readingTimeIcon: 'size-4',
   },
 })

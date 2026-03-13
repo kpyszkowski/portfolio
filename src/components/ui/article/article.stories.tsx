@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Article from './article'
+import Article from '~/components/ui/article/article'
 import Image from 'next/image'
 
 const meta: Meta<typeof Article> = {

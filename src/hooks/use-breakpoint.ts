@@ -28,6 +28,7 @@ function useBreakpoint(
     const matchQueryList = window.matchMedia(
       `(${useMaxQuery ? 'max' : 'min'}-width: ${screens[query]})`,
     )
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatch(matchQueryList.matches)
 
     matchQueryList.addEventListener('change', handleBreakpointChange)

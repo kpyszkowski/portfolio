@@ -9,8 +9,7 @@ const getStyles = tv({
     container: 'mx-1 flex items-center gap-1',
     icon: 'size-4',
     labelsWrapper: 'relative',
-    copiedLabel:
-      'absolute inset-0 text-center text-sm leading-[inherit] text-nowrap',
+    copiedLabel: 'absolute inset-0 text-center text-nowrap',
   },
 })
 

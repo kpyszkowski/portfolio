@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Signature from './signature'
+import Signature from '~/components/signature/signature'
 
 const meta: Meta<typeof Signature> = {
   title: 'Signature',

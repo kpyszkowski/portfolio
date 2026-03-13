@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { fontsClassName } from '~/lib/fonts'
-import './globals.css'
+import '~/app/globals.css'
 import { ThemeProvider } from 'next-themes'
 
 export const metadata: Metadata = {

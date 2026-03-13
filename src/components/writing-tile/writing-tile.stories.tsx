@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import WritingTile from './writing-tile'
+import WritingTile from '~/components/writing-tile/writing-tile'
 
 const meta: Meta<typeof WritingTile> = {
   title: 'WritingTile',

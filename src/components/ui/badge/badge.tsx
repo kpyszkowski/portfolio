@@ -4,7 +4,7 @@ import { tv, type VariantProps } from 'tailwind-variants'
 const getStyles = tv({
   slots: {
     container:
-      'bg-opacity-10 neumorphism dark:bg-opacity-25 inline-block rounded-2xl px-4 py-0.5 text-xs whitespace-nowrap backdrop-blur-sm sm:py-1',
+      'bg-opacity-10 dark:bg-opacity-25 inline-block rounded-2xl px-4 py-0.5 text-xs whitespace-nowrap backdrop-blur-sm sm:py-1',
   },
   variants: {
     color: {
