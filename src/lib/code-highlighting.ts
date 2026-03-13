@@ -12,35 +12,39 @@ export type ShorthandsBundle = Omit<
   codeToTokens: (code: string, lang: BundledLanguage) => Promise<TokensResult>
 }
 
-let highlighter: HighlighterCore | null = null
+let highlighterPromise: Promise<HighlighterCore> | null = null
 
-export const createCodeHighlighter = async () => {
-  if (!highlighter) {
-    const [{ createHighlighterCore }, { createOnigurumaEngine }] =
-      await Promise.all([
-        import('shiki/core'),
-        import('shiki/engine/oniguruma'),
+const getHighlighter = (): Promise<HighlighterCore> => {
+  if (!highlighterPromise) {
+    highlighterPromise = (async () => {
+      const [{ createHighlighterCore }, { createOnigurumaEngine }] =
+        await Promise.all([
+          import('shiki/core'),
+          import('shiki/engine/oniguruma'),
+        ])
+
+      const themes = await Promise.all([
+        import('shiki/themes/one-dark-pro.mjs'),
       ])
 
-    const themes = await Promise.all([import('shiki/themes/one-dark-pro.mjs')])
+      const langs = await Promise.all([
+        import('shiki/langs/css.mjs'),
+        import('shiki/langs/ts.mjs'),
+        import('shiki/langs/tsx.mjs'),
+        import('shiki/langs/json.mjs'),
+      ])
 
-    const langs = await Promise.all([
-      import('shiki/langs/css.mjs'),
-      import('shiki/langs/ts.mjs'),
-      import('shiki/langs/tsx.mjs'),
-      import('shiki/langs/json.mjs'),
-    ])
+      const engine = createOnigurumaEngine(import('shiki/wasm'))
 
-    const engine = createOnigurumaEngine(import('shiki/wasm'))
-
-    highlighter = await createHighlighterCore({
-      langs,
-      themes,
-      engine,
-    })
+      return createHighlighterCore({ langs, themes, engine })
+    })()
   }
+  return highlighterPromise
+}
 
-  const { codeToTokens: codeToTokensImpl, ...restShorthands } = highlighter
+export const createCodeHighlighter = async () => {
+  const { codeToTokens: codeToTokensImpl, ...restShorthands } =
+    await getHighlighter()
 
   const codeToTokens = (code: string, lang: BundledLanguage) =>
     codeToTokensImpl(code, {
