@@ -8,7 +8,7 @@
 /* TODO: Update components to use theme tokens */
 
 @theme inline {
-  --font-sans: var(--font-dm-sans, 'system-ui');
+  --font-sans: var(--font-satoshi, 'system-ui');
 }
 
 @theme {
@@ -40,6 +40,7 @@ body,
   color: var(--color-primary);
   background-color: var(--background-color-primary);
   font-family: var(--font-sans);
+  letter-spacing: 0.016rem;
 }
 
 @utility neumorphism {

@@ -6,7 +6,7 @@ import sortByKey, { type SortOrder } from '~/utils/sort-by-key'
 const datedListStyles = createStyles({
   slots: {
     container:
-      'flex flex-col divide-y divide-(--color-neutral-200) dark:divide-(--color-neutral-600)',
+      'flex flex-col divide-y divide-neutral-200 dark:divide-neutral-800',
     wrapper: 'flex flex-col items-baseline py-6 sm:flex-row sm:py-5',
     year: 'font-mediun basis-1/4 text-xl text-tertiary select-none lg:basis-1/6',
     list: 'group flex w-full flex-1 flex-col',

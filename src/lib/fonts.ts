@@ -1,8 +1,10 @@
-import { DM_Sans, Fira_Code } from 'next/font/google'
+import localFont from 'next/font/local'
+import { Fira_Code } from 'next/font/google'
 
-export const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
+export const satoshiVariable = localFont({
+  src: '../fonts/satoshi-variable.ttf',
+  fallback: ['system-ui'],
+  variable: '--font-satoshi',
 })
 
 export const firaCode = Fira_Code({
@@ -10,6 +12,6 @@ export const firaCode = Fira_Code({
   variable: '--font-fira-code',
 })
 
-export const fontsClassName = [dmSans, firaCode]
+export const fontsClassName = [satoshiVariable, firaCode]
   .map((font) => font.variable)
   .join(' ')
