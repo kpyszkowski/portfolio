@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { Footer } from '~/components/footer'
-import { Header } from '~/components/header'
+import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: {
@@ -12,15 +11,7 @@ export const metadata: Metadata = {
 export default function WritingsLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-
-      {children}
-
-      <Footer />
-    </div>
-  )
+  return children
 }

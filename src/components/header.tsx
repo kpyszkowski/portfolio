@@ -17,25 +17,21 @@ interface HeaderProps extends StylesProps<typeof headerStyles> {
   className?: string
 }
 
-const DISABLED_LABEL = 'Coming soon'
 const ITEMS = [
   {
     id: 'item-1',
     label: 'Home',
-    disabled: true,
-    disabledLabel: DISABLED_LABEL,
+    href: '/',
   },
   {
     id: 'item-2',
     label: 'About',
-    disabled: true,
-    disabledLabel: DISABLED_LABEL,
+    href: '/#about',
   },
   {
     id: 'item-3',
     label: 'Experience',
-    disabled: true,
-    disabledLabel: DISABLED_LABEL,
+    href: '/#experience',
   },
   {
     id: 'item-4',
