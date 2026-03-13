@@ -1,23 +1,24 @@
 'use client'
 import { motion } from 'motion/react'
 import { useState } from 'react'
-import { tv, type VariantProps } from 'tailwind-variants'
-import TabsMenuItem, {
+import { createStyles, type StylesProps } from '~/utils/create-styles'
+import {
+  TabsMenuItem,
   type TabsMenuItemType,
 } from '~/components/ui/tabs-menu/tabs-menu-item'
 import cn from '~/utils/cn'
 
-const getStyles = tv({
+const tabsMenuStyles = createStyles({
   slots: {
     container:
-      'group bg-opacity-60 md:bg-opacity-75 relative inline-block overflow-hidden rounded-3xl bg-secondary',
+      'group bg-opacity-60 md:bg-opacity-75 relative inline-block overflow-hidden rounded-3xl bg-secondary neumorphism',
     wrapper:
       'flex items-center divide-x divide-tertiary/25 overflow-hidden p-2',
     list: 'relative isolate inline-flex gap-1 md:gap-3',
   },
 })
 
-interface TabsMenuProps extends VariantProps<typeof getStyles> {
+interface TabsMenuProps extends StylesProps<typeof tabsMenuStyles> {
   className?: string
   items: TabsMenuItemType[]
   defaultActive?: number
@@ -35,7 +36,7 @@ function TabsMenu(props: TabsMenuProps) {
     ...restProps
   } = props
 
-  const styles = getStyles()
+  const styles = tabsMenuStyles()
 
   const [activeItemIndex, setActiveItemIndex] = useState(defaultActive)
 
@@ -93,4 +94,4 @@ function TabsMenu(props: TabsMenuProps) {
   )
 }
 
-export default TabsMenu
+export { TabsMenu, tabsMenuStyles, type TabsMenuProps }

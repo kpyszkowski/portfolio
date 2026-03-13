@@ -1,10 +1,10 @@
 import { motion, MotionProps } from 'motion/react'
 import Link from 'next/link'
 import { Icon } from 'react-feather'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Tooltip } from '~/components/ui/tooltip'
 
-const getStyles = tv({
+const tabsMenuItemStyles = createStyles({
   slots: {
     wrapper: 'flex px-3.5 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
@@ -26,7 +26,7 @@ const getStyles = tv({
 })
 
 interface TabsMenuItemProps
-  extends VariantProps<typeof getStyles>,
+  extends StylesProps<typeof tabsMenuItemStyles>,
     MotionProps {
   className?: string
   label: string
@@ -39,7 +39,7 @@ interface TabsMenuItemProps
   disabledLabel?: string
 }
 
-export type TabsMenuItemType = Pick<
+type TabsMenuItemType = Pick<
   TabsMenuItemProps,
   | 'label'
   | 'icon'
@@ -64,7 +64,7 @@ const TabsMenuItem = (props: TabsMenuItemProps) => {
     isExternal,
     ...restProps
   } = props
-  const styles = getStyles({ disabled })
+  const styles = tabsMenuItemStyles({ disabled })
 
   const LinkComponent = isExternal ? 'a' : Link
   const Component = href ? LinkComponent : 'button'
@@ -105,4 +105,9 @@ const TabsMenuItem = (props: TabsMenuItemProps) => {
   )
 }
 
-export default TabsMenuItem
+export {
+  TabsMenuItem,
+  tabsMenuItemStyles,
+  type TabsMenuItemProps,
+  type TabsMenuItemType,
+}

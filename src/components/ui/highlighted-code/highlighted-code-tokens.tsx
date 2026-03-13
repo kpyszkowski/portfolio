@@ -1,7 +1,7 @@
 import { TokensResult } from 'shiki'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 
-const getStyles = tv({
+const highlightedCodeTokensStyles = createStyles({
   slots: {
     container:
       'relative m-0 block brightness-[0.8] contrast-[0.8] saturate-200 dark:filter-none',
@@ -11,7 +11,8 @@ const getStyles = tv({
   },
 })
 
-interface HighlightedCodeTokensProps extends VariantProps<typeof getStyles> {
+interface HighlightedCodeTokensProps
+  extends StylesProps<typeof highlightedCodeTokensStyles> {
   className?: string
   tokens: TokensResult['tokens']
 }
@@ -19,7 +20,7 @@ interface HighlightedCodeTokensProps extends VariantProps<typeof getStyles> {
 function HighlightedCodeTokens(props: HighlightedCodeTokensProps) {
   const { className, tokens, ...restProps } = props
 
-  const styles = getStyles()
+  const styles = highlightedCodeTokensStyles()
 
   return (
     <code
@@ -50,4 +51,8 @@ function HighlightedCodeTokens(props: HighlightedCodeTokensProps) {
   )
 }
 
-export default HighlightedCodeTokens
+export {
+  HighlightedCodeTokens,
+  highlightedCodeTokensStyles,
+  type HighlightedCodeTokensProps,
+}

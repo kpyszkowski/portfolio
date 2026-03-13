@@ -7,8 +7,11 @@
 
 /* TODO: Update components to use theme tokens */
 
-@theme {
+@theme inline {
   --font-sans: var(--font-dm-sans, 'system-ui');
+}
+
+@theme {
   --font-mono: var(--font-fira-code, 'monospace');
 
   --color-primary: var(--color-neutral-900);
@@ -37,6 +40,16 @@ body,
   color: var(--color-primary);
   background-color: var(--background-color-primary);
   font-family: var(--font-sans);
+}
+
+@utility neumorphism {
+  --tw-neumorphism-tr-color: rgb(255 255 255 / 6%);
+  --tw-neumorphism-bl-color: rgb(255 255 255 / 10%);
+
+  box-shadow:
+    inset 1px -1px 1px 0 var(--tw-neumorphism-tr-color),
+    inset -1px 1px 1px 0 var(--tw-neumorphism-bl-color),
+    var(--tw-shadow);
 }
 
 @layer utilities {

@@ -1,12 +1,12 @@
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 
-const getStyles = tv({
+const calloutBodyStyles = createStyles({
   slots: {
     container: '',
   },
 })
 
-interface CalloutBodyProps extends VariantProps<typeof getStyles> {
+interface CalloutBodyProps extends StylesProps<typeof calloutBodyStyles> {
   className?: string
   children: React.ReactNode
 }
@@ -14,7 +14,7 @@ interface CalloutBodyProps extends VariantProps<typeof getStyles> {
 function CalloutBody(props: CalloutBodyProps) {
   const { className = '', children, ...restProps } = props
 
-  const styles = getStyles()
+  const styles = calloutBodyStyles()
 
   return (
     <div
@@ -26,4 +26,4 @@ function CalloutBody(props: CalloutBodyProps) {
   )
 }
 
-export default CalloutBody
+export { CalloutBody, calloutBodyStyles, type CalloutBodyProps }

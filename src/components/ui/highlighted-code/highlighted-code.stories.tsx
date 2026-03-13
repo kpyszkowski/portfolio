@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import HighlightedCode from '~/components/ui/highlighted-code/highlighted-code'
+import { HighlightedCode } from '~/components/ui/highlighted-code/highlighted-code'
 
 const meta: Meta<typeof HighlightedCode> = {
   title: 'UI/HighlightedCode',

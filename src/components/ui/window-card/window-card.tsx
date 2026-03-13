@@ -1,13 +1,13 @@
 import { ComponentProps } from 'react'
-import { tv, type VariantProps } from 'tailwind-variants'
-import WindowCardContent from '~/components/ui/window-card/window-card-content'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
+import { WindowCardContent } from '~/components/ui/window-card/window-card-content'
 
-const getStyles = tv({
+const windowCardStyles = createStyles({
   slots: {
     container:
       'window-card-background relative -mx-16 my-10 rounded-3xl bg-cover px-16 py-3',
     wrapper: [
-      'm-0 rounded-2xl backdrop-blur-2xl backdrop-saturate-200 [clip-path:inset(0_round_1rem)]',
+      'm-0 rounded-2xl neumorphism backdrop-blur-2xl backdrop-saturate-200 [clip-path:inset(0_round_1rem)]',
       'dark:backdrop-brightness-75',
     ],
     captionWrapper: 'm-0 flex items-baseline px-5 pt-4 pb-6 leading-6',
@@ -18,7 +18,7 @@ const getStyles = tv({
   },
 })
 
-interface WindowCardProps extends VariantProps<typeof getStyles> {
+interface WindowCardProps extends StylesProps<typeof windowCardStyles> {
   className?: string
   children?: React.ReactNode
   title?: string
@@ -36,7 +36,7 @@ function WindowCardRoot(props: WindowCardProps) {
     ...restProps
   } = props
 
-  const styles = getStyles()
+  const styles = windowCardStyles()
 
   return (
     <div
@@ -89,4 +89,4 @@ function WindowCardRoot(props: WindowCardProps) {
 
 const WindowCard = Object.assign(WindowCardRoot, { Content: WindowCardContent })
 
-export default WindowCard
+export { WindowCard, windowCardStyles, type WindowCardProps }

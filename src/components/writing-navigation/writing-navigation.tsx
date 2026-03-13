@@ -7,7 +7,7 @@ import {
   useMotionValue,
 } from 'motion/react'
 import { createContext, useCallback, useMemo, useState } from 'react'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Progress } from '~/components/ui/progress'
 import useOutsideClick from '~/hooks/use-outside-click'
 import getSelectorFromId from '~/utils/get-selector-from-id'
@@ -16,20 +16,19 @@ import getSelectorFromId from '~/utils/get-selector-from-id'
 
 const HUD_HEIGHT = 64 // px, height of the HUD
 
-const getStyles = tv({
+const writingNavigationStyles = createStyles({
   slots: {
     container:
-      'fixed bottom-2 left-4 z-30 max-w-[calc(100%-32px)] overflow-hidden border border-neutral-200 bg-neutral-100/85 shadow-md backdrop-blur-md md:bottom-4 dark:border-neutral-700 dark:bg-neutral-800/75',
+      'fixed bottom-2 left-4 z-30 max-w-[calc(100%-32px)] overflow-hidden border border-neutral-200 bg-tertiary/85 shadow-md backdrop-blur-md md:bottom-4 dark:border-neutral-700 dark:bg-secondary/75',
     chaptersWrapper: 'px-4 py-3',
-    chaptersLabel: 'mb-2 text-xs text-neutral-400 uppercase',
+    chaptersLabel: 'mb-2 text-xs text-tertiary uppercase',
     chaptersList: 'flex flex-col text-sm',
     chaptersListButton:
       'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
     chaptersTriggerButton:
       'relative flex items-center gap-4 p-3 md:px-4 md:py-3',
     indicatorLabelsWrapper: 'flex flex-col gap-1 text-left whitespace-nowrap',
-    indicatorChapterLabel:
-      'text-xs text-neutral-500 uppercase dark:text-neutral-400',
+    indicatorChapterLabel: 'text-xs text-tertiary uppercase',
     indicatorChapterName: 'text-sm',
   },
 })
@@ -40,12 +39,13 @@ const transition: Transition = {
   damping: 20,
 }
 
-export type WritingNavigationItem = {
+type WritingNavigationItem = {
   id: string
   title: string
 }
 
-interface WritingNavigationProps extends VariantProps<typeof getStyles> {
+interface WritingNavigationProps
+  extends StylesProps<typeof writingNavigationStyles> {
   className?: string
   items: WritingNavigationItem[]
   children: React.ReactNode
@@ -75,7 +75,7 @@ export const WritingNavigationContext =
 function WritingNavigation(props: WritingNavigationProps) {
   const { className = '', children, items, ...restProps } = props
 
-  const styles = getStyles()
+  const styles = writingNavigationStyles()
 
   const [currentItemId, setCurrentItemId] = useState(items[0].id)
   const currentProgress = useMotionValue(0)
@@ -199,4 +199,9 @@ function WritingNavigation(props: WritingNavigationProps) {
   )
 }
 
-export default WritingNavigation
+export {
+  WritingNavigation,
+  writingNavigationStyles,
+  type WritingNavigationProps,
+  type WritingNavigationItem,
+}

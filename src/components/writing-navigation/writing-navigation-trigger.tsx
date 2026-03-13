@@ -49,4 +49,4 @@ function WritingNavigationTrigger(props: WritingNavigationTriggerProps) {
   )
 }
 
-export default WritingNavigationTrigger
+export { WritingNavigationTrigger, type WritingNavigationTriggerProps }

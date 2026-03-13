@@ -4,10 +4,10 @@ import {
   CheckCircle as SuccessIcon,
   AlertTriangle as WarningIcon,
 } from 'react-feather'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { CalloutType } from '~/components/ui/callout/callout'
 
-const getStyles = tv({
+const calloutTitleStyles = createStyles({
   slots: {
     container: '',
   },
@@ -28,7 +28,7 @@ const getIconByType = (type: CalloutType) => {
   }
 }
 
-interface CalloutTitleProps extends VariantProps<typeof getStyles> {
+interface CalloutTitleProps extends StylesProps<typeof calloutTitleStyles> {
   className?: string
   children: string
   isFoldable: boolean
@@ -46,7 +46,7 @@ function CalloutTitle(props: CalloutTitleProps) {
     ...restProps
   } = props
 
-  const styles = getStyles()
+  const styles = calloutTitleStyles()
 
   const Element = isFoldable ? 'details' : 'span'
 
@@ -66,4 +66,4 @@ function CalloutTitle(props: CalloutTitleProps) {
   )
 }
 
-export default CalloutTitle
+export { CalloutTitle, calloutTitleStyles, type CalloutTitleProps }

@@ -1,6 +1,6 @@
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 
-const getStyles = tv({
+const windowCardContentStyles = createStyles({
   slots: {
     container: 'not-prose overflow-hidden',
   },
@@ -19,7 +19,8 @@ const getStyles = tv({
   },
 })
 
-interface WindowCardContentProps extends VariantProps<typeof getStyles> {
+interface WindowCardContentProps
+  extends StylesProps<typeof windowCardContentStyles> {
   className?: string
   children?: React.ReactNode
   as?: React.ElementType
@@ -34,7 +35,7 @@ function WindowCardContent(props: WindowCardContentProps) {
     ...restProps
   } = props
 
-  const styles = getStyles({ variant })
+  const styles = windowCardContentStyles({ variant })
 
   return (
     <Component
@@ -46,4 +47,8 @@ function WindowCardContent(props: WindowCardContentProps) {
   )
 }
 
-export default WindowCardContent
+export {
+  WindowCardContent,
+  windowCardContentStyles,
+  type WindowCardContentProps,
+}

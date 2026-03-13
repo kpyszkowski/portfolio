@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import TabsMenu from '~/components/ui/tabs-menu/tabs-menu'
+import { TabsMenu } from '~/components/ui/tabs-menu/tabs-menu'
 import { Book, Home, Send, Box, User } from 'react-feather'
 
 const meta: Meta<typeof TabsMenu> = {

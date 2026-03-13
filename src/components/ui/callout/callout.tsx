@@ -1,4 +1,3 @@
-'use-client'
 import { Children, isValidElement } from 'react'
 import {
   AlertOctagon as DangerIcon,
@@ -7,12 +6,13 @@ import {
   Zap as TipIcon,
   AlertTriangle as WarningIcon,
 } from 'react-feather'
-import { tv, type VariantProps } from 'tailwind-variants'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { BulbIcon } from '~/assets/icons'
 
-const getStyles = tv({
+const calloutStyles = createStyles({
   slots: {
-    container: 'my-6 rounded-lg border-l-4 border-current px-7 py-5 md:-mx-7',
+    container:
+      'my-6 rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
     title: 'flex items-center gap-4 text-base',
     content: 'text-secondary prose-p:my-2',
     icon: '-ml-11 size-7 bg-primary [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
@@ -23,8 +23,7 @@ const getStyles = tv({
         container: 'bg-blue-600/5 text-blue-500',
       },
       note: {
-        container:
-          'bg-zinc-600/5 text-zinc-950 dark:bg-zinc-600/15 dark:text-zinc-50',
+        container: 'bg-zinc-600/5 text-primary dark:bg-zinc-600/15',
       },
       warning: {
         container: 'bg-yellow-600/5 text-yellow-400',
@@ -63,15 +62,9 @@ const getIconByType = (type?: CalloutType) => {
   }
 }
 
-export type CalloutType =
-  | 'tip'
-  | 'warning'
-  | 'danger'
-  | 'success'
-  | 'note'
-  | 'insight'
+type CalloutType = 'tip' | 'warning' | 'danger' | 'success' | 'note' | 'insight'
 
-interface CalloutProps extends VariantProps<typeof getStyles> {
+interface CalloutProps extends StylesProps<typeof calloutStyles> {
   className?: string
   type: CalloutType
   children: React.ReactNode
@@ -80,7 +73,7 @@ interface CalloutProps extends VariantProps<typeof getStyles> {
 function Callout(props: CalloutProps) {
   const { className = '', type, children, ...restProps } = props
 
-  const styles = getStyles({ type })
+  const styles = calloutStyles({ type })
 
   const Icon = getIconByType(type)
 
@@ -102,4 +95,4 @@ function Callout(props: CalloutProps) {
   )
 }
 
-export default Callout
+export { Callout, calloutStyles, type CalloutProps, type CalloutType }

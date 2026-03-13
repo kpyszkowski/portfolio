@@ -1,2 +1,10 @@
-export { default as HighlightedCode } from './highlighted-code'
-export { default as HighlightedCodeAsync } from './highlighted-code-async'
+export { HighlightedCode, type HighlightedCodeProps } from './highlighted-code'
+export {
+  HighlightedCodeAsync,
+  type HighlightedCodeAsyncProps,
+} from './highlighted-code-async'
+export {
+  HighlightedCodeTokens,
+  highlightedCodeTokensStyles,
+  type HighlightedCodeTokensProps,
+} from './highlighted-code-tokens'

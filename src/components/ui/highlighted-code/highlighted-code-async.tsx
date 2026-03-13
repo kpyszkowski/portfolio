@@ -1,4 +1,4 @@
-import HighlightedCodeTokens from '~/components/ui/highlighted-code/highlighted-code-tokens'
+import { HighlightedCodeTokens } from '~/components/ui/highlighted-code/highlighted-code-tokens'
 import { BundledLanguage, createCodeHighlighter } from '~/lib/code-highlighting'
 
 interface HighlightedCodeAsyncProps {
@@ -23,4 +23,4 @@ async function HighlightedCodeAsync(props: HighlightedCodeAsyncProps) {
   )
 }
 
-export default HighlightedCodeAsync
+export { HighlightedCodeAsync, type HighlightedCodeAsyncProps }

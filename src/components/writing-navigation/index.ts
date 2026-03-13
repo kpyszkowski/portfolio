@@ -1,3 +1,11 @@
-export { default as WritingNavigation } from './writing-navigation'
-export { default as WritingNavigationTrigger } from './writing-navigation-trigger'
-export type { WritingNavigationItem } from './writing-navigation'
+export {
+  WritingNavigation,
+  writingNavigationStyles,
+  WritingNavigationContext,
+  type WritingNavigationProps,
+  type WritingNavigationItem,
+} from './writing-navigation'
+export {
+  WritingNavigationTrigger,
+  type WritingNavigationTriggerProps,
+} from './writing-navigation-trigger'

@@ -1,7 +1,7 @@
 'use client'
 import { useLayoutEffect, useState } from 'react'
 import { TokensResult } from 'shiki'
-import HighlightedCodeTokens from '~/components/ui/highlighted-code/highlighted-code-tokens'
+import { HighlightedCodeTokens } from '~/components/ui/highlighted-code/highlighted-code-tokens'
 import { BundledLanguage } from '~/lib/code-highlighting'
 
 interface HighlightedCodeProps {
@@ -35,4 +35,4 @@ function HighlightedCode(props: HighlightedCodeProps) {
   )
 }
 
-export default HighlightedCode
+export { HighlightedCode, type HighlightedCodeProps }
