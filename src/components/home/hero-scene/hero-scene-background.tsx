@@ -105,7 +105,7 @@ function HeroSceneBackground(props: HeroSceneBackgroundProps) {
   const {
     speed: speedProp = 0.04,
     scale: scaleProp = 1.72,
-    threshold: thresholdProp = 0.06,
+    threshold: thresholdProp = 0,
     complexity: complexityProp = 0.02,
     lineSoftness: lineSoftnessProp = 0.5,
   } = props
