@@ -1,3 +1,4 @@
+import React from 'react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const windowCardContentStyles = createStyles({
@@ -7,10 +8,10 @@ const windowCardContentStyles = createStyles({
   variants: {
     variant: {
       translucent: {
-        container: 'bg-primary/86 dark:bg-primary/64',
+        container: 'bg-main/86 dark:bg-main/64',
       },
       solid: {
-        container: 'bg-primary dark:bg-secondary',
+        container: 'bg-main dark:bg-elevated',
       },
     },
   },
@@ -37,13 +38,18 @@ function WindowCardContent(props: WindowCardContentProps) {
 
   const styles = windowCardContentStyles({ variant })
 
+  const Tag = Component as React.ElementType<{
+    className?: string
+    children?: React.ReactNode
+  }>
+
   return (
-    <Component
+    <Tag
       className={styles.container({ className })}
       {...restProps}
     >
       {children}
-    </Component>
+    </Tag>
   )
 }
 

@@ -5,7 +5,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const signatureStyles = createStyles({
   slots: {
-    container: 'stroke-primary stroke-[0.5]',
+    container: 'stroke-main stroke-[0.5]',
   },
 })
 

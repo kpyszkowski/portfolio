@@ -10,9 +10,9 @@ const writingOutroStyles = createStyles({
     container: 'writing-outro-background mt-24 overflow-hidden',
     wrapper: 'relative mx-auto prose px-5 py-20',
     spotlight:
-      'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-secondary/50 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
+      'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-elevated/50 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
-      'text-justify text-base text-balance text-primary md:text-lg md:text-wrap',
+      'text-justify text-base text-balance text-main md:text-lg md:text-wrap',
     copyButton: 'inline-flex underline',
     signature: 'h-auto w-36',
   },

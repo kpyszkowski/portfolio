@@ -179,8 +179,8 @@ const componentStyles = createStyles({
   },
   variants: {
     variant: {
-      outline: { container: 'border-secondary border-2' },
-      ghost:   { container: 'hover:bg-secondary' },
+      outline: { container: 'border-elevated border-2' },
+      ghost:   { container: 'hover:bg-elevated' },
     },
     size: {
       sm: { container: 'px-3 py-1', label: 'text-sm/none' },
@@ -381,9 +381,9 @@ directly in component styles.
 
 | Category   | Tokens                                               |
 | ---------- | ---------------------------------------------------- |
-| Text       | `text-primary` `text-secondary` `text-tertiary`      |
-| Background | `bg-primary` `bg-secondary` `bg-tertiary`            |
-| Dark mode  | `dark:text-primary` `dark:bg-secondary` etc.         |
+| Text       | `text-main` `text-elevated` `text-highlight`      |
+| Background | `bg-main` `bg-elevated` `bg-highlight`            |
+| Dark mode  | `dark:text-main` `dark:bg-elevated` etc.         |
 
 Dark mode is driven by the `[data-theme=dark]` attribute via the `@custom-variant dark`
 declaration — use `dark:` Tailwind variants as usual.
@@ -457,6 +457,6 @@ Rules:
 - [ ] Single-file component is a flat `.tsx` file (no subdirectory); compound component uses a directory + `index.ts` barrel
 - [ ] `motion.create()` called at module scope (never inside render)
 - [ ] `forwardRef` used when DOM ref is needed; `displayName` always set
-- [ ] Only semantic theme tokens used (`text-primary`, `bg-secondary`, etc.) —
+- [ ] Only semantic theme tokens used (`text-main`, `bg-elevated`, etc.) —
       no raw palette values
 - [ ] Story file colocated at `<component>/<component>.stories.tsx`

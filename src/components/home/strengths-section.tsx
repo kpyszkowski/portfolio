@@ -9,14 +9,14 @@ const strengthsSectionStyles = createStyles({
     container: 'px-5 py-24 lg:py-32',
     inner: 'mx-auto max-w-5xl',
     heading:
-      'mb-10 text-xs font-medium tracking-widest text-tertiary uppercase',
+      'mb-10 text-xs font-medium tracking-widest text-highlight uppercase',
     grid: 'grid grid-cols-1 gap-6 md:grid-cols-2',
-    card: 'flex flex-col gap-4 rounded-2xl bg-secondary p-6 lg:p-8',
+    card: 'flex flex-col gap-4 rounded-2xl bg-elevated p-6 lg:p-8',
     cardIconWrapper:
-      'flex size-10 items-center justify-center rounded-xl bg-tertiary text-primary',
+      'flex size-10 items-center justify-center rounded-xl bg-highlight text-main',
     cardIcon: 'size-5',
-    cardHeading: 'text-base font-medium text-primary',
-    cardBody: 'text-sm leading-relaxed font-light text-secondary',
+    cardHeading: 'text-base font-medium text-main',
+    cardBody: 'text-sm leading-relaxed font-light text-elevated',
   },
 })
 

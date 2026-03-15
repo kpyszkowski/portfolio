@@ -8,11 +8,11 @@ const datedListStyles = createStyles({
     container:
       'flex flex-col divide-y divide-neutral-200 dark:divide-neutral-800',
     wrapper: 'flex flex-col items-baseline py-6 sm:flex-row sm:py-5',
-    year: 'font-mediun basis-1/4 text-xl text-tertiary select-none lg:basis-1/6',
+    year: 'font-mediun basis-1/4 text-xl text-highlight select-none lg:basis-1/6',
     list: 'group flex w-full flex-1 flex-col',
     item: 'flex flex-col py-5 transition-opacity group-hover:opacity-65 hover:!opacity-100 lg:flex-row lg:gap-12', // TODO: Find replacement for !important
     itemDate:
-      'mb-2 basis-1/4 text-sm whitespace-nowrap text-tertiary select-none lg:basis-1/5 lg:text-end lg:text-base',
+      'mb-2 basis-1/4 text-sm whitespace-nowrap text-highlight select-none lg:basis-1/5 lg:text-end lg:text-base',
     itemContent: 'flex-1',
   },
 })

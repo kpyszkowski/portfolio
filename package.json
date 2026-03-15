@@ -22,7 +22,10 @@
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "16.1.6",
     "@r4ai/remark-callout": "^0.6.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
     "@tailwindcss/postcss": "^4.1.10",
+    "@types/three": "^0.183.1",
     "clsx": "^2.1.1",
     "motion": "^11.16.1",
     "next": "16.1.6",
@@ -33,7 +36,9 @@
     "react-feather": "^2.0.10",
     "rehype-external-links": "^3.0.0",
     "tailwind-merge": "^2.5.5",
-    "tailwind-variants": "^0.3.0"
+    "tailwind-variants": "^0.3.0",
+    "three": "^0.183.2",
+    "three-text": "^0.4.11"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
@@ -65,6 +70,7 @@
     "eslint-plugin-storybook": "^0.11.1",
     "gray-matter": "^4.0.3",
     "lefthook": "^2.1.4",
+    "leva": "^0.10.1",
     "postcss": "^8.5.6",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",

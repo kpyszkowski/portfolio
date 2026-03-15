@@ -14,8 +14,8 @@ const calloutStyles = createStyles({
     container:
       'my-6 rounded-lg border-l-4 border-current px-7 py-5 neumorphism md:-mx-7',
     title: 'flex items-center gap-4 text-base',
-    content: 'text-secondary prose-p:my-2',
-    icon: '-ml-11 size-7 bg-primary [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
+    content: 'text-elevated prose-p:my-2',
+    icon: '-ml-11 size-7 bg-main [mask-image:radial-gradient(black_1rem,_transparent_1rem)] p-1.5',
   },
   variants: {
     type: {
@@ -23,7 +23,7 @@ const calloutStyles = createStyles({
         container: 'bg-blue-600/5 text-blue-500',
       },
       note: {
-        container: 'bg-zinc-600/5 text-primary dark:bg-zinc-600/15',
+        container: 'bg-zinc-600/5 text-main dark:bg-zinc-600/15',
       },
       warning: {
         container: 'bg-yellow-600/5 text-yellow-400',

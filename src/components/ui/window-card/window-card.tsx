@@ -11,9 +11,9 @@ const windowCardStyles = createStyles({
       'dark:backdrop-brightness-75',
     ],
     captionWrapper: 'm-0 flex items-baseline px-5 pt-4 pb-6 leading-6',
-    contentWrapper: 'divide-y divide-primary/8',
+    contentWrapper: 'divide-y divide-main/8',
     decorator: 'z-10 w-12',
-    label: 'flex-1 text-center text-xs text-primary',
+    label: 'flex-1 text-center text-xs text-main',
     captionSlot: 'ml-auto',
   },
 })

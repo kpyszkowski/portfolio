@@ -6,16 +6,16 @@ import { Tooltip } from '~/components/ui/tooltip'
 const inputStyles = createStyles({
   slots: {
     container: 'flex flex-col gap-2',
-    label: 'flex w-full items-center gap-2 text-sm text-primary',
+    label: 'flex w-full items-center gap-2 text-sm text-main',
     helpIcon: 'text- size-3.5',
     inputWrapper: [
-      'flex rounded bg-secondary/75 transition-all focus-within:bg-secondary hover:bg-secondary',
+      'flex rounded bg-elevated/75 transition-all focus-within:bg-elevated hover:bg-elevated',
       'dark:bg-neutral-600/75 dark:focus-within:bg-neutral-600 dark:hover:bg-neutral-600',
     ],
     input:
-      'peer flex-grow bg-transparent py-1 pl-3 text-sm outline-none placeholder:text-tertiary',
+      'peer flex-grow bg-transparent py-1 pl-3 text-sm outline-none placeholder:text-highlight',
     clearButton:
-      'visible p-1 text-tertiary transition-colors outline-none peer-placeholder-shown:invisible hover:text-neutral-50 focus-visible:text-neutral-50',
+      'visible p-1 text-highlight transition-colors outline-none peer-placeholder-shown:invisible hover:text-neutral-50 focus-visible:text-neutral-50',
     clearButtonIcon: 'mx-2 size-4',
   },
 })

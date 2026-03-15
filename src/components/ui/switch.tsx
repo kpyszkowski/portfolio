@@ -16,7 +16,7 @@ const switchStyles = createStyles({
       'size-4 rounded-full bg-neutral-50 shadow-[0_0_4px] shadow-neutral-600',
       'transition-all data-[checked]:translate-x-full',
     ],
-    label: 'text-sm text-primary',
+    label: 'text-sm text-main',
   },
 })
 

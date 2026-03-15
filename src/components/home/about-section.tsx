@@ -5,8 +5,9 @@ const aboutSectionStyles = createStyles({
   slots: {
     container: 'px-5 py-24 lg:py-32',
     inner: 'mx-auto max-w-3xl',
-    heading: 'mb-6 text-xs font-medium tracking-widest text-tertiary uppercase',
-    body: 'text-xl leading-relaxed font-extralight text-secondary lg:text-2xl',
+    heading:
+      'mb-6 text-xs font-medium tracking-widest text-highlight uppercase',
+    body: 'text-xl leading-relaxed font-extralight text-elevated lg:text-2xl',
   },
 })
 

@@ -1,5 +1,5 @@
 import localFont from 'next/font/local'
-import { Fira_Code } from 'next/font/google'
+import { Fira_Code, Figtree } from 'next/font/google'
 
 export const satoshiVariable = localFont({
   src: '../fonts/satoshi-variable.ttf',
@@ -12,6 +12,11 @@ export const firaCode = Fira_Code({
   variable: '--font-fira-code',
 })
 
-export const fontsClassName = [satoshiVariable, firaCode]
+export const figtree = Figtree({
+  subsets: ['latin'],
+  variable: '--font-figtree',
+})
+
+export const fontsClassName = [satoshiVariable, firaCode, figtree]
   .map((font) => font.variable)
   .join(' ')

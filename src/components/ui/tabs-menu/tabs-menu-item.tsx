@@ -8,13 +8,13 @@ const tabsMenuItemStyles = createStyles({
   slots: {
     wrapper: 'flex px-3.5 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
-    label: 'text-xs leading-4 text-primary md:text-sm',
-    highlight: 'absolute inset-0 -z-10 size-full bg-tertiary',
+    label: 'text-xs leading-4 text-main md:text-sm',
+    highlight: 'absolute inset-0 -z-10 size-full bg-highlight',
   },
   variants: {
     disabled: {
       true: {
-        label: 'text-tertiary',
+        label: 'text-highlight',
         highlight: 'bg-transparent',
         wrapper: 'cursor-not-allowed',
       },

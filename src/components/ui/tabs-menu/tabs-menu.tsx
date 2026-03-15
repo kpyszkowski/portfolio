@@ -11,9 +11,9 @@ import cn from '~/utils/cn'
 const tabsMenuStyles = createStyles({
   slots: {
     container:
-      'group bg-opacity-60 md:bg-opacity-75 relative inline-block overflow-hidden rounded-3xl bg-secondary neumorphism',
+      'group bg-opacity-60 md:bg-opacity-75 relative inline-block overflow-hidden rounded-3xl bg-elevated neumorphism',
     wrapper:
-      'flex items-center divide-x divide-tertiary/25 overflow-hidden p-2',
+      'flex items-center divide-x divide-highlight/25 overflow-hidden p-2',
     list: 'relative isolate inline-flex gap-1 md:gap-3',
   },
 })

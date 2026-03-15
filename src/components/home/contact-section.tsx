@@ -7,11 +7,12 @@ const contactSectionStyles = createStyles({
   slots: {
     container: 'px-5 py-24 lg:py-32',
     inner: 'mx-auto max-w-3xl',
-    heading: 'mb-4 text-xs font-medium tracking-widest text-tertiary uppercase',
-    body: 'mb-8 max-w-md text-lg leading-relaxed font-extralight text-secondary',
+    heading:
+      'mb-4 text-xs font-medium tracking-widest text-highlight uppercase',
+    body: 'mb-8 max-w-md text-lg leading-relaxed font-extralight text-elevated',
     email: 'mb-8 flex items-center gap-2',
-    emailAddress: 'text-base font-light text-primary',
-    links: 'group flex text-primary',
+    emailAddress: 'text-base font-light text-main',
+    links: 'group flex text-main',
     link: 'block p-3 transition-opacity group-hover:opacity-25 first:-ml-3 hover:!opacity-100 focus-visible:!opacity-100',
     linkIcon: 'size-5',
   },

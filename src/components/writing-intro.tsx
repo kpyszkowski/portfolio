@@ -20,17 +20,17 @@ const writingIntroStyles = createStyles({
     container:
       'grid grid-cols-2 grid-rows-[repeat(3,auto)] gap-x-12 gap-y-4 md:gap-y-6',
     datesWrapper: 'flex items-center gap-4 whitespace-nowrap md:gap-8',
-    publishDate: 'text-md text-tertiary md:text-2xl',
+    publishDate: 'text-md text-highlight md:text-2xl',
     modifiedDate: 'flex items-center gap-3 text-sm',
     modifiedIcon: 'size-3',
     shareButtonWrapper: 'justify-self-end',
     shareButtonIcon: 'size-4 justify-self-end md:size-5',
     title: 'col-span-2 mb-4 text-4xl/snug md:text-6xl/tight',
     author: 'flex items-center gap-3 md:gap-4',
-    authorImage: 'size-10 rounded-full bg-tertiary p-0.5 md:size-12',
-    authorName: 'text-sm text-tertiary md:text-base',
+    authorImage: 'size-10 rounded-full bg-highlight p-0.5 md:size-12',
+    authorName: 'text-sm text-highlight md:text-base',
     readingTime:
-      'flex items-center gap-2 justify-self-end text-sm text-tertiary',
+      'flex items-center gap-2 justify-self-end text-sm text-highlight',
     readingTimeIcon: 'size-4',
   },
 })

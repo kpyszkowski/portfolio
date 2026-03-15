@@ -7,15 +7,15 @@ const experienceSectionStyles = createStyles({
     container: 'px-5 py-24 lg:py-32',
     inner: 'mx-auto max-w-3xl',
     heading:
-      'mb-10 text-xs font-medium tracking-widest text-tertiary uppercase',
+      'mb-10 text-xs font-medium tracking-widest text-highlight uppercase',
     list: 'flex flex-col gap-10',
     item: 'grid grid-cols-1 gap-2 sm:grid-cols-[12rem_1fr] sm:gap-8',
     itemMeta: 'flex flex-col gap-1',
-    itemPeriod: 'text-xs font-light text-tertiary',
-    itemCompany: 'text-sm font-medium text-primary',
+    itemPeriod: 'text-xs font-light text-highlight',
+    itemCompany: 'text-sm font-medium text-main',
     itemContent: 'flex flex-col gap-1',
-    itemRole: 'text-base font-light text-primary',
-    itemDescription: 'text-sm leading-relaxed font-light text-secondary',
+    itemRole: 'text-base font-light text-main',
+    itemDescription: 'text-sm leading-relaxed font-light text-elevated',
   },
 })
 

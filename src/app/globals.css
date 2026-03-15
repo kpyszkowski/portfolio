@@ -13,32 +13,36 @@
 
 @theme {
   --font-mono: var(--font-fira-code, 'monospace');
+  --font-display: var(--font-figtree, 'system-ui');
 
-  --color-primary: var(--color-neutral-900);
-  --background-color-primary: var(--color-neutral-50);
+  --color-main: var(--color-neutral-900);
+  --background-color-main: var(--color-neutral-50);
 
-  --color-secondary: var(--color-neutral-700);
-  --background-color-secondary: var(--color-neutral-200);
+  --color-elevated: var(--color-neutral-700);
+  --background-color-elevated: var(--color-neutral-200);
 
-  --color-tertiary: var(--color-neutral-500);
-  --background-color-tertiary: var(--color-neutral-100);
+  --color-highlight: var(--color-neutral-500);
+  --background-color-highlight: var(--color-neutral-100);
 }
 
 @variant dark {
-  --color-primary: var(--color-neutral-50);
-  --background-color-primary: var(--color-neutral-900);
+  --color-main: var(--color-neutral-50);
+  --background-color-main: var(--color-neutral-900);
 
-  --color-secondary: var(--color-neutral-200);
-  --background-color-secondary: var(--color-neutral-800);
+  --color-elevated: var(--color-neutral-200);
+  --background-color-elevated: var(--color-neutral-800);
 
-  --color-tertiary: var(--color-neutral-400);
-  --background-color-tertiary: var(--color-neutral-700);
+  --color-highlight: var(--color-neutral-400);
+  --background-color-highlight: color-mix(in srgb, 
+    var(--background-color-elevated) 12%, 
+    var(--background-color-main)
+  );
 }
 
 body,
 .docs-story {
-  color: var(--color-primary);
-  background-color: var(--background-color-primary);
+  color: var(--color-main);
+  background-color: var(--background-color-main);
   font-family: var(--font-sans);
   letter-spacing: 0.016rem;
 }
@@ -54,28 +58,8 @@ body,
 }
 
 @layer utilities {
-  .header-background {
-    --line-color: var(--background-color-secondary);
-    --background-color: var(--background-color-primary);
-
-    backdrop-filter: blur(var(--blur-sm));
-    background-color: transparent;
-    background-image: linear-gradient(
-        0deg,
-        transparent --spacing(1.75),
-        var(--line-color)
-      ),
-      linear-gradient(90deg, transparent --spacing(1.75), var(--line-color)),
-      linear-gradient(to bottom, var(--background-color), transparent 50%);
-    background-size:
-      --spacing(2) --spacing(2),
-      --spacing(2) --spacing(2),
-      auto;
-    mask: linear-gradient(to bottom, var(--color-black) 50%, transparent 100%);
-  }
-
   .writing-outro-background {
-    --line-color: var(--background-color-secondary);
+    --line-color: var(--background-color-elevated);
 
     background-size: --spacing(8) --spacing(8);
     background-image: linear-gradient(
@@ -106,8 +90,8 @@ body,
 
   .window-card-background {
     background: linear-gradient(
-        var(--background-color-primary) 0%,
-        var(--background-color-secondary) 100%
+        var(--background-color-main) 0%,
+        var(--background-color-elevated) 100%
       ),
       linear-gradient(
         90deg,

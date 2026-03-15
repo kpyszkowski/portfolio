@@ -7,7 +7,7 @@ const sliderStyles = createStyles({
   slots: {
     container: 'flex touch-none flex-col select-none',
     sliderRoot: 'relative flex cursor-grab flex-wrap items-center',
-    label: 'block text-sm text-primary',
+    label: 'block text-sm text-main',
     track: 'relative h-1 rounded bg-neutral-300 dark:bg-neutral-50/25',
     range: 'absolute bg-orange-300',
     control: 'w-full py-5',

@@ -5,7 +5,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 const articleStyles = createStyles({
   slots: {
     container:
-      'mx-auto prose prose-sm prose-neutral md:prose-base dark:prose-invert prose-inline-code:rounded-md prose-inline-code:bg-tertiary prose-inline-code:px-1.5 prose-inline-code:py-0.5 prose-inline-code:font-medium prose-inline-code:before:hidden prose-inline-code:after:hidden',
+      'mx-auto prose prose-sm prose-neutral md:prose-base dark:prose-invert prose-inline-code:rounded-md prose-inline-code:bg-highlight prose-inline-code:px-1.5 prose-inline-code:py-0.5 prose-inline-code:font-medium prose-inline-code:before:hidden prose-inline-code:after:hidden',
   },
 })
 

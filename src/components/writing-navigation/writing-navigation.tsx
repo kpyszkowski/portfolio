@@ -19,16 +19,16 @@ const HUD_HEIGHT = 64 // px, height of the HUD
 const writingNavigationStyles = createStyles({
   slots: {
     container:
-      'fixed bottom-2 left-4 z-30 max-w-[calc(100%-32px)] overflow-hidden border border-neutral-200 bg-tertiary/85 shadow-md backdrop-blur-md md:bottom-4 dark:border-neutral-700 dark:bg-secondary/75',
+      'fixed bottom-2 left-4 z-30 max-w-[calc(100%-32px)] overflow-hidden border border-neutral-200 bg-highlight/85 shadow-md backdrop-blur-md md:bottom-4 dark:border-neutral-700 dark:bg-elevated/75',
     chaptersWrapper: 'px-4 py-3',
-    chaptersLabel: 'mb-2 text-xs text-tertiary uppercase',
+    chaptersLabel: 'mb-2 text-xs text-highlight uppercase',
     chaptersList: 'flex flex-col text-sm',
     chaptersListButton:
       'block w-full py-1 text-start transition-transform hover:translate-x-1 focus-visible:translate-x-1 active:translate-x-2',
     chaptersTriggerButton:
       'relative flex items-center gap-4 p-3 md:px-4 md:py-3',
     indicatorLabelsWrapper: 'flex flex-col gap-1 text-left whitespace-nowrap',
-    indicatorChapterLabel: 'text-xs text-tertiary uppercase',
+    indicatorChapterLabel: 'text-xs text-highlight uppercase',
     indicatorChapterName: 'text-sm',
   },
 })

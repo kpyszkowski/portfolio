@@ -6,11 +6,11 @@ import getFormattedDate from '~/utils/get-formatted-date'
 
 const footerStyles = createStyles({
   slots: {
-    container: 'mt-auto border-t border-current bg-primary text-primary/8',
+    container: 'mt-auto border-t border-current bg-main text-main/8',
     wrapper:
-      'mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 text-primary sm:flex-row',
+      'mx-auto flex w-full max-w-screen-lg flex-col-reverse items-center px-5 py-6 text-main sm:flex-row',
     decorator:
-      'flex flex-col items-end font-mono text-xs/relaxed text-tertiary',
+      'flex flex-col items-end font-mono text-xs/relaxed text-highlight',
     logo: 'order-last mx-auto mb-4 sm:order-none sm:mb-0',
   },
 })

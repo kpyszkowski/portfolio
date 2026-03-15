@@ -8,7 +8,7 @@ const progressStyles = createStyles({
     container: 'size-10 rotate-90',
     indicator: 'fill-none',
     indicatorForeground: 'stroke-orange-300',
-    indicatorBackground: 'stroke-tertiary/25',
+    indicatorBackground: 'stroke-highlight/25',
   },
   variants: {
     size: {

@@ -18,11 +18,11 @@ const buttonStyles = createStyles({
       solid: {
         container: 'group relative',
         wrapper:
-          'text-background relative overflow-hidden bg-primary transition-shadow group-hover:shadow-lg',
+          'text-background relative overflow-hidden bg-main transition-shadow group-hover:shadow-lg',
       },
       outline: {
         container:
-          '-m-0.5 border-2 border-secondary text-primary transition-colors outline-none',
+          '-m-0.5 border-2 border-elevated text-main transition-colors outline-none',
       },
     },
     size: {

@@ -6,9 +6,12 @@ import { TabsMenu } from '~/components/ui/tabs-menu'
 
 const headerStyles = createStyles({
   slots: {
-    container: 'sticky top-0 z-30 flex justify-center',
+    container: [
+      'fixed top-0 z-30 flex w-full justify-center',
+      'before:absolute before:inset-0 before:size-full before:bg-main/75 before:mask-b-from-25% before:backdrop-blur-sm',
+    ],
     menu: 'z-20 my-3 md:my-6',
-    background: 'header-background absolute inset-0 z-10 size-full',
+    background: 'absolute inset-0 z-10 size-full',
     logo: 'px-2 md:px-4',
   },
 })

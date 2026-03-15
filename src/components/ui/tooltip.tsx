@@ -7,7 +7,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 const tooltipStyles = createStyles({
   slots: {
     container:
-      'rounded-3xl bg-secondary/50 px-4 py-1 text-secondary ring-1 ring-neutral-300/50 backdrop-blur-sm ring-inset dark:bg-tertiary/50 dark:ring-neutral-600/50',
+      'rounded-3xl bg-elevated/50 px-4 py-1 text-elevated ring-1 ring-neutral-300/50 backdrop-blur-sm ring-inset dark:bg-highlight/50 dark:ring-neutral-600/50',
     arrow: '-m-px fill-neutral-200 dark:fill-neutral-700',
   },
   variants: {
