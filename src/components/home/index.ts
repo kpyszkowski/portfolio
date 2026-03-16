@@ -1,3 +1,4 @@
+export { HeroTransition } from './hero-transition'
 export {
   HeroSection,
   heroSectionStyles,

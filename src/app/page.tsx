@@ -1,7 +1,6 @@
 import { getWritingsMetadata } from '~/lib/writings'
 import {
-  HeroSection,
-  AboutSection,
+  HeroTransition,
   StrengthsSection,
   ProjectsSection,
   ExperienceSection,
@@ -17,8 +16,7 @@ export default async function Home() {
 
   return (
     <main>
-      <HeroSection />
-      <AboutSection />
+      <HeroTransition />
       <StrengthsSection />
       <ProjectsSection />
       <ExperienceSection />

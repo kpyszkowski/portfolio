@@ -45,7 +45,7 @@ function NameCharSlot(props: NameCharSlotProps) {
 
 const heroSectionStyles = createStyles({
   slots: {
-    container: 'relative flex h-svh flex-col items-center',
+    container: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
     content:
       'pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-2 items-end gap-8 px-12 pb-12',
@@ -61,10 +61,21 @@ const heroSectionStyles = createStyles({
 
 interface HeroSectionProps extends StylesProps<typeof heroSectionStyles> {
   className?: string
+  typographyOpacity?: MotionValue<number>
+  typographyFilter?: MotionValue<string>
+  sceneOpacity?: MotionValue<number>
+  groundScrollOpacity?: MotionValue<number>
 }
 
 function HeroSection(props: HeroSectionProps) {
-  const { className, ...restProps } = props
+  const {
+    className,
+    typographyOpacity,
+    typographyFilter,
+    sceneOpacity,
+    groundScrollOpacity,
+    ...restProps
+  } = props
   const styles = heroSectionStyles()
 
   const [wordIndex, setWordIndex] = useState(0)
@@ -110,8 +121,19 @@ function HeroSection(props: HeroSectionProps) {
       className={styles.container({ className })}
       {...restProps}
     >
-      <HeroScene className={styles.scene()} />
-      <div className={styles.content()}>
+      <motion.div
+        className={styles.scene()}
+        style={{ opacity: sceneOpacity }}
+      >
+        <HeroScene
+          className="absolute inset-0 h-full w-full"
+          groundScrollOpacity={groundScrollOpacity}
+        />
+      </motion.div>
+      <motion.div
+        className={styles.content()}
+        style={{ opacity: typographyOpacity, filter: typographyFilter }}
+      >
         <div className={styles.headingArea()}>
           <div className={styles.subtitle()}>
             <AnimatePresence
@@ -166,7 +188,7 @@ function HeroSection(props: HeroSectionProps) {
           craftsmanship meets purpose and ideas become experiences worth
           remembering.
         </p>
-      </div>
+      </motion.div>
     </section>
   )
 }

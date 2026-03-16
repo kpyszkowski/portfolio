@@ -2,6 +2,7 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { useRef, useMemo, useEffect } from 'react'
+import { type MotionValue } from 'motion/react'
 import * as THREE from 'three'
 
 const VERTEX_SHADER = /* glsl */ `
@@ -88,10 +89,11 @@ type CamControls = {
 
 interface HeroSceneGroundProps extends React.ComponentProps<'group'> {
   cam: CamControls
+  scrollOpacity?: MotionValue<number>
 }
 
 function HeroSceneGround(props: HeroSceneGroundProps) {
-  const { cam, ...restProps } = props
+  const { cam, scrollOpacity, ...restProps } = props
 
   const matRef = useRef<THREE.ShaderMaterial>(null)
   const { viewport } = useThree()
@@ -179,7 +181,7 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     u.uAmplitude.value = ground.amplitude
     u.uFrequency.value = ground.frequency
     u.uSpeed.value = ground.speed
-    u.uOpacity.value = ground.opacity
+    u.uOpacity.value = ground.opacity * (scrollOpacity?.get() ?? 1)
     // Derive world-unit fade distance from viewport so it stays consistent at any size
     u.uFadeDistance.value = state.viewport.width * 0.6 * ground.fadeEnd
     u.uFadeStrength.value = ground.fadeStrength

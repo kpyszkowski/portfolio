@@ -1,12 +1,16 @@
 'use client'
 import { Canvas, CanvasProps } from '@react-three/fiber'
 import { Leva, useControls } from 'leva'
+import { type MotionValue } from 'motion/react'
 import { HeroSceneModel } from '~/components/home/hero-scene/hero-scene-model'
 import { HeroSceneGround } from '~/components/home/hero-scene/hero-scene-ground'
 
-interface HeroSceneProps extends CanvasProps {}
+interface HeroSceneProps extends CanvasProps {
+  groundScrollOpacity?: MotionValue<number>
+}
 
 function HeroScene(props: HeroSceneProps) {
+  const { groundScrollOpacity, ...restProps } = props
   const cam = useControls('Camera', {
     posX: { value: -28.16, min: -50, max: 50, step: 0.5 },
     posY: { value: 5.12, min: -50, max: 50, step: 0.5 },
@@ -34,11 +38,12 @@ function HeroScene(props: HeroSceneProps) {
           near: -200,
           far: 400,
         }}
-        {...props}
+        {...restProps}
       >
         <HeroSceneGround
           renderOrder={0}
           cam={cam}
+          scrollOpacity={groundScrollOpacity}
         />
         <HeroSceneModel
           rotation={[0, Math.atan2(-28.16, 7.34), 0]}
