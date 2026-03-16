@@ -15,24 +15,26 @@
   --font-mono: var(--font-fira-code, 'monospace');
   --font-display: var(--font-figtree, 'system-ui');
 
-  --color-main: var(--color-neutral-900);
-  --background-color-main: var(--color-neutral-50);
+  --color-main: var(--color-stone-900);
+  --background-color-main: var(--color-stone-50);
 
-  --color-elevated: var(--color-neutral-700);
-  --background-color-elevated: var(--color-neutral-200);
+  --color-elevated: var(--color-stone-700);
+  --background-color-elevated: var(--color-stone-200);
 
-  --color-highlight: var(--color-neutral-500);
-  --background-color-highlight: var(--color-neutral-100);
+  --color-highlight: var(--color-stone-500);
+  --background-color-highlight: var(--color-stone-100);
+
+  --color-accent: var(--color-amber-400);
 }
 
 @variant dark {
-  --color-main: var(--color-neutral-50);
-  --background-color-main: var(--color-neutral-900);
+  --color-main: var(--color-stone-50);
+  --background-color-main: var(--color-stone-900);
 
-  --color-elevated: var(--color-neutral-200);
-  --background-color-elevated: var(--color-neutral-800);
+  --color-elevated: var(--color-stone-200);
+  --background-color-elevated: var(--color-stone-800);
 
-  --color-highlight: var(--color-neutral-400);
+  --color-highlight: var(--color-stone-400);
   --background-color-highlight: color-mix(in srgb, 
     var(--background-color-elevated) 12%, 
     var(--background-color-main)

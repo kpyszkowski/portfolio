@@ -23,6 +23,7 @@ const eslintConfig = defineConfig([
         },
       ],
       'path-alias/no-relative': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
   // Override default ignores of eslint-config-next.
