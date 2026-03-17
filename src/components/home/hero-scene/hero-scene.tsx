@@ -2,10 +2,11 @@
 import { Canvas, CanvasProps } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { type MotionValue } from 'motion/react'
-import { useState, useEffect } from 'react'
 import { HeroSceneModel } from '~/components/home/hero-scene/hero-scene-model'
 import { HeroSceneGround } from '~/components/home/hero-scene/hero-scene-ground'
+import { useTheme } from 'next-themes'
 
+// --bg-main from `globals.css`
 const BG_LIGHT = '#fafaf9'
 const BG_DARK = '#1c1917'
 
@@ -16,23 +17,7 @@ interface HeroSceneProps extends CanvasProps {
 function HeroScene(props: HeroSceneProps) {
   const { scrollYProgress, ...restProps } = props
 
-  const [bgColor, setBgColor] = useState(BG_LIGHT)
-
-  useEffect(() => {
-    const update = () =>
-      setBgColor(
-        document.documentElement.getAttribute('data-theme') === 'dark'
-          ? BG_DARK
-          : BG_LIGHT,
-      )
-    update()
-    const observer = new MutationObserver(update)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    })
-    return () => observer.disconnect()
-  }, [])
+  const { theme } = useTheme()
 
   const cam = useControls('Camera', {
     posX: { value: -28.16, min: -50, max: 50, step: 0.5 },
@@ -59,7 +44,7 @@ function HeroScene(props: HeroSceneProps) {
     >
       <color
         attach="background"
-        args={[bgColor]}
+        args={[theme === 'dark' ? BG_DARK : BG_LIGHT]}
       />
       <HeroSceneGround
         renderOrder={0}

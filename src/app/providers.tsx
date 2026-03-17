@@ -6,7 +6,10 @@ import type { ReactNode } from 'react'
 
 function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute="data-theme">
+    <ThemeProvider
+      attribute="data-theme"
+      enableSystem
+    >
       <ReactLenis root />
       <Leva
         collapsed
