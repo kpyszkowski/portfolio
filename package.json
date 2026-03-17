@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev --webpack",
     "start": "next start",
-    "format": "eslint --fix . --max-warnings=0",
+    "lint": "eslint . --max-warnings=0",
+    "format": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
