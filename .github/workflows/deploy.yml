@@ -8,7 +8,7 @@ on:
 
 jobs:
   check:
-    name: 🔍 Lint & Typecheck
+    name: Lint & Typecheck
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +33,7 @@ jobs:
         run: pnpm typecheck
 
   deploy-staging:
-    name: 🚀 Deploy to staging
+    name: Deploy to staging
     runs-on: ubuntu-latest
     needs: check
     if: github.ref_name == 'staging'
@@ -71,7 +71,7 @@ jobs:
           preCommands: pnpm opennextjs-cloudflare build
 
   deploy-production:
-    name: 🚀 Deploy to production
+    name: Deploy to production
     runs-on: ubuntu-latest
     needs: check
     if: github.ref_name == 'main'
