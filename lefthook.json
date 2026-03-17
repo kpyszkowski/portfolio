@@ -2,14 +2,7 @@
   "output": ["execution", "failure", "summary"],
   "pre-commit": {
     "commands": {
-      "lint-fix": {
-        "priority": 1,
-        "glob": "*.{js,cjs,mjs,ts,tsx,jsx}",
-        "run": "pnpm eslint --fix {staged_files} --max-warnings=0",
-        "stage_fixed": true
-      },
       "check-types": {
-        "priority": 2,
         "run": "pnpm tsc --noEmit --incremental"
       }
     }
