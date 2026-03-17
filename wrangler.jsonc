@@ -27,4 +27,22 @@
     //   "bucket_name": "<BUCKET_NAME>",
     // },
   ],
+  "env": {
+    "staging": {
+      "routes": [
+        {
+          "pattern": "staging.pyszkowski.dev",
+          "custom_domain": true
+        }
+      ]
+    },
+    "production": {
+      "routes": [
+        {
+          "pattern": "pyszkowski.dev",
+          "custom_domain": true
+        }
+      ]
+    }
+  }
 }
