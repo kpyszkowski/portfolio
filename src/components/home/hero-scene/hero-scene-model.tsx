@@ -1,23 +1,24 @@
 'use client'
 import { useFrame, useThree } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import { useEffect, useRef, useMemo } from 'react'
+import { Environment, Float, MeshTransmissionMaterial } from '@react-three/drei'
+import { useRef, useMemo } from 'react'
 import { useControls } from 'leva'
-import type { Mesh, MeshPhysicalMaterial } from 'three'
+import type { Group } from 'three'
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
+import { type MotionValue } from 'motion/react'
 import { SIGN_PATH } from '~/components/logo'
 
 interface HeroSceneModelProps extends React.ComponentProps<'group'> {
   scaleFactor?: number
+  scrollYProgress?: MotionValue<number>
 }
 
 function HeroSceneModel(props: HeroSceneModelProps) {
-  const { scaleFactor = 0.12, ...restProps } = props
+  const { scaleFactor = 0.12, scrollYProgress, ...restProps } = props
 
-  const meshRef = useRef<Mesh>(null)
-  const matRef = useRef<MeshPhysicalMaterial>(null)
-  const { width } = useThree((state) => state.viewport)
+  const groupRef = useRef<Group>(null)
+  const { width } = useThree((s) => s.viewport)
   const scale = width * scaleFactor
 
   const geometry = useMemo(() => {
@@ -46,53 +47,48 @@ function HeroSceneModel(props: HeroSceneModelProps) {
     return geo
   }, [])
 
-  const { posY, tiltX, tiltY, ior, roughness, thickness, transmission } =
-    useControls('Model', {
-      posY: { value: 0, min: -10, max: 10, step: 0.5 },
-      tiltX: { value: 0.46, min: 0, max: 1, step: 0.05 },
-      tiltY: { value: 0.96, min: 0, max: 1, step: 0.05 },
-      ior: { value: 1.36, min: 1, max: 3, step: 0.05 },
-      roughness: { value: 0.2, min: 0, max: 1, step: 0.05 },
-      thickness: { value: 0, min: 0, max: 3, step: 0.1 },
-      transmission: { value: 0, min: 0, max: 1, step: 0.05 },
-    })
-
-  const { keyIntensity } = useControls('Lights', {
-    keyIntensity: { value: 1, min: 0, max: 10, step: 0.1 },
+  const { posY, tiltX, tiltY } = useControls('Model', {
+    posY: { value: 0, min: -10, max: 10, step: 0.5 },
+    tiltX: { value: 0.46, min: 0, max: 1, step: 0.05 },
+    tiltY: { value: 0.96, min: 0, max: 1, step: 0.05 },
   })
 
-  const mouseRef = useRef({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1
-    }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [])
+  const {
+    color,
+    roughness,
+    thickness,
+    ior,
+    chromaticAberration,
+    resolution,
+    samples,
+  } = useControls('Material', {
+    color: '#ffffff',
+    roughness: { value: 0.18, min: 0, max: 1, step: 0.01 },
+    thickness: { value: 2, min: 0, max: 10, step: 0.1 },
+    ior: { value: 1.25, min: 1, max: 2.5, step: 0.05 },
+    chromaticAberration: { value: 0, min: 0, max: 1, step: 0.01 },
+    // Performance knobs — keep low
+    samples: { value: 8, min: 1, max: 16, step: 1 },
+    resolution: { value: 512, min: 64, max: 2048, step: 64 },
+  })
 
   useFrame((state) => {
-    if (!meshRef.current) return
+    const { x, y } = state.pointer
+    const scroll = scrollYProgress?.get() ?? 0
 
-    const floatY = Math.sin(state.clock.elapsedTime * 0.8) * 0.15
-    meshRef.current.position.y = floatY
+    if (groupRef.current) {
+      const scrollTilt = THREE.MathUtils.clamp(scroll / 0.5, 0, 1) * 0.6
+      const preFadeSpin = scroll * scroll * 3.0
 
-    const { x: mx, y: my } = mouseRef.current
+      const targetRotX =
+        THREE.MathUtils.clamp(-y * tiltX, -0.2, 0.2) + scrollTilt
+      const targetRotY =
+        THREE.MathUtils.clamp(x * tiltY, -0.3, 0.3) + preFadeSpin
 
-    // Clamped tilt — keeps model front-facing under heavy mouse movement
-    const targetRotY = THREE.MathUtils.clamp(mx * tiltY, -0.3, 0.3)
-    const targetRotX = THREE.MathUtils.clamp(-my * tiltX, -0.2, 0.2)
-    meshRef.current.rotation.y +=
-      (targetRotY - meshRef.current.rotation.y) * 0.05
-    meshRef.current.rotation.x +=
-      (targetRotX - meshRef.current.rotation.x) * 0.05
-
-    if (matRef.current) {
-      matRef.current.ior = ior
-      matRef.current.roughness = roughness
-      matRef.current.thickness = thickness
-      matRef.current.transmission = transmission
+      groupRef.current.rotation.x +=
+        (targetRotX - groupRef.current.rotation.x) * 0.05
+      groupRef.current.rotation.y +=
+        (targetRotY - groupRef.current.rotation.y) * 0.05
     }
   })
 
@@ -103,29 +99,35 @@ function HeroSceneModel(props: HeroSceneModelProps) {
     >
       <Environment
         preset="warehouse"
-        resolution={12}
+        resolution={64}
       />
-      <directionalLight
-        position={[2, 4, 3]}
-        intensity={keyIntensity}
-        color="#ffe8cc"
-      />
-      <mesh
-        ref={meshRef}
-        geometry={geometry}
-        scale={scale}
-      >
-        <meshPhysicalMaterial
-          ref={matRef}
-          color="#1a1a1a"
-          transmission={1}
-          roughness={0.18}
-          ior={1.5}
-          thickness={0.5}
-          envMapIntensity={1.5}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+      <group ref={groupRef}>
+        <Float
+          speed={1.96}
+          rotationIntensity={0}
+          floatIntensity={1.5}
+          floatingRange={[-0.78, 0.24]}
+        >
+          <mesh
+            geometry={geometry}
+            scale={scale}
+          >
+            <MeshTransmissionMaterial
+              samples={samples}
+              resolution={resolution}
+              transmission={1}
+              roughness={roughness}
+              thickness={thickness}
+              ior={ior}
+              color={color}
+              chromaticAberration={chromaticAberration}
+              anisotropy={0}
+              temporalDistortion={0}
+              side={THREE.DoubleSide}
+            />
+          </mesh>
+        </Float>
+      </group>
     </group>
   )
 }

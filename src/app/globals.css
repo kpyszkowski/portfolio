@@ -24,7 +24,7 @@
   --color-highlight: var(--color-stone-500);
   --background-color-highlight: var(--color-stone-100);
 
-  --color-accent: var(--color-amber-400);
+  --color-accent: var(--color-orange-200);
 }
 
 @variant dark {

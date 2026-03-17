@@ -1,16 +1,39 @@
 'use client'
 import { Canvas, CanvasProps } from '@react-three/fiber'
-import { Leva, useControls } from 'leva'
+import { useControls } from 'leva'
 import { type MotionValue } from 'motion/react'
+import { useState, useEffect } from 'react'
 import { HeroSceneModel } from '~/components/home/hero-scene/hero-scene-model'
 import { HeroSceneGround } from '~/components/home/hero-scene/hero-scene-ground'
 
+const BG_LIGHT = '#fafaf9'
+const BG_DARK = '#1c1917'
+
 interface HeroSceneProps extends CanvasProps {
-  groundScrollOpacity?: MotionValue<number>
+  scrollYProgress?: MotionValue<number>
 }
 
 function HeroScene(props: HeroSceneProps) {
-  const { groundScrollOpacity, ...restProps } = props
+  const { scrollYProgress, ...restProps } = props
+
+  const [bgColor, setBgColor] = useState(BG_LIGHT)
+
+  useEffect(() => {
+    const update = () =>
+      setBgColor(
+        document.documentElement.getAttribute('data-theme') === 'dark'
+          ? BG_DARK
+          : BG_LIGHT,
+      )
+    update()
+    const observer = new MutationObserver(update)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    })
+    return () => observer.disconnect()
+  }, [])
+
   const cam = useControls('Camera', {
     posX: { value: -28.16, min: -50, max: 50, step: 0.5 },
     posY: { value: 5.12, min: -50, max: 50, step: 0.5 },
@@ -22,36 +45,34 @@ function HeroScene(props: HeroSceneProps) {
   })
 
   return (
-    <>
-      <Leva
-        collapsed
-        hidden={process.env.NODE_ENV === 'production'}
-        flat
+    <Canvas
+      dpr={[1, 2]}
+      gl={{ antialias: true, alpha: false, stencil: false }}
+      orthographic
+      camera={{
+        position: [-28.16, 5.14, -18.24],
+        zoom: 48.5,
+        near: -200,
+        far: 400,
+      }}
+      {...restProps}
+    >
+      <color
+        attach="background"
+        args={[bgColor]}
       />
-      <Canvas
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true, stencil: false }}
-        orthographic
-        camera={{
-          position: [-28.16, 5.14, -18.24],
-          zoom: 48.5,
-          near: -200,
-          far: 400,
-        }}
-        {...restProps}
-      >
-        <HeroSceneGround
-          renderOrder={0}
-          cam={cam}
-          scrollOpacity={groundScrollOpacity}
-        />
-        <HeroSceneModel
-          rotation={[0, Math.atan2(-28.16, 7.34), 0]}
-          renderOrder={1}
-          scaleFactor={0.1}
-        />
-      </Canvas>
-    </>
+      <HeroSceneGround
+        renderOrder={0}
+        cam={cam}
+        scrollYProgress={scrollYProgress}
+      />
+      <HeroSceneModel
+        rotation={[0, Math.atan2(-28.16, 7.34), 0]}
+        renderOrder={1}
+        scaleFactor={0.1}
+        scrollYProgress={scrollYProgress}
+      />
+    </Canvas>
   )
 }
 

@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { fontsClassName } from '~/lib/fonts'
 import '~/app/globals.css'
-import { ThemeProvider } from 'next-themes'
 import { Header } from '~/components/header'
 import { Footer } from '~/components/footer'
+import { Providers } from '~/app/providers'
 
 export const metadata: Metadata = {
   title: 'Kamil Pyszkowski - Software Engineer',
@@ -50,13 +50,13 @@ export default function RootLayout({
       className={fontsClassName}
     >
       <body>
-        <ThemeProvider attribute="data-theme">
+        <Providers>
           <div className="flex min-h-screen flex-col">
             <Header />
             {children}
             <Footer />
           </div>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
