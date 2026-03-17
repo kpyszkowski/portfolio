@@ -1,9 +1,12 @@
 'use client'
-import { Canvas, CanvasProps } from '@react-three/fiber'
+import { Suspense, useMemo } from 'react'
+import { Canvas, type CanvasProps } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { type MotionValue } from 'motion/react'
 import { HeroSceneModel } from '~/components/home/hero-scene/hero-scene-model'
 import { HeroSceneGround } from '~/components/home/hero-scene/hero-scene-ground'
+import { getSceneParams } from '~/components/home/hero-scene/hero-scene-tier'
+import { useDeviceTier } from '~/hooks/use-device-tier'
 import { useTheme } from 'next-themes'
 
 // --bg-main from `globals.css`
@@ -17,7 +20,9 @@ interface HeroSceneProps extends CanvasProps {
 function HeroScene(props: HeroSceneProps) {
   const { scrollYProgress, ...restProps } = props
 
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
+  const tier = useDeviceTier()
+  const params = useMemo(() => getSceneParams(tier), [tier])
 
   const cam = useControls('Camera', {
     posX: { value: -28.16, min: -50, max: 50, step: 0.5 },
@@ -31,7 +36,10 @@ function HeroScene(props: HeroSceneProps) {
 
   return (
     <Canvas
-      dpr={[1, 2]}
+      style={{
+        background: 'transparent',
+      }}
+      dpr={params.dpr}
       gl={{ antialias: true, alpha: false, stencil: false }}
       orthographic
       camera={{
@@ -44,19 +52,23 @@ function HeroScene(props: HeroSceneProps) {
     >
       <color
         attach="background"
-        args={[theme === 'dark' ? BG_DARK : BG_LIGHT]}
+        args={[resolvedTheme === 'dark' ? BG_DARK : BG_LIGHT]}
       />
-      <HeroSceneGround
-        renderOrder={0}
-        cam={cam}
-        scrollYProgress={scrollYProgress}
-      />
-      <HeroSceneModel
-        rotation={[0, Math.atan2(-28.16, 7.34), 0]}
-        renderOrder={1}
-        scaleFactor={0.1}
-        scrollYProgress={scrollYProgress}
-      />
+      <Suspense fallback={null}>
+        <HeroSceneGround
+          renderOrder={0}
+          cam={cam}
+          scrollYProgress={scrollYProgress}
+          params={params}
+        />
+        <HeroSceneModel
+          rotation={[0, Math.atan2(-28.16, 7.34), 0]}
+          renderOrder={1}
+          scaleFactor={0.1}
+          scrollYProgress={scrollYProgress}
+          params={params}
+        />
+      </Suspense>
     </Canvas>
   )
 }

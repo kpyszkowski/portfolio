@@ -12,7 +12,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 const textFillStyles = createStyles({
   slots: {
     container: 'relative block',
-    ghost: 'opacity-50',
+    ghost: 'opacity-45',
     measure: 'pointer-events-none absolute inset-0 opacity-0 select-none',
     fill: 'pointer-events-none absolute inset-0',
     line: 'block whitespace-nowrap',

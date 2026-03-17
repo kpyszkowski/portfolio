@@ -7,15 +7,20 @@ import type { Group } from 'three'
 import * as THREE from 'three'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { type MotionValue } from 'motion/react'
-import { SIGN_PATH } from '~/components/logo'
+import { useTheme } from 'next-themes'
+import { type SceneParams } from '~/components/home/hero-scene/hero-scene-tier'
+
+const SIGN_PATH =
+  'M13.05 0S9.93.002 6.73 1.232c-1.601.616-3.263 1.549-4.56 3.026C.875 5.735-.001 7.778 0 10.289c.003 3.826 2.27 6.307 4.38 7.611 2.111 1.305 4.206 1.657 4.206 1.657a1.418 1.418 0 0 0 1.639-1.155 1.418 1.418 0 0 0-1.155-1.638s-1.606-.291-3.199-1.276c-1.593-.984-3.033-2.437-3.035-5.2-.002-1.885.579-3.15 1.465-4.16.886-1.01 2.134-1.743 3.445-2.247a15.497 15.497 0 0 1 3.899-.922v11.77a1.418 1.418 0 0 0 2.402 1.017l13.742-13.31a1.418 1.418 0 0 0 .033-2.004A1.418 1.418 0 0 0 25.816.4L14.48 11.38V1.419A1.418 1.418 0 0 0 13.05 0m4.65 14.584a1.418 1.418 0 0 0-1.022.371l-4.875 4.48a1.418 1.418 0 0 0-.46 1.046v10.101A1.418 1.418 0 0 0 12.763 32a1.418 1.418 0 0 0 1.418-1.418v-9.478l3.37-3.098 8.208 8.967a1.418 1.418 0 0 0 2.002.088 1.418 1.418 0 0 0 .09-2.002l-9.166-10.016a1.418 1.418 0 0 0-.985-.459M5.2 22.144c-1.074 0-2.06.454-2.68 1.151-.62.697-.898 1.573-.898 2.428s.279 1.728.898 2.425c.62.698 1.606 1.15 2.68 1.15 1.075 0 2.06-.452 2.68-1.15.62-.697.896-1.57.896-2.425 0-.855-.276-1.73-.896-2.428-.62-.697-1.605-1.15-2.68-1.15m0 2.837c.366 0 .459.086.559.199.1.112.183.318.183.543 0 .225-.083.43-.183.543-.1.112-.193.199-.559.199-.365 0-.46-.087-.56-.2a.854.854 0 0 1-.182-.542c0-.225.081-.43.182-.543.1-.113.195-.2.56-.2'
 
 interface HeroSceneModelProps extends React.ComponentProps<'group'> {
   scaleFactor?: number
   scrollYProgress?: MotionValue<number>
+  params: SceneParams
 }
 
 function HeroSceneModel(props: HeroSceneModelProps) {
-  const { scaleFactor = 0.12, scrollYProgress, ...restProps } = props
+  const { scaleFactor = 0.12, scrollYProgress, params, ...restProps } = props
 
   const groupRef = useRef<Group>(null)
   const { width } = useThree((s) => s.viewport)
@@ -53,24 +58,18 @@ function HeroSceneModel(props: HeroSceneModelProps) {
     tiltY: { value: 0.96, min: 0, max: 1, step: 0.05 },
   })
 
-  const {
-    color,
-    roughness,
-    thickness,
-    ior,
-    chromaticAberration,
-    resolution,
-    samples,
-  } = useControls('Material', {
-    color: '#ffffff',
-    roughness: { value: 0.18, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 2, min: 0, max: 10, step: 0.1 },
-    ior: { value: 1.25, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0, min: 0, max: 1, step: 0.01 },
-    // Performance knobs — keep low
-    samples: { value: 8, min: 1, max: 16, step: 1 },
-    resolution: { value: 512, min: 64, max: 2048, step: 64 },
-  })
+  const { resolvedTheme } = useTheme()
+
+  const { color, roughness, thickness, ior, chromaticAberration } = useControls(
+    'Material',
+    {
+      color: resolvedTheme === 'light' ? '#dbd3c7' : '#e59927',
+      roughness: { value: 0.02, min: 0, max: 1, step: 0.01 },
+      thickness: { value: 10, min: 0, max: 10, step: 0.1 },
+      ior: { value: 1.12, min: 1, max: 2.5, step: 0.05 },
+      chromaticAberration: { value: 0.02, min: 0, max: 1, step: 0.01 },
+    },
+  )
 
   useFrame((state) => {
     const { x, y } = state.pointer
@@ -92,6 +91,36 @@ function HeroSceneModel(props: HeroSceneModelProps) {
     }
   })
 
+  const mesh = (
+    <mesh
+      geometry={geometry}
+      scale={scale}
+    >
+      {params.transmission.enabled ? (
+        <MeshTransmissionMaterial
+          samples={params.transmission.samples}
+          resolution={params.transmission.resolution}
+          transmission={1}
+          roughness={roughness}
+          thickness={thickness}
+          ior={ior}
+          color={color}
+          chromaticAberration={chromaticAberration}
+          anisotropy={0}
+          temporalDistortion={0}
+          side={THREE.DoubleSide}
+        />
+      ) : (
+        <meshStandardMaterial
+          color={color}
+          metalness={0.3}
+          roughness={0.4}
+          side={THREE.DoubleSide}
+        />
+      )}
+    </mesh>
+  )
+
   return (
     <group
       {...restProps}
@@ -99,34 +128,21 @@ function HeroSceneModel(props: HeroSceneModelProps) {
     >
       <Environment
         preset="warehouse"
-        resolution={64}
+        resolution={params.environment.resolution}
       />
       <group ref={groupRef}>
-        <Float
-          speed={1.96}
-          rotationIntensity={0}
-          floatIntensity={1.5}
-          floatingRange={[-0.78, 0.24]}
-        >
-          <mesh
-            geometry={geometry}
-            scale={scale}
+        {params.float ? (
+          <Float
+            speed={1.96}
+            rotationIntensity={0}
+            floatIntensity={1.5}
+            floatingRange={[-0.78, 0.24]}
           >
-            <MeshTransmissionMaterial
-              samples={samples}
-              resolution={resolution}
-              transmission={1}
-              roughness={roughness}
-              thickness={thickness}
-              ior={ior}
-              color={color}
-              chromaticAberration={chromaticAberration}
-              anisotropy={0}
-              temporalDistortion={0}
-              side={THREE.DoubleSide}
-            />
-          </mesh>
-        </Float>
+            {mesh}
+          </Float>
+        ) : (
+          mesh
+        )}
       </group>
     </group>
   )

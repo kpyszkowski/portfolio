@@ -19,12 +19,18 @@
   --background-color-main: var(--color-stone-50);
 
   --color-elevated: var(--color-stone-700);
-  --background-color-elevated: var(--color-stone-200);
+  --background-color-elevated: color-mix(in srgb,
+    var(--color-stone-300) 12%,
+    var(--color-stone-100)
+  );
 
   --color-highlight: var(--color-stone-500);
-  --background-color-highlight: var(--color-stone-100);
+  --background-color-highlight: var(--color-stone-200);
 
-  --color-accent: var(--color-orange-200);
+  --color-accent: color-mix(in srgb,
+    var(--color-stone-400) 50%,
+    var(--color-orange-400)
+  );
 }
 
 @variant dark {
@@ -35,10 +41,12 @@
   --background-color-elevated: var(--color-stone-800);
 
   --color-highlight: var(--color-stone-400);
-  --background-color-highlight: color-mix(in srgb, 
-    var(--background-color-elevated) 12%, 
+  --background-color-highlight: color-mix(in srgb,
+    var(--background-color-elevated) 12%,
     var(--background-color-main)
   );
+
+  --color-accent: var(--color-orange-300);
 }
 
 body,

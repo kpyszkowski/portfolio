@@ -9,7 +9,7 @@ const badgeStyles = createStyles({
   variants: {
     color: {
       neutral: {
-        container: 'bg-highlight text-elevated',
+        container: 'bg-elevated text-elevated',
       },
       green: {
         container: 'bg-green-500 text-green-200',

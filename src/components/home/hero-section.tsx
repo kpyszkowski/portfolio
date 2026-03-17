@@ -1,10 +1,11 @@
 'use client'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useTransform, useScroll } from 'motion/react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { HeroScene } from '~/components/home/hero-scene/hero-scene'
 import { TextReveal } from '~/components/ui/text-reveal'
 import { TextCycle } from '~/components/ui/text-cycle'
+import { PageLoader } from '~/components/page-loader'
 
 const heroSectionStyles = createStyles({
   slots: {
@@ -18,7 +19,7 @@ const heroSectionStyles = createStyles({
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
     heading:
-      'flex flex-col font-display text-[7vw]/none tracking-normal text-transparent select-none [-webkit-text-stroke:1.5px_var(--color-accent)]',
+      'flex flex-col font-display text-[7vw]/none font-semibold tracking-normal text-transparent select-none [-webkit-text-stroke:1.5px_var(--color-accent)]',
     paragraph: 'font-sans text-2xl/relaxed text-elevated',
   },
 })
@@ -30,6 +31,8 @@ interface HeroSectionProps extends StylesProps<typeof heroSectionStyles> {
 function HeroSection(props: HeroSectionProps) {
   const { className, ...restProps } = props
   const styles = heroSectionStyles()
+
+  const [isReady, setIsReady] = useState(false)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
@@ -62,10 +65,21 @@ function HeroSection(props: HeroSectionProps) {
                 mode="word"
                 exitProgress={exitProgress}
                 stagger={false}
+                ready={isReady}
               />
               <h1 className={styles.heading()}>
-                <TextReveal exitProgress={exitProgress}>Kamil</TextReveal>
-                <TextReveal exitProgress={exitProgress}>Pyszkowski</TextReveal>
+                <TextReveal
+                  exitProgress={exitProgress}
+                  ready={isReady}
+                >
+                  Kamil
+                </TextReveal>
+                <TextReveal
+                  exitProgress={exitProgress}
+                  ready={isReady}
+                >
+                  Pyszkowski
+                </TextReveal>
               </h1>
             </div>
             <TextReveal
@@ -73,6 +87,7 @@ function HeroSection(props: HeroSectionProps) {
               mode="word"
               syncLines
               exitProgress={exitProgress}
+              ready={isReady}
             >
               Building products at the intersection of design and engineering,
               where craftsmanship meets purpose and ideas become experiences
@@ -81,6 +96,7 @@ function HeroSection(props: HeroSectionProps) {
           </div>
         </section>
       </div>
+      {!isReady && <PageLoader onReady={() => setIsReady(true)} />}
     </div>
   )
 }

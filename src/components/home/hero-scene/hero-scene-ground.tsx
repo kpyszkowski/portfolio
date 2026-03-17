@@ -4,6 +4,7 @@ import { useControls } from 'leva'
 import { useRef, useMemo, useEffect } from 'react'
 import { type MotionValue } from 'motion/react'
 import * as THREE from 'three'
+import { type SceneParams } from '~/components/home/hero-scene/hero-scene-tier'
 
 const VERTEX_SHADER = /* glsl */ `
   uniform float uTime;
@@ -85,10 +86,11 @@ type CamControls = {
 interface HeroSceneGroundProps extends React.ComponentProps<'group'> {
   cam: CamControls
   scrollYProgress?: MotionValue<number>
+  params: SceneParams
 }
 
 function HeroSceneGround(props: HeroSceneGroundProps) {
-  const { cam, scrollYProgress, ...restProps } = props
+  const { cam, scrollYProgress, params, ...restProps } = props
 
   const matRef = useRef<THREE.ShaderMaterial>(null)
   const groupRef = useRef<THREE.Group>(null)
@@ -110,8 +112,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     posX: { value: 0, min: -50, max: 50, step: 0.5 },
     posY: { value: -6.5, min: -30, max: 10, step: 0.5 },
     posZ: { value: 0, min: -50, max: 50, step: 0.5 },
-    cellSize: { value: 2, min: 0.1, max: 10, step: 0.1 },
-    xSegs: { value: 120, min: 4, max: 300, step: 4 },
+    cellSize: { value: params.ground.cellSize, min: 0.1, max: 10, step: 0.1 },
+    xSegs: { value: params.ground.xSegs, min: 4, max: 300, step: 4 },
     amplitude: { value: 1.6, min: 0, max: 6, step: 0.05 },
     frequency: { value: 0.12, min: 0.01, max: 4, step: 0.01 },
     speed: { value: 0.12, min: 0, max: 2, step: 0.01 },

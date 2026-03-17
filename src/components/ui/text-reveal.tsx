@@ -101,6 +101,8 @@ interface TextRevealProps extends StylesProps<typeof textRevealStyles> {
   exitProgress?: MotionValue<number>
   /** Whether units stagger their exit (default true) */
   exitStagger?: boolean
+  /** Gate entrance animation — when false, holds hidden until it flips to true */
+  ready?: boolean
 }
 
 function TextReveal(props: TextRevealProps) {
@@ -113,6 +115,7 @@ function TextReveal(props: TextRevealProps) {
     syncLines = false,
     exitProgress,
     exitStagger = true,
+    ready,
   } = props
 
   const styles = textRevealStyles()
@@ -142,7 +145,7 @@ function TextReveal(props: TextRevealProps) {
   const staggerDelayRef = useRef(staggerDelay)
 
   useEffect(() => {
-    if (!isInView) return
+    if (!isInView || ready === false) return
 
     if (!syncLinesRef.current) {
       setAnimateState('visible')
@@ -163,7 +166,7 @@ function TextReveal(props: TextRevealProps) {
 
     setDelays(computed)
     setAnimateState('visible')
-  }, [isInView])
+  }, [isInView, ready])
 
   let animateIdx = 0
 

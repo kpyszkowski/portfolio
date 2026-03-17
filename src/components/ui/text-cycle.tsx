@@ -22,7 +22,12 @@ interface TextCycleProps
   extends StylesProps<typeof textCycleStyles>,
     Pick<
       TextRevealProps,
-      'mode' | 'delay' | 'staggerDelay' | 'exitProgress' | 'exitStagger'
+      | 'mode'
+      | 'delay'
+      | 'staggerDelay'
+      | 'exitProgress'
+      | 'exitStagger'
+      | 'ready'
     > {
   className?: string
   words: readonly string[] | string[]
@@ -41,6 +46,7 @@ function TextCycle(props: TextCycleProps) {
     stagger = true,
     exitProgress,
     exitStagger,
+    ready,
   } = props
 
   const styles = textCycleStyles()
@@ -76,6 +82,7 @@ function TextCycle(props: TextCycleProps) {
             staggerDelay={staggerDelay}
             exitProgress={exitProgress}
             exitStagger={stagger ? exitStagger : false}
+            ready={ready}
           >
             {words[index]}
           </TextReveal>
