@@ -25,8 +25,9 @@ function HeroSceneModel(props: HeroSceneModelProps) {
   const groupRef = useRef<Group>(null)
   const { width, height } = useThree((s) => s.viewport)
 
-  const scaleBase = Math.max(width, height)
-  const scale = scaleBase * scaleFactor
+  // On landscape, height wins (capped by wider viewport).
+  // On portrait mobile, width is narrow so width * boost caps it proportionally.
+  const scale = Math.min(width * 1.4, height) * scaleFactor
 
   const geometry = useMemo(() => {
     const loader = new SVGLoader()

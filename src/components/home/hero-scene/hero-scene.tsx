@@ -63,7 +63,7 @@ function HeroScene(props: HeroSceneProps) {
         <HeroSceneModel
           rotation={[0, Math.atan2(-28.16, 7.34), 0]}
           renderOrder={1}
-          scaleFactor={0.1}
+          scaleFactor={0.14}
           scrollYProgress={scrollYProgress}
           params={params}
         />
