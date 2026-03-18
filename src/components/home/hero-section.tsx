@@ -14,13 +14,13 @@ const heroSectionStyles = createStyles({
     inner: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
     content:
-      'pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-2 items-end gap-8 px-12 pb-12',
-    headingArea: 'flex flex-col gap-4',
+      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col gap-8 px-12 pb-12 md:flex-row md:items-end',
+    headingArea: 'flex flex-1 flex-col gap-4',
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
     heading:
-      'flex flex-col font-display text-[7vw]/none font-semibold tracking-normal text-transparent select-none [-webkit-text-stroke:1.5px_var(--color-accent)]',
-    paragraph: 'font-sans text-2xl/relaxed text-elevated',
+      'flex flex-col font-display text-[clamp(3.5rem,7vw,7rem)]/none font-semibold tracking-normal text-transparent select-none [-webkit-text-stroke:1.5px_var(--color-accent)]',
+    paragraph: 'font-sans text-elevated md:basis-1/2 md:text-2xl/relaxed',
   },
 })
 
@@ -56,6 +56,7 @@ function HeroSection(props: HeroSectionProps) {
               scrollYProgress={scrollYProgress}
             />
           </div>
+
           <div className={styles.content()}>
             <div className={styles.headingArea()}>
               <TextCycle
@@ -96,6 +97,7 @@ function HeroSection(props: HeroSectionProps) {
           </div>
         </section>
       </div>
+
       {!isReady && <PageLoader onReady={() => setIsReady(true)} />}
     </div>
   )

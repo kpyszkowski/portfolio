@@ -23,8 +23,10 @@ function HeroSceneModel(props: HeroSceneModelProps) {
   const { scaleFactor = 0.12, scrollYProgress, params, ...restProps } = props
 
   const groupRef = useRef<Group>(null)
-  const { width } = useThree((s) => s.viewport)
-  const scale = width * scaleFactor
+  const { width, height } = useThree((s) => s.viewport)
+
+  const scaleBase = Math.max(width, height)
+  const scale = scaleBase * scaleFactor
 
   const geometry = useMemo(() => {
     const loader = new SVGLoader()
@@ -71,12 +73,12 @@ function HeroSceneModel(props: HeroSceneModelProps) {
     },
   )
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const { x, y } = state.pointer
     const scroll = scrollYProgress?.get() ?? 0
 
     if (groupRef.current) {
-      const scrollTilt = THREE.MathUtils.clamp(scroll / 0.5, 0, 1) * 0.6
+      const scrollTilt = THREE.MathUtils.clamp(scroll / 0.125, 0, 1) * 0.25
       const preFadeSpin = scroll * scroll * 3.0
 
       const targetRotX =
@@ -88,6 +90,9 @@ function HeroSceneModel(props: HeroSceneModelProps) {
         (targetRotX - groupRef.current.rotation.x) * 0.05
       groupRef.current.rotation.y +=
         (targetRotY - groupRef.current.rotation.y) * 0.05
+
+      // Continuous idle rotation so the model is always visibly spinning
+      groupRef.current.rotation.y += delta * 0.3
     }
   })
 

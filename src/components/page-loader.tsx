@@ -12,16 +12,12 @@ const pageLoaderStyles = createStyles({
     panel: 'absolute inset-0 flex items-center justify-center bg-main',
     inner: 'flex w-full max-w-sm flex-col gap-3 px-4',
     header: 'flex items-center justify-between',
-    percentage: 'text-highlight tabular-nums',
+    percentage: 'one text-highlight tabular-nums',
     track: 'relative h-px w-full overflow-hidden bg-elevated',
     fill: 'absolute inset-y-0 left-0 w-full origin-left bg-[var(--color-main)]',
-    hint: 'font-sans text-xs/snug text-highlight',
+    hint: 'block font-sans text-xs/snug text-highlight md:hidden',
   },
 })
-
-const isMobile =
-  typeof navigator !== 'undefined' &&
-  /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
 
 interface PageLoaderProps {
   onReady: () => void
@@ -80,11 +76,10 @@ function PageLoader(props: PageLoaderProps) {
               }}
             />
           </div>
-          {isMobile && (
-            <p className={styles.hint()}>
-              Disable low power mode for best experience
-            </p>
-          )}
+
+          <p className={styles.hint()}>
+            Disable low power mode for best experience
+          </p>
         </div>
       </motion.div>
     </div>
