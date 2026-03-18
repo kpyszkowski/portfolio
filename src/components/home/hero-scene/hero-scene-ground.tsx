@@ -8,7 +8,7 @@ import { type SceneParams } from '~/components/home/hero-scene/hero-scene-tier'
 import { useTheme } from 'next-themes'
 
 const LIGHT_COLOR = '#e7e5e4'
-const DARK_COLOR = '#95888b'
+const DARK_COLOR = '#bab5b6'
 
 const VERTEX_SHADER = /* glsl */ `
   uniform float uTime;
@@ -128,7 +128,6 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     fadeEnd: { value: 1, min: 0, max: 1, step: 0.01 },
     fadeStrength: { value: 1.96, min: 0.1, max: 5, step: 0.1 },
     opacity: { value: 1, min: 0, max: 1, step: 0.01 },
-    color: groundColor,
   })
 
   const geometry = useMemo(() => {
@@ -200,7 +199,7 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     u.uFrequency.value = ground.frequency
     u.uSpeed.value = ground.speed
     u.uFadeStrength.value = ground.fadeStrength
-    u.uColor.value.set(ground.color)
+    u.uColor.value.set(groundColor)
 
     const scroll = scrollYProgress?.get() ?? 0
     const vignetteRaw = THREE.MathUtils.clamp(scroll, 0, 1)

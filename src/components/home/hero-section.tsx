@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react'
-import { useTransform, useScroll } from 'motion/react'
+import { useTransform, useScroll, useInView } from 'motion/react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { HeroScene } from '~/components/home/hero-scene/hero-scene'
 import { TextReveal } from '~/components/ui/text-reveal'
@@ -36,6 +36,7 @@ function HeroSection(props: HeroSectionProps) {
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
+  const isInView = useInView(containerRef)
 
   const exitProgress = useTransform(scrollYProgress, [0, 0.2], [0, 1])
 
@@ -51,10 +52,12 @@ function HeroSection(props: HeroSectionProps) {
           className={styles.inner()}
         >
           <div className={styles.scene()}>
-            <HeroScene
-              className="absolute inset-0 h-full w-full"
-              scrollYProgress={scrollYProgress}
-            />
+            {isInView && (
+              <HeroScene
+                className="absolute inset-0 h-full w-full"
+                scrollYProgress={scrollYProgress}
+              />
+            )}
           </div>
 
           <div className={styles.content()}>
