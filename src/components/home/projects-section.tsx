@@ -8,16 +8,15 @@ import { projectsContent } from '~/content/home'
 const projectsSectionStyles = createStyles({
   slots: {
     container: 'px-5 py-24 lg:py-32',
-    inner: 'mx-auto max-w-5xl',
+    wrapper: 'mx-auto max-w-screen-xl',
     heading:
       'mb-10 text-xs font-medium tracking-widest text-highlight uppercase',
-    list: 'flex flex-col divide-y divide-elevated',
-    item: 'flex flex-col gap-3 py-8 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-6',
-    itemMeta: 'flex flex-col gap-2',
-    itemName: 'text-lg font-light text-main',
-    itemDescription: 'max-w-md text-sm font-light text-elevated',
-    itemTags: 'flex flex-wrap gap-1.5',
-    itemActions: 'mt-1 shrink-0',
+    list: 'flex flex-col',
+    item: 'flex flex-col gap-2 border-b border-(--background-color-elevated) py-6 sm:flex-row sm:items-end sm:py-12',
+    itemHeading: 'grow text-lg font-medium text-main md:text-xl',
+    itemContent: 'text-sm text-elevated sm:basis-1/2 md:basis-3/8 md:text-lg',
+    itemActions: 'flex basis-2/8 items-center justify-end gap-4',
+    itemTags: 'mb-4 flex flex-wrap gap-2',
   },
 })
 
@@ -35,7 +34,7 @@ function ProjectsSection(props: ProjectsSectionProps) {
       className={styles.container({ className })}
       {...restProps}
     >
-      <div className={styles.inner()}>
+      <div className={styles.wrapper()}>
         <h2 className={styles.heading()}>{projectsContent.heading}</h2>
 
         <ul className={styles.list()}>
@@ -45,29 +44,32 @@ function ProjectsSection(props: ProjectsSectionProps) {
                 key={id}
                 className={styles.item()}
               >
-                <div className={styles.itemMeta()}>
-                  <h3 className={styles.itemName()}>{name}</h3>
-                  <p className={styles.itemDescription()}>{description}</p>
+                <h3 className={styles.itemHeading()}>{name}</h3>
+
+                <div className={styles.itemContent()}>
                   <div className={styles.itemTags()}>
                     {tags.map((tag) => (
                       <Badge key={tag}>{tag}</Badge>
                     ))}
                   </div>
+
+                  <p>{description}</p>
                 </div>
 
-                {href && (
-                  <div className={styles.itemActions()}>
+                <div className={styles.itemActions()}>
+                  {href && (
                     <Button
                       href={href}
                       isExternal
+                      variant="solid"
                       size="sm"
                       icon={ArrowUpRight}
                       iconPosition="right"
                     >
                       View
                     </Button>
-                  </div>
-                )}
+                  )}
+                </div>
               </li>
             ),
           )}

@@ -34,15 +34,18 @@
   --font-display: var(--font-figtree, 'system-ui');
 
   --color-main: var(--color-stone-900);
+  --border-main: var(--color-stone-900);
   --background-color-main: var(--color-stone-50);
 
   --color-elevated: var(--color-stone-700);
+  --border-elevated: var(--color-stone-700);
   --background-color-elevated: color-mix(in srgb,
     var(--color-stone-300) 12%,
     var(--color-stone-100)
   );
 
   --color-highlight: var(--color-stone-500);
+  --border-highlight: var(--color-stone-500);
   --background-color-highlight: var(--color-stone-200);
 
   --color-accent: color-mix(in srgb,
@@ -58,12 +61,15 @@
 
 @variant dark {
   --color-main: var(--color-stone-50);
+  --border-main: var(--color-stone-50);
   --background-color-main: var(--color-stone-900);
 
   --color-elevated: var(--color-stone-200);
+  --border-elevated: var(--color-stone-200);
   --background-color-elevated: var(--color-stone-800);
 
   --color-highlight: var(--color-stone-400);
+  --border-highlight: var(--color-stone-400);
   --background-color-highlight: color-mix(in srgb,
     var(--background-color-elevated) 12%,
     var(--background-color-main)

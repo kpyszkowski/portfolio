@@ -4,7 +4,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 const badgeStyles = createStyles({
   slots: {
     container:
-      'bg-opacity-10 dark:bg-opacity-25 inline-block rounded-2xl px-4 py-0.5 text-xs whitespace-nowrap neumorphism backdrop-blur-sm sm:py-1',
+      'bg-opacity-10 dark:bg-opacity-25 inline-block rounded-2xl px-4 py-0.5 text-xs font-medium whitespace-nowrap neumorphism backdrop-blur-sm sm:py-1',
   },
   variants: {
     color: {

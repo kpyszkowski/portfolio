@@ -20,7 +20,7 @@ const aboutSectionStyles = createStyles({
     wrapper: 'mx-auto max-w-3xl',
     heading:
       'mb-6 text-xs font-medium tracking-widest text-highlight uppercase',
-    body: 'text-xl leading-relaxed font-extralight text-elevated lg:text-2xl',
+    body: 'text-xl leading-relaxed text-elevated lg:text-2xl',
     signature: 'mt-12 h-auto w-36',
   },
 })

@@ -14,7 +14,7 @@ import { strengthsContent } from '~/content/home'
 const strengthsSectionStyles = createStyles({
   slots: {
     container: 'px-5 py-24 lg:py-32',
-    inner: 'mx-auto max-w-5xl',
+    inner: 'mx-auto max-w-screen-xl',
     heading:
       'mb-10 text-xs font-medium tracking-widest text-highlight uppercase',
     grid: 'relative grid grid-cols-1 content-stretch gap-6 md:grid-cols-2',
@@ -22,12 +22,12 @@ const strengthsSectionStyles = createStyles({
     cardGlow:
       'pointer-events-none absolute -top-66 -left-66 size-132 bg-radial from-accent-glow from-0% to-transparent to-50%',
     cardWrapper:
-      'relative flex h-full flex-col gap-4 rounded-2xl bg-elevated/96 p-6 lg:p-8',
+      'relative flex h-full flex-col rounded-2xl bg-elevated/96 p-6 lg:p-12',
     cardIconWrapper:
-      'flex size-10 items-center justify-center rounded-xl bg-highlight text-main',
+      'mb-6 flex size-10 items-center justify-center rounded-xl bg-highlight text-main',
     cardIcon: 'size-5 text-accent',
-    cardHeading: 'text-base font-medium text-main',
-    cardBody: 'text leading-relaxed font-light text-elevated',
+    cardHeading: 'mb-4 text-base font-medium text-main md:text-xl',
+    cardBody: 'leading-relaxed text-elevated md:text-lg',
   },
 })
 

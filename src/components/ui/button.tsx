@@ -1,10 +1,7 @@
 'use client'
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react'
 import Link from 'next/link'
-import { CSSProperties } from 'react'
 import { Icon } from 'react-feather'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
-import cn from '~/utils/cn'
 
 const buttonStyles = createStyles({
   slots: {
@@ -16,9 +13,9 @@ const buttonStyles = createStyles({
   variants: {
     variant: {
       solid: {
-        container: 'group relative',
-        wrapper:
-          'text-background relative overflow-hidden bg-main transition-shadow group-hover:shadow-lg',
+        container:
+          'relative bg-elevated hover:shadow-lg hover:brightness-125 active:brightness-150',
+        wrapper: 'relative overflow-hidden text-main transition-all',
       },
       outline: {
         container:
@@ -27,19 +24,19 @@ const buttonStyles = createStyles({
     },
     size: {
       sm: {
-        container: 'rounded-3xl px-6 py-2',
+        container: 'rounded-3xl',
         content: 'gap-3 text-sm font-medium',
         icon: '-mx-1.5 size-3.5',
         wrapper: 'rounded-2xl px-6 py-2',
       },
       md: {
-        container: 'rounded-3xl px-8 py-2.5',
+        container: 'rounded-3xl',
         content: 'gap-4 text-base font-medium',
         icon: '-mx-2 size-4',
         wrapper: 'rounded-3xl px-8 py-2.5',
       },
       lg: {
-        container: 'rounded-[2rem] px-10 py-3',
+        container: 'rounded-[2rem]',
         content: 'gap-6 text-lg font-medium',
         icon: '-mx-3 size-5',
         wrapper: 'rounded-[2rem] px-10 py-3',
@@ -58,13 +55,6 @@ const buttonStyles = createStyles({
   },
   compoundVariants: [
     {
-      variant: 'solid',
-      size: ['sm', 'md', 'lg'],
-      class: {
-        container: 'rounded-none p-0',
-      },
-    },
-    {
       variant: 'outline',
       size: 'sm',
       class: {
@@ -78,12 +68,6 @@ const buttonStyles = createStyles({
     iconPosition: 'left',
   },
 })
-
-const SPRING_OPTIONS = { stiffness: 100, damping: 8 }
-
-const MotionButton = motion.create('button')
-const MotionLink = motion.create(Link)
-const MotionAnchor = motion.create('a')
 
 interface ButtonProps extends StylesProps<typeof buttonStyles> {
   className?: string
@@ -109,62 +93,6 @@ function Button(props: ButtonProps) {
 
   const styles = buttonStyles({ variant, size, iconPosition })
 
-  const xOffsetFactor = useMotionValue(0)
-  const yOffsetFactor = useMotionValue(0)
-  const zPosition = useMotionValue(0)
-
-  const smoothX = useSpring(xOffsetFactor, SPRING_OPTIONS)
-  const smoothY = useSpring(yOffsetFactor, SPRING_OPTIONS)
-  const smoothZPosition = useSpring(zPosition, SPRING_OPTIONS)
-
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], [8, -8])
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-8, 8])
-
-  const content = (
-    <div className={styles.content()}>
-      {label}
-      {IconComponent && <IconComponent className={styles.icon()} />}
-    </div>
-  )
-
-  if (variant === 'solid') {
-    const SolidComponent = href
-      ? isExternal
-        ? MotionAnchor
-        : MotionLink
-      : MotionButton
-
-    const handleMouseMove = (event: React.MouseEvent) => {
-      const rect = event.currentTarget.getBoundingClientRect()
-      xOffsetFactor.set((event.clientX - rect.left) / rect.width - 0.5)
-      yOffsetFactor.set((event.clientY - rect.top) / rect.height - 0.5)
-    }
-
-    return (
-      <SolidComponent
-        className={cn(className, styles.container())}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => zPosition.set(24)}
-        onMouseLeave={() => {
-          xOffsetFactor.set(0)
-          yOffsetFactor.set(0)
-          zPosition.set(0)
-        }}
-        style={{ perspective: 1000 } as CSSProperties}
-        href={href}
-        target={href && isExternal ? '_blank' : undefined}
-        {...restProps}
-      >
-        <motion.div
-          className={styles.wrapper()}
-          style={{ rotateX, rotateY, z: smoothZPosition } as CSSProperties}
-        >
-          {content}
-        </motion.div>
-      </SolidComponent>
-    )
-  }
-
   const LinkComponent = isExternal ? 'a' : Link
   const Component = href ? LinkComponent : 'button'
 
@@ -175,7 +103,12 @@ function Button(props: ButtonProps) {
       target={href && isExternal ? '_blank' : undefined}
       {...restProps}
     >
-      {content}
+      <div className={styles.wrapper()}>
+        <div className={styles.content()}>
+          {label}
+          {IconComponent && <IconComponent className={styles.icon()} />}
+        </div>
+      </div>
     </Component>
   )
 }

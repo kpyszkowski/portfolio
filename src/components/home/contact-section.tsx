@@ -9,9 +9,9 @@ const contactSectionStyles = createStyles({
     inner: 'mx-auto max-w-3xl',
     heading:
       'mb-4 text-xs font-medium tracking-widest text-highlight uppercase',
-    body: 'mb-8 max-w-md text-lg leading-relaxed font-extralight text-elevated',
+    body: 'mb-8 max-w-md text-lg leading-relaxed text-elevated',
     email: 'mb-8 flex items-center gap-2',
-    emailAddress: 'text-base font-light text-main',
+    emailAddress: 'text-base text-main',
     links: 'group flex text-main',
     link: 'block p-3 transition-opacity group-hover:opacity-25 first:-ml-3 hover:!opacity-100 focus-visible:!opacity-100',
     linkIcon: 'size-5',

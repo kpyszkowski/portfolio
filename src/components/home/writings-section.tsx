@@ -10,7 +10,7 @@ const writingsSectionStyles = createStyles({
     inner: 'mx-auto max-w-3xl',
     header: 'mb-2 flex flex-col gap-2',
     heading: 'text-xs font-medium tracking-widest text-highlight uppercase',
-    body: 'text-sm font-light text-elevated',
+    body: 'text-sm text-elevated',
     tile: 'my-8 border-y border-elevated py-6',
     footer: 'flex',
   },

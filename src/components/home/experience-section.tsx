@@ -11,11 +11,11 @@ const experienceSectionStyles = createStyles({
     list: 'flex flex-col gap-10',
     item: 'grid grid-cols-1 gap-2 sm:grid-cols-[12rem_1fr] sm:gap-8',
     itemMeta: 'flex flex-col gap-1',
-    itemPeriod: 'text-xs font-light text-highlight',
+    itemPeriod: 'text-xs text-highlight',
     itemCompany: 'text-sm font-medium text-main',
     itemContent: 'flex flex-col gap-1',
-    itemRole: 'text-base font-light text-main',
-    itemDescription: 'text-sm leading-relaxed font-light text-elevated',
+    itemRole: 'text-base text-main',
+    itemDescription: 'text-sm leading-relaxed text-elevated',
   },
 })
 
