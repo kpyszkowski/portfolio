@@ -5,6 +5,10 @@ import { useRef, useMemo, useEffect } from 'react'
 import { type MotionValue } from 'motion/react'
 import * as THREE from 'three'
 import { type SceneParams } from '~/components/home/hero-scene/hero-scene-tier'
+import { useTheme } from 'next-themes'
+
+const LIGHT_COLOR = '#e7e5e4'
+const DARK_COLOR = '#95888b'
 
 const VERTEX_SHADER = /* glsl */ `
   uniform float uTime;
@@ -81,6 +85,7 @@ type CamControls = {
   tiltX: number
   tiltY: number
   tiltZ: number
+  mobileLookAtY: number
 }
 
 interface HeroSceneGroundProps extends React.ComponentProps<'group'> {
@@ -95,6 +100,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
   const matRef = useRef<THREE.ShaderMaterial>(null)
   const groupRef = useRef<THREE.Group>(null)
   const { viewport, size: canvasSize } = useThree()
+  const { resolvedTheme } = useTheme()
+  const groundColor = resolvedTheme === 'light' ? LIGHT_COLOR : DARK_COLOR
 
   const mouseRef = useRef({ x: 0, y: 0 })
   const rotZRef = useRef(0)
@@ -110,30 +117,30 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
 
   const ground = useControls('Ground', {
     posX: { value: 0, min: -50, max: 50, step: 0.5 },
-    posY: { value: -14.5, min: -30, max: 10, step: 0.5 },
+    posY: { value: -6.5, min: -30, max: 10, step: 0.5 },
     posZ: { value: 0, min: -50, max: 50, step: 0.5 },
     cellSize: { value: params.ground.cellSize, min: 0.1, max: 10, step: 0.1 },
+    mobileCellSize: { value: 1, min: 0.1, max: 10, step: 0.1 },
     xSegs: { value: params.ground.xSegs, min: 4, max: 300, step: 4 },
-    amplitude: { value: 2.4, min: 0, max: 6, step: 0.05 },
+    amplitude: { value: 1.6, min: 0, max: 6, step: 0.05 },
     frequency: { value: 0.12, min: 0.01, max: 4, step: 0.01 },
     speed: { value: 0.12, min: 0, max: 2, step: 0.01 },
     fadeEnd: { value: 1, min: 0, max: 1, step: 0.01 },
     fadeStrength: { value: 1.96, min: 0.1, max: 5, step: 0.1 },
     opacity: { value: 1, min: 0, max: 1, step: 0.01 },
+    color: groundColor,
   })
 
   const geometry = useMemo(() => {
-    // viewport.width is computed with the initial (pre-scaled) zoom, so correct
-    // it using the same zoom-scale formula applied in useFrame.
-    const zoomScale = Math.min(1, canvasSize.width / 1920)
-    const effectiveViewportWidth = viewport.width / zoomScale
-    const size = effectiveViewportWidth * 2
+    const isMobile = canvasSize.width < 768
+    const activeCellSize = isMobile ? ground.mobileCellSize : ground.cellSize
+    const size = Math.max(viewport.width, viewport.height) * 2
     const half = size / 2
-    const rows = Math.round(size / ground.cellSize)
+    const rows = Math.round(size / activeCellSize)
     const verts: number[] = []
 
     for (let r = 0; r <= rows; r++) {
-      const z = -half + r * ground.cellSize
+      const z = -half + r * activeCellSize
       for (let c = 0; c < ground.xSegs; c++) {
         const x1 = -half + (c / ground.xSegs) * size
         const x2 = -half + ((c + 1) / ground.xSegs) * size
@@ -147,7 +154,7 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
       new THREE.BufferAttribute(new Float32Array(verts), 3),
     )
     return geo
-  }, [ground.cellSize, ground.xSegs, viewport.width, canvasSize.width])
+  }, [ground.cellSize, ground.mobileCellSize, ground.xSegs, viewport.width, viewport.height, canvasSize.width])
 
   const uniforms = useMemo(
     () => ({
@@ -167,17 +174,7 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
 
   useFrame((state, delta) => {
     const { x: mx, y: my } = mouseRef.current
-
-    // Scale camera to maintain consistent world-unit coverage across screen sizes.
-    // 1920px is the reference width at which cam.zoom was tuned.
-    const canvasWidth = state.gl.domElement.clientWidth
-    const zoomScale = Math.min(1, canvasWidth / 1920)
-
-    // On narrow viewports (portrait mobile), blend the camera X offset toward
-    // center so the scene is not asymmetrically cropped.
-    const camX = cam.posX * zoomScale
-
-    const targetX = camX - mx * cam.tiltX
+    const targetX = cam.posX - mx * cam.tiltX
     const targetY = cam.posY + my * cam.tiltY
     const targetZ = cam.posZ + mx * cam.tiltZ
 
@@ -185,8 +182,9 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     state.camera.position.x += (targetX - state.camera.position.x) * f
     state.camera.position.y += (targetY - state.camera.position.y) * f
     state.camera.position.z += (targetZ - state.camera.position.z) * f
-    state.camera.lookAt(0, 0, 0)
-    ;(state.camera as THREE.OrthographicCamera).zoom = cam.zoom * zoomScale
+    const isMobile = state.gl.domElement.clientWidth < 768
+    state.camera.lookAt(0, isMobile ? cam.mobileLookAtY : 0, 0)
+    ;(state.camera as THREE.OrthographicCamera).zoom = cam.zoom
     state.camera.updateProjectionMatrix()
 
     if (!matRef.current) return
@@ -195,6 +193,7 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     u.uFrequency.value = ground.frequency
     u.uSpeed.value = ground.speed
     u.uFadeStrength.value = ground.fadeStrength
+    u.uColor.value.set(ground.color)
 
     const scroll = scrollYProgress?.get() ?? 0
     const vignetteRaw = THREE.MathUtils.clamp(scroll, 0, 1)

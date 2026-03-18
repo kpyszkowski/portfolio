@@ -117,9 +117,11 @@ function HeroSceneModel(props: HeroSceneModelProps) {
         />
       ) : (
         <meshStandardMaterial
-          color={color}
-          metalness={0.3}
-          roughness={0.4}
+          color={resolvedTheme === 'light' ? '#f8f0e0' : '#1a0e06'}
+          transparent
+          opacity={0.72}
+          roughness={0.05}
+          metalness={0.15}
           side={THREE.DoubleSide}
         />
       )}

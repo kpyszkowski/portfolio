@@ -32,6 +32,7 @@ function HeroScene(props: HeroSceneProps) {
     tiltX: { value: 4, min: 0, max: 10, step: 0.05 },
     tiltY: { value: 0, min: 0, max: 20, step: 0.1 },
     tiltZ: { value: 2, min: 0, max: 10, step: 0.1 },
+    mobileLookAtY: { value: -1.5, min: -20, max: 0, step: 0.5 },
   })
 
   return (
@@ -45,8 +46,6 @@ function HeroScene(props: HeroSceneProps) {
       camera={{
         position: [-28.16, 5.14, -18.24],
         zoom: 48.5,
-        near: -200,
-        far: 400,
       }}
       {...restProps}
     >
