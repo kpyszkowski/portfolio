@@ -14,7 +14,7 @@ const heroSectionStyles = createStyles({
     inner: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
     content:
-      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col gap-8 px-12 pb-12 md:flex-row md:items-end',
+      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col gap-8 p-6 md:flex-row md:items-end md:p-12',
     headingArea: 'flex flex-1 flex-col gap-4',
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
