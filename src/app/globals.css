@@ -7,6 +7,24 @@
 
 /* TODO: Update components to use theme tokens */
 
+@property --glow-opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --glow-x {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: -1000px;
+}
+
+@property --glow-y {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: -1000px;
+}
+
 @theme inline {
   --font-sans: var(--font-satoshi, 'system-ui');
 }
@@ -30,6 +48,11 @@
   --color-accent: color-mix(in srgb,
     var(--color-stone-400) 50%,
     var(--color-orange-400)
+  );
+
+  --color-accent-glow: color-mix(in srgb,
+    var(--color-accent) 55%,
+    var(--background-color-highlight)
   );
 }
 
@@ -58,6 +81,10 @@ body,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+svg {
+  shape-rendering: geometricPrecision;
 }
 
 @utility neumorphism {
