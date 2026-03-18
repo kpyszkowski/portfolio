@@ -52,12 +52,11 @@ function HeroSection(props: HeroSectionProps) {
           className={styles.inner()}
         >
           <div className={styles.scene()}>
-            {isInView && (
-              <HeroScene
-                className="absolute inset-0 h-full w-full"
-                scrollYProgress={scrollYProgress}
-              />
-            )}
+            <HeroScene
+              className="absolute inset-0 h-full w-full"
+              scrollYProgress={scrollYProgress}
+              frameloop={isInView ? 'always' : 'never'}
+            />
           </div>
 
           <div className={styles.content()}>

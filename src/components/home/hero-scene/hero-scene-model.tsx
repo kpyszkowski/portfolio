@@ -93,6 +93,7 @@ function HeroSceneModel(props: HeroSceneModelProps) {
   useFrame((state, delta) => {
     const { x, y } = state.pointer
     const scroll = scrollYProgress?.get() ?? 0
+    const clampedDelta = Math.min(delta, 1 / 30)
 
     if (groupRef.current) {
       const scrollTilt = THREE.MathUtils.clamp(scroll / 0.125, 0, 1) * 0.25
@@ -109,7 +110,7 @@ function HeroSceneModel(props: HeroSceneModelProps) {
         (targetRotY - groupRef.current.rotation.y) * 0.05
 
       // Continuous idle rotation so the model is always visibly spinning
-      groupRef.current.rotation.y += delta * 0.3
+      groupRef.current.rotation.y += clampedDelta * 0.3
     }
   })
 
