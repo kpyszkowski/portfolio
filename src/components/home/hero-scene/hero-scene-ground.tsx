@@ -154,7 +154,14 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
       new THREE.BufferAttribute(new Float32Array(verts), 3),
     )
     return geo
-  }, [ground.cellSize, ground.mobileCellSize, ground.xSegs, viewport.width, viewport.height, canvasSize.width])
+  }, [
+    ground.cellSize,
+    ground.mobileCellSize,
+    ground.xSegs,
+    viewport.width,
+    viewport.height,
+    canvasSize.width,
+  ])
 
   const uniforms = useMemo(
     () => ({
