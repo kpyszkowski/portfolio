@@ -5,7 +5,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const buttonStyles = createStyles({
   slots: {
-    container: 'inline-block',
+    container: 'inline-block transition-all',
     content: 'flex items-center whitespace-nowrap',
     icon: 'text-current',
     wrapper: '',
@@ -14,8 +14,8 @@ const buttonStyles = createStyles({
     variant: {
       solid: {
         container:
-          'relative bg-elevated hover:shadow-lg hover:brightness-125 active:brightness-150',
-        wrapper: 'relative overflow-hidden text-main transition-all',
+          'relative bg-elevated hover:brightness-90 active:brightness-85 dark:hover:brightness-110 dark:active:brightness-115',
+        wrapper: 'relative overflow-hidden text-main',
       },
       outline: {
         container:

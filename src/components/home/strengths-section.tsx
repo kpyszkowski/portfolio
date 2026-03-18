@@ -15,8 +15,7 @@ const strengthsSectionStyles = createStyles({
   slots: {
     container: 'px-5 py-24 lg:py-32',
     inner: 'mx-auto max-w-screen-xl',
-    heading:
-      'mb-10 text-xs font-medium tracking-widest text-highlight uppercase',
+    heading: 'mb-10 font-medium tracking-widest text-highlight uppercase',
     grid: 'relative grid grid-cols-1 content-stretch gap-6 md:grid-cols-2',
     card: 'relative p-px [clip-path:inset(0_0_0_0_round_1rem)]',
     cardGlow:

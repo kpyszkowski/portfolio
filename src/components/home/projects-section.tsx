@@ -9,10 +9,9 @@ const projectsSectionStyles = createStyles({
   slots: {
     container: 'px-5 py-24 lg:py-32',
     wrapper: 'mx-auto max-w-screen-xl',
-    heading:
-      'mb-10 text-xs font-medium tracking-widest text-highlight uppercase',
+    heading: 'mb-10 font-medium tracking-widest text-highlight uppercase',
     list: 'flex flex-col',
-    item: 'flex flex-col gap-2 border-b border-(--background-color-elevated) py-6 sm:flex-row sm:items-end sm:py-12',
+    item: 'flex flex-col gap-2 border-b border-(--background-color-highlight) py-6 sm:flex-row sm:items-end sm:py-12',
     itemHeading: 'grow text-lg font-medium text-main md:text-xl',
     itemContent: 'text-sm text-elevated sm:basis-1/2 md:basis-3/8 md:text-lg',
     itemActions: 'flex basis-2/8 items-center justify-end gap-4',
