@@ -47,6 +47,7 @@ function Logo(props: LogoProps) {
     <svg
       className={styles.container({ className })}
       viewBox="0 0 32 32"
+      shapeRendering="geometricPrecision"
       {...restProps}
     >
       <path

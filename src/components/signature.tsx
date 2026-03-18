@@ -72,6 +72,7 @@ function Signature(props: SignatureProps) {
       width="255.324"
       height="148.626"
       viewBox="0 0 67.555 39.324"
+      shapeRendering="geometricPrecision"
       ref={ref}
       {...restProps}
     >
