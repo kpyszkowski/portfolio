@@ -8,7 +8,7 @@ import { type SceneParams } from '~/components/home/hero-scene/hero-scene-tier'
 import { useTheme } from 'next-themes'
 
 const LIGHT_COLOR = '#e7e5e4'
-const DARK_COLOR = '#bab5b6'
+const DARK_COLOR = '#978f87'
 
 const VERTEX_SHADER = /* glsl */ `
   uniform float uTime;
