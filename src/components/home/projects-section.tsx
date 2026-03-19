@@ -1,5 +1,5 @@
 'use client'
-import { ArrowUpRight, Code } from 'react-feather'
+import { ArrowUpRight, Code, Info } from 'react-feather'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
@@ -26,7 +26,10 @@ const projectsSectionStyles = createStyles({
     itemActions: 'z-20 flex basis-2/8 gap-4 md:flex-col md:items-end',
     itemTags: 'mb-6 flex flex-wrap gap-2',
     previewContainer:
-      'pointer-events-none fixed top-0 left-0 z-10 -mx-6 aspect-video h-48 -translate-x-full -translate-y-1/2 overflow-hidden',
+      'pointer-events-none fixed top-0 left-0 z-10 m-8 aspect-video h-56 -translate-full overflow-hidden',
+    previewHint:
+      'absolute right-0 bottom-0 left-0 z-10 flex items-center gap-2 p-3 text-xs font-semibold text-black/50',
+    previewHintIcon: 'inline size-3',
     previewWrapper: 'absolute inset-0 flex size-full flex-col',
     previewImage: 'aspect-video w-full object-cover',
   },
@@ -76,6 +79,8 @@ function ProjectsSection(props: ProjectsSectionProps) {
   )
 
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [dismissedIndex, setDismissedIndex] = useState<number | null>(null)
 
   return (
     <motion.section
@@ -83,7 +88,7 @@ function ProjectsSection(props: ProjectsSectionProps) {
       {...restProps}
     >
       <AnimatePresence>
-        {isPreviewVisible && (
+        {isPreviewVisible && hoveredIndex !== dismissedIndex && (
           <motion.div
             key="preview"
             className={styles.previewContainer()}
@@ -95,6 +100,10 @@ function ProjectsSection(props: ProjectsSectionProps) {
               y: previewY,
             }}
           >
+            <p className={styles.previewHint()}>
+              <Info className={styles.previewHintIcon()} />
+              Click to dismiss
+            </p>
             <motion.div
               className={styles.previewWrapper()}
               style={{
@@ -130,6 +139,7 @@ function ProjectsSection(props: ProjectsSectionProps) {
           }}
           onMouseMove={handleMouseMove}
           onMouseLeave={() => setIsPreviewVisible(false)}
+          onClick={() => setDismissedIndex(hoveredIndex)}
         >
           {projectsContent.items.map(
             (
@@ -139,7 +149,11 @@ function ProjectsSection(props: ProjectsSectionProps) {
               <motion.li
                 key={id}
                 className={styles.item()}
-                onMouseEnter={() => rawCurrentIndex.set(index)}
+                onMouseEnter={() => {
+                  rawCurrentIndex.set(index)
+                  setHoveredIndex(index)
+                  setDismissedIndex(null)
+                }}
               >
                 <h3 className={styles.itemHeading()}>{name}</h3>
 
