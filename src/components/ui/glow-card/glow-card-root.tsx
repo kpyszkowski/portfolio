@@ -8,6 +8,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 type GlowCardRootContextValue = {
   glowX: MotionValue<number>
   glowY: MotionValue<number>
+  animate: boolean
 }
 
 const GlowCardRootContext = createContext<GlowCardRootContextValue | null>(null)
@@ -24,10 +25,11 @@ interface GlowCardRootProps
   extends useRender.ComponentProps<'div'>,
     StylesProps<typeof glowCardRootStyles> {
   className?: string
+  animate?: boolean
 }
 
 function GlowCardRoot(props: GlowCardRootProps) {
-  const { className, render, ...restProps } = props
+  const { className, render, animate = false, ...restProps } = props
   const styles = glowCardRootStyles()
 
   const glowX = useMotionValue(-1000)
@@ -40,6 +42,7 @@ function GlowCardRoot(props: GlowCardRootProps) {
       {
         className: styles.container({ className }),
         onMouseMove(e) {
+          if (animate) return
           const rect = e.currentTarget.getBoundingClientRect()
           glowX.set(e.clientX - rect.left)
           glowY.set(e.clientY - rect.top)
@@ -50,7 +53,7 @@ function GlowCardRoot(props: GlowCardRootProps) {
   })
 
   return (
-    <GlowCardRootContext.Provider value={{ glowX, glowY }}>
+    <GlowCardRootContext.Provider value={{ glowX, glowY, animate }}>
       {element}
     </GlowCardRootContext.Provider>
   )

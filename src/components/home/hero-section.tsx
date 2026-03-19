@@ -6,6 +6,7 @@ import { HeroScene } from '~/components/home/hero-scene/hero-scene'
 import { TextReveal } from '~/components/ui/text-reveal'
 import { TextCycle } from '~/components/ui/text-cycle'
 import { PageLoader } from '~/components/page-loader'
+import { SectionLayout } from '~/components/ui/section-layout'
 
 const heroSectionStyles = createStyles({
   slots: {
@@ -14,7 +15,7 @@ const heroSectionStyles = createStyles({
     inner: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
     content:
-      'pointer-events-none absolute inset-x-0 bottom-0 z-20 mx-auto flex w-full max-w-screen-2xl flex-col gap-8 p-6 md:flex-row md:items-end md:p-12',
+      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full max-w-screen-2xl flex-col gap-8 p-6 md:flex-row md:items-end md:p-12',
     headingArea: 'flex flex-1 flex-col gap-4',
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
@@ -41,7 +42,9 @@ function HeroSection(props: HeroSectionProps) {
   const exitProgress = useTransform(scrollYProgress, [0, 0.2], [0, 1])
 
   return (
-    <div
+    <SectionLayout.Root
+      render={<div />}
+      padding="none"
       ref={containerRef}
       className={styles.container({ className })}
       {...restProps}
@@ -59,7 +62,7 @@ function HeroSection(props: HeroSectionProps) {
             />
           </div>
 
-          <div className={styles.content()}>
+          <SectionLayout.Wrapper className={styles.content()}>
             <div className={styles.headingArea()}>
               <TextCycle
                 className={styles.subtitle()}
@@ -96,12 +99,12 @@ function HeroSection(props: HeroSectionProps) {
               where craftsmanship meets purpose and ideas become experiences
               worth remembering.
             </TextReveal>
-          </div>
+          </SectionLayout.Wrapper>
         </section>
       </div>
 
       {!isReady && <PageLoader onReady={() => setIsReady(true)} />}
-    </div>
+    </SectionLayout.Root>
   )
 }
 

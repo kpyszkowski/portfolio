@@ -1,14 +1,11 @@
 'use client'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { CopyButton } from '~/components/ui/copy-button'
+import { SectionLayout } from '~/components/ui/section-layout'
 import { contactContent } from '~/content/home'
 
 const contactSectionStyles = createStyles({
   slots: {
-    container: 'px-5 py-24 lg:py-32',
-    inner: 'mx-auto max-w-3xl',
-    heading:
-      'mb-4 text-xs font-medium tracking-widest text-highlight uppercase',
     body: 'mb-8 max-w-md text-lg leading-relaxed text-elevated',
     email: 'mb-8 flex items-center gap-2',
     emailAddress: 'text-base text-main',
@@ -27,13 +24,13 @@ function ContactSection(props: ContactSectionProps) {
   const styles = contactSectionStyles()
 
   return (
-    <section
+    <SectionLayout.Root
       id="contact"
-      className={styles.container({ className })}
+      className={className}
       {...restProps}
     >
-      <div className={styles.inner()}>
-        <h2 className={styles.heading()}>{contactContent.heading}</h2>
+      <SectionLayout.Wrapper width="md">
+        <SectionLayout.Heading>{contactContent.heading}</SectionLayout.Heading>
         <p className={styles.body()}>{contactContent.body}</p>
 
         <div className={styles.email()}>
@@ -58,8 +55,8 @@ function ContactSection(props: ContactSectionProps) {
             </li>
           ))}
         </ul>
-      </div>
-    </section>
+      </SectionLayout.Wrapper>
+    </SectionLayout.Root>
   )
 }
 

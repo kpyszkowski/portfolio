@@ -3,6 +3,7 @@ import { ArrowUpRight, Code, Info } from 'react-feather'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
+import { SectionLayout } from '~/components/ui/section-layout'
 import { projectsContent } from '~/content/home'
 import {
   AnimatePresence,
@@ -18,10 +19,9 @@ import Image from 'next/image'
 
 const projectsSectionStyles = createStyles({
   slots: {
-    container: 'relative px-5 py-24 lg:py-32',
-    wrapper: 'relative mx-auto max-w-screen-xl',
-    heading:
-      'text-sm font-medium tracking-widest text-highlight uppercase md:mb-0 md:text-base',
+    container: 'relative',
+    // To compensate item top padding - 48px - 8px = 40px (heading margin-bottom)
+    heading: '-mb-2 md:-mb-2',
     list: 'flex flex-col',
     item: 'flex flex-col gap-6 border-b border-(--background-color-highlight) py-12 md:flex-row md:items-end',
     itemHeading: 'grow text-lg font-medium text-main md:text-xl',
@@ -91,7 +91,8 @@ function ProjectsSection(props: ProjectsSectionProps) {
   const [dismissedIndex, setDismissedIndex] = useState<number | null>(null)
 
   return (
-    <motion.section
+    <SectionLayout.Root
+      render={<motion.div />}
       className={styles.container({ className })}
       {...restProps}
     >
@@ -124,8 +125,8 @@ function ProjectsSection(props: ProjectsSectionProps) {
                   src={previewSrc}
                   alt={previewSrc}
                   className={styles.previewImage()}
-                  width={1024}
-                  height={576}
+                  width={600}
+                  height={400}
                 />
               ))}
             </motion.div>
@@ -133,8 +134,10 @@ function ProjectsSection(props: ProjectsSectionProps) {
         )}
       </AnimatePresence>
 
-      <div className={styles.wrapper()}>
-        <h2 className={styles.heading()}>{projectsContent.heading}</h2>
+      <SectionLayout.Wrapper>
+        <SectionLayout.Heading className={styles.heading()}>
+          {projectsContent.heading}
+        </SectionLayout.Heading>
 
         <ul
           className={styles.list()}
@@ -227,8 +230,8 @@ function ProjectsSection(props: ProjectsSectionProps) {
             ),
           )}
         </ul>
-      </div>
-    </motion.section>
+      </SectionLayout.Wrapper>
+    </SectionLayout.Root>
   )
 }
 

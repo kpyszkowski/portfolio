@@ -11,15 +11,13 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { aboutContent } from '~/content/home'
 import { TextFill } from '~/components/ui/text-fill'
 import { Signature } from '~/components/signature'
+import { SectionLayout } from '~/components/ui/section-layout'
 
 const aboutSectionStyles = createStyles({
   slots: {
-    outer: 'relative -mt-[100vh] h-[300vh]',
     container:
       'sticky top-0 flex h-svh flex-col items-start justify-center px-5',
-    wrapper: 'mx-auto max-w-3xl',
-    heading:
-      'mb-6 text-sm font-medium tracking-widest text-highlight uppercase md:mb-10 md:text-base',
+    outer: 'relative -mt-[100vh] h-[300vh]',
     body: 'text-xl leading-relaxed text-elevated lg:text-2xl',
     signature: 'mt-12 h-auto w-36',
   },
@@ -59,7 +57,9 @@ function AboutSection(props: AboutSectionProps) {
   const filter = useMotionTemplate`blur(${blur}px)`
 
   return (
-    <div
+    <SectionLayout.Root
+      render={<div />}
+      padding="none"
       ref={containerRef}
       className={styles.outer({ className })}
     >
@@ -69,8 +69,8 @@ function AboutSection(props: AboutSectionProps) {
         style={{ opacity, filter, scale }}
         {...restProps}
       >
-        <div className={styles.wrapper()}>
-          <h2 className={styles.heading()}>{aboutContent.heading}</h2>
+        <SectionLayout.Wrapper width="md">
+          <SectionLayout.Heading>{aboutContent.heading}</SectionLayout.Heading>
           <div className={styles.body()}>
             <TextFill progress={textProgress}>{aboutContent.body}</TextFill>
           </div>
@@ -79,9 +79,9 @@ function AboutSection(props: AboutSectionProps) {
             className={styles.signature()}
             progress={signatureProgress}
           />
-        </div>
+        </SectionLayout.Wrapper>
       </motion.section>
-    </div>
+    </SectionLayout.Root>
   )
 }
 

@@ -2,20 +2,18 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Button } from '~/components/ui/button'
 import { GlowCard } from '~/components/ui/glow-card'
 import { WritingTile } from '~/components/writing-tile'
+import { SectionLayout } from '~/components/ui/section-layout'
 import { writingsContent } from '~/content/home'
 import { type WritingMetadata } from '~/lib/writings'
 
 const writingsSectionStyles = createStyles({
   slots: {
-    container: 'px-5 py-24 lg:py-32',
-    inner: 'mx-auto max-w-screen-xl md:flex md:items-center',
-    meta: 'flex flex-col md:basis-4/10',
-    heading:
-      'mb-6 text-sm font-medium tracking-widest text-highlight uppercase md:mb-10 md:text-base',
-    body: 'mb-8 text-lg leading-relaxed text-elevated',
-    content: 'max-md:mt-10 md:basis-2/3 md:pl-10',
-    cardContent: 'p-6 lg:p-10',
-    footer: 'flex',
+    wrapper: 'flex flex-col items-start gap-16 md:flex-row',
+    content: 'flex flex-col gap-12 md:basis-4/10',
+    paragraphs: 'flex flex-col gap-4 text-lg leading-relaxed text-elevated',
+    writingWrapper: 'w-full md:basis-2/3',
+    cardContent: 'p-6 md:p-10',
+    button: 'self-start',
   },
 })
 
@@ -30,42 +28,52 @@ function WritingsSection(props: WritingsSectionProps) {
   const styles = writingsSectionStyles()
 
   return (
-    <GlowCard.Root
-      render={<section />}
-      className={styles.container({ className })}
+    <SectionLayout.Root
+      render={
+        <GlowCard.Root
+          render={<section />}
+          animate
+        />
+      }
+      className={className}
       {...restProps}
     >
-      <div className={styles.inner()}>
-        <div className={styles.meta()}>
-          <h2 className={styles.heading()}>{writingsContent.heading}</h2>
-          <p className={styles.body()}>{writingsContent.body}</p>
-          <div className={styles.footer()}>
+      <SectionLayout.Wrapper>
+        <SectionLayout.Heading>{writingsContent.heading}</SectionLayout.Heading>
+
+        <div className={styles.wrapper()}>
+          <div className={styles.content()}>
+            <div className={styles.paragraphs()}>
+              {writingsContent.body.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
             <Button
+              className={styles.button()}
               href={writingsContent.ctaHref}
               size="sm"
             >
               {writingsContent.ctaLabel}
             </Button>
           </div>
-        </div>
 
-        {latestWriting && (
-          <div className={styles.content()}>
-            <GlowCard.Item>
-              <div className={styles.cardContent()}>
+          {latestWriting && (
+            <div className={styles.writingWrapper()}>
+              <GlowCard.Item>
                 <WritingTile
+                  className={styles.cardContent()}
                   title={latestWriting.title}
                   tags={latestWriting.tags}
                   readingTime={latestWriting.readingTime}
                   url={`/writings/${latestWriting.slug}`}
                   titleElementType="h3"
                 />
-              </div>
-            </GlowCard.Item>
-          </div>
-        )}
-      </div>
-    </GlowCard.Root>
+              </GlowCard.Item>
+            </div>
+          )}
+        </div>
+      </SectionLayout.Wrapper>
+    </SectionLayout.Root>
   )
 }
 

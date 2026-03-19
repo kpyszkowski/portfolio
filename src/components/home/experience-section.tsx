@@ -4,13 +4,10 @@ import { motion, useScroll, useTransform, cubicBezier } from 'motion/react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import getFormattedDate from '~/utils/get-formatted-date'
 import { experienceContent } from '~/content/home'
+import { SectionLayout } from '~/components/ui/section-layout'
 
 const experienceSectionStyles = createStyles({
   slots: {
-    container: 'px-5 py-24 lg:py-32',
-    inner: 'mx-auto max-w-screen-xl',
-    heading:
-      'mb-6 text-sm font-medium tracking-widest text-highlight uppercase md:mb-10 md:text-base',
     list: 'flex flex-col gap-20',
     item: 'flex flex-col md:flex-row',
     itemMeta: '-z-10 flex grow flex-col gap-1 md:items-end',
@@ -97,13 +94,15 @@ function ExperienceSection(props: ExperienceSectionProps) {
   const styles = experienceSectionStyles()
 
   return (
-    <section
+    <SectionLayout.Root
       id="experience"
-      className={styles.container({ className })}
+      className={className}
       {...restProps}
     >
-      <div className={styles.inner()}>
-        <h2 className={styles.heading()}>{experienceContent.heading}</h2>
+      <SectionLayout.Wrapper>
+        <SectionLayout.Heading>
+          {experienceContent.heading}
+        </SectionLayout.Heading>
 
         <ul className={styles.list()}>
           {experienceContent.items.map((item) => (
@@ -113,8 +112,8 @@ function ExperienceSection(props: ExperienceSectionProps) {
             />
           ))}
         </ul>
-      </div>
-    </section>
+      </SectionLayout.Wrapper>
+    </SectionLayout.Root>
   )
 }
 

@@ -1,14 +1,11 @@
 'use client'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { GlowCard } from '~/components/ui/glow-card'
+import { SectionLayout } from '~/components/ui/section-layout'
 import { strengthsContent } from '~/content/home'
 
 const strengthsSectionStyles = createStyles({
   slots: {
-    container: 'px-5 py-24 lg:py-32',
-    inner: 'mx-auto max-w-screen-xl',
-    heading:
-      'mb-6 text-sm font-medium tracking-widest text-highlight uppercase md:mb-10 md:text-base',
     grid: 'grid grid-cols-1 content-stretch gap-6 md:grid-cols-2',
     cardWrapper: 'flex h-full flex-col p-6 lg:p-12',
     cardIconWrapper:
@@ -29,13 +26,15 @@ function StrengthsSection(props: StrengthsSectionProps) {
   const styles = strengthsSectionStyles()
 
   return (
-    <GlowCard.Root
-      render={<section />}
-      className={styles.container({ className })}
+    <SectionLayout.Root
+      render={<GlowCard.Root render={<section />} />}
+      className={className}
       {...restProps}
     >
-      <div className={styles.inner()}>
-        <h2 className={styles.heading()}>{strengthsContent.heading}</h2>
+      <SectionLayout.Wrapper>
+        <SectionLayout.Heading>
+          {strengthsContent.heading}
+        </SectionLayout.Heading>
 
         <div className={styles.grid()}>
           {strengthsContent.items.map(({ id, heading, body, icon: Icon }) => (
@@ -50,8 +49,8 @@ function StrengthsSection(props: StrengthsSectionProps) {
             </GlowCard.Item>
           ))}
         </div>
-      </div>
-    </GlowCard.Root>
+      </SectionLayout.Wrapper>
+    </SectionLayout.Root>
   )
 }
 

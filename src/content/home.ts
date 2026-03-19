@@ -187,7 +187,10 @@ export const experienceContent = {
 
 export const writingsContent = {
   heading: 'Learn, validate, repeat',
-  body: "Writing is how I validate what I think I know — and find out what I don't. I cover software engineering, web development, and the ideas shaping how I work.",
+  body: [
+    "Writing is how I validate what I think I know — and find out what I don't. I cover software engineering, web development, and the ideas shaping how I work.",
+    'Check out my latest writing, or head to the writings page for more.',
+  ],
   ctaLabel: 'Read all writings',
   ctaHref: '/writings',
 }
