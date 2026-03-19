@@ -186,8 +186,8 @@ export const experienceContent = {
 // ── Writings ─────────────────────────────────────────────────────
 
 export const writingsContent = {
-  heading: 'Latest writing',
-  body: 'I write about software engineering, web development, and the tools I find most interesting.',
+  heading: 'Learn, validate, repeat',
+  body: "Writing is how I validate what I think I know — and find out what I don't. I cover software engineering, web development, and the ideas shaping how I work.",
   ctaLabel: 'Read all writings',
   ctaHref: '/writings',
 }

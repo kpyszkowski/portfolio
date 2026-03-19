@@ -56,10 +56,8 @@ type TooltipRenderProp =
 interface TooltipProps
   extends StylesProps<typeof tooltipStyles>,
     Omit<TooltipPrimitive.Positioner.Props, 'children'>,
-    Pick<
-      TooltipPrimitive.Root.Props,
-      'delay' | 'defaultOpen' | 'open' | 'onOpenChange'
-    > {
+    Pick<TooltipPrimitive.Provider.Props, 'delay'>,
+    Pick<TooltipPrimitive.Root.Props, 'defaultOpen' | 'open' | 'onOpenChange'> {
   className?: string
   children: TooltipRenderProp
   label: TooltipRenderProp

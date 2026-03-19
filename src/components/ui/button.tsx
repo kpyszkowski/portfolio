@@ -19,7 +19,7 @@ const buttonStyles = createStyles({
       },
       outline: {
         container:
-          '-m-0.5 border-2 border-elevated text-main transition-colors outline-none',
+          '-m-0.5 border-2 border-highlight text-main transition-colors outline-none',
       },
     },
     size: {

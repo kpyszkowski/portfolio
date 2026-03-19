@@ -8,8 +8,14 @@ const badgeStyles = createStyles({
   },
   variants: {
     color: {
-      neutral: {
+      main: {
+        container: 'bg-main text-main',
+      },
+      elevated: {
         container: 'bg-elevated text-elevated',
+      },
+      highlight: {
+        container: 'bg-highlight text-highlight',
       },
       green: {
         container: 'bg-green-500 text-green-200',
@@ -26,7 +32,7 @@ const badgeStyles = createStyles({
     },
   },
   defaultVariants: {
-    color: 'neutral',
+    color: 'elevated',
   },
 })
 
