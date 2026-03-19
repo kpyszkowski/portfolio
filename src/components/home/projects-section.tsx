@@ -8,8 +8,10 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
+  useScroll,
   useSpring,
   useTransform,
+  useVelocity,
 } from 'motion/react'
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
@@ -78,6 +80,9 @@ function ProjectsSection(props: ProjectsSectionProps) {
     [rawPreviewX, rawPreviewY],
   )
 
+  const { scrollY } = useScroll()
+  const scrollVelocity = useVelocity(scrollY)
+
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [dismissedIndex, setDismissedIndex] = useState<number | null>(null)
@@ -135,7 +140,9 @@ function ProjectsSection(props: ProjectsSectionProps) {
             rawPreviewY.set(event.clientY)
             previewX.jump(event.clientX)
             previewY.jump(event.clientY)
-            setIsPreviewVisible(true)
+            if (Math.abs(scrollVelocity.get()) < 500) {
+              setIsPreviewVisible(true)
+            }
           }}
           onMouseMove={handleMouseMove}
           onMouseLeave={() => setIsPreviewVisible(false)}
