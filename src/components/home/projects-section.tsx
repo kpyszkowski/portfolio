@@ -17,7 +17,7 @@ import Image from 'next/image'
 const projectsSectionStyles = createStyles({
   slots: {
     container: 'relative px-5 py-24 lg:py-32',
-    wrapper: 'mx-auto max-w-screen-xl',
+    wrapper: 'relative mx-auto max-w-screen-xl',
     heading: 'mb-10 font-medium tracking-widest text-highlight uppercase',
     list: 'flex flex-col',
     item: 'flex flex-col gap-2 border-b border-(--background-color-highlight) py-6 sm:flex-row sm:items-end sm:py-12',
@@ -26,7 +26,7 @@ const projectsSectionStyles = createStyles({
     itemActions: 'z-20 flex basis-2/8 items-center justify-end gap-4',
     itemTags: 'mb-4 flex flex-wrap gap-2',
     previewContainer:
-      'pointer-events-none fixed inset-0 z-10 aspect-video h-48 -translate-full overflow-hidden',
+      'pointer-events-none fixed top-0 left-0 z-10 -mx-6 aspect-video h-48 -translate-x-full -translate-y-1/2 overflow-hidden',
     previewWrapper: 'absolute inset-0 flex size-full flex-col',
     previewImage: 'aspect-video w-full object-cover',
   },
@@ -43,8 +43,9 @@ function ProjectsSection(props: ProjectsSectionProps) {
 
   const rawCurrentIndex = useMotionValue(0)
   const currentIndex = useSpring(rawCurrentIndex, {
-    stiffness: 260,
-    damping: 28,
+    stiffness: 160,
+    damping: 20,
+    mass: 0.8,
   })
 
   const previewWrapperOffset = useTransform(
@@ -86,9 +87,9 @@ function ProjectsSection(props: ProjectsSectionProps) {
           <motion.div
             key="preview"
             className={styles.previewContainer()}
-            initial={{ clipPath: 'inset(100% 0% 0% 0% round 16px)' }}
+            initial={{ clipPath: 'inset(50% 0% 50% 0% round 16px)' }}
             animate={{ clipPath: 'inset(0% 0% 0% 0% round 16px)' }}
-            exit={{ clipPath: 'inset(100% 0% 0% 0% round 16px)' }}
+            exit={{ clipPath: 'inset(50% 0% 50% 0% round 16px)' }}
             style={{
               x: previewX,
               y: previewY,

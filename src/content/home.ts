@@ -129,7 +129,7 @@ export const projectsContent = {
       name: 'Project Beta',
       description: 'Description coming soon.',
       tags: ['Node.js', 'PostgreSQL'],
-      previewSrc: 'https://placehold.co/600x400/efefef/text=project-beta',
+      previewSrc: 'https://placehold.co/600x400/dcdcdc/text=project-beta',
     },
   ] satisfies ProjectItem[],
 }
