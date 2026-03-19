@@ -92,9 +92,9 @@ function ProjectsSection(props: ProjectsSectionProps) {
           <motion.div
             key="preview"
             className={styles.previewContainer()}
-            initial={{ clipPath: 'inset(50% 0% 50% 0% round 16px)' }}
+            initial={{ clipPath: 'inset(100% 0% 0% 100% round 16px)' }}
             animate={{ clipPath: 'inset(0% 0% 0% 0% round 16px)' }}
-            exit={{ clipPath: 'inset(50% 0% 50% 0% round 16px)' }}
+            exit={{ clipPath: 'inset(100% 0% 0% 100% round 16px)' }}
             style={{
               x: previewX,
               y: previewY,

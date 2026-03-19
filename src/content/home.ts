@@ -125,7 +125,7 @@ export const projectsContent = {
       previewUrl: 'https://github.com/kpyszkowski/portfolio',
       sourceCodeUrl: 'https://github.com/kpyszkowski/portfolio',
       previewSrc:
-        'https://placehold.co/600x400/fefefe/text=personal\nportfolio',
+        'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Personal+Portfolio',
     },
     {
       id: 'project-alpha',
@@ -133,7 +133,8 @@ export const projectsContent = {
       description: 'Description coming soon.',
       tags: ['TypeScript', 'React'],
       previewUrl: 'https://example.com/project-alpha',
-      previewSrc: 'https://placehold.co/600x400/ededed/text=project\nalpha',
+      previewSrc:
+        'https://placehold.co/1024x576/ebebeb/a3a3a3?text=Project+Alpha',
     },
     {
       id: 'project-beta',
@@ -141,7 +142,8 @@ export const projectsContent = {
       description: 'Description coming soon.',
       tags: ['Node.js', 'PostgreSQL'],
       previewUrl: 'https://example.com/project-beta',
-      previewSrc: 'https://placehold.co/600x400/dcdcdc/text=project\nbeta',
+      previewSrc:
+        'https://placehold.co/1024x576/e0e0e0/a3a3a3?text=Project+Beta',
     },
   ] satisfies ProjectItem[],
 }
