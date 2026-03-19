@@ -92,6 +92,12 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: './src/image-loader.ts',
     unoptimized: process.env.NODE_ENV === 'development',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+    ],
   },
   transpilePackages: ['shiki'],
   redirects() {

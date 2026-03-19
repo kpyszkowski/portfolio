@@ -49,8 +49,8 @@
   --background-color-highlight: var(--color-stone-200);
 
   --color-accent: color-mix(in srgb,
-    var(--color-stone-400) 50%,
-    var(--color-orange-400)
+    var(--color-white) 40%,
+    var(--color-orange-800)
   );
 
   --color-accent-glow: color-mix(in srgb,
@@ -70,10 +70,7 @@
 
   --color-highlight: var(--color-stone-400);
   --border-highlight: var(--color-stone-400);
-  --background-color-highlight: color-mix(in srgb,
-    var(--background-color-elevated) 12%,
-    var(--background-color-main)
-  );
+  --background-color-highlight: var(--color-stone-700);
 
   --color-accent: var(--color-orange-300);
 }

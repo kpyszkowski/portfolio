@@ -30,6 +30,7 @@ export interface ProjectItem {
   description: string
   tags: string[]
   href?: string
+  previewSrc?: string
 }
 
 export interface ExperienceItem {
@@ -114,18 +115,21 @@ export const projectsContent = {
         'This very portfolio — built with Next.js 16, Tailwind CSS 4, and a hand-crafted component library.',
       tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
       href: 'https://github.com/kpyszkowski/folio-25',
+      previewSrc: 'https://placehold.co/600x400/fefefe/text=folio-25',
     },
     {
       id: 'project-alpha',
       name: 'Project Alpha',
       description: 'Description coming soon.',
       tags: ['TypeScript', 'React'],
+      previewSrc: 'https://placehold.co/600x400/ededed/text=project-alpha',
     },
     {
       id: 'project-beta',
       name: 'Project Beta',
       description: 'Description coming soon.',
       tags: ['Node.js', 'PostgreSQL'],
+      previewSrc: 'https://placehold.co/600x400/efefef/text=project-beta',
     },
   ] satisfies ProjectItem[],
 }
