@@ -18,7 +18,8 @@ const aboutSectionStyles = createStyles({
     container:
       'sticky top-0 flex h-svh flex-col items-start justify-center px-5',
     wrapper: 'mx-auto max-w-3xl',
-    heading: 'mb-10 font-medium tracking-widest text-highlight uppercase',
+    heading:
+      'mb-6 text-sm font-medium tracking-widest text-highlight uppercase md:mb-10 md:text-base',
     body: 'text-xl leading-relaxed text-elevated lg:text-2xl',
     signature: 'mt-12 h-auto w-36',
   },

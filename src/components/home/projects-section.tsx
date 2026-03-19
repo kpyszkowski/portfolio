@@ -20,7 +20,8 @@ const projectsSectionStyles = createStyles({
   slots: {
     container: 'relative px-5 py-24 lg:py-32',
     wrapper: 'relative mx-auto max-w-screen-xl',
-    heading: 'mb-10 font-medium tracking-widest text-highlight uppercase',
+    heading:
+      'text-sm font-medium tracking-widest text-highlight uppercase md:mb-0 md:text-base',
     list: 'flex flex-col',
     item: 'flex flex-col gap-6 border-b border-(--background-color-highlight) py-12 md:flex-row md:items-end',
     itemHeading: 'grow text-lg font-medium text-main md:text-xl',
@@ -34,6 +35,8 @@ const projectsSectionStyles = createStyles({
     previewHintIcon: 'inline size-3',
     previewWrapper: 'absolute inset-0 flex size-full flex-col',
     previewImage: 'aspect-video w-full object-cover',
+    previewImageMobile:
+      'aspect-video w-full max-w-sm rounded-2xl object-cover md:hidden',
   },
 })
 
@@ -140,7 +143,10 @@ function ProjectsSection(props: ProjectsSectionProps) {
             rawPreviewY.set(event.clientY)
             previewX.jump(event.clientX)
             previewY.jump(event.clientY)
-            if (Math.abs(scrollVelocity.get()) < 500) {
+            if (
+              window.matchMedia('(min-width: 768px)').matches &&
+              Math.abs(scrollVelocity.get()) < 500
+            ) {
               setIsPreviewVisible(true)
             }
           }}
@@ -150,7 +156,15 @@ function ProjectsSection(props: ProjectsSectionProps) {
         >
           {projectsContent.items.map(
             (
-              { id, name, description, tags, previewUrl, sourceCodeUrl },
+              {
+                id,
+                name,
+                description,
+                tags,
+                previewUrl,
+                previewSrc,
+                sourceCodeUrl,
+              },
               index,
             ) => (
               <motion.li
@@ -162,6 +176,15 @@ function ProjectsSection(props: ProjectsSectionProps) {
                   setDismissedIndex(null)
                 }}
               >
+                <Image
+                  key={previewSrc}
+                  src={previewSrc}
+                  alt={previewSrc}
+                  className={styles.previewImageMobile()}
+                  width={1024}
+                  height={576}
+                />
+
                 <h3 className={styles.itemHeading()}>{name}</h3>
 
                 <div className={styles.itemContent()}>
