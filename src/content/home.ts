@@ -29,7 +29,8 @@ export interface ProjectItem {
   name: string
   description: string
   tags: string[]
-  href?: string
+  previewUrl?: string
+  sourceCodeUrl?: string
   previewSrc?: string
 }
 
@@ -109,27 +110,38 @@ export const projectsContent = {
   heading: 'Projects',
   items: [
     {
-      id: 'folio-25',
-      name: 'folio-25',
+      id: 'Personal Portfolio',
+      name: 'Personal Portfolio',
       description:
-        'This very portfolio — built with Next.js 16, Tailwind CSS 4, and a hand-crafted component library.',
-      tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-      href: 'https://github.com/kpyszkowski/folio-25',
-      previewSrc: 'https://placehold.co/600x400/fefefe/text=folio-25',
+        'Portfolio website showcasing my projects, writings, and experience. A showcase of my creativity and skills in web development, design, and performance optimisation.',
+      tags: [
+        'Next.js',
+        'TypeScript',
+        'Tailwind CSS',
+        'Motion',
+        'ThreeJS',
+        'Cloudflare',
+      ],
+      previewUrl: 'https://github.com/kpyszkowski/portfolio',
+      sourceCodeUrl: 'https://github.com/kpyszkowski/portfolio',
+      previewSrc:
+        'https://placehold.co/600x400/fefefe/text=personal\nportfolio',
     },
     {
       id: 'project-alpha',
       name: 'Project Alpha',
       description: 'Description coming soon.',
       tags: ['TypeScript', 'React'],
-      previewSrc: 'https://placehold.co/600x400/ededed/text=project-alpha',
+      previewUrl: 'https://example.com/project-alpha',
+      previewSrc: 'https://placehold.co/600x400/ededed/text=project\nalpha',
     },
     {
       id: 'project-beta',
       name: 'Project Beta',
       description: 'Description coming soon.',
       tags: ['Node.js', 'PostgreSQL'],
-      previewSrc: 'https://placehold.co/600x400/dcdcdc/text=project-beta',
+      previewUrl: 'https://example.com/project-beta',
+      previewSrc: 'https://placehold.co/600x400/dcdcdc/text=project\nbeta',
     },
   ] satisfies ProjectItem[],
 }

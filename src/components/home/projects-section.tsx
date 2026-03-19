@@ -1,5 +1,5 @@
 'use client'
-import { ArrowUpRight } from 'react-feather'
+import { ArrowUpRight, Code } from 'react-feather'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
@@ -20,11 +20,11 @@ const projectsSectionStyles = createStyles({
     wrapper: 'relative mx-auto max-w-screen-xl',
     heading: 'mb-10 font-medium tracking-widest text-highlight uppercase',
     list: 'flex flex-col',
-    item: 'flex flex-col gap-2 border-b border-(--background-color-highlight) py-6 sm:flex-row sm:items-end sm:py-12',
+    item: 'flex flex-col gap-6 border-b border-(--background-color-highlight) py-12 md:flex-row md:items-end',
     itemHeading: 'grow text-lg font-medium text-main md:text-xl',
-    itemContent: 'text-sm text-elevated sm:basis-1/2 md:basis-3/8 md:text-lg',
-    itemActions: 'z-20 flex basis-2/8 items-center justify-end gap-4',
-    itemTags: 'mb-4 flex flex-wrap gap-2',
+    itemContent: 'text-elevated md:basis-4/8 md:text-lg',
+    itemActions: 'z-20 flex basis-2/8 gap-4 md:flex-col md:items-end',
+    itemTags: 'mb-6 flex flex-wrap gap-2',
     previewContainer:
       'pointer-events-none fixed top-0 left-0 z-10 -mx-6 aspect-video h-48 -translate-x-full -translate-y-1/2 overflow-hidden',
     previewWrapper: 'absolute inset-0 flex size-full flex-col',
@@ -132,7 +132,10 @@ function ProjectsSection(props: ProjectsSectionProps) {
           onMouseLeave={() => setIsPreviewVisible(false)}
         >
           {projectsContent.items.map(
-            ({ id, name, description, tags, href }, index) => (
+            (
+              { id, name, description, tags, previewUrl, sourceCodeUrl },
+              index,
+            ) => (
               <motion.li
                 key={id}
                 className={styles.item()}
@@ -151,16 +154,28 @@ function ProjectsSection(props: ProjectsSectionProps) {
                 </div>
 
                 <div className={styles.itemActions()}>
-                  {href && (
+                  {previewUrl && (
                     <Button
-                      href={href}
+                      href={previewUrl}
                       isExternal
                       variant="solid"
                       size="sm"
                       icon={ArrowUpRight}
-                      iconPosition="right"
+                      iconPosition="left"
                     >
-                      View
+                      Preview
+                    </Button>
+                  )}
+                  {sourceCodeUrl && (
+                    <Button
+                      href={sourceCodeUrl}
+                      isExternal
+                      variant="solid"
+                      size="sm"
+                      icon={Code}
+                      iconPosition="left"
+                    >
+                      Source code
                     </Button>
                   )}
                 </div>
