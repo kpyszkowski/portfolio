@@ -28,7 +28,7 @@ function HeroScene(props: HeroSceneProps) {
     posX: { value: -28.16, min: -50, max: 50, step: 0.5 },
     posY: { value: 5.12, min: -50, max: 50, step: 0.5 },
     posZ: { value: 7.34, min: -50, max: 50, step: 0.5 },
-    zoom: { value: 48.5, min: 1, max: 200, step: 0.5 },
+    zoom: { value: 42.5, min: 1, max: 200, step: 0.5 },
     tiltX: { value: 4, min: 0, max: 10, step: 0.05 },
     tiltY: { value: 0, min: 0, max: 20, step: 0.1 },
     tiltZ: { value: 2, min: 0, max: 10, step: 0.1 },
@@ -45,7 +45,8 @@ function HeroScene(props: HeroSceneProps) {
       orthographic
       camera={{
         position: [-28.16, 5.14, -18.24],
-        zoom: 48.5,
+        zoom: 42.5,
+        near: 0,
       }}
       {...restProps}
     >

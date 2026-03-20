@@ -1,4 +1,5 @@
-import { type ComponentPropsWithoutRef } from 'react'
+'use client'
+import { useRender } from '@base-ui-components/react/use-render'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const sectionLayoutWrapperStyles = createStyles({
@@ -16,23 +17,23 @@ const sectionLayoutWrapperStyles = createStyles({
 })
 
 interface SectionLayoutWrapperProps
-  extends ComponentPropsWithoutRef<'div'>,
+  extends useRender.ComponentProps<'div'>,
     StylesProps<typeof sectionLayoutWrapperStyles> {
   className?: string
 }
 
 function SectionLayoutWrapper(props: SectionLayoutWrapperProps) {
-  const { className, children, width, ...restProps } = props
+  const { className, width, render, ...restProps } = props
   const styles = sectionLayoutWrapperStyles({ width })
 
-  return (
-    <div
-      className={styles.wrapper({ className })}
-      {...restProps}
-    >
-      {children}
-    </div>
-  )
+  return useRender({
+    defaultTagName: 'div',
+    render,
+    props: {
+      className: styles.wrapper({ className }),
+      ...restProps,
+    },
+  })
 }
 
 export {

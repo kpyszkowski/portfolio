@@ -10,7 +10,7 @@ const pageLoaderStyles = createStyles({
     root: 'fixed inset-0 z-50',
     backdrop: 'absolute inset-0 bg-black/25 backdrop-blur-md',
     panel: 'absolute inset-0 flex items-center justify-center bg-main',
-    inner: 'flex w-full max-w-sm flex-col gap-3 px-4',
+    inner: 'flex w-full max-w-sm flex-col gap-6 px-4',
     header: 'flex items-center justify-between',
     percentage: 'one text-highlight tabular-nums',
     track: 'relative h-px w-full overflow-hidden bg-elevated',

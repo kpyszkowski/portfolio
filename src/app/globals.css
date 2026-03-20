@@ -27,11 +27,11 @@
 
 @theme inline {
   --font-sans: var(--font-satoshi, 'system-ui');
+  --font-mono: var(--font-fira-code, 'monospace');
+  --font-display: var(--font-eudoxus-sans, 'system-ui');
 }
 
 @theme {
-  --font-mono: var(--font-fira-code, 'monospace');
-  --font-display: var(--font-eudoxus-sans, 'system-ui');
 
   --color-main: var(--color-stone-900);
   --border-main: var(--color-stone-900);

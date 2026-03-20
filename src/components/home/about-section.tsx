@@ -17,7 +17,7 @@ const aboutSectionStyles = createStyles({
   slots: {
     container:
       'sticky top-0 flex h-svh flex-col items-start justify-center px-5',
-    outer: 'relative -mt-[100vh] h-[200vh]',
+    outer: 'relative -mt-[100svh] h-[200svh]',
     body: 'text-xl leading-relaxed text-elevated lg:text-2xl',
     signature: 'mt-12 h-auto w-36',
   },
@@ -45,11 +45,11 @@ function AboutSection(props: AboutSectionProps) {
   const blur = useTransform(scrollYProgress, [0, 0.33], [8, 0], {
     ease,
   })
-  const scale = useTransform(scrollYProgress, [0, 0.33], [0.96, 1], {
+  const scale = useTransform(scrollYProgress, [0, 0.66], [0.92, 1], {
     ease,
   })
 
-  const textProgress = useTransform(scrollYProgress, [0.33, 1], [0, 1])
+  const textProgress = useTransform(scrollYProgress, [0, 0.33, 1], [0, 0.5, 1])
   const signatureProgress = useTransform(scrollYProgress, [0.66, 1], [0, 1], {
     ease,
   })
@@ -63,7 +63,7 @@ function AboutSection(props: AboutSectionProps) {
       ref={containerRef}
       className={styles.outer({ className })}
     >
-      <motion.section
+      <motion.div
         id="about"
         className={styles.container()}
         style={{ opacity, filter, scale }}
@@ -80,7 +80,7 @@ function AboutSection(props: AboutSectionProps) {
             progress={signatureProgress}
           />
         </SectionLayout.Wrapper>
-      </motion.section>
+      </motion.div>
     </SectionLayout.Root>
   )
 }

@@ -6,7 +6,10 @@ import { HeroScene } from '~/components/home/hero-scene/hero-scene'
 import { TextReveal } from '~/components/ui/text-reveal'
 import { TextCycle } from '~/components/ui/text-cycle'
 import { PageLoader } from '~/components/page-loader'
-import { SectionLayout } from '~/components/ui/section-layout'
+import {
+  SectionLayout,
+  sectionLayoutRootStyles,
+} from '~/components/ui/section-layout'
 
 const heroSectionStyles = createStyles({
   slots: {
@@ -15,7 +18,7 @@ const heroSectionStyles = createStyles({
     inner: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
     content:
-      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full flex-col gap-8 p-6 md:flex-row md:items-end md:p-12',
+      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full flex-col gap-8 md:flex-row md:items-end',
     headingArea: 'flex flex-1 flex-col gap-4',
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
@@ -42,18 +45,14 @@ function HeroSection(props: HeroSectionProps) {
   const exitProgress = useTransform(scrollYProgress, [0, 0.2], [0, 1])
 
   return (
-    <SectionLayout.Root
-      render={<div />}
-      padding="none"
+    <div
+      id="hero"
       ref={containerRef}
       className={styles.container({ className })}
       {...restProps}
     >
       <div className={styles.sticky()}>
-        <section
-          id="hero"
-          className={styles.inner()}
-        >
+        <div className={styles.inner()}>
           <div className={styles.scene()}>
             <HeroScene
               className="absolute inset-0 h-full w-full"
@@ -62,52 +61,56 @@ function HeroSection(props: HeroSectionProps) {
             />
           </div>
 
-          <SectionLayout.Wrapper
-            width="2xl"
-            className={styles.content()}
-          >
-            <div className={styles.headingArea()}>
-              <TextCycle
-                className={styles.subtitle()}
-                words={['Creative Developer', 'Fullstack Engineer']}
-                interval={4_000}
-                mode="word"
-                exitProgress={exitProgress}
-                stagger={false}
-                ready={isReady}
-              />
-              <h1 className={styles.heading()}>
-                <TextReveal
-                  exitProgress={exitProgress}
-                  ready={isReady}
-                >
-                  Kamil
-                </TextReveal>
-                <TextReveal
-                  exitProgress={exitProgress}
-                  ready={isReady}
-                >
-                  Pyszkowski
-                </TextReveal>
-              </h1>
-            </div>
-            <TextReveal
-              className={styles.paragraph()}
-              mode="word"
-              syncLines
-              exitProgress={exitProgress}
-              ready={isReady}
+          <SectionLayout.Root>
+            <SectionLayout.Wrapper
+              width="2xl"
+              className={styles.content({
+                className: sectionLayoutRootStyles().root(),
+              })}
             >
-              Building products at the intersection of design and engineering,
-              where craftsmanship meets purpose and ideas become experiences
-              worth remembering.
-            </TextReveal>
-          </SectionLayout.Wrapper>
-        </section>
+              <div className={styles.headingArea()}>
+                <TextCycle
+                  className={styles.subtitle()}
+                  words={['Creative Developer', 'Fullstack Engineer']}
+                  interval={4_000}
+                  mode="word"
+                  exitProgress={exitProgress}
+                  stagger={false}
+                  ready={isReady}
+                />
+                <h1 className={styles.heading()}>
+                  <TextReveal
+                    exitProgress={exitProgress}
+                    ready={isReady}
+                  >
+                    Kamil
+                  </TextReveal>
+                  <TextReveal
+                    exitProgress={exitProgress}
+                    ready={isReady}
+                  >
+                    Pyszkowski
+                  </TextReveal>
+                </h1>
+              </div>
+              <TextReveal
+                className={styles.paragraph()}
+                mode="word"
+                syncLines
+                exitProgress={exitProgress}
+                ready={isReady}
+              >
+                Building products at the intersection of design and engineering,
+                where craftsmanship meets purpose and ideas become experiences
+                worth remembering.
+              </TextReveal>
+            </SectionLayout.Wrapper>
+          </SectionLayout.Root>
+        </div>
       </div>
 
       {!isReady && <PageLoader onReady={() => setIsReady(true)} />}
-    </SectionLayout.Root>
+    </div>
   )
 }
 

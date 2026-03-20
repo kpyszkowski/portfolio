@@ -17,6 +17,7 @@ const VERTEX_SHADER = /* glsl */ `
   uniform float uSpeed;
 
   varying vec3 vWorldPos;
+  varying float vViewZ;
 
   vec2 hash2(vec2 p) {
     p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
@@ -56,7 +57,9 @@ const VERTEX_SHADER = /* glsl */ `
 
     vec4 worldPos = modelMatrix * vec4(pos, 1.0);
     vWorldPos = worldPos.xyz;
-    gl_Position = projectionMatrix * viewMatrix * worldPos;
+    vec4 viewPos = viewMatrix * worldPos;
+    vViewZ = viewPos.z;
+    gl_Position = projectionMatrix * viewPos;
   }
 `
 
@@ -66,12 +69,17 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform float uFadeDistance;
   uniform float uFadeStrength;
   uniform float uFadeShift;
+  uniform float uNearFadeStart;
+  uniform float uNearFadeEnd;
 
   varying vec3 vWorldPos;
+  varying float vViewZ;
 
   void main() {
     float dist = length(vWorldPos.xz - vec2(uFadeShift, 0.0));
     float fade = 1.0 - smoothstep(uFadeDistance * (1.0 - uFadeStrength * 0.1), uFadeDistance, dist);
+    float nearFade = smoothstep(uNearFadeStart, uNearFadeEnd, -vViewZ);
+    fade *= nearFade;
     if (fade <= 0.0) discard;
     gl_FragColor = vec4(uColor, uOpacity * fade);
   }
@@ -128,6 +136,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     fadeEnd: { value: 1, min: 0, max: 1, step: 0.01 },
     fadeStrength: { value: 1.96, min: 0.1, max: 5, step: 0.1 },
     opacity: { value: 1, min: 0, max: 1, step: 0.01 },
+    nearFadeStart: { value: 2, min: 0, max: 100, step: 0.5 },
+    nearFadeEnd: { value: 20, min: 0, max: 100, step: 0.5 },
   })
 
   const geometry = useMemo(() => {
@@ -173,6 +183,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
       uFadeDistance: { value: ground.fadeEnd },
       uFadeStrength: { value: ground.fadeStrength },
       uFadeShift: { value: 0 },
+      uNearFadeStart: { value: ground.nearFadeStart },
+      uNearFadeEnd: { value: ground.nearFadeEnd },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -199,6 +211,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
     u.uFrequency.value = ground.frequency
     u.uSpeed.value = ground.speed
     u.uFadeStrength.value = ground.fadeStrength
+    u.uNearFadeStart.value = ground.nearFadeStart
+    u.uNearFadeEnd.value = ground.nearFadeEnd
     u.uColor.value.set(groundColor)
 
     const scroll = scrollYProgress?.get() ?? 0
