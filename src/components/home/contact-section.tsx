@@ -14,7 +14,8 @@ const contactSectionStyles = createStyles({
     links: 'group flex text-main',
     link: 'block p-3 transition-opacity group-hover:opacity-25 first:-ml-3 hover:!opacity-100 focus-visible:!opacity-100',
     linkIcon: 'size-5',
-    textDecorator: 'text-highlight opacity-10',
+    textDecorator:
+      'text-highlight opacity-12 transition-opacity duration-800 hover:opacity-24',
   },
 })
 
@@ -66,6 +67,8 @@ function ContactSection(props: ContactSectionProps) {
           origin="relative"
           minWeight={350}
           className={styles.textDecorator()}
+          features={['opacity']}
+          minOpacity={0.56}
         >
           Kamil Pyszkowski
         </MagnifiedText>

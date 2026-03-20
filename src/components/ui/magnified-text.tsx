@@ -9,9 +9,8 @@ import {
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const FONT_SIZE = 200
-// Eudoxus Sans vertical metrics at FONT_SIZE (sTypoAscender=1038, sTypoDescender=−222, sCapHeight=745, UPM=1000)
-const VIEW_Y = Math.round(FONT_SIZE * -0.038)
-const VIEW_H = Math.round(FONT_SIZE * 1.26)
+
+type MagnifiedTextFeature = 'blur' | 'opacity'
 
 const magnifiedTextStyles = createStyles({
   slots: {
@@ -33,6 +32,9 @@ interface MagnifiedCharProps {
   stiffness: number
   damping: number
   origin: 'pointer' | 'relative'
+  features: MagnifiedTextFeature[]
+  blurStrength: number
+  minOpacity: number
 }
 
 function MagnifiedChar({
@@ -47,14 +49,27 @@ function MagnifiedChar({
   stiffness,
   damping,
   origin,
+  features,
+  blurStrength,
+  minOpacity,
 }: MagnifiedCharProps) {
   const spanRef = useRef<SVGTSpanElement>(null)
   const weight = useMotionValue(idleWeight)
   const smoothWeight = useSpring(weight, { stiffness, damping })
 
   useMotionValueEvent(smoothWeight, 'change', (w) => {
-    if (spanRef.current) {
-      spanRef.current.style.fontVariationSettings = `'wght' ${Math.round(w)}`
+    const el = spanRef.current
+    if (!el) return
+    el.style.fontVariationSettings = `'wght' ${Math.round(w)}`
+    // Derive normalised proximity [0–1] from the already-spring-smoothed weight
+    // so blur and opacity inherit the same easing for free.
+    const t =
+      maxWeight === minWeight ? 1 : (w - minWeight) / (maxWeight - minWeight)
+    if (features.includes('blur')) {
+      el.style.filter = `blur(${((1 - t) * blurStrength).toFixed(2)}px)`
+    }
+    if (features.includes('opacity')) {
+      el.style.opacity = (minOpacity + t * (1 - minOpacity)).toFixed(3)
     }
   })
 
@@ -123,6 +138,26 @@ type MagnifiedTextBaseProps = StylesProps<typeof magnifiedTextStyles> & {
    * @default 20
    */
   damping?: number
+  /**
+   * Visual effects applied to each character based on proximity to the cursor.
+   * Multiple features can be combined.
+   * - `'blur'` — characters at maximum distance receive a CSS blur filter.
+   * - `'opacity'` — characters at maximum distance fade toward `minOpacity`.
+   * @default []
+   */
+  features?: MagnifiedTextFeature[]
+  /**
+   * Maximum blur radius (px) applied to characters at maximum distance.
+   * Only relevant when `'blur'` is included in `features`.
+   * @default 8
+   */
+  blurStrength?: number
+  /**
+   * Minimum opacity applied to characters at maximum distance.
+   * Only relevant when `'opacity'` is included in `features`.
+   * @default 0.2
+   */
+  minOpacity?: number
 }
 
 type MagnifiedTextConstrainedProps = MagnifiedTextBaseProps & {
@@ -183,6 +218,9 @@ function MagnifiedText(props: MagnifiedTextProps) {
     strength = 0.5,
     stiffness = 80,
     damping = 20,
+    features = [],
+    blurStrength = 8,
+    minOpacity = 0.2,
   } = props
 
   const mode = props.mode ?? 'constrained'
@@ -195,17 +233,22 @@ function MagnifiedText(props: MagnifiedTextProps) {
   const textRef = useRef<SVGTextElement>(null)
   const mousePos = useMotionValue<{ x: number; y: number } | null>(null)
 
-  // Start at 0 on both server and client — avoids hydration mismatch from
-  // canvas measurement (unavailable on server) returning a different value.
+  // Start at null on both server and client — avoids hydration mismatch from
+  // DOM measurement (unavailable on server) returning a different value.
   // The SVG stays hidden until the first effect measurement resolves.
-  const [viewBoxWidth, setViewBoxWidth] = useState(0)
+  const [viewBox, setViewBox] = useState<{
+    y: number
+    width: number
+    height: number
+  } | null>(null)
 
   useEffect(() => {
     document.fonts.ready.then(() => {
       const text = textRef.current
       if (!text) return
-      const w = text.getComputedTextLength()
-      if (w > 0) setViewBoxWidth(w)
+      const width = text.getComputedTextLength()
+      const { y, height } = text.getBBox()
+      if (width > 0) setViewBox({ y, width, height })
     })
   }, [children])
 
@@ -241,7 +284,11 @@ function MagnifiedText(props: MagnifiedTextProps) {
     <div className={styles.root({ className })}>
       <svg
         ref={svgRef}
-        viewBox={`0 ${VIEW_Y} ${viewBoxWidth} ${VIEW_H}`}
+        viewBox={
+          viewBox
+            ? `0 ${viewBox.y} ${viewBox.width} ${viewBox.height}`
+            : undefined
+        }
         width="100%"
         preserveAspectRatio="xMinYMid meet"
         aria-label={children}
@@ -257,7 +304,7 @@ function MagnifiedText(props: MagnifiedTextProps) {
           ref={textRef}
           x={0}
           y={FONT_SIZE}
-          textLength={viewBoxWidth}
+          textLength={viewBox?.width}
           lengthAdjust="spacing"
           className={styles.text()}
         >
@@ -275,6 +322,9 @@ function MagnifiedText(props: MagnifiedTextProps) {
               stiffness={stiffness}
               damping={damping}
               origin={origin}
+              features={features}
+              blurStrength={blurStrength}
+              minOpacity={minOpacity}
             />
           ))}
         </text>
