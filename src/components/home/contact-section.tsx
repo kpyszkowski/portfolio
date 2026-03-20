@@ -37,12 +37,20 @@ function ContactSection(props: ContactSectionProps) {
   const styles = contactSectionStyles()
 
   const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: imageYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
   })
+  const { scrollYProgress: textYProgress } = useScroll({
+    target: containerRef,
+    offset: ['center end', 'end end'],
+  })
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ['50%', '0%'], {
+  const imageY = useTransform(imageYProgress, [0, 1], ['50%', '0%'], {
+    ease: easeInOut,
+  })
+
+  const textY = useTransform(textYProgress, [0, 1], ['50%', '0%'], {
     ease: easeInOut,
   })
 
@@ -105,6 +113,7 @@ function ContactSection(props: ContactSectionProps) {
 
       <SectionLayout.Wrapper width="2xl">
         <MagnifiedText
+          render={<motion.div style={{ y: textY }} />}
           mode="tracked"
           origin="relative"
           minWeight={350}

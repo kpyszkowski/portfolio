@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, cubicBezier } from 'motion/react'
 import useBreakpoint from '~/hooks/use-breakpoint'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import getFormattedDate from '~/utils/get-formatted-date'
-import { experienceContent } from '~/content/home'
+import { experienceContent, type ExperienceItem } from '~/content/home'
 import { SectionLayout } from '~/components/ui/section-layout'
 
 const experienceSectionStyles = createStyles({
@@ -14,6 +14,7 @@ const experienceSectionStyles = createStyles({
     itemMeta: '-z-10 flex grow flex-col gap-1 md:items-end',
     itemPeriod: 'mb-4 text-highlight',
     itemCompany: 'text-4xl font-black text-main',
+    itemLogo: 'h-8 w-auto invert dark:invert-0',
     itemContent:
       'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
     itemRole: 'mb-4 font-medium text-main md:text-xl',
@@ -23,6 +24,7 @@ const experienceSectionStyles = createStyles({
 
 type ExperienceItemProps = {
   company: string
+  logo?: ExperienceItem['logo']
   role: string
   from: string
   to?: string | null
@@ -31,7 +33,7 @@ type ExperienceItemProps = {
 }
 
 function ExperienceItem(props: ExperienceItemProps) {
-  const { company, role, from, to, description, id } = props
+  const { company, logo: Logo, role, from, to, description, id } = props
   const styles = experienceSectionStyles()
   const ref = useRef<HTMLLIElement>(null)
 
@@ -76,7 +78,14 @@ function ExperienceItem(props: ExperienceItemProps) {
         <span className={styles.itemPeriod()}>
           {fromLabel} — {toLabel}
         </span>
-        <span className={styles.itemCompany()}>{company}</span>
+        {Logo ? (
+          <Logo
+            className={styles.itemLogo()}
+            aria-label={company}
+          />
+        ) : (
+          <span className={styles.itemCompany()}>{company}</span>
+        )}
       </motion.div>
 
       <div className={styles.itemContent()}>

@@ -6,6 +6,8 @@ import {
   useSpring,
   type MotionValue,
 } from 'motion/react'
+import { useRender } from '@base-ui-components/react/use-render'
+import { mergeProps } from '@base-ui-components/react/merge-props'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import useBreakpoint from '~/hooks/use-breakpoint'
 
@@ -101,65 +103,66 @@ function MagnifiedChar({
   )
 }
 
-type MagnifiedTextBaseProps = StylesProps<typeof magnifiedTextStyles> & {
-  /** Text content to render. Each character is individually weighted. */
-  children: string
-  className?: string
-  /**
-   * Minimum font weight applied to characters at maximum distance from the cursor.
-   * Maps to the lower bound of the font's `wght` axis (typically 100).
-   * @default 100
-   */
-  minWeight?: number
-  /**
-   * Maximum font weight applied to characters directly under the cursor.
-   * Maps to the upper bound of the font's `wght` axis (typically 1000).
-   * @default 1000
-   */
-  maxWeight?: number
-  /**
-   * Distribution curve exponent — shapes how weight falls off with distance.
-   * - `< 1` — weight concentrates tightly around the cursor; sharp drop-off.
-   * - `= 1` — perfectly linear distribution across the text width.
-   * - `> 1` — weight spreads broadly; gradual, plateau-like falloff.
-   * @default 0.5
-   */
-  strength?: number
-  /**
-   * Spring stiffness — controls responsiveness of individual characters to
-   * cursor movement. Higher values snap more immediately; lower values feel
-   * floaty and delayed.
-   * @default 80
-   */
-  stiffness?: number
-  /**
-   * Spring damping — controls how much the weight overshoots before settling.
-   * Lower values allow more oscillation; higher values make it settle firmly
-   * without bounce.
-   * @default 20
-   */
-  damping?: number
-  /**
-   * Visual effects applied to each character based on proximity to the cursor.
-   * Multiple features can be combined.
-   * - `'blur'` — characters at maximum distance receive a CSS blur filter.
-   * - `'opacity'` — characters at maximum distance fade toward `minOpacity`.
-   * @default []
-   */
-  features?: MagnifiedTextFeature[]
-  /**
-   * Maximum blur radius (px) applied to characters at maximum distance.
-   * Only relevant when `'blur'` is included in `features`.
-   * @default 8
-   */
-  blurStrength?: number
-  /**
-   * Minimum opacity applied to characters at maximum distance.
-   * Only relevant when `'opacity'` is included in `features`.
-   * @default 0.2
-   */
-  minOpacity?: number
-}
+type MagnifiedTextBaseProps = useRender.ComponentProps<'div'> &
+  StylesProps<typeof magnifiedTextStyles> & {
+    /** Text content to render. Each character is individually weighted. */
+    children: string
+    className?: string
+    /**
+     * Minimum font weight applied to characters at maximum distance from the cursor.
+     * Maps to the lower bound of the font's `wght` axis (typically 100).
+     * @default 100
+     */
+    minWeight?: number
+    /**
+     * Maximum font weight applied to characters directly under the cursor.
+     * Maps to the upper bound of the font's `wght` axis (typically 1000).
+     * @default 1000
+     */
+    maxWeight?: number
+    /**
+     * Distribution curve exponent — shapes how weight falls off with distance.
+     * - `< 1` — weight concentrates tightly around the cursor; sharp drop-off.
+     * - `= 1` — perfectly linear distribution across the text width.
+     * - `> 1` — weight spreads broadly; gradual, plateau-like falloff.
+     * @default 0.5
+     */
+    strength?: number
+    /**
+     * Spring stiffness — controls responsiveness of individual characters to
+     * cursor movement. Higher values snap more immediately; lower values feel
+     * floaty and delayed.
+     * @default 80
+     */
+    stiffness?: number
+    /**
+     * Spring damping — controls how much the weight overshoots before settling.
+     * Lower values allow more oscillation; higher values make it settle firmly
+     * without bounce.
+     * @default 20
+     */
+    damping?: number
+    /**
+     * Visual effects applied to each character based on proximity to the cursor.
+     * Multiple features can be combined.
+     * - `'blur'` — characters at maximum distance receive a CSS blur filter.
+     * - `'opacity'` — characters at maximum distance fade toward `minOpacity`.
+     * @default []
+     */
+    features?: MagnifiedTextFeature[]
+    /**
+     * Maximum blur radius (px) applied to characters at maximum distance.
+     * Only relevant when `'blur'` is included in `features`.
+     * @default 8
+     */
+    blurStrength?: number
+    /**
+     * Minimum opacity applied to characters at maximum distance.
+     * Only relevant when `'opacity'` is included in `features`.
+     * @default 0.2
+     */
+    minOpacity?: number
+  }
 
 type MagnifiedTextConstrainedProps = MagnifiedTextBaseProps & {
   /**
@@ -214,6 +217,7 @@ function MagnifiedText(props: MagnifiedTextProps) {
   const {
     children,
     className,
+    render,
     minWeight = 100,
     maxWeight = 1000,
     strength = 0.5,
@@ -283,59 +287,69 @@ function MagnifiedText(props: MagnifiedTextProps) {
   const chars = useMemo(() => [...children], [children])
   const styles = magnifiedTextStyles()
 
-  return (
-    <div className={styles.root({ className })}>
-      <svg
-        ref={svgRef}
-        viewBox={
-          viewBox
-            ? `0 ${viewBox.y} ${viewBox.width} ${viewBox.height}`
-            : undefined
-        }
-        width="100%"
-        preserveAspectRatio="xMinYMid meet"
-        aria-label={children}
-        className={styles.svg()}
-        onMouseMove={
-          mode === 'tracked'
-            ? undefined
-            : (e) => toSvgCoords(e.clientX, e.clientY)
-        }
-        onMouseLeave={mode === 'tracked' ? undefined : () => mousePos.set(null)}
-      >
-        <text
-          ref={textRef}
-          x={0}
-          y={FONT_SIZE}
-          textLength={viewBox?.width}
-          lengthAdjust="spacing"
-          className={styles.text()}
-        >
-          {chars.map((char, i) => (
-            <MagnifiedChar
-              key={i}
-              char={char}
-              index={i}
-              textRef={textRef}
-              mousePos={mousePos}
-              // Disable magnification on smaller screens by clamping min and
-              // max weight
-              minWeight={isMd ? minWeight : maxWeight}
-              maxWeight={maxWeight}
-              idleWeight={idleWeight}
-              strength={strength}
-              stiffness={stiffness}
-              damping={damping}
-              origin={origin}
-              features={features}
-              blurStrength={blurStrength}
-              minOpacity={minOpacity}
-            />
-          ))}
-        </text>
-      </svg>
-    </div>
-  )
+  return useRender({
+    defaultTagName: 'div',
+    render,
+    props: mergeProps<'div'>(
+      {
+        className: styles.root({ className }),
+        children: (
+          <svg
+            ref={svgRef}
+            viewBox={
+              viewBox
+                ? `0 ${viewBox.y} ${viewBox.width} ${viewBox.height}`
+                : undefined
+            }
+            width="100%"
+            preserveAspectRatio="xMinYMid meet"
+            aria-label={children}
+            className={styles.svg()}
+            onMouseMove={
+              mode === 'tracked'
+                ? undefined
+                : (e) => toSvgCoords(e.clientX, e.clientY)
+            }
+            onMouseLeave={
+              mode === 'tracked' ? undefined : () => mousePos.set(null)
+            }
+          >
+            <text
+              ref={textRef}
+              x={0}
+              y={FONT_SIZE}
+              textLength={viewBox?.width}
+              lengthAdjust="spacing"
+              className={styles.text()}
+            >
+              {chars.map((char, i) => (
+                <MagnifiedChar
+                  key={i}
+                  char={char}
+                  index={i}
+                  textRef={textRef}
+                  mousePos={mousePos}
+                  // Disable magnification on smaller screens by clamping min and
+                  // max weight
+                  minWeight={isMd ? minWeight : maxWeight}
+                  maxWeight={maxWeight}
+                  idleWeight={idleWeight}
+                  strength={strength}
+                  stiffness={stiffness}
+                  damping={damping}
+                  origin={origin}
+                  features={features}
+                  blurStrength={blurStrength}
+                  minOpacity={minOpacity}
+                />
+              ))}
+            </text>
+          </svg>
+        ),
+      },
+      {},
+    ) as Record<string, unknown>,
+  })
 }
 
 export { MagnifiedText, magnifiedTextStyles, type MagnifiedTextProps }

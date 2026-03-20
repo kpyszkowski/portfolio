@@ -1,3 +1,4 @@
+import { type FC, type SVGProps } from 'react'
 import {
   Code,
   GitHub,
@@ -8,6 +9,8 @@ import {
   Zap,
 } from 'react-feather'
 import { type Icon } from 'react-feather'
+import AkenaLogo from '~/assets/logos/akena.svg'
+import SnowdogLogo from '~/assets/logos/snowdog.svg'
 
 // ── Shared types ─────────────────────────────────────────────────
 
@@ -37,6 +40,7 @@ export interface ProjectItem {
 export interface ExperienceItem {
   id: string
   company: string
+  logo?: FC<SVGProps<SVGSVGElement>>
   role: string
   /** ISO date string, e.g. "2022-01-01" */
   from: string
@@ -155,7 +159,8 @@ export const experienceContent = {
   items: [
     {
       id: 'job-1',
-      company: 'Company A',
+      company: 'Akena',
+      logo: AkenaLogo,
       role: 'Senior Frontend Engineer',
       from: '2022-01-01',
       to: null,
@@ -164,7 +169,8 @@ export const experienceContent = {
     },
     {
       id: 'job-2',
-      company: 'Company B',
+      company: 'Snowdog',
+      logo: SnowdogLogo,
       role: 'Frontend Engineer',
       from: '2020-03-01',
       to: '2021-12-31',
