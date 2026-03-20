@@ -7,6 +7,7 @@ import {
   type MotionValue,
 } from 'motion/react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
+import useBreakpoint from '~/hooks/use-breakpoint'
 
 const FONT_SIZE = 200
 
@@ -223,6 +224,8 @@ function MagnifiedText(props: MagnifiedTextProps) {
     minOpacity = 0.2,
   } = props
 
+  const isMd = useBreakpoint('md')
+
   const mode = props.mode ?? 'constrained'
   const idle = props.mode !== 'tracked' ? (props.idle ?? 'max') : 'max'
   const origin =
@@ -315,7 +318,9 @@ function MagnifiedText(props: MagnifiedTextProps) {
               index={i}
               textRef={textRef}
               mousePos={mousePos}
-              minWeight={minWeight}
+              // Disable magnification on smaller screens by clamping min and
+              // max weight
+              minWeight={isMd ? minWeight : maxWeight}
               maxWeight={maxWeight}
               idleWeight={idleWeight}
               strength={strength}

@@ -39,14 +39,19 @@ export const Default: Story = {
 
 export const AsLink: Story = {
   args: {
-    href: '/link-to-somewhere',
+    render: <a href="/link-to-somewhere" />,
   },
 }
 
 export const AsExternalLink: Story = {
   args: {
-    href: 'https://example.com',
-    isExternal: true,
+    render: (
+      <a
+        href="https://example.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      />
+    ),
   },
 }
 

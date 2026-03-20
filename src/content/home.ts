@@ -204,6 +204,6 @@ export const contactContent = {
   links: [
     { label: 'GitHub', href: '/github', icon: GitHub },
     { label: 'LinkedIn', href: '/linkedin', icon: Linkedin },
-    { label: 'Email', href: 'mailto:kamil@pyszkowski.dev', icon: Send },
+    { label: 'Send an Email', href: 'mailto:kamil@pyszkowski.dev', icon: Send },
   ] satisfies ContactLink[],
 }

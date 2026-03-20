@@ -203,8 +203,13 @@ function ProjectsSection(props: ProjectsSectionProps) {
                 <div className={styles.itemActions()}>
                   {previewUrl && (
                     <Button
-                      href={previewUrl}
-                      isExternal
+                      render={
+                        <a
+                          href={previewUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
+                      }
                       variant="solid"
                       size="sm"
                       icon={ArrowUpRight}
@@ -213,10 +218,16 @@ function ProjectsSection(props: ProjectsSectionProps) {
                       Preview
                     </Button>
                   )}
+
                   {sourceCodeUrl && (
                     <Button
-                      href={sourceCodeUrl}
-                      isExternal
+                      render={
+                        <a
+                          href={sourceCodeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        />
+                      }
                       variant="solid"
                       size="sm"
                       icon={Code}

@@ -1,20 +1,27 @@
 'use client'
 import { AnimatePresence, motion } from 'motion/react'
 import { Copy as CopyIcon } from 'react-feather'
-import { createStyles, type StylesProps } from '~/utils/create-styles'
 import useClipboard from '~/hooks/use-clipboard'
+import { Button, type ButtonProps } from '~/components/ui/button'
+import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const copyButtonStyles = createStyles({
   slots: {
-    container: 'mx-1 flex items-center gap-1',
-    icon: 'size-4',
-    labelsWrapper: 'relative',
-    copiedLabel: 'absolute inset-0 text-center text-nowrap',
+    labelsWrapper: 'relative overflow-hidden',
+    label: 'block leading-tight whitespace-nowrap',
   },
 })
 
-interface CopyButtonProps extends StylesProps<typeof copyButtonStyles> {
-  className?: string
+const transition = {
+  type: 'spring' as const,
+  stiffness: 320,
+  damping: 28,
+  mass: 0.8,
+}
+
+interface CopyButtonProps
+  extends Omit<ButtonProps, 'children' | 'icon'>,
+    StylesProps<typeof copyButtonStyles> {
   children: string
   label?: {
     default?: string
@@ -24,55 +31,52 @@ interface CopyButtonProps extends StylesProps<typeof copyButtonStyles> {
 
 function CopyButton(props: CopyButtonProps) {
   const {
-    className = '',
+    className,
     children,
     label = {
       default: children,
       copied: 'Copied to clipboard!',
     },
+    variant = 'ghost',
     ...restProps
   } = props
 
   const { hasCopied, onCopy } = useClipboard(children)
-
   const styles = copyButtonStyles()
 
   return (
-    <button
-      type="button"
+    <Button
+      render={
+        <motion.button
+          layoutRoot
+          layout
+        />
+      }
+      icon={CopyIcon}
       onClick={() => onCopy()}
-      className={styles.container({ className })}
+      className={className}
+      variant={variant}
       {...restProps}
     >
-      <CopyIcon className={styles.icon()} />
-
-      <div className={styles.labelsWrapper()}>
-        <AnimatePresence>
-          {hasCopied && (
-            <motion.span
-              initial={false}
-              animate={{ filter: 'blur(0px) opacity(1)' }}
-              exit={{ filter: 'blur(4px) opacity(0)' }}
-              className={styles.copiedLabel()}
-            >
-              {label.copied}
-            </motion.span>
-          )}
-        </AnimatePresence>
-
-        <motion.span
+      <span className={styles.labelsWrapper()}>
+        <AnimatePresence
+          mode="popLayout"
           initial={false}
-          animate={{
-            filter: hasCopied
-              ? 'blur(12px) opacity(0.45)'
-              : 'blur(0px) opacity(1)',
-          }}
         >
-          {label.default}
-        </motion.span>
-      </div>
-    </button>
+          <motion.span
+            key={hasCopied ? 'copied' : 'default'}
+            initial={{ y: '100%' }}
+            animate={{ y: '0%' }}
+            exit={{ y: '-100%' }}
+            transition={transition}
+            className={styles.label()}
+          >
+            {hasCopied ? label.copied : label.default}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+    </Button>
   )
 }
 
-export { CopyButton, copyButtonStyles, type CopyButtonProps }
+export { CopyButton, type CopyButtonProps }

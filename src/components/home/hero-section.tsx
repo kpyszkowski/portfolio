@@ -95,8 +95,8 @@ function HeroSection(props: HeroSectionProps) {
               </div>
               <TextReveal
                 className={styles.paragraph()}
-                mode="word"
-                syncLines
+                staggerDelay={0}
+                exitStagger={false}
                 exitProgress={exitProgress}
                 ready={isReady}
               >

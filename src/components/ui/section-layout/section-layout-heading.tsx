@@ -4,7 +4,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 const sectionLayoutHeadingStyles = createStyles({
   slots: {
     heading:
-      'mb-6 text-sm font-medium tracking-widest text-highlight uppercase md:mb-10 md:text-base',
+      'mb-10 text-sm font-medium tracking-widest text-highlight uppercase md:text-base',
   },
 })
 

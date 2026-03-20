@@ -2,6 +2,7 @@
 import { useRender } from '@base-ui-components/react/use-render'
 import { mergeProps } from '@base-ui-components/react/merge-props'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
+import { forwardRef } from 'react'
 
 const sectionLayoutRootStyles = createStyles({
   slots: {
@@ -22,21 +23,26 @@ interface SectionLayoutRootProps
   className?: string
 }
 
-function SectionLayoutRoot(props: SectionLayoutRootProps) {
-  const { className, render, padding, ...restProps } = props
-  const styles = sectionLayoutRootStyles({ padding })
+const SectionLayoutRoot = forwardRef<HTMLElement, SectionLayoutRootProps>(
+  (props, ref) => {
+    const { className, render, padding, ...restProps } = props
+    const styles = sectionLayoutRootStyles({ padding })
 
-  return useRender({
-    defaultTagName: 'section',
-    render,
-    props: mergeProps<'section'>(
-      {
-        className: styles.root({ className }),
-      },
-      restProps,
-    ) as Record<string, unknown>,
-  })
-}
+    return useRender({
+      defaultTagName: 'section',
+      render,
+      ref,
+      props: mergeProps<'section'>(
+        {
+          className: styles.root({ className }),
+        },
+        restProps,
+      ) as Record<string, unknown>,
+    })
+  },
+)
+
+SectionLayoutRoot.displayName = 'SectionLayoutRoot'
 
 export {
   SectionLayoutRoot,

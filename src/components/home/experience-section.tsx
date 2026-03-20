@@ -1,6 +1,7 @@
 'use client'
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, cubicBezier } from 'motion/react'
+import useBreakpoint from '~/hooks/use-breakpoint'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import getFormattedDate from '~/utils/get-formatted-date'
 import { experienceContent } from '~/content/home'
@@ -14,7 +15,7 @@ const experienceSectionStyles = createStyles({
     itemPeriod: 'mb-4 text-highlight',
     itemCompany: 'text-4xl font-black text-main',
     itemContent:
-      'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10',
+      'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
     itemRole: 'mb-4 font-medium text-main md:text-xl',
     itemDescription: 'leading-relaxed text-elevated',
   },
@@ -34,12 +35,14 @@ function ExperienceItem(props: ExperienceItemProps) {
   const styles = experienceSectionStyles()
   const ref = useRef<HTMLLIElement>(null)
 
+  const isMd = useBreakpoint('md')
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'start center'],
   })
 
-  const x = useTransform(scrollYProgress, [0, 1], [120, 0], {
+  const x = useTransform(scrollYProgress, [0, 1], [isMd ? 64 : 0, 0], {
     ease: cubicBezier(0.25, 0.46, 0.45, 0.94),
   })
 

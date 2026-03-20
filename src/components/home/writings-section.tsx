@@ -1,3 +1,5 @@
+'use client'
+import Link from 'next/link'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Button } from '~/components/ui/button'
 import { GlowCard } from '~/components/ui/glow-card'
@@ -5,12 +7,13 @@ import { WritingTile } from '~/components/writing-tile'
 import { SectionLayout } from '~/components/ui/section-layout'
 import { writingsContent } from '~/content/home'
 import { type WritingMetadata } from '~/lib/writings'
+import { ArrowRight } from 'react-feather'
 
 const writingsSectionStyles = createStyles({
   slots: {
     wrapper: 'flex flex-col items-start gap-16 md:flex-row',
     content: 'flex flex-col gap-12 md:basis-4/10',
-    paragraphs: 'flex flex-col gap-4 text-lg leading-relaxed text-elevated',
+    paragraphs: 'flex flex-col gap-4 leading-relaxed text-elevated md:text-lg',
     writingWrapper: 'w-full md:basis-2/3',
     cardContent: 'p-6 md:p-10',
     button: 'self-start',
@@ -49,9 +52,12 @@ function WritingsSection(props: WritingsSectionProps) {
               ))}
             </div>
             <Button
+              render={<Link href={writingsContent.ctaHref} />}
               className={styles.button()}
-              href={writingsContent.ctaHref}
               size="sm"
+              variant="solid"
+              icon={ArrowRight}
+              iconPosition="right"
             >
               {writingsContent.ctaLabel}
             </Button>

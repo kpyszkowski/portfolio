@@ -1,25 +1,31 @@
 'use client'
-import Link from 'next/link'
-import { Icon } from 'react-feather'
+import { forwardRef, isValidElement, type ReactNode } from 'react'
+import { Button as ButtonPrimitive } from '@base-ui-components/react/button'
+import { type Icon } from 'react-feather'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
+import { isMotionComponent, motion } from 'motion/react'
 
 const buttonStyles = createStyles({
   slots: {
-    container: 'inline-block transition-all',
+    container: 'inline-block',
     content: 'flex items-center whitespace-nowrap',
     icon: 'text-current',
-    wrapper: '',
+    wrapper: 'relative',
   },
   variants: {
     variant: {
       solid: {
         container:
-          'relative bg-elevated hover:brightness-90 active:brightness-85 dark:hover:brightness-110 dark:active:brightness-115',
-        wrapper: 'relative overflow-hidden text-main',
+          'relative bg-elevated transition-[filter] hover:brightness-90 active:brightness-85 dark:hover:brightness-110 dark:active:brightness-115',
+        wrapper: 'overflow-hidden text-main',
       },
       outline: {
         container:
           '-m-0.5 border-2 border-highlight text-main transition-colors outline-none',
+      },
+      ghost: {
+        container:
+          'text-main transition-[background-color] outline-none hover:bg-elevated active:bg-elevated',
       },
     },
     size: {
@@ -69,48 +75,58 @@ const buttonStyles = createStyles({
   },
 })
 
-interface ButtonProps extends StylesProps<typeof buttonStyles> {
-  className?: string
-  children: string
-  icon?: Icon
-  href?: string
-  isExternal?: boolean
-  onClick?: React.MouseEventHandler
-}
+type ButtonProps = Omit<ButtonPrimitive.Props, 'nativeButton'> &
+  StylesProps<typeof buttonStyles> & {
+    children: ReactNode
+    icon?: Icon
+    nativeButton?: boolean
+  }
 
-function Button(props: ButtonProps) {
+const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
   const {
     className = '',
     variant,
-    icon: IconComponent,
+    icon: Icon,
     size,
     iconPosition,
     children: label,
-    href,
-    isExternal,
+    render,
     ...restProps
   } = props
 
   const styles = buttonStyles({ variant, size, iconPosition })
 
-  const LinkComponent = isExternal ? 'a' : Link
-  const Component = href ? LinkComponent : 'button'
+  const renderType = render && isValidElement(render) ? render.type : null
+  const nativeButton =
+    !renderType ||
+    renderType === 'button' ||
+    (typeof renderType !== 'string' && isMotionComponent(renderType))
 
   return (
-    <Component
-      className={styles.container({ className })}
-      href={href!}
-      target={href && isExternal ? '_blank' : undefined}
+    <ButtonPrimitive
+      ref={ref}
+      render={render}
+      nativeButton={nativeButton}
+      className={
+        typeof className === 'function'
+          ? (state) => styles.container({ className: className(state) })
+          : styles.container({ className })
+      }
       {...restProps}
     >
       <div className={styles.wrapper()}>
         <div className={styles.content()}>
           {label}
-          {IconComponent && <IconComponent className={styles.icon()} />}
+          {Icon && (
+            <motion.span layout>
+              <Icon className={styles.icon()} />
+            </motion.span>
+          )}
         </div>
       </div>
-    </Component>
+    </ButtonPrimitive>
   )
-}
+})
+Button.displayName = 'Button'
 
 export { Button, buttonStyles, type ButtonProps }
