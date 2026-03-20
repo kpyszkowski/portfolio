@@ -19,7 +19,7 @@ const contactSectionStyles = createStyles({
     wrapper: 'flex flex-col gap-16 md:flex-row',
     content: 'flex flex-1 flex-col',
     portrait:
-      '-mb-16 max-w-64 mask-b-from-50% object-contain md:-mb-32 md:max-w-88',
+      '-mb-16 max-w-64 mask-b-from-50% mask-b-to-92% object-contain md:-mb-32 md:max-w-88',
     body: 'mb-8 max-w-md leading-relaxed text-elevated md:text-lg',
     email: 'mb-8 flex items-center gap-2',
     emailAddress: 'text-base text-main',

@@ -47,6 +47,7 @@ export interface ExperienceItem {
   /** ISO date string or null for "Present" */
   to: string | null
   description: string
+  bullets?: string[]
 }
 
 export interface ContactLink {
@@ -59,9 +60,9 @@ export interface ContactLink {
 
 export const heroContent = {
   name: 'Kamil Pyszkowski',
-  role: 'Software Engineer',
+  role: 'Creative Developer',
   tagline:
-    'I craft thoughtful interfaces and robust systems with care for detail.',
+    'I build products end to end — schema, API, and interface — and bring the same care for craft to every layer of the stack.',
   socials: [
     { name: 'GitHub', href: '/github', icon: GitHub },
     { name: 'LinkedIn', href: '/linkedin', icon: Linkedin },
@@ -73,7 +74,7 @@ export const heroContent = {
 
 export const aboutContent = {
   heading: 'About me',
-  body: "I'm a software engineer based in Poland, focused on building thoughtful web experiences. I care deeply about developer experience, system design, and the craft of writing clean, maintainable code. When I'm not coding, I write about the tools and techniques I find most valuable.",
+  body: "I'm a fullstack engineer based in Poland. Over the past six years I've shipped production features across DeFi protocols, e-commerce platforms, and design systems — owning the full picture from schema and API design to the interface that users actually touch. I care about UX enough to push back on a spec, and about DX enough to make sure the next engineer has a good time. What sets me apart isn't just writing code that works — it's the attention to quality at every layer of the stack.",
 }
 
 // ── Strengths ────────────────────────────────────────────────────
@@ -82,27 +83,27 @@ export const strengthsContent = {
   heading: 'What I bring',
   items: [
     {
-      id: 'frontend',
-      heading: 'Front-end Engineering',
-      body: 'Building polished, accessible, and performant user interfaces using modern web standards and component-driven architecture.',
+      id: 'ui-craft',
+      heading: 'Attention to Detail',
+      body: 'Pixel-level attention to interfaces — transitions, states, edge cases, and the details users feel without being able to name. The gap between functional and polished is where I spend most of my time.',
       icon: Code,
     },
     {
-      id: 'systems',
-      heading: 'System Design',
-      body: 'Thinking through scalable architectures, data flows, and API contracts that are easy to evolve as requirements change.',
+      id: 'fullstack',
+      heading: 'Fullstack Delivery',
+      body: 'I can take a feature from an empty schema to a working UI without handing it off. That means fewer gaps, faster iteration, and someone who actually understands the whole thing.',
       icon: Layers,
     },
     {
       id: 'dx',
       heading: 'Developer Experience',
-      body: 'Investing in tooling, documentation, and conventions that make teams more effective and codebases a pleasure to work in.',
+      body: 'I build systems other developers enjoy working in — clear conventions, solid tooling, documentation that saves the next person an hour.',
       icon: Terminal,
     },
     {
       id: 'performance',
       heading: 'Performance',
-      body: 'Profiling, measuring, and optimising both runtime performance and build output to keep products fast for every user.',
+      body: 'Profiling, measuring, and shipping — never guessing. Fast for every user on every device, without trading off the polish.',
       icon: Zap,
     },
   ] satisfies StrengthItem[],
@@ -114,17 +115,62 @@ export const projectsContent = {
   heading: 'Projects',
   items: [
     {
-      id: 'Personal Portfolio',
-      name: 'Personal Portfolio',
+      id: 'mezo',
+      name: 'Mezo',
       description:
-        'Portfolio website showcasing my projects, writings, and experience. A showcase of my creativity and skills in web development, design, and performance optimisation.',
+        "Bitcoin-backed DeFi protocol. Built wallet connection, economic dashboard, vault management, and governance voting UI — consuming on-chain data via the protocol's APIs. Integrated a third-party swap and handled Cloudflare edge deployment.",
+      tags: [
+        'React',
+        'TypeScript',
+        'Vite',
+        'TanStack Query',
+        'Chakra UI',
+        'Wagmi',
+        'GraphQL',
+        'Cloudflare Workers',
+      ],
+      previewUrl: 'https://mezo.org',
+      previewSrc: 'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Mezo',
+    },
+    {
+      id: 'eObuwie',
+      name: 'eObuwie',
+      description:
+        'Large European footwear e-commerce platform. Shipped product page features and UI polish. Fixed a B2B flow where users could skip the invoice number field — patched validation and backfilled incomplete records in the database.',
+      tags: ['Vue', 'TypeScript', 'Tailwind CSS', 'Magento', 'MySQL'],
+      previewUrl: 'https://eobuwie.com.pl',
+      previewSrc: 'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=eObuwie',
+    },
+    {
+      id: 'boar-finance',
+      name: 'Boar Finance',
+      description:
+        'Non-custodial crypto wealth management with automated Bitcoin vote delegation. Built wallet connection, GraphQL on-chain data indexing, real-time earnings calculations, and vault interaction flows.',
       tags: [
         'Next.js',
         'TypeScript',
+        'Chakra UI',
+        'TanStack Query',
+        'GraphQL',
+        'Turborepo',
+        'Wagmi',
+      ],
+      previewUrl: 'https://boar.finance',
+      previewSrc:
+        'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Boar+Finance',
+    },
+    {
+      id: 'personal-portfolio',
+      name: 'Personal Portfolio',
+      description:
+        'Built to be as technically interesting as the work it presents. 3D hero scene with custom GLSL shaders, scroll-synchronized Three.js and DOM animations, per-character variable-font spring physics, and a full MDX blog pipeline — all on Cloudflare Workers.',
+      tags: [
+        'Next.js',
+        'TypeScript',
+        'React Three Fiber',
         'Tailwind CSS',
         'Motion',
-        'ThreeJS',
-        'Cloudflare',
+        'Cloudflare Workers',
       ],
       previewUrl: 'https://github.com/kpyszkowski/portfolio',
       sourceCodeUrl: 'https://github.com/kpyszkowski/portfolio',
@@ -132,22 +178,30 @@ export const projectsContent = {
         'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Personal+Portfolio',
     },
     {
-      id: 'project-alpha',
-      name: 'Project Alpha',
-      description: 'Description coming soon.',
-      tags: ['TypeScript', 'React'],
-      previewUrl: 'https://example.com/project-alpha',
-      previewSrc:
-        'https://placehold.co/1024x576/ebebeb/a3a3a3?text=Project+Alpha',
+      id: 'lumo',
+      name: 'Lumo',
+      description:
+        'Fullstack automotive marketplace — Drizzle schema, oRPC endpoints, search UI, and a shared component library in one Turborepo monorepo. Next.js on Cloudflare Workers, Neon PostgreSQL, and a custom scraper to populate the vehicle catalog.',
+      tags: [
+        'Next.js',
+        'TypeScript',
+        'oRPC',
+        'Drizzle ORM',
+        'PostgreSQL',
+        'Cloudflare Workers',
+        'Turborepo',
+      ],
+      previewSrc: 'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Lumo',
     },
     {
-      id: 'project-beta',
-      name: 'Project Beta',
-      description: 'Description coming soon.',
-      tags: ['Node.js', 'PostgreSQL'],
-      previewUrl: 'https://example.com/project-beta',
+      id: 'boar-network',
+      name: 'Boar Network',
+      description:
+        "Marketing site for enterprise blockchain infrastructure — multi-region RPC endpoints and validator services. Delivered end to end: layout, copy, motion, and deployment. A landing page is often a company's first technical impression; this one communicates reliability before a word is read.",
+      tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+      previewUrl: 'https://boar.network',
       previewSrc:
-        'https://placehold.co/1024x576/e0e0e0/a3a3a3?text=Project+Beta',
+        'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Boar+Network',
     },
   ] satisfies ProjectItem[],
 }
@@ -161,30 +215,30 @@ export const experienceContent = {
       id: 'job-1',
       company: 'Akena',
       logo: AkenaLogo,
-      role: 'Senior Frontend Engineer',
-      from: '2022-01-01',
+      role: 'Fullstack Engineer',
+      from: '2023-09-01',
       to: null,
       description:
-        'Leading front-end development across multiple product teams, establishing component standards, and driving performance improvements.',
+        'Building and shipping features across the full stack — owning UI, API design, and database work within product teams. Primary point of ownership for frontend quality and engineering decisions.',
+      bullets: [
+        'Remote-first, async workflow within a US-based international team',
+        'Agile delivery — estimations, documentation, and full feature ownership from scoping to production',
+        'Integrated AI tooling into daily development workflow',
+      ],
     },
     {
       id: 'job-2',
       company: 'Snowdog',
       logo: SnowdogLogo,
-      role: 'Frontend Engineer',
-      from: '2020-03-01',
-      to: '2021-12-31',
+      role: 'Junior Frontend Engineer',
+      from: '2022-01-01',
+      to: '2023-06-30',
       description:
-        'Built and maintained a design system used by five product teams, reducing UI inconsistencies and speeding up delivery.',
-    },
-    {
-      id: 'job-3',
-      company: 'Company C',
-      role: 'Junior Frontend Developer',
-      from: '2018-06-01',
-      to: '2020-02-28',
-      description:
-        'Developed customer-facing features for an e-commerce platform, focusing on accessibility and cross-browser compatibility.',
+        'Built and maintained UI across client products, including eObuwie and Sanpol. Contributed to a component library used across multiple projects, and developed a strong eye for interface quality and cross-browser consistency.',
+      bullets: [
+        'Agile process with close client collaboration and regular estimations',
+        'End-to-end ownership of deliverables',
+      ],
     },
   ] satisfies ExperienceItem[],
 }
@@ -205,7 +259,7 @@ export const writingsContent = {
 
 export const contactContent = {
   heading: 'Get in touch',
-  body: "I'm always open to interesting conversations, collaboration, and new opportunities. Feel free to reach out.",
+  body: "Open to new roles, interesting side projects, and conversations worth having. If you're building something ambitious — or need someone who'll care as much about the interface as the architecture — I'd like to hear about it.",
   email: 'kamil@pyszkowski.dev',
   links: [
     { label: 'GitHub', href: '/github', icon: GitHub },

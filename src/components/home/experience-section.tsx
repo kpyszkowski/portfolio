@@ -19,6 +19,9 @@ const experienceSectionStyles = createStyles({
       'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
     itemRole: 'mb-4 font-medium text-main md:text-xl',
     itemDescription: 'leading-relaxed text-elevated',
+    itemBullets: 'mt-6 flex flex-col gap-3 pl-4',
+    itemBullet:
+      'relative pl-6 leading-relaxed text-elevated before:absolute before:top-[0.6em] before:left-0 before:h-1 before:w-1 before:rounded-full before:bg-current before:opacity-40',
   },
 })
 
@@ -29,11 +32,21 @@ type ExperienceItemProps = {
   from: string
   to?: string | null
   description: string
+  bullets?: string[]
   id: string
 }
 
 function ExperienceItem(props: ExperienceItemProps) {
-  const { company, logo: Logo, role, from, to, description, id } = props
+  const {
+    company,
+    logo: Logo,
+    role,
+    from,
+    to,
+    description,
+    bullets,
+    id,
+  } = props
   const styles = experienceSectionStyles()
   const ref = useRef<HTMLLIElement>(null)
 
@@ -91,6 +104,18 @@ function ExperienceItem(props: ExperienceItemProps) {
       <div className={styles.itemContent()}>
         <span className={styles.itemRole()}>{role}</span>
         <p className={styles.itemDescription()}>{description}</p>
+        {bullets && bullets.length > 0 && (
+          <ul className={styles.itemBullets()}>
+            {bullets.map((bullet) => (
+              <li
+                key={bullet}
+                className={styles.itemBullet()}
+              >
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </li>
   )
