@@ -31,7 +31,7 @@
 
 @theme {
   --font-mono: var(--font-fira-code, 'monospace');
-  --font-display: var(--font-figtree, 'system-ui');
+  --font-display: var(--font-eudoxus-sans, 'system-ui');
 
   --color-main: var(--color-stone-900);
   --border-main: var(--color-stone-900);
@@ -53,9 +53,11 @@
     var(--color-orange-800)
   );
 
-  --color-accent-glow: color-mix(in srgb,
-    var(--color-accent) 55%,
-    var(--background-color-highlight)
+  --color-accent-glow: oklch(from
+    color-mix(in srgb, var(--color-accent) 55%, var(--background-color-highlight))
+    calc(l * 1.12)
+    calc(c * 1.7)
+    h
   );
 }
 
@@ -72,7 +74,10 @@
   --border-highlight: var(--color-stone-400);
   --background-color-highlight: var(--color-stone-700);
 
-  --color-accent: var(--color-orange-300);
+  --color-accent: color-mix(in srgb,
+    var(--color-black) 25%,
+    var(--color-orange-300)
+  );
 }
 
 body,

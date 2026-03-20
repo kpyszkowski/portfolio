@@ -15,12 +15,12 @@ const heroSectionStyles = createStyles({
     inner: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
     content:
-      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full max-w-screen-2xl flex-col gap-8 p-6 md:flex-row md:items-end md:p-12',
+      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full flex-col gap-8 p-6 md:flex-row md:items-end md:p-12',
     headingArea: 'flex flex-1 flex-col gap-4',
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
     heading:
-      'flex flex-col font-display text-[clamp(3.5rem,7vw,7rem)]/none font-semibold tracking-normal text-transparent select-none [-webkit-text-stroke:1.5px_var(--color-accent)]',
+      'flex flex-col font-display text-[clamp(3.5rem,7vw,7rem)]/none font-semibold tracking-normal text-accent select-none',
     paragraph: 'font-sans text-elevated md:basis-1/2 md:text-2xl/relaxed',
   },
 })
@@ -62,7 +62,10 @@ function HeroSection(props: HeroSectionProps) {
             />
           </div>
 
-          <SectionLayout.Wrapper className={styles.content()}>
+          <SectionLayout.Wrapper
+            width="2xl"
+            className={styles.content()}
+          >
             <div className={styles.headingArea()}>
               <TextCycle
                 className={styles.subtitle()}

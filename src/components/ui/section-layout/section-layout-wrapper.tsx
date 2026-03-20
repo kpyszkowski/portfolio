@@ -3,10 +3,11 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 
 const sectionLayoutWrapperStyles = createStyles({
   slots: {
-    wrapper: 'mx-auto max-w-screen-xl',
+    wrapper: 'mx-auto',
   },
   variants: {
     width: {
+      '2xl': { wrapper: 'max-w-screen-2xl' },
       xl: { wrapper: 'max-w-screen-xl' },
       md: { wrapper: 'max-w-3xl' },
     },
