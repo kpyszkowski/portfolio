@@ -7,15 +7,15 @@ import { MagnifiedText } from '~/components/ui/magnified-text'
 
 const contactSectionStyles = createStyles({
   slots: {
-    container: 'pb-6 lg:pb-6',
+    container: 'py-6 lg:py-6',
+    wrapper: 'py-24 lg:py-32',
     body: 'mb-8 max-w-md text-lg leading-relaxed text-elevated',
     email: 'mb-8 flex items-center gap-2',
     emailAddress: 'text-base text-main',
     links: 'group flex text-main',
     link: 'block p-3 transition-opacity group-hover:opacity-25 first:-ml-3 hover:!opacity-100 focus-visible:!opacity-100',
     linkIcon: 'size-5',
-    textDecorator:
-      'text-highlight opacity-12 transition-opacity duration-800 hover:opacity-24',
+    textDecorator: 'text-highlight opacity-12',
   },
 })
 
@@ -33,7 +33,7 @@ function ContactSection(props: ContactSectionProps) {
       className={styles.container({ className })}
       {...restProps}
     >
-      <SectionLayout.Wrapper>
+      <SectionLayout.Wrapper className={styles.wrapper()}>
         <SectionLayout.Heading>{contactContent.heading}</SectionLayout.Heading>
         <p className={styles.body()}>{contactContent.body}</p>
 
@@ -67,8 +67,6 @@ function ContactSection(props: ContactSectionProps) {
           origin="relative"
           minWeight={350}
           className={styles.textDecorator()}
-          features={['opacity']}
-          minOpacity={0.56}
         >
           Kamil Pyszkowski
         </MagnifiedText>

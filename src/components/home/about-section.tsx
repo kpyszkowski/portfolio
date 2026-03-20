@@ -17,7 +17,7 @@ const aboutSectionStyles = createStyles({
   slots: {
     container:
       'sticky top-0 flex h-svh flex-col items-start justify-center px-5',
-    outer: 'relative -mt-[100vh] h-[300vh]',
+    outer: 'relative -mt-[100vh] h-[200vh]',
     body: 'text-xl leading-relaxed text-elevated lg:text-2xl',
     signature: 'mt-12 h-auto w-36',
   },
