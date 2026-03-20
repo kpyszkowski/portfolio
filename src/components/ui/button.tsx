@@ -27,6 +27,9 @@ const buttonStyles = createStyles({
         container:
           'text-main transition-[background-color] outline-none hover:bg-elevated active:bg-elevated',
       },
+      unstyled: {
+        container: 'inline',
+      },
     },
     size: {
       sm: {
@@ -65,6 +68,36 @@ const buttonStyles = createStyles({
       size: 'sm',
       class: {
         container: '-m-px border',
+      },
+    },
+    {
+      variant: 'unstyled',
+      size: 'sm',
+      class: {
+        container: 'rounded-none',
+        wrapper: 'inline rounded-none p-0',
+        content: 'inline-flex items-baseline',
+        icon: 'mx-0',
+      },
+    },
+    {
+      variant: 'unstyled',
+      size: 'md',
+      class: {
+        container: 'rounded-none',
+        wrapper: 'inline rounded-none p-0',
+        content: 'inline-flex items-baseline',
+        icon: 'mx-0',
+      },
+    },
+    {
+      variant: 'unstyled',
+      size: 'lg',
+      class: {
+        container: 'rounded-none',
+        wrapper: 'inline rounded-none p-0',
+        content: 'inline-flex items-baseline',
+        icon: 'mx-0',
       },
     },
   ],

@@ -13,7 +13,7 @@ const writingOutroStyles = createStyles({
       'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-elevated/50 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
       'text-justify text-base text-balance text-main md:text-lg md:text-wrap',
-    copyButton: 'inline-flex underline',
+    copyButton: 'inline-flex px-3',
     signature: 'h-auto w-36',
   },
 })
@@ -73,7 +73,11 @@ function WritingOutro(props: WritingOutroProps) {
           I hope you found this article helpful and that it added value to your
           learning journey. I&apos;d love to hear your thoughts, feedback, or
           questions — feel free to reach out via email at{' '}
-          <CopyButton className={styles.copyButton()}>
+          <CopyButton
+            size="lg"
+            variant="unstyled"
+            className={styles.copyButton()}
+          >
             kamil@pyszkowski.dev
           </CopyButton>
           . If you enjoyed this writing, take a moment to explore other

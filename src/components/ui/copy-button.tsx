@@ -35,7 +35,7 @@ function CopyButton(props: CopyButtonProps) {
     children,
     label = {
       default: children,
-      copied: 'Copied to clipboard!',
+      copied: 'Copied to clipboard',
     },
     variant = 'ghost',
     ...restProps
