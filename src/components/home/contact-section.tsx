@@ -15,7 +15,7 @@ const MotionImage = motion.create(Image)
 const contactSectionStyles = createStyles({
   slots: {
     container:
-      'bg-radial-[100%_50%_at_bottom_center] from-accent-glow/50 from-[-150%] to-50% pb-6 lg:pb-6',
+      'bg-radial-[100%_50%_at_bottom_center] from-accent-glow/25 from-[-200%] to-75% pb-6 lg:pb-6',
     wrapper: 'flex flex-col gap-16 md:flex-row',
     content: 'flex flex-1 flex-col',
     portrait:

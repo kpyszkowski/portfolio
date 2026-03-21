@@ -9,6 +9,8 @@ import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { forwardRef, useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
+const MotionImage = motion.create(Image)
+
 const projectsSectionStyles = createStyles({
   slots: {
     container: 'relative',
@@ -22,7 +24,7 @@ const projectsSectionStyles = createStyles({
     itemPreview:
       'relative order-first aspect-video overflow-hidden md:order-none md:basis-3/8',
     itemPreviewImageWrapper: 'absolute inset-0',
-    itemPreviewImage: 'w-full',
+    itemPreviewImage: 'my-auto h-auto!',
   },
 })
 
@@ -48,6 +50,9 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
 
     const [start, end] = range
     const half = (end - start) / 2
+    // Sweep centered at item midpoint. ±50% at boundaries → always partially visible.
+    // Virtual padding in range calculation ensures start0 - half = 0 and endN + half = 1,
+    // so first/last items animate in/out from fully hidden rather than partially visible.
     const imageY = useTransform(
       listProgress,
       [start - half, end + half],
@@ -78,7 +83,10 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
               style={{ y: imageY }}
               className={styles.itemPreviewImageWrapper()}
             >
-              <Image
+              <MotionImage
+                style={{
+                  clipPath: 'inset(0% 0% 0% 0% round 24px)',
+                }}
                 className={styles.itemPreviewImage()}
                 src={previewSrc}
                 alt={name}
@@ -152,13 +160,19 @@ function ProjectsSection(props: ProjectsSectionProps) {
     offset: ['start center', 'end center'],
   })
 
-  // Each item occupies a slice [start, end] of [0, 1].
-  // Item N's end === item N+1's start → perfectly sequential.
   const totalHeight = itemHeights.reduce((s, h) => s + h, 0)
+  // Pad by half the first and last item heights so that:
+  //   item[0].start  - half = 0  → first image enters from fully hidden
+  //   item[N].end    + half = 1  → last  image exits  to   fully hidden
+  const firstHalf = (itemHeights[0] ?? 0) / 2
+  const lastHalf = (itemHeights[itemHeights.length - 1] ?? 0) / 2
+  const paddedTotal = totalHeight + firstHalf + lastHalf
+
   const itemRanges = itemHeights.reduce(
     (acc, h) => {
-      const start = acc.at(-1)?.[1] ?? 0
-      const end = totalHeight > 0 ? start + h / totalHeight : 0
+      const start =
+        acc.at(-1)?.[1] ?? (paddedTotal > 0 ? firstHalf / paddedTotal : 0)
+      const end = paddedTotal > 0 ? start + h / paddedTotal : 0
       return [...acc, [start, end] as [number, number]]
     },
     [] as [number, number][],
