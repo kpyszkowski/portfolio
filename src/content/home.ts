@@ -130,7 +130,7 @@ export const projectsContent = {
         'Cloudflare Workers',
       ],
       previewUrl: 'https://mezo.org',
-      previewSrc: 'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Mezo',
+      previewSrc: '/preview-mezo.png',
     },
     {
       id: 'eObuwie',
@@ -139,7 +139,7 @@ export const projectsContent = {
         'Large European footwear e-commerce platform. Shipped product page features and UI polish. Fixed a B2B flow where users could skip the invoice number field — patched validation and backfilled incomplete records in the database.',
       tags: ['Vue', 'TypeScript', 'Tailwind CSS', 'Magento', 'MySQL'],
       previewUrl: 'https://eobuwie.com.pl',
-      previewSrc: 'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=eObuwie',
+      previewSrc: '/preview-eobuwie.png',
     },
     {
       id: 'boar-finance',
@@ -156,8 +156,7 @@ export const projectsContent = {
         'Wagmi',
       ],
       previewUrl: 'https://boar.finance',
-      previewSrc:
-        'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Boar+Finance',
+      previewSrc: '/preview-boar-finance.png',
     },
     {
       id: 'personal-portfolio',
@@ -174,8 +173,7 @@ export const projectsContent = {
       ],
       previewUrl: 'https://github.com/kpyszkowski/portfolio',
       sourceCodeUrl: 'https://github.com/kpyszkowski/portfolio',
-      previewSrc:
-        'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Personal+Portfolio',
+      previewSrc: '/preview-portfolio.png',
     },
     {
       id: 'lumo',
@@ -191,7 +189,7 @@ export const projectsContent = {
         'Cloudflare Workers',
         'Turborepo',
       ],
-      previewSrc: 'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Lumo',
+      previewSrc: '/preview-lumo.png',
     },
     {
       id: 'boar-network',
@@ -200,8 +198,7 @@ export const projectsContent = {
         "Marketing site for enterprise blockchain infrastructure — multi-region RPC endpoints and validator services. Delivered end to end: layout, copy, motion, and deployment. A landing page is often a company's first technical impression; this one communicates reliability before a word is read.",
       tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
       previewUrl: 'https://boar.network',
-      previewSrc:
-        'https://placehold.co/1024x576/f5f5f5/a3a3a3?text=Boar+Network',
+      previewSrc: '/preview-boar-network.png',
     },
   ] satisfies ProjectItem[],
 }

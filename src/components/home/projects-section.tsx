@@ -34,9 +34,9 @@ const projectsSectionStyles = createStyles({
     itemPreviewImageWrapper:
       'absolute inset-0 flex items-center justify-center',
     itemPreviewImage:
-      'aspect-video w-full max-w-sm overflow-hidden rounded-3xl',
+      'aspect-video w-full max-w-sm overflow-hidden rounded-3xl border border-(--background-color-highlight) shadow-lg',
     itemPreviewImageMobile:
-      'aspect-video w-full max-w-sm rounded-2xl object-cover',
+      'aspect-video w-full max-w-sm rounded-2xl border border-(--background-color-highlight) object-cover',
   },
 })
 
@@ -49,26 +49,20 @@ type ProjectItem = (typeof projectsContent.items)[number]
 
 interface ProjectListItemProps {
   item: ProjectItem
+  index: number
   listProgress: MotionValue<number>
   range: [number, number]
-  isFirst?: boolean
-  isLast?: boolean
   moveX: MotionValue<number>
   moveY: MotionValue<number>
 }
 
 const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
   (props, ref) => {
-    const {
-      item,
-      listProgress,
-      range,
-      isFirst,
-      isLast,
-      moveX,
-      moveY,
-      ...restProps
-    } = props
+    const { item, index, listProgress, range, moveX, moveY, ...restProps } =
+      props
+
+    const isFirst = index === 0
+    const isLast = index === projectsContent.items.length - 1
     const { name, description, tags, previewUrl, previewSrc, sourceCodeUrl } =
       item
     const styles = projectsSectionStyles()
@@ -99,8 +93,8 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
             src={previewSrc}
             alt={name}
             className={styles.itemPreviewImageMobile()}
-            width={1024}
-            height={576}
+            width={1600}
+            height={900}
           />
         )}
 
@@ -131,8 +125,8 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
                   className={styles.itemPreviewImage()}
                   src={previewSrc}
                   alt={name}
-                  width={640}
-                  height={360}
+                  width={1600}
+                  height={900}
                   priority
                 />
               </motion.div>
@@ -261,10 +255,9 @@ function ProjectsSection(props: ProjectsSectionProps) {
               }}
               key={item.id}
               item={item}
+              index={index}
               listProgress={listProgress}
               range={itemRanges[index] ?? [0, 0]}
-              isFirst={index === 0}
-              isLast={index === projectsContent.items.length - 1}
               moveX={moveX}
               moveY={moveY}
             />
