@@ -5,8 +5,15 @@ import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { SectionLayout } from '~/components/ui/section-layout'
 import { projectsContent } from '~/content/home'
-import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
-import { forwardRef, useLayoutEffect, useRef, useState } from 'react'
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from 'motion/react'
+import { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
 const MotionImage = motion.create(Image)
@@ -16,15 +23,16 @@ const projectsSectionStyles = createStyles({
     container: 'relative',
     heading: '-mb-2 md:-mb-2',
     list: 'flex flex-col',
-    item: 'relative flex flex-col gap-12 border-b border-(--background-color-highlight) md:flex-row',
+    item: 'first relative flex flex-col gap-12 border-b border-(--background-color-highlight) md:flex-row md:items-end',
     itemHeading: 'grow py-12 text-lg font-medium text-main md:text-xl',
     itemContent: 'py-12 text-elevated md:basis-3/8 md:text-lg',
-    itemActions: 'absolute right-0 bottom-0 z-20 flex gap-2 px-6 py-12',
+    itemActions: 'absolute right-0 bottom-0 z-20 flex gap-2 py-12',
     itemTags: 'mb-6 flex flex-wrap gap-2',
     itemPreview:
-      'relative order-first aspect-video overflow-hidden md:order-none md:basis-3/8',
-    itemPreviewImageWrapper: 'absolute inset-0',
-    itemPreviewImage: 'my-auto h-auto!',
+      'relative order-first self-stretch [clip-path:inset(0_-100%_0_-100%)] md:order-none md:basis-3/8',
+    itemPreviewImageWrapper:
+      'absolute inset-0 flex items-center justify-center',
+    itemPreviewImage: 'aspect-video w-96 overflow-hidden rounded-3xl',
   },
 })
 
@@ -39,25 +47,40 @@ interface ProjectListItemProps {
   item: ProjectItem
   listProgress: MotionValue<number>
   range: [number, number]
+  isFirst?: boolean
+  isLast?: boolean
+  moveX: MotionValue<number>
+  moveY: MotionValue<number>
 }
 
 const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
   (props, ref) => {
-    const { item, listProgress, range, ...restProps } = props
+    const {
+      item,
+      listProgress,
+      range,
+      isFirst,
+      isLast,
+      moveX,
+      moveY,
+      ...restProps
+    } = props
     const { name, description, tags, previewUrl, previewSrc, sourceCodeUrl } =
       item
     const styles = projectsSectionStyles()
 
     const [start, end] = range
     const half = (end - start) / 2
-    // Sweep centered at item midpoint. ±50% at boundaries → always partially visible.
-    // Virtual padding in range calculation ensures start0 - half = 0 and endN + half = 1,
-    // so first/last items animate in/out from fully hidden rather than partially visible.
-    const imageY = useTransform(
+    const imageYRaw = useTransform(
       listProgress,
       [start - half, end + half],
-      ['-100%', '100%'],
+      [-100, 100],
     )
+    const imageY = useTransform(imageYRaw, (v) => {
+      if (isFirst) return `${Math.max(0, v)}%`
+      if (isLast) return `${Math.min(0, v)}%`
+      return `${v}%`
+    })
 
     return (
       <li
@@ -85,13 +108,15 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
             >
               <MotionImage
                 style={{
-                  clipPath: 'inset(0% 0% 0% 0% round 24px)',
+                  x: moveX,
+                  y: moveY,
                 }}
                 className={styles.itemPreviewImage()}
                 src={previewSrc}
                 alt={name}
-                fill
-                sizes="(min-width: 768px) 37.5vw, 100vw"
+                width={640}
+                height={360}
+                priority
               />
             </motion.div>
           )}
@@ -160,10 +185,28 @@ function ProjectsSection(props: ProjectsSectionProps) {
     offset: ['start center', 'end center'],
   })
 
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const moveX = useSpring(useTransform(mouseX, [0, 1], [-24, 24]), {
+    stiffness: 120,
+    damping: 35,
+  })
+  const moveY = useSpring(useTransform(mouseY, [0, 1], [-24, 24]), {
+    stiffness: 120,
+    damping: 35,
+  })
+
+  useEffect(() => {
+    function handleMouseMove(e: MouseEvent) {
+      mouseX.set(e.clientX / window.innerWidth)
+      mouseY.set(e.clientY / window.innerHeight)
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
+
   const totalHeight = itemHeights.reduce((s, h) => s + h, 0)
-  // Pad by half the first and last item heights so that:
-  //   item[0].start  - half = 0  → first image enters from fully hidden
-  //   item[N].end    + half = 1  → last  image exits  to   fully hidden
   const firstHalf = (itemHeights[0] ?? 0) / 2
   const lastHalf = (itemHeights[itemHeights.length - 1] ?? 0) / 2
   const paddedTotal = totalHeight + firstHalf + lastHalf
@@ -202,6 +245,10 @@ function ProjectsSection(props: ProjectsSectionProps) {
               item={item}
               listProgress={listProgress}
               range={itemRanges[index] ?? [0, 0]}
+              isFirst={index === 0}
+              isLast={index === projectsContent.items.length - 1}
+              moveX={moveX}
+              moveY={moveY}
             />
           ))}
         </ul>
