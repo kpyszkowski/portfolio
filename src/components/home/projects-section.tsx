@@ -15,6 +15,7 @@ import {
 } from 'motion/react'
 import { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import useBreakpoint from '~/hooks/use-breakpoint'
 
 const MotionImage = motion.create(Image)
 
@@ -23,16 +24,19 @@ const projectsSectionStyles = createStyles({
     container: 'relative',
     heading: '-mb-2 md:-mb-2',
     list: 'flex flex-col',
-    item: 'first relative flex flex-col gap-12 border-b border-(--background-color-highlight) md:flex-row md:items-end',
-    itemHeading: 'grow py-12 text-lg font-medium text-main md:text-xl',
-    itemContent: 'py-12 text-elevated md:basis-3/8 md:text-lg',
+    item: 'first relative flex flex-col gap-6 border-b border-(--background-color-highlight) py-12 md:flex-row md:items-end md:gap-12 md:py-0',
+    itemHeading: 'grow text-lg font-medium text-main md:py-12 md:text-xl',
+    itemContent: 'text-elevated md:basis-3/8 md:py-12 md:text-lg',
     itemActions: 'absolute right-0 bottom-0 z-20 flex gap-2 py-12',
     itemTags: 'mb-6 flex flex-wrap gap-2',
     itemPreview:
-      'relative order-first self-stretch [clip-path:inset(0_-100%_0_-100%)] md:order-none md:basis-3/8',
+      '-mb-px md:relative md:basis-3/8 md:self-stretch md:[clip-path:inset(0_-100%_0_-100%)]',
     itemPreviewImageWrapper:
       'absolute inset-0 flex items-center justify-center',
-    itemPreviewImage: 'aspect-video w-96 overflow-hidden rounded-3xl',
+    itemPreviewImage:
+      'aspect-video w-full max-w-sm overflow-hidden rounded-3xl',
+    itemPreviewImageMobile:
+      'aspect-video w-full max-w-sm rounded-2xl object-cover',
   },
 })
 
@@ -82,12 +86,24 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
       return `${v}%`
     })
 
+    const isMd = useBreakpoint('md')
+
     return (
       <li
         ref={ref}
         className={styles.item()}
         {...restProps}
       >
+        {!isMd && previewSrc && (
+          <Image
+            src={previewSrc}
+            alt={name}
+            className={styles.itemPreviewImageMobile()}
+            width={1024}
+            height={576}
+          />
+        )}
+
         <h3 className={styles.itemHeading()}>{name}</h3>
 
         <div className={styles.itemContent()}>
@@ -100,65 +116,67 @@ const ProjectListItem = forwardRef<HTMLLIElement, ProjectListItemProps>(
           <p>{description}</p>
         </div>
 
-        <div className={styles.itemPreview()}>
-          {previewSrc && (
-            <motion.div
-              style={{ y: imageY }}
-              className={styles.itemPreviewImageWrapper()}
-            >
-              <MotionImage
-                style={{
-                  x: moveX,
-                  y: moveY,
-                }}
-                className={styles.itemPreviewImage()}
-                src={previewSrc}
-                alt={name}
-                width={640}
-                height={360}
-                priority
-              />
-            </motion.div>
-          )}
-
-          <div className={styles.itemActions()}>
-            {previewUrl && (
-              <Button
-                render={
-                  <a
-                    href={previewUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                }
-                variant="solid"
-                size="sm"
-                icon={ArrowUpRight}
-                iconPosition="left"
+        {isMd && (
+          <div className={styles.itemPreview()}>
+            {previewSrc && (
+              <motion.div
+                style={{ y: imageY }}
+                className={styles.itemPreviewImageWrapper()}
               >
-                Preview
-              </Button>
+                <MotionImage
+                  style={{
+                    x: moveX,
+                    y: moveY,
+                  }}
+                  className={styles.itemPreviewImage()}
+                  src={previewSrc}
+                  alt={name}
+                  width={640}
+                  height={360}
+                  priority
+                />
+              </motion.div>
             )}
 
-            {sourceCodeUrl && (
-              <Button
-                render={
-                  <a
-                    href={sourceCodeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  />
-                }
-                variant="solid"
-                size="sm"
-                icon={Code}
-                iconPosition="left"
-              >
-                Source code
-              </Button>
-            )}
+            <div className={styles.itemActions()}>
+              {previewUrl && (
+                <Button
+                  render={
+                    <a
+                      href={previewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    />
+                  }
+                  variant="solid"
+                  size="sm"
+                  icon={ArrowUpRight}
+                  iconPosition="left"
+                >
+                  Preview
+                </Button>
+              )}
+
+              {sourceCodeUrl && (
+                <Button
+                  render={
+                    <a
+                      href={sourceCodeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    />
+                  }
+                  variant="solid"
+                  size="sm"
+                  icon={Code}
+                  iconPosition="left"
+                >
+                  Source code
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </li>
     )
   },

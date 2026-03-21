@@ -14,7 +14,7 @@ const experienceSectionStyles = createStyles({
     itemMeta: '-z-10 flex grow flex-col gap-1 md:items-end',
     itemPeriod: 'mb-4 text-highlight',
     itemCompany: 'text-4xl font-black text-main',
-    itemLogo: 'h-8 w-auto invert dark:invert-0',
+    itemLogo: 'h-8 w-fit invert dark:invert-0',
     itemContent:
       'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
     itemRole: 'mb-4 font-medium text-main md:text-xl',
