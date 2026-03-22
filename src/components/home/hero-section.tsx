@@ -32,11 +32,13 @@ interface HeroSectionProps extends StylesProps<typeof heroSectionStyles> {
   className?: string
 }
 
+let _sceneReady = false
+
 function HeroSection(props: HeroSectionProps) {
   const { className, ...restProps } = props
   const styles = heroSectionStyles()
 
-  const [isReady, setIsReady] = useState(false)
+  const [isReady, setIsReady] = useState(_sceneReady)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
@@ -109,7 +111,14 @@ function HeroSection(props: HeroSectionProps) {
         </div>
       </div>
 
-      {!isReady && <PageLoader onReady={() => setIsReady(true)} />}
+      {!isReady && (
+        <PageLoader
+          onReady={() => {
+            _sceneReady = true
+            setIsReady(true)
+          }}
+        />
+      )}
     </div>
   )
 }

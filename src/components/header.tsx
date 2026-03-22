@@ -1,5 +1,6 @@
 'use client'
-import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Logo } from '~/components/logo'
 import { TabsMenu } from '~/components/ui/tabs-menu'
@@ -7,11 +8,10 @@ import { TabsMenu } from '~/components/ui/tabs-menu'
 const headerStyles = createStyles({
   slots: {
     container: [
-      'fixed top-0 z-30 flex w-full justify-center',
-      'before:absolute before:inset-0 before:size-full before:bg-main/75 before:mask-b-from-25% before:backdrop-blur-sm',
+      'pointer-events-none fixed top-0 z-30 flex w-full justify-center',
+      'before:pointer-events-none before:absolute before:inset-0 before:size-full before:bg-main/75 before:mask-b-from-25% before:backdrop-blur-sm',
     ],
-    menu: 'z-20 my-3 md:my-6',
-    background: 'absolute inset-0 z-10 size-full',
+    menu: 'pointer-events-auto z-20 my-3 md:my-6',
     logo: 'px-2 md:px-4',
   },
 })
@@ -47,17 +47,112 @@ function Header(props: HeaderProps) {
   const { className = '', ...restProps } = props
 
   const styles = headerStyles()
-
+  const router = useRouter()
   const pathname = usePathname()
-  const defaultActive = ITEMS.findIndex((item) =>
-    item.href ? pathname?.startsWith(item.href) : false,
+
+  const [scrollActiveIndex, setScrollActiveIndex] = useState<number | null>(
+    null,
   )
+  const scrollActiveRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      scrollActiveRef.current = null
+      return
+    }
+
+    const SECTIONS = [
+      { id: 'about', navIndex: 1 },
+      { id: 'experience', navIndex: 2 },
+    ]
+
+    const updateActive = () => {
+      let next: number | null = null
+      for (const { id, navIndex } of SECTIONS) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.5) {
+          next = navIndex
+        }
+      }
+      if (next !== scrollActiveRef.current) {
+        scrollActiveRef.current = next
+        setScrollActiveIndex(next)
+      }
+    }
+
+    let rafId = 0
+    const onScroll = () => {
+      cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(updateActive)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    updateActive()
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(rafId)
+    }
+  }, [pathname])
+
+  const pathDefaultActive = ITEMS.findIndex((item) =>
+    item.href === '/'
+      ? pathname === '/'
+      : (pathname?.startsWith(item.href) ?? false),
+  )
+  const defaultActive =
+    pathname === '/'
+      ? (scrollActiveIndex ?? pathDefaultActive)
+      : pathDefaultActive
+
+  const items = ITEMS.map((item) => {
+    if (item.href === '/') {
+      return {
+        ...item,
+        onClick: (e: React.MouseEvent) => {
+          e.preventDefault()
+          if (pathname === '/') {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          } else {
+            router.push('/')
+          }
+        },
+      }
+    }
+    if (item.href === '/writings') {
+      return {
+        ...item,
+        onClick: (e: React.MouseEvent) => {
+          e.preventDefault()
+          if (pathname.startsWith('/writings')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          } else {
+            router.push('/writings')
+          }
+        },
+      }
+    }
+    if (!item.href?.startsWith('/#')) return item
+    const id = item.href.slice(2)
+    return {
+      ...item,
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault()
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          router.push(item.href)
+        }
+      },
+    }
+  })
 
   return (
     <header className={styles.container({ className })}>
       <TabsMenu
         className={styles.menu()}
-        items={ITEMS}
+        items={items}
         defaultActive={defaultActive}
         renderBefore={
           <div className={styles.logo()}>
@@ -66,7 +161,6 @@ function Header(props: HeaderProps) {
         }
         {...restProps}
       />
-      <span className={styles.background()} />
     </header>
   )
 }

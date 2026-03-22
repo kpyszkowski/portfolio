@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'motion/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import {
   TabsMenuItem,
@@ -39,6 +39,10 @@ function TabsMenu(props: TabsMenuProps) {
   const styles = tabsMenuStyles()
 
   const [activeItemIndex, setActiveItemIndex] = useState(defaultActive)
+
+  useEffect(() => {
+    setActiveItemIndex(defaultActive)
+  }, [defaultActive])
 
   const getItemClickHandler =
     (

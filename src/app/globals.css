@@ -80,6 +80,15 @@
   );
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem; /* ~72px — mobile header height */
+
+  @media (min-width: 768px) {
+    scroll-padding-top: 6.75rem; /* ~108px — desktop header height */
+  }
+}
+
 body,
 .docs-story {
   width: 100vw;
