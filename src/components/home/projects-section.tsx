@@ -7,15 +7,15 @@ import { SectionLayout } from '~/components/ui/section-layout'
 import { projectsContent } from '~/content/home'
 import {
   motion,
-  useMotionValue,
   useScroll,
   useSpring,
   useTransform,
   type MotionValue,
 } from 'motion/react'
-import { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { forwardRef, useLayoutEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import useBreakpoint from '~/hooks/use-breakpoint'
+import useMousePosition from '~/hooks/use-mouse-position'
 
 const MotionImage = motion.create(Image)
 
@@ -197,8 +197,13 @@ function ProjectsSection(props: ProjectsSectionProps) {
     offset: ['start center', 'end center'],
   })
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const { x: rawX, y: rawY } = useMousePosition()
+  const mouseX = useTransform(rawX, (x) =>
+    typeof window !== 'undefined' ? x / window.innerWidth : 0,
+  )
+  const mouseY = useTransform(rawY, (y) =>
+    typeof window !== 'undefined' ? y / window.innerHeight : 0,
+  )
 
   const moveX = useSpring(useTransform(mouseX, [0, 1], [-24, 24]), {
     stiffness: 120,
@@ -208,15 +213,6 @@ function ProjectsSection(props: ProjectsSectionProps) {
     stiffness: 120,
     damping: 35,
   })
-
-  useEffect(() => {
-    function handleMouseMove(e: MouseEvent) {
-      mouseX.set(e.clientX / window.innerWidth)
-      mouseY.set(e.clientY / window.innerHeight)
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
 
   const totalHeight = itemHeights.reduce((s, h) => s + h, 0)
   const firstHalf = (itemHeights[0] ?? 0) / 2

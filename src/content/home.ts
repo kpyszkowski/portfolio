@@ -85,7 +85,7 @@ export const strengthsContent = {
     {
       id: 'ui-craft',
       heading: 'Attention to Detail',
-      body: 'Pixel-level attention to interfaces — transitions, states, edge cases, and the details users feel without being able to name. The gap between functional and polished is where I spend most of my time.',
+      body: 'I notice what others skip — in interfaces, in logic, in specs. Transitions, edge cases, and silent assumptions that turn into bugs. The gap between functional and correct is where I pay the most attention.',
       icon: Code,
     },
     {
@@ -97,7 +97,7 @@ export const strengthsContent = {
     {
       id: 'dx',
       heading: 'Developer Experience',
-      body: 'I build systems other developers enjoy working in — clear conventions, solid tooling, documentation that saves the next person an hour.',
+      body: 'I build systems other developers enjoy working in — clear conventions, solid tooling including context-aware AI agents and documentation that saves hours of confusion.',
       icon: Terminal,
     },
     {

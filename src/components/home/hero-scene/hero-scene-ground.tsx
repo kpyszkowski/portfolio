@@ -1,8 +1,9 @@
 'use client'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { useRef, useMemo, useEffect } from 'react'
+import { useRef, useMemo } from 'react'
 import { type MotionValue } from 'motion/react'
+import useMousePosition from '~/hooks/use-mouse-position'
 import * as THREE from 'three'
 import { type SceneParams } from '~/components/home/hero-scene/hero-scene-tier'
 import { useTheme } from 'next-themes'
@@ -111,17 +112,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
   const { resolvedTheme } = useTheme()
   const groundColor = resolvedTheme === 'light' ? LIGHT_COLOR : DARK_COLOR
 
-  const mouseRef = useRef({ x: 0, y: 0 })
+  const { x: mouseX, y: mouseY } = useMousePosition()
   const rotZRef = useRef(0)
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1
-    }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [])
 
   const ground = useControls('Ground', {
     posX: { value: 0, min: -50, max: 50, step: 0.5 },
@@ -191,7 +183,8 @@ function HeroSceneGround(props: HeroSceneGroundProps) {
   )
 
   useFrame((state, delta) => {
-    const { x: mx, y: my } = mouseRef.current
+    const mx = (mouseX.get() / window.innerWidth) * 2 - 1
+    const my = -(mouseY.get() / window.innerHeight) * 2 + 1
     const targetX = cam.posX - mx * cam.tiltX
     const targetY = cam.posY + my * cam.tiltY
     const targetZ = cam.posZ + mx * cam.tiltZ

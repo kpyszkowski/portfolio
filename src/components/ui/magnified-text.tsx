@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect, useMemo, useCallback } from 'react'
 import {
   useMotionValue,
   useMotionValueEvent,
@@ -10,6 +10,7 @@ import { useRender } from '@base-ui-components/react/use-render'
 import { mergeProps } from '@base-ui-components/react/merge-props'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import useBreakpoint from '~/hooks/use-breakpoint'
+import useMousePosition from '~/hooks/use-mouse-position'
 
 const FONT_SIZE = 200
 
@@ -239,6 +240,7 @@ function MagnifiedText(props: MagnifiedTextProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const textRef = useRef<SVGTextElement>(null)
   const mousePos = useMotionValue<{ x: number; y: number } | null>(null)
+  const { x: globalX, y: globalY } = useMousePosition()
 
   // Start at null on both server and client — avoids hydration mismatch from
   // DOM measurement (unavailable on server) returning a different value.
@@ -269,20 +271,26 @@ function MagnifiedText(props: MagnifiedTextProps) {
     mousePos.set({ x, y })
   }
 
-  useEffect(() => {
-    if (mode !== 'tracked') return
-    const handler = (e: MouseEvent) => {
+  const updateTrackedPos = useCallback(
+    (clientX: number, clientY: number) => {
+      if (mode !== 'tracked') return
       const svg = svgRef.current
       if (!svg) return
       const pt = svg.createSVGPoint()
-      pt.x = e.clientX
-      pt.y = e.clientY
+      pt.x = clientX
+      pt.y = clientY
       const { x, y } = pt.matrixTransform(svg.getScreenCTM()!.inverse())
       mousePos.set({ x, y })
-    }
-    window.addEventListener('mousemove', handler)
-    return () => window.removeEventListener('mousemove', handler)
-  }, [mode, mousePos])
+    },
+    [mode, mousePos],
+  )
+
+  useMotionValueEvent(globalX, 'change', (v) =>
+    updateTrackedPos(v, globalY.get()),
+  )
+  useMotionValueEvent(globalY, 'change', (v) =>
+    updateTrackedPos(globalX.get(), v),
+  )
 
   const chars = useMemo(() => [...children], [children])
   const styles = magnifiedTextStyles()
