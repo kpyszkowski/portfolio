@@ -49,7 +49,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={fontsClassName}
     >
-      <body>
+      <body className="overflow-x-hidden">
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Header />
