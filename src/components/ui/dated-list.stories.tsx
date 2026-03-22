@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { WritingTile } from '~/components/writing-tile'
+import {
+  WritingTile,
+  WritingTileHeading,
+  WritingTileTags,
+  WritingTileReadingTime,
+} from '~/components/writing-tile'
 import { DatedList } from '~/components/ui/dated-list'
 
 const meta: Meta<typeof DatedList> = {
@@ -58,12 +63,13 @@ export const WithAscendingOrder: Story = {
 }
 
 const blogPostContent = (
-  <WritingTile
-    title="10 Essential Tips for Optimizing Your Next.js App"
-    tags={['Next.js', 'React', 'JavaScript']}
-    readingTime={12}
-    url="/asdf"
-  />
+  <WritingTile href="/asdf">
+    <WritingTileHeading>
+      10 Essential Tips for Optimizing Your Next.js App
+    </WritingTileHeading>
+    <WritingTileTags tags={['Next.js', 'React', 'JavaScript']} />
+    <WritingTileReadingTime minutes={12} />
+  </WritingTile>
 )
 
 export const WithBlogPosts: Story = {

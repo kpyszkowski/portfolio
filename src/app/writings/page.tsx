@@ -1,5 +1,10 @@
 import { DatedList, type DatedListItem } from '~/components/ui/dated-list'
-import { WritingTile } from '~/components/writing-tile'
+import {
+  WritingTile,
+  WritingTileHeading,
+  WritingTileTags,
+  WritingTileReadingTime,
+} from '~/components/writing-tile'
 import { getWritingsMetadata } from '~/lib/writings'
 
 export default async function WritingsPage() {
@@ -9,12 +14,11 @@ export default async function WritingsPage() {
     id: metadata.slug,
     date: metadata.publishedAt,
     content: (
-      <WritingTile
-        title={metadata.title}
-        tags={metadata.tags}
-        readingTime={metadata.readingTime}
-        url={`/writings/${metadata.slug}`}
-      />
+      <WritingTile href={`/writings/${metadata.slug}`}>
+        <WritingTileHeading>{metadata.title}</WritingTileHeading>
+        {metadata.tags && <WritingTileTags tags={metadata.tags} />}
+        <WritingTileReadingTime minutes={metadata.readingTime} />
+      </WritingTile>
     ),
   }))
 

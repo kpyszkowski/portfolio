@@ -3,7 +3,12 @@ import Link from 'next/link'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Button } from '~/components/ui/button'
 import { GlowCard } from '~/components/ui/glow-card'
-import { WritingTile } from '~/components/writing-tile'
+import {
+  WritingTile,
+  WritingTileHeading,
+  WritingTileTags,
+  WritingTileReadingTime,
+} from '~/components/writing-tile'
 import { SectionLayout } from '~/components/ui/section-layout'
 import { writingsContent } from '~/content/home'
 import { type WritingMetadata } from '~/lib/writings'
@@ -68,12 +73,19 @@ function WritingsSection(props: WritingsSectionProps) {
               <GlowCard.Item>
                 <WritingTile
                   className={styles.cardContent()}
-                  title={latestWriting.title}
-                  tags={latestWriting.tags}
-                  readingTime={latestWriting.readingTime}
-                  url={`/writings/${latestWriting.slug}`}
-                  titleElementType="h3"
-                />
+                  href={`/writings/${latestWriting.slug}`}
+                >
+                  <WritingTileHeading as="h3">
+                    {latestWriting.title}
+                  </WritingTileHeading>
+                  {latestWriting.tags && (
+                    <WritingTileTags
+                      color="main"
+                      tags={latestWriting.tags}
+                    />
+                  )}
+                  <WritingTileReadingTime minutes={latestWriting.readingTime} />
+                </WritingTile>
               </GlowCard.Item>
             </div>
           )}
