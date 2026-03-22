@@ -188,8 +188,10 @@ export const projectsContent = {
         'PostgreSQL',
         'Cloudflare Workers',
         'Turborepo',
+        'Puppeteer',
       ],
       previewSrc: '/preview-lumo.png',
+      sourceCodeUrl: 'https://github.com/kpyszkowski/lumo',
     },
     {
       id: 'boar-network',
