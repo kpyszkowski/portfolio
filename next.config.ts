@@ -76,6 +76,7 @@ const withSVGR = (nextConfig: NextConfig) =>
             params: {
               overrides: {
                 removeViewBox: false,
+                inlineStyles: false,
               },
             },
           },
