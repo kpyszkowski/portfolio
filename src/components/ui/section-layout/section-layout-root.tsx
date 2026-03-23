@@ -6,7 +6,7 @@ import { forwardRef } from 'react'
 
 const sectionLayoutRootStyles = createStyles({
   slots: {
-    root: '',
+    root: 'max-w-screen',
   },
   variants: {
     padding: {

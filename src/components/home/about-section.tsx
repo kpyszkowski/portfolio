@@ -18,7 +18,7 @@ const aboutSectionStyles = createStyles({
     container:
       'sticky top-0 flex h-svh flex-col items-start justify-center px-5',
     outer: 'relative -mt-[100svh] h-[200svh]',
-    body: 'text-xl leading-relaxed text-elevated lg:text-2xl',
+    body: 'text-lg leading-relaxed text-elevated lg:text-2xl',
     signature: 'mt-12 h-auto w-36',
   },
 })
@@ -58,16 +58,16 @@ function AboutSection(props: AboutSectionProps) {
 
   return (
     <SectionLayout.Root
-      id={homeSectionIds.about}
       render={<div />}
       padding="none"
       ref={containerRef}
       className={styles.outer({ className })}
-      {...restProps}
     >
       <motion.div
+        id={homeSectionIds.about}
         className={styles.container()}
         style={{ opacity, filter, scale }}
+        {...restProps}
       >
         <SectionLayout.Wrapper width="md">
           <SectionLayout.Heading>{aboutContent.heading}</SectionLayout.Heading>
