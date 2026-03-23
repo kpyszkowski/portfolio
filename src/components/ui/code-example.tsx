@@ -9,10 +9,7 @@ const codeExampleStyles = createStyles({
   slots: {
     container: 'group',
     content: 'pb-4',
-    copyButton: [
-      'gap-3 py-1 text-sm opacity-50 group-hover:opacity-100',
-      'text-neutral-300 transition-opacity active:text-neutral-50',
-    ],
+    copyButton: 'w-fit',
   },
 })
 
@@ -47,6 +44,7 @@ const CodeExample = async (props: CodeExampleProps) => {
       className={styles.container({ className })}
       captionSlot={
         <CopyButton
+          size="sm"
           className={styles.copyButton()}
           label={{
             default: 'Copy code',

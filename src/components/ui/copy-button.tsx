@@ -8,7 +8,9 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 const copyButtonStyles = createStyles({
   slots: {
     labelsWrapper: 'relative overflow-hidden',
-    label: 'block leading-tight whitespace-nowrap',
+    spacer:
+      'pointer-events-none invisible block leading-tight whitespace-nowrap select-none',
+    label: 'absolute inset-0 flex items-center leading-tight whitespace-nowrap',
   },
 })
 
@@ -59,6 +61,12 @@ function CopyButton(props: CopyButtonProps) {
       {...restProps}
     >
       <span className={styles.labelsWrapper()}>
+        <span
+          aria-hidden
+          className={styles.spacer()}
+        >
+          {label.default}
+        </span>
         <AnimatePresence
           mode="popLayout"
           initial={false}

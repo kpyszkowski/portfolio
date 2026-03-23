@@ -13,7 +13,7 @@ const writingOutroStyles = createStyles({
       'pointer-events-none absolute top-0 right-0 h-full w-auto origin-[100%_0%] fill-elevated/50 mix-blend-color-dodge blur-md md:origin-[112%_20%]',
     content:
       'text-justify text-base text-balance text-main md:text-lg md:text-wrap',
-    copyButton: 'inline-flex px-3',
+    copyButton: 'inline-flex [&>div>div]:gap-1.5',
     signature: 'h-auto w-36',
   },
 })

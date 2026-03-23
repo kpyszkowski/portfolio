@@ -10,7 +10,7 @@ const windowCardStyles = createStyles({
       'm-0 rounded-2xl neumorphism backdrop-blur-2xl backdrop-saturate-200 [clip-path:inset(0_round_1rem)]',
       'dark:backdrop-brightness-75',
     ],
-    captionWrapper: 'm-0 flex items-baseline px-5 pt-4 pb-6 leading-6',
+    captionWrapper: 'm-0 flex items-center px-5 pt-4 pb-6 leading-6',
     contentWrapper: 'divide-y divide-main/8',
     decorator: 'z-10 w-12',
     label: 'flex-1 text-center text-xs text-main',
