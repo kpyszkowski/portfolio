@@ -44,7 +44,7 @@ export const Default: Story = {
 
 export const WithDefaultActiveItem: Story = {
   args: {
-    defaultActive: 2,
+    activeItem: 2,
   },
 }
 

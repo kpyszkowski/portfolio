@@ -4,7 +4,11 @@ import { motion, useScroll, useTransform, cubicBezier } from 'motion/react'
 import useBreakpoint from '~/hooks/use-breakpoint'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import getFormattedDate from '~/utils/get-formatted-date'
-import { experienceContent, type ExperienceItem } from '~/content/home'
+import {
+  experienceContent,
+  homeSectionIds,
+  type ExperienceItem,
+} from '~/content/home'
 import { SectionLayout } from '~/components/ui/section-layout'
 
 const experienceSectionStyles = createStyles({
@@ -132,7 +136,7 @@ function ExperienceSection(props: ExperienceSectionProps) {
 
   return (
     <SectionLayout.Root
-      id="experience"
+      id={homeSectionIds.experience}
       className={className}
       {...restProps}
     >

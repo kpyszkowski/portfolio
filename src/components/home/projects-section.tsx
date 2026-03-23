@@ -4,7 +4,7 @@ import { createStyles, type StylesProps } from '~/utils/create-styles'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { SectionLayout } from '~/components/ui/section-layout'
-import { projectsContent } from '~/content/home'
+import { homeSectionIds, projectsContent } from '~/content/home'
 import {
   motion,
   useScroll,
@@ -231,6 +231,7 @@ function ProjectsSection(props: ProjectsSectionProps) {
 
   return (
     <SectionLayout.Root
+      id={homeSectionIds.projects}
       render={<motion.div />}
       className={styles.container({ className })}
       {...restProps}

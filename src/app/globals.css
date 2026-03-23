@@ -81,23 +81,23 @@
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem; /* ~72px — mobile header height */
+  --header-height: 4.5rem; /* ~72px — mobile */
+  scroll-padding-top: var(--header-height);
 
   @media (min-width: 768px) {
-    scroll-padding-top: 6.75rem; /* ~108px — desktop header height */
+    --header-height: 6.75rem; /* ~108px — desktop */
   }
 }
 
 body,
 .docs-story {
-  width: 100vw;
-  color: var(--color-main);
-  background-color: var(--background-color-main);
-  font-family: var(--font-sans);
-  letter-spacing: 0.016rem;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply 
+    w-screen 
+    text-main 
+    bg-main 
+    font-sans 
+    tracking-[0.016rem] 
+    antialiased;
   text-rendering: optimizeLegibility;
 }
 

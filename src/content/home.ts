@@ -12,6 +12,17 @@ import { type Icon } from 'react-feather'
 import AkenaLogo from '~/assets/logos/akena.svg'
 import SnowdogLogo from '~/assets/logos/snowdog.svg'
 
+// ── Section IDs ──────────────────────────────────────────────────
+
+export const homeSectionIds = {
+  hero: 'hero',
+  about: 'about',
+  projects: 'projects',
+  experience: 'experience',
+  writings: 'writings',
+  contact: 'contact',
+} as const
+
 // ── Shared types ─────────────────────────────────────────────────
 
 export interface SocialLink {

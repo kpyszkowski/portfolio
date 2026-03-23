@@ -6,7 +6,7 @@ import { Tooltip } from '~/components/ui/tooltip'
 
 const tabsMenuItemStyles = createStyles({
   slots: {
-    wrapper: 'flex px-3.5 py-1 md:px-5 md:py-1.5',
+    wrapper: 'relative flex px-3.5 py-1 md:px-5 md:py-1.5',
     icon: 'size-4',
     label: 'text-xs leading-4 text-main md:text-sm',
     highlight: 'absolute inset-0 -z-10 size-full bg-highlight',
@@ -71,8 +71,7 @@ const TabsMenuItem = (props: TabsMenuItemProps) => {
 
   return (
     <motion.li
-      layout
-      layoutRoot
+      layout="size"
       {...restProps}
     >
       <Tooltip

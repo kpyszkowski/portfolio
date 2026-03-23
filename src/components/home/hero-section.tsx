@@ -6,19 +6,17 @@ import { HeroScene } from '~/components/home/hero-scene/hero-scene'
 import { TextReveal } from '~/components/ui/text-reveal'
 import { TextCycle } from '~/components/ui/text-cycle'
 import { PageLoader } from '~/components/page-loader'
-import {
-  SectionLayout,
-  sectionLayoutRootStyles,
-} from '~/components/ui/section-layout'
+import { SectionLayout } from '~/components/ui/section-layout'
+import { homeSectionIds } from '~/content/home'
 
 const heroSectionStyles = createStyles({
   slots: {
-    container: 'relative h-[250vh]',
+    container: 'relative -mt-(--header-height) h-[250vh]',
     sticky: 'sticky top-0 h-svh overflow-hidden',
     inner: 'relative flex h-full flex-col items-center',
     scene: 'absolute inset-0 z-10',
-    content:
-      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full flex-col gap-8 md:flex-row md:items-end',
+    wrapper:
+      'pointer-events-none absolute inset-x-0 bottom-0 z-20 flex w-full flex-col gap-8 px-5 pb-5 md:flex-row md:items-end md:pb-24 lg:pb-32',
     headingArea: 'flex flex-1 flex-col gap-4',
     subtitle:
       'font-sans text-sm/none tracking-widest text-highlight uppercase select-none',
@@ -48,7 +46,7 @@ function HeroSection(props: HeroSectionProps) {
 
   return (
     <div
-      id="hero"
+      id={homeSectionIds.hero}
       ref={containerRef}
       className={styles.container({ className })}
       {...restProps}
@@ -66,16 +64,13 @@ function HeroSection(props: HeroSectionProps) {
           <SectionLayout.Root>
             <SectionLayout.Wrapper
               width="2xl"
-              className={styles.content({
-                className: sectionLayoutRootStyles().root(),
-              })}
+              className={styles.wrapper()}
             >
               <div className={styles.headingArea()}>
                 <TextCycle
                   className={styles.subtitle()}
                   words={['Creative Developer', 'Fullstack Engineer']}
                   interval={4_000}
-                  mode="word"
                   exitProgress={exitProgress}
                   stagger={false}
                   ready={isReady}

@@ -10,7 +10,7 @@ import {
   WritingTileReadingTime,
 } from '~/components/writing-tile'
 import { SectionLayout } from '~/components/ui/section-layout'
-import { writingsContent } from '~/content/home'
+import { homeSectionIds, writingsContent } from '~/content/home'
 import { type WritingMetadata } from '~/lib/writings'
 import { ArrowRight } from 'react-feather'
 
@@ -37,6 +37,7 @@ function WritingsSection(props: WritingsSectionProps) {
 
   return (
     <SectionLayout.Root
+      id={homeSectionIds.writings}
       render={
         <GlowCard.Root
           render={<section />}
@@ -59,7 +60,6 @@ function WritingsSection(props: WritingsSectionProps) {
             <Button
               render={<Link href={writingsContent.ctaHref} />}
               className={styles.button()}
-              size="sm"
               variant="solid"
               icon={ArrowRight}
               iconPosition="right"

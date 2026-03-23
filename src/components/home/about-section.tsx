@@ -8,7 +8,7 @@ import {
   useTransform,
 } from 'motion/react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
-import { aboutContent } from '~/content/home'
+import { aboutContent, homeSectionIds } from '~/content/home'
 import { TextFill } from '~/components/ui/text-fill'
 import { Signature } from '~/components/signature'
 import { SectionLayout } from '~/components/ui/section-layout'
@@ -58,16 +58,16 @@ function AboutSection(props: AboutSectionProps) {
 
   return (
     <SectionLayout.Root
+      id={homeSectionIds.about}
       render={<div />}
       padding="none"
       ref={containerRef}
       className={styles.outer({ className })}
+      {...restProps}
     >
       <motion.div
-        id="about"
         className={styles.container()}
         style={{ opacity, filter, scale }}
-        {...restProps}
       >
         <SectionLayout.Wrapper width="md">
           <SectionLayout.Heading>{aboutContent.heading}</SectionLayout.Heading>

@@ -1,6 +1,5 @@
 'use client'
 import { motion } from 'motion/react'
-import { useEffect, useState } from 'react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
 import {
   TabsMenuItem,
@@ -21,28 +20,24 @@ const tabsMenuStyles = createStyles({
 interface TabsMenuProps extends StylesProps<typeof tabsMenuStyles> {
   className?: string
   items: TabsMenuItemType[]
-  defaultActive?: number
   renderBefore?: React.ReactNode
   renderAfter?: React.ReactNode
+  setActiveItem?: (index: number) => void
+  activeItem?: number
 }
 
 function TabsMenu(props: TabsMenuProps) {
   const {
     className = '',
     items,
-    defaultActive = 0,
     renderBefore,
     renderAfter,
+    activeItem,
+    setActiveItem,
     ...restProps
   } = props
 
   const styles = tabsMenuStyles()
-
-  const [activeItemIndex, setActiveItemIndex] = useState(defaultActive)
-
-  useEffect(() => {
-    setActiveItemIndex(defaultActive)
-  }, [defaultActive])
 
   const getItemClickHandler =
     (
@@ -50,7 +45,7 @@ function TabsMenu(props: TabsMenuProps) {
       callback?: React.MouseEventHandler,
     ): React.MouseEventHandler =>
     (event) => {
-      setActiveItemIndex(index)
+      setActiveItem?.(index)
       callback?.(event)
     }
 
@@ -86,7 +81,7 @@ function TabsMenu(props: TabsMenuProps) {
                 },
               }}
               {...restItem}
-              _active={activeItemIndex === index}
+              _active={activeItem === index}
               onClick={getItemClickHandler(index, onClick)}
             />
           ))}

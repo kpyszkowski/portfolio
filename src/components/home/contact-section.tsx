@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '~/components/ui/button'
 import { CopyButton } from '~/components/ui/copy-button'
 import { SectionLayout } from '~/components/ui/section-layout'
-import { contactContent } from '~/content/home'
+import { contactContent, homeSectionIds } from '~/content/home'
 import { MagnifiedText } from '~/components/ui/magnified-text'
 import Image from 'next/image'
 import { easeInOut, motion, useScroll, useTransform } from 'motion/react'
@@ -57,7 +57,7 @@ function ContactSection(props: ContactSectionProps) {
   return (
     <SectionLayout.Root
       ref={containerRef}
-      id="contact"
+      id={homeSectionIds.contact}
       className={styles.container({ className })}
       {...restProps}
     >
