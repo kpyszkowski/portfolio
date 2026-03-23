@@ -51,6 +51,7 @@ export interface ProjectItem {
 export interface ExperienceItem {
   id: string
   company: string
+  companyUrl?: string
   logo?: FC<SVGProps<SVGSVGElement>>
   role: string
   /** ISO date string, e.g. "2022-01-01" */
@@ -129,7 +130,7 @@ export const projectsContent = {
       id: 'mezo',
       name: 'Mezo',
       description:
-        "Bitcoin-backed DeFi protocol. Built wallet connection, economic dashboard, vault management, and governance voting UI — consuming on-chain data via the protocol's APIs. Integrated a third-party swap and handled Cloudflare edge deployment.",
+        "Bitcoin-backed DeFi protocol. Built wallet connection, economic dashboard, vault management and governance voting UIs — consuming on-chain data via the protocol's APIs. Integrated a third-party swap and handled Cloudflare edge deployment.",
       tags: [
         'React',
         'TypeScript',
@@ -147,7 +148,7 @@ export const projectsContent = {
       id: 'eObuwie',
       name: 'eObuwie',
       description:
-        'Large European footwear e-commerce platform. Shipped product page features and UI polish. Fixed a B2B flow where users could skip the invoice number field — patched validation and backfilled incomplete records in the database.',
+        'Large European footwear e-commerce platform. Shipped product page features and UI polish. Reimplemented the user dashboard UI. Owned a B2B data integrity issue where users could bypass the VAT number field — traced it end to end, patched validation, and backfilled incomplete records.',
       tags: ['Vue', 'TypeScript', 'Tailwind CSS', 'Magento', 'MySQL'],
       previewUrl: 'https://eobuwie.com.pl',
       previewSrc: '/preview-eobuwie.png',
@@ -224,6 +225,7 @@ export const experienceContent = {
     {
       id: 'job-1',
       company: 'Akena',
+      companyUrl: 'https://akena.co',
       logo: AkenaLogo,
       role: 'Fullstack Engineer',
       from: '2023-09-01',
@@ -239,6 +241,7 @@ export const experienceContent = {
     {
       id: 'job-2',
       company: 'Snowdog',
+      companyUrl: 'https://snow.dog',
       logo: SnowdogLogo,
       role: 'Junior Frontend Engineer',
       from: '2022-01-01',

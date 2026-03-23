@@ -10,14 +10,17 @@ import {
   type ExperienceItem,
 } from '~/content/home'
 import { SectionLayout } from '~/components/ui/section-layout'
+import { Button } from '~/components/ui/button'
+import { ExternalLink } from 'react-feather'
 
 const experienceSectionStyles = createStyles({
   slots: {
     list: 'flex flex-col gap-20',
     item: 'flex flex-col md:flex-row',
-    itemMeta: '-z-10 flex grow flex-col gap-1 md:items-end',
+    itemMeta: 'flex grow flex-col gap-1 md:items-end',
     itemPeriod: 'mb-4 text-highlight',
     itemCompany: 'text-4xl font-black text-main',
+    itemButton: '-mx-3 mt-4 w-fit md:-mx-6',
     itemLogo: 'h-8 w-fit',
     itemContent:
       'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
@@ -31,6 +34,7 @@ const experienceSectionStyles = createStyles({
 
 type ExperienceItemProps = {
   company: string
+  companyUrl?: string
   logo?: ExperienceItem['logo']
   role: string
   from: string
@@ -43,6 +47,7 @@ type ExperienceItemProps = {
 function ExperienceItem(props: ExperienceItemProps) {
   const {
     company,
+    companyUrl,
     logo: Logo,
     role,
     from,
@@ -102,6 +107,23 @@ function ExperienceItem(props: ExperienceItemProps) {
           />
         ) : (
           <span className={styles.itemCompany()}>{company}</span>
+        )}
+        {companyUrl && (
+          <Button
+            className={styles.itemButton()}
+            size="sm"
+            variant="ghost"
+            icon={ExternalLink}
+            render={
+              <a
+                href={companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
+          >
+            Website
+          </Button>
         )}
       </motion.div>
 
