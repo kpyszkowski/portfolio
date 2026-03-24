@@ -7,10 +7,6 @@ import { SectionLayout } from '~/components/ui/section-layout'
 import { contactContent, homeSectionIds } from '~/content/home'
 import { MagnifiedText } from '~/components/ui/magnified-text'
 import Image from 'next/image'
-import { easeInOut, motion, useScroll, useTransform } from 'motion/react'
-import { useRef } from 'react'
-
-const MotionImage = motion.create(Image)
 
 const contactSectionStyles = createStyles({
   slots: {
@@ -36,27 +32,8 @@ function ContactSection(props: ContactSectionProps) {
   const { className, ...restProps } = props
   const styles = contactSectionStyles()
 
-  const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress: imageYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end end'],
-  })
-  const { scrollYProgress: textYProgress } = useScroll({
-    target: containerRef,
-    offset: ['center end', 'end end'],
-  })
-
-  const imageY = useTransform(imageYProgress, [0, 1], ['50%', '0%'], {
-    ease: easeInOut,
-  })
-
-  const textY = useTransform(textYProgress, [0, 1], ['50%', '0%'], {
-    ease: easeInOut,
-  })
-
   return (
     <SectionLayout.Root
-      ref={containerRef}
       id={homeSectionIds.contact}
       className={styles.container({ className })}
       {...restProps}
@@ -100,20 +77,18 @@ function ContactSection(props: ContactSectionProps) {
             </ul>
           </div>
 
-          <MotionImage
+          <Image
             width={512}
             height={554}
             src="/portrait.webp"
             alt="Portrait of Kamil Pyszkowski"
             className={styles.portrait()}
-            style={{ y: imageY }}
           />
         </div>
       </SectionLayout.Wrapper>
 
       <SectionLayout.Wrapper width="2xl">
         <MagnifiedText
-          render={<motion.div style={{ y: textY }} />}
           mode="tracked"
           origin="relative"
           minWeight={350}

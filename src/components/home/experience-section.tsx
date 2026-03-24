@@ -23,7 +23,7 @@ const experienceSectionStyles = createStyles({
     itemButton: '-mx-3 mt-4 w-fit md:-mx-6',
     itemLogo: 'h-8 w-fit',
     itemContent:
-      'flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
+      'z-10 flex basis-2/3 flex-col gap-1 border-(--background-color-highlight) bg-main max-md:mt-12 md:ml-10 md:border-l md:pb-24 md:pl-10 md:text-lg',
     itemRole: 'mb-4 font-medium text-main md:text-xl',
     itemDescription: 'leading-relaxed text-elevated',
     itemBullets: 'mt-6 flex flex-col gap-3 pl-4',

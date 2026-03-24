@@ -40,12 +40,15 @@ function TextCycle(props: TextCycleProps) {
   const styles = textCycleStyles()
 
   const time = useTime()
+  const lastIndex = useMotionValue(0)
   const index = useTransform<number, number>(
     [time, exitProgress],
     ([t, p]): number => {
       // freeze index when exiting
-      if (p !== 0) return index.get()
-      return wrap(0, content.length, Math.floor(t / interval))
+      if (p !== 0) return lastIndex.get()
+      const next = wrap(0, content.length, Math.floor(t / interval))
+      lastIndex.set(next)
+      return next
     },
   )
   const indexes = Array.from(content.keys())
