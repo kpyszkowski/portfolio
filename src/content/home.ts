@@ -71,10 +71,10 @@ export interface ContactLink {
 // ── Hero ─────────────────────────────────────────────────────────
 
 export const heroContent = {
-  name: 'Kamil Pyszkowski',
-  role: 'Creative Developer',
+  name: ['Kamil', 'Pyszkowski'],
+  role: ['Product Engineer', 'Creative Developer', 'Fullstack Engineer'],
   tagline:
-    'I build products end to end — schema, API, and interface — and bring the same care for craft to every layer of the stack.',
+    'I take products from nothing to production — owning the schema, the API, the interface, and the decision of what ships first.',
   socials: [
     { name: 'GitHub', href: '/github', icon: GitHub },
     { name: 'LinkedIn', href: '/linkedin', icon: Linkedin },
@@ -86,7 +86,7 @@ export const heroContent = {
 
 export const aboutContent = {
   heading: 'About me',
-  body: "I'm a fullstack engineer based in Poland. Over the past six years I've shipped production features across DeFi protocols, e-commerce platforms, and design systems — owning the full picture from schema and API design to the interface that users actually touch. I care about UX enough to push back on a spec, and about DX enough to make sure the next engineer has a good time. What sets me apart isn't just writing code that works — it's the attention to quality at every layer of the stack.",
+  body: "I'm a fullstack engineer based in Poland. Over the past four years I've taken products from an empty repo to production — across DeFi protocols, e-commerce platforms, and developer tooling. I own the full picture: schema design, API layer, and the interface users actually touch. I care about UX enough to push back on a spec, and I care about shipping enough to know which battles to pick.",
 }
 
 // ── Strengths ────────────────────────────────────────────────────
@@ -97,13 +97,13 @@ export const strengthsContent = {
     {
       id: 'ui-craft',
       heading: 'Attention to Detail',
-      body: 'I notice what others skip — in interfaces, in logic, in specs. Transitions, edge cases, and silent assumptions that turn into bugs. The gap between functional and correct is where I pay the most attention.',
+      body: 'I notice what others skip — in specs, in data models, in interfaces. Silent assumptions that become data bugs. Missing states that become support tickets. The gap between functional and correct is where I pay the most attention.',
       icon: Code,
     },
     {
       id: 'fullstack',
       heading: 'Fullstack Delivery',
-      body: 'I can take a feature from an empty schema to a working UI without handing it off. That means fewer gaps, faster iteration, and someone who actually understands the whole thing.',
+      body: 'I take features from an empty schema to a working, deployed product without handing off. No gaps between layers, no translation overhead — just someone who owns the whole thing and ships it.',
       icon: Layers,
     },
     {
@@ -130,7 +130,7 @@ export const projectsContent = {
       id: 'mezo',
       name: 'Mezo',
       description:
-        "Bitcoin-backed DeFi protocol. Built wallet connection, economic dashboard, vault management and governance voting UIs — consuming on-chain data via the protocol's APIs. Integrated a third-party swap and handled Cloudflare edge deployment.",
+        "Bitcoin-backed DeFi protocol. Joined before any web frontend existed and built it from scratch — wallet connection, economic dashboard, vault management, and governance voting. Consumed on-chain data via the protocol's APIs, integrated a third-party swap, and owned Cloudflare edge deployment.",
       tags: [
         'React',
         'TypeScript',
@@ -157,7 +157,7 @@ export const projectsContent = {
       id: 'boar-finance',
       name: 'Boar Finance',
       description:
-        'Non-custodial crypto wealth management with automated Bitcoin vote delegation. Built wallet connection, GraphQL on-chain data indexing, real-time earnings calculations, and vault interaction flows.',
+        'Non-custodial crypto wealth management with automated Bitcoin vote delegation. Designed and built the product end to end — wallet connection, GraphQL on-chain data indexing, real-time earnings calculations, and vault interaction flows.',
       tags: [
         'Next.js',
         'TypeScript',

@@ -1,101 +1,101 @@
 'use client'
-import { useState, useRef } from 'react'
 import {
   motion,
-  AnimatePresence,
-  useMotionValue,
-  useMotionValueEvent,
+  useTransform,
   useTime,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  wrap,
+  MotionValue,
 } from 'motion/react'
 import { createStyles, type StylesProps } from '~/utils/create-styles'
-import { TextReveal } from '~/components/ui/text-reveal'
-import type { TextRevealProps } from '~/components/ui/text-reveal'
 
 const textCycleStyles = createStyles({
   slots: {
-    container: 'overflow-hidden',
-    item: 'block',
+    container: 'relative overflow-hidden',
+    placeholder: 'invisible',
+    wrapper: 'absolute inset-0 block overflow-hidden',
+    content: 'absolute inset-0 flex flex-col',
   },
 })
 
-interface TextCycleProps
-  extends StylesProps<typeof textCycleStyles>,
-    Pick<
-      TextRevealProps,
-      | 'mode'
-      | 'delay'
-      | 'staggerDelay'
-      | 'exitProgress'
-      | 'exitStagger'
-      | 'ready'
-    > {
+interface TextCycleProps extends StylesProps<typeof textCycleStyles> {
   className?: string
-  words: readonly string[] | string[]
-  index?: number
+  content: readonly string[] | string[]
   interval?: number
-  presenceMode?: 'wait' | 'popLayout' | 'sync'
-  stagger?: boolean
+  exitProgress?: MotionValue<number>
+  direction?: 'up' | 'down'
 }
 
 function TextCycle(props: TextCycleProps) {
   const {
     className,
-    words,
-    index: controlledIndex,
+    content,
     interval = 4_000,
-    presenceMode = 'wait',
-    mode,
-    delay,
-    staggerDelay,
-    stagger = true,
-    exitProgress,
-    exitStagger,
-    ready,
+    exitProgress = new MotionValue(),
+    direction = 'down',
   } = props
 
   const styles = textCycleStyles()
 
-  const [_index, setIndex] = useState(0)
-  const index = controlledIndex ?? _index
-  const pausedRef = useRef(false)
-  const fallback = useMotionValue(0)
   const time = useTime()
+  const index = useTransform<number, number>(
+    [time, exitProgress],
+    ([t, p]): number => {
+      // freeze index when exiting
+      if (p !== 0) return index.get()
+      return wrap(0, content.length, Math.floor(t / interval))
+    },
+  )
+  const indexes = Array.from(content.keys())
+  const rawY = useTransform(
+    index,
+    indexes,
+    indexes.map((i) => i * 100 * (direction === 'up' ? -1 : 1)),
+  )
 
-  useMotionValueEvent(exitProgress ?? fallback, 'change', (v) => {
-    pausedRef.current = v > 0
+  const springY = useSpring(rawY, {
+    stiffness: 300,
+    damping: 30,
   })
 
-  useMotionValueEvent(time, 'change', (t) => {
-    if (controlledIndex !== undefined) return
-    if (pausedRef.current) return
-    setIndex(Math.floor(t / interval) % words.length)
-  })
+  const cycleY = useMotionTemplate`${springY}%`
+
+  const fallbackProgress = useMotionValue(0)
+  const progress = exitProgress ?? fallbackProgress
+
+  const exitRaw = useTransform(
+    progress,
+    [0, 1],
+    direction === 'up' ? [0, -100] : [0, 100],
+  )
+  const exitY = useMotionTemplate`${exitRaw}%`
+
+  const directionAwareContent =
+    direction === 'down' ? [...content].reverse() : content
 
   return (
-    <span className={styles.container({ className })}>
-      <AnimatePresence
-        mode={presenceMode}
-        initial={false}
+    <div className={styles.container({ className })}>
+      <span className={styles.placeholder()}>{content[0]}</span>
+      <motion.span
+        className={styles.wrapper()}
+        style={{ y: exitY }}
       >
         <motion.span
-          key={index}
-          className={styles.item()}
-          exit={{ transition: { when: 'afterChildren' } }}
+          className={styles.content()}
+          style={{
+            y: cycleY,
+            justifyContent: direction === 'up' ? 'flex-start' : 'flex-end',
+          }}
         >
-          <TextReveal
-            mode={mode}
-            delay={delay}
-            staggerDelay={staggerDelay}
-            exitProgress={exitProgress}
-            exitStagger={stagger ? exitStagger : false}
-            ready={ready}
-          >
-            {words[index]}
-          </TextReveal>
+          {directionAwareContent.map((text) => (
+            <span key={text}>{text}</span>
+          ))}
         </motion.span>
-      </AnimatePresence>
-    </span>
+      </motion.span>
+    </div>
   )
 }
 
-export { TextCycle, textCycleStyles, type TextCycleProps }
+export { TextCycle, type TextCycleProps }

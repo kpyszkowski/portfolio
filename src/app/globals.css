@@ -85,7 +85,7 @@ html {
   scroll-padding-top: var(--header-height);
 
   @media (min-width: 768px) {
-    --header-height: 6.75rem; /* ~108px — desktop */
+    --header-height: 6.125rem; /* ~98px — desktop */
   }
 }
 
