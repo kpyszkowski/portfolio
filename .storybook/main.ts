@@ -4,16 +4,15 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
   addons: [
     '@storybook/addon-onboarding',
-    '@storybook/addon-essentials',
     '@chromatic-com/storybook',
-    '@storybook/addon-interactions',
     '@storybook/addon-themes',
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/nextjs',
     options: {},
   },
-  staticDirs: ['../public'],
+  staticDirs: ['../public', { from: '../src/fonts', to: '/fonts' }],
   features: {
     experimentalRSC: true,
   },

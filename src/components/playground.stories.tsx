@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/nextjs'
 
 import { Button } from '~/components/ui/button'
 import { Playground } from '~/components/playground'

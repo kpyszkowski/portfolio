@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/nextjs'
 import { WritingTile } from '~/components/writing-tile/writing-tile'
 import { WritingTileHeading } from '~/components/writing-tile/writing-tile-heading'
 import { WritingTileTags } from '~/components/writing-tile/writing-tile-tags'

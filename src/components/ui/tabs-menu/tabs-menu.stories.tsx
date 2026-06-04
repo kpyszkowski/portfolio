@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import { TabsMenu } from '~/components/ui/tabs-menu/tabs-menu'
 import { Book, Home, Send, Box, User } from 'react-feather'
