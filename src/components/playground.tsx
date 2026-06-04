@@ -38,8 +38,8 @@ const getControlComponent = (
       return [
         Slider,
         {
-          value: [value],
-          onValueChange: ([newValue]: number[]) => handler(id, newValue),
+          value,
+          onValueChange: (newValue: number) => handler(id, newValue),
         },
       ]
     case 'boolean':
